@@ -1,0 +1,17 @@
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+
+# C/C++
+[*.{c,cc,cpp,h,hh,hpp}]
+indent_size = 2
+indent_style = space
+
+# CMake
+[{CMakeLists.txt,*.cmake}]
+indent_size = 2
+indent_style = space
+
