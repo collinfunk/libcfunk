@@ -29,24 +29,24 @@
 #include <stdint.h>
 
 #define bswap16(x)                                                            \
-  ((uint16_t) ((((uint16_t) (x) & 0x00ffU) << 8)                              \
-               | (((uint16_t) (x) & 0xff00U) >> 8)))
+  ((uint16_t) ((((uint16_t) (x) &0x00ffU) << 8)                               \
+               | (((uint16_t) (x) &0xff00U) >> 8)))
 
 #define bswap32(x)                                                            \
-  ((uint32_t) ((((uint32_t) (x) & 0x000000ffUL) << 24)                        \
-               | (((uint32_t) (x) & 0x0000ff00UL) << 8)                       \
-               | (((uint32_t) (x) & 0x00ff0000UL) >> 8)                       \
-               | (((uint32_t) (x) & 0xff000000UL) >> 24)))
+  ((uint32_t) ((((uint32_t) (x) &0x000000ffUL) << 24)                         \
+               | (((uint32_t) (x) &0x0000ff00UL) << 8)                        \
+               | (((uint32_t) (x) &0x00ff0000UL) >> 8)                        \
+               | (((uint32_t) (x) &0xff000000UL) >> 24)))
 
 #define bswap64(x)                                                            \
-  ((uint64_t) ((((uint64_t) (x) & 0x00000000000000ffULL) << 56)               \
-               | (((uint64_t) (x) & 0x000000000000ff00ULL) << 40)             \
-               | (((uint64_t) (x) & 0x0000000000ff0000ULL) << 24)             \
-               | (((uint64_t) (x) & 0x00000000ff000000ULL) << 8)              \
-               | (((uint64_t) (x) & 0x000000ff00000000ULL) >> 8)              \
-               | (((uint64_t) (x) & 0x0000ff0000000000ULL) >> 24)             \
-               | (((uint64_t) (x) & 0x00ff000000000000ULL) >> 40)             \
-               | (((uint64_t) (x) & 0xff00000000000000ULL) >> 56)))
+  ((uint64_t) ((((uint64_t) (x) &0x00000000000000ffULL) << 56)                \
+               | (((uint64_t) (x) &0x000000000000ff00ULL) << 40)              \
+               | (((uint64_t) (x) &0x0000000000ff0000ULL) << 24)              \
+               | (((uint64_t) (x) &0x00000000ff000000ULL) << 8)               \
+               | (((uint64_t) (x) &0x000000ff00000000ULL) >> 8)               \
+               | (((uint64_t) (x) &0x0000ff0000000000ULL) >> 24)              \
+               | (((uint64_t) (x) &0x00ff000000000000ULL) >> 40)              \
+               | (((uint64_t) (x) &0xff00000000000000ULL) >> 56)))
 
 static inline uint16_t
 buff_get_be16 (const void *bufferptr)
@@ -62,7 +62,7 @@ buff_get_be32 (const void *bufferptr)
   const uint8_t *buffer = (const uint8_t *) bufferptr;
 
   return ((uint32_t) buffer[0] << 24) | ((uint32_t) buffer[1] << 16)
-    | ((uint32_t) buffer[2] << 8) | ((uint32_t) buffer[3]);
+         | ((uint32_t) buffer[2] << 8) | ((uint32_t) buffer[3]);
 }
 
 static inline uint64_t
@@ -71,9 +71,9 @@ buff_get_be64 (const void *bufferptr)
   const uint8_t *buffer = (const uint8_t *) bufferptr;
 
   return ((uint64_t) buffer[0] << 56) | ((uint64_t) buffer[1] << 48)
-    | ((uint64_t) buffer[2] << 40) | ((uint64_t) buffer[3] << 32)
-    | ((uint64_t) buffer[4] << 24) | ((uint64_t) buffer[5] << 16)
-    | ((uint64_t) buffer[6] << 8) | ((uint64_t) buffer[7]);
+         | ((uint64_t) buffer[2] << 40) | ((uint64_t) buffer[3] << 32)
+         | ((uint64_t) buffer[4] << 24) | ((uint64_t) buffer[5] << 16)
+         | ((uint64_t) buffer[6] << 8) | ((uint64_t) buffer[7]);
 }
 
 static inline uint16_t
@@ -90,7 +90,7 @@ buff_get_le32 (const void *bufferptr)
   const uint8_t *buffer = (const uint8_t *) bufferptr;
 
   return ((uint32_t) buffer[3] << 24) | ((uint32_t) buffer[2] << 16)
-    | ((uint32_t) buffer[1] << 8) | ((uint32_t) buffer[0]);
+         | ((uint32_t) buffer[1] << 8) | ((uint32_t) buffer[0]);
 }
 
 static inline uint64_t
@@ -99,9 +99,9 @@ buff_get_le64 (const void *bufferptr)
   const uint8_t *buffer = (const uint8_t *) bufferptr;
 
   return ((uint64_t) buffer[7] << 56) | ((uint64_t) buffer[6] << 48)
-    | ((uint64_t) buffer[5] << 40) | ((uint64_t) buffer[4] << 32)
-    | ((uint64_t) buffer[3] << 24) | ((uint64_t) buffer[2] << 16)
-    | ((uint64_t) buffer[1] << 8) | ((uint64_t) buffer[0]);
+         | ((uint64_t) buffer[5] << 40) | ((uint64_t) buffer[4] << 32)
+         | ((uint64_t) buffer[3] << 24) | ((uint64_t) buffer[2] << 16)
+         | ((uint64_t) buffer[1] << 8) | ((uint64_t) buffer[0]);
 }
 
 static inline void

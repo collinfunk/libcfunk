@@ -23,13 +23,13 @@
  * SUCH DAMAGE.
  */
 
+#include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 
-#include "test-help.h"
 #include "bstree.h"
+#include "test-help.h"
 
 static struct bstree *tree = NULL;
 

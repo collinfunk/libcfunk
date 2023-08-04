@@ -26,8 +26,8 @@
 #ifndef HASH_MAP_H
 #define HASH_MAP_H
 
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 /* A hash-map structure to store key-value pairs.
    Collisions are resolved with a singly linked list. */
@@ -54,8 +54,7 @@ extern struct hash_map *hash_map_new (size_t (*hashfunc) (const void *),
                                                          const void *));
 extern void hash_map_delete (struct hash_map *map);
 extern struct hash_map_node *hash_map_put (struct hash_map *map,
-                                           const void *key,
-                                           const void *value);
+                                           const void *key, const void *value);
 extern const void *hash_map_get (struct hash_map *map, const void *key);
 
 #endif /* HASH_MAP_H */

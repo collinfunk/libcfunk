@@ -23,10 +23,10 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <assert.h>
 
 #include "slist.h"
 
@@ -57,7 +57,6 @@ slist_previous_node (struct slist *list, struct slist_node *node)
 
   assert (list != NULL);
   assert (node != NULL);
-
 
   prev = list->head;
   if (prev == node)

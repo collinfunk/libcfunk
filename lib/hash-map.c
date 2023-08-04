@@ -23,12 +23,12 @@
  * SUCH DAMAGE.
  */
 
-#include <stddef.h>
-#include <stdbool.h>
-#include <stdlib.h>
 #include <assert.h>
-#include <stdint.h>
 #include <limits.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 #include "hash-map.h"
 
@@ -69,9 +69,8 @@ hash_map_expand (struct hash_map *map, size_t new_count)
      fails we continue using the existing table. */
   if (new_count > SIZE_MAX / sizeof (struct hash_map_node *))
     return;
-  new_table =
-    (struct hash_map_node **) calloc (new_count,
-                                      sizeof (struct hash_map_node *));
+  new_table = (struct hash_map_node **) calloc (
+      new_count, sizeof (struct hash_map_node *));
   if (new_table == NULL)
     return;
 
@@ -137,9 +136,8 @@ hash_map_new (size_t (*hashfunc) (const void *),
     return NULL;
 
   map->bucket_count = 11;
-  map->table =
-    (struct hash_map_node **) calloc (map->bucket_count,
-                                      sizeof (struct hash_map_node *));
+  map->table = (struct hash_map_node **) calloc (
+      map->bucket_count, sizeof (struct hash_map_node *));
   if (map->table == NULL)
     {
       free (map);

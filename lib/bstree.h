@@ -61,8 +61,7 @@ extern struct bstree *bstree_new (int (*comparefunc) (const void *,
 extern void bstree_delete (struct bstree *tree);
 extern struct bstree_node *bstree_insert (struct bstree *tree,
                                           const void *data);
-extern void bstree_remove_node (struct bstree *tree,
-                                struct bstree_node *node);
+extern void bstree_remove_node (struct bstree *tree, struct bstree_node *node);
 extern struct bstree_node *bstree_search (struct bstree *tree,
                                           const void *data);
 

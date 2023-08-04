@@ -23,9 +23,9 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <assert.h>
 
 #include "bstree.h"
 

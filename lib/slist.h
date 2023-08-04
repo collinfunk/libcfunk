@@ -26,8 +26,8 @@
 #ifndef SLIST_H
 #define SLIST_H
 
-#include <stddef.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 struct slist_node
 {

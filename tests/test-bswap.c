@@ -28,8 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "test-help.h"
 #include "bswap.h"
+#include "test-help.h"
 
 #define VAL16 ((uint16_t) 0x1234U)
 #define VAL32 ((uint32_t) 0x12345678UL)
@@ -39,8 +39,8 @@
 #define VAL32_SWAPPED ((uint32_t) 0x78563412UL)
 #define VAL64_SWAPPED ((uint64_t) 0xefcdab9078563412ULL)
 
-static const uint8_t readbuffer[8] =
-  { 0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef };
+static const uint8_t readbuffer[8]
+    = { 0x12, 0x34, 0x56, 0x78, 0x90, 0xab, 0xcd, 0xef };
 
 static uint8_t writebuffer16[2];
 static uint8_t writebuffer32[4];

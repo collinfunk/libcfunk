@@ -23,11 +23,11 @@
  * SUCH DAMAGE.
  */
 
+#include <limits.h>
+#include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
-#include <stdbool.h>
-#include <limits.h>
 
 #include "list.h"
 #include "test-help.h"
