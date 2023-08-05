@@ -23,83 +23,35 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
-
+#include <errno.h>
+#include <limits.h>
 #include <stddef.h>
-#include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include "xmalloc.h"
+#ifndef CHAR_BIT
+#  define CHAR_BIT 8
+#endif
 
+/* Assumes that size_t is an unsigned integer without padding bits. */
+#define SQRT_SIZE_MAX ((size_t) 1 << (CHAR_BIT * sizeof (size_t) / 2))
+
+/* Common extension from OpenBSD that is now on the rest of the BSDs
+   and glibc. */
 void *
-xmalloc (size_t size)
+reallocarray (void *ptr, size_t nelem, size_t elsize)
 {
-  void *ptr = malloc (size);
-  if (ptr == NULL)
+  /* Check if NELEM and ELSIZE are large enough for overflow to be
+     possible. */
+  if (nelem >= SQRT_SIZE_MAX || elsize >= SIZE_MAX)
     {
-      fprintf (stderr, "malloc (): Out of memory.\n");
-      abort ();
+      /* Check if NELEM * ELSIZE would overflow while checking for division by
+         zero. */
+      if (nelem > 0 && elsize > SIZE_MAX / nelem)
+        {
+          errno = ENOMEM;
+          return NULL;
+        }
     }
-  return ptr;
-}
-
-void *
-xcalloc (size_t nelem, size_t elsize)
-{
-  void *ptr = calloc (nelem, elsize);
-  if (ptr == NULL)
-    {
-      fprintf (stderr, "calloc (): Out of memory.\n");
-      abort ();
-    }
-  return ptr;
-}
-
-void *
-xrealloc (void *ptr, size_t size)
-{
-  void *new_ptr = realloc (ptr, size);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "realloc (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-void *
-xreallocarray (void *ptr, size_t nelem, size_t elsize)
-{
-  void *new_ptr = reallocarray (ptr, nelem, elsize);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "reallocarray (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-char *
-xstrdup (const char *s)
-{
-  char *copy = strdup (s);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strdup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
-}
-
-char *
-xstrndup (const char *s, size_t size)
-{
-  char *copy = strndup (s, size);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strndup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
+  return realloc (ptr, nelem * elsize);
 }

@@ -3,6 +3,25 @@ add_library(cfunk)
 
 target_include_directories(cfunk PUBLIC
   ${CMAKE_CURRENT_LIST_DIR}/
+  ${CMAKE_CURRENT_BINARY_DIR}/
+)
+
+list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
+
+include(CheckSymbolExists)
+
+check_symbol_exists(strchrnul "string.h" HAVE_STRCHRNUL)
+check_symbol_exists(strmode "string.h" HAVE_STRMODE)
+check_symbol_exists(explicit_bzero "string.h" HAVE_EXPLICIT_BZERO)
+check_symbol_exists(memset_explicit "string.h" HAVE_MEMSET_EXPLICIT)
+check_symbol_exists(SecureZeroMemory "windows.h" HAVE_SECUREZEROMEMORY)
+check_symbol_exists(strdup "string.h" HAVE_STRDUP)
+check_symbol_exists(strndup "string.h" HAVE_STRNDUP)
+check_symbol_exists(reallocarray "stdlib.h" HAVE_REALLOCARRAY)
+
+configure_file(
+  ${CMAKE_CURRENT_LIST_DIR}/config.h.in
+  ${CMAKE_CURRENT_BINARY_DIR}/config.h
 )
 
 target_sources(cfunk PRIVATE
@@ -28,3 +47,38 @@ target_sources(cfunk PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/xmalloc.c
 )
 
+if (NOT HAVE_STRCHRNUL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/strchrnul.c
+  )
+endif ()
+
+if (NOT HAVE_STRMODE)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/strmode.c
+  )
+endif ()
+
+if (NOT HAVE_EXPLICIT_BZERO)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/explicit-bzero.c
+  )
+endif ()
+
+if (NOT HAVE_STRDUP)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/strdup.c
+  )
+endif ()
+
+if (NOT HAVE_STRNDUP)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/strndup.c
+  )
+endif ()
+
+if (NOT HAVE_REALLOCARRAY)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/reallocarray.c
+  )
+endif ()

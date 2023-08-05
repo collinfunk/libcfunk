@@ -23,83 +23,17 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
-
 #include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
-#include "xmalloc.h"
-
-void *
-xmalloc (size_t size)
-{
-  void *ptr = malloc (size);
-  if (ptr == NULL)
-    {
-      fprintf (stderr, "malloc (): Out of memory.\n");
-      abort ();
-    }
-  return ptr;
-}
-
-void *
-xcalloc (size_t nelem, size_t elsize)
-{
-  void *ptr = calloc (nelem, elsize);
-  if (ptr == NULL)
-    {
-      fprintf (stderr, "calloc (): Out of memory.\n");
-      abort ();
-    }
-  return ptr;
-}
-
-void *
-xrealloc (void *ptr, size_t size)
-{
-  void *new_ptr = realloc (ptr, size);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "realloc (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-void *
-xreallocarray (void *ptr, size_t nelem, size_t elsize)
-{
-  void *new_ptr = reallocarray (ptr, nelem, elsize);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "reallocarray (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
+/* glibc extension to string.h which acts like strchr () but returns "\0"
+   if CH is not in STR instead of NULL. */
 char *
-xstrdup (const char *s)
+strchrnul (const char *str, int ch)
 {
-  char *copy = strdup (s);
-  if (copy == NULL)
+  for (;; ++str)
     {
-      fprintf (stderr, "strdup (): Out of memory.\n");
-      abort ();
+      if (*str == (char) ch || *str == '\0')
+        return (char *) str;
     }
-  return copy;
-}
-
-char *
-xstrndup (const char *s, size_t size)
-{
-  char *copy = strndup (s, size);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strndup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
 }

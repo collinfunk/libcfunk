@@ -26,80 +26,27 @@
 #include <config.h>
 
 #include <stddef.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "xmalloc.h"
+#if HAVE_SECUREZEROMEMORY
+#  include <windows.h>
+#endif
 
-void *
-xmalloc (size_t size)
+void
+explicit_bzero (void *s, size_t n)
 {
-  void *ptr = malloc (size);
-  if (ptr == NULL)
-    {
-      fprintf (stderr, "malloc (): Out of memory.\n");
-      abort ();
-    }
-  return ptr;
-}
+#if HAVE_SECUREZEROMEMORY
+  SecureZeroMemory (s, n);
+#elif HAVE_MEMSET_EXPLICIT
+  memset_explicit (s, 0, n);
+#elif defined(__GNUC__) || defined(__clang__)
+  memset (s, 0, n);
+  __asm__ __volatile__("" : : "r"(s) : "memory");
+#else
+  volatile unsigned char *volatile ptr = (volatile unsigned char *volatile) s;
 
-void *
-xcalloc (size_t nelem, size_t elsize)
-{
-  void *ptr = calloc (nelem, elsize);
-  if (ptr == NULL)
-    {
-      fprintf (stderr, "calloc (): Out of memory.\n");
-      abort ();
-    }
-  return ptr;
-}
-
-void *
-xrealloc (void *ptr, size_t size)
-{
-  void *new_ptr = realloc (ptr, size);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "realloc (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-void *
-xreallocarray (void *ptr, size_t nelem, size_t elsize)
-{
-  void *new_ptr = reallocarray (ptr, nelem, elsize);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "reallocarray (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-char *
-xstrdup (const char *s)
-{
-  char *copy = strdup (s);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strdup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
-}
-
-char *
-xstrndup (const char *s, size_t size)
-{
-  char *copy = strndup (s, size);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strndup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
+  for (; n > 0; --n, ++ptr)
+    *ptr = '\0';
+#endif
 }

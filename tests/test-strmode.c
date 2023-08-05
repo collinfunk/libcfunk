@@ -25,81 +25,42 @@
 
 #include <config.h>
 
+#include <sys/stat.h>
+#include <sys/types.h>
+
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "xmalloc.h"
+static void usage (void);
 
-void *
-xmalloc (size_t size)
+int
+main (int argc, char **argv)
 {
-  void *ptr = malloc (size);
-  if (ptr == NULL)
+  const char *filename;
+  struct stat st;
+  char mode_string[12];
+
+  if (argc != 2)
+    usage ();
+
+  filename = argv[1];
+  if (stat (filename, &st) < 0)
     {
-      fprintf (stderr, "malloc (): Out of memory.\n");
-      abort ();
+      fprintf (stderr, "%s: stat failed.\n", filename);
+      exit (1);
     }
-  return ptr;
+
+  strmode (st.st_mode, mode_string);
+  printf ("%s: %s\n", filename, mode_string);
+
+  return 0;
 }
 
-void *
-xcalloc (size_t nelem, size_t elsize)
+static void
+usage (void)
 {
-  void *ptr = calloc (nelem, elsize);
-  if (ptr == NULL)
-    {
-      fprintf (stderr, "calloc (): Out of memory.\n");
-      abort ();
-    }
-  return ptr;
-}
-
-void *
-xrealloc (void *ptr, size_t size)
-{
-  void *new_ptr = realloc (ptr, size);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "realloc (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-void *
-xreallocarray (void *ptr, size_t nelem, size_t elsize)
-{
-  void *new_ptr = reallocarray (ptr, nelem, elsize);
-  if (new_ptr == NULL)
-    {
-      fprintf (stderr, "reallocarray (): Out of memory.\n");
-      abort ();
-    }
-  return new_ptr;
-}
-
-char *
-xstrdup (const char *s)
-{
-  char *copy = strdup (s);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strdup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
-}
-
-char *
-xstrndup (const char *s, size_t size)
-{
-  char *copy = strndup (s, size);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strndup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
+  fprintf (stderr, "usage: test-strmode filename\n");
+  exit (1);
 }

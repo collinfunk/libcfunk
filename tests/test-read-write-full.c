@@ -38,6 +38,15 @@
 #include "write-full.h"
 #include "write-nointr.h"
 
+/* Windows */
+#ifndef O_CLOEXEC
+#  ifdef O_NOINHERIT
+#    define O_CLOEXEC O_NOINHERIT
+#  else
+#    define O_CLOEXEC 0
+#  endif
+#endif
+
 static void usage (void);
 static bool do_test (const char *filename);
 

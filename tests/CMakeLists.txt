@@ -6,6 +6,7 @@ add_executable(test-hash-map)
 add_executable(test-list)
 add_executable(test-read-write-full)
 add_executable(test-slist)
+add_executable(test-strmode)
 
 target_link_libraries(test-bstree PRIVATE cfunk)
 target_link_libraries(test-bswap PRIVATE cfunk)
@@ -14,6 +15,7 @@ target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
 target_link_libraries(test-read-write-full PRIVATE cfunk)
 target_link_libraries(test-slist PRIVATE cfunk)
+target_link_libraries(test-strmode PRIVATE cfunk)
 
 target_sources(test-bstree PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-bstree.c
@@ -41,4 +43,8 @@ target_sources(test-read-write-full PRIVATE
 
 target_sources(test-slist PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-slist.c
+)
+
+target_sources(test-strmode PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-strmode.c
 )
