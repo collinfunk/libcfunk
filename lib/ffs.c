@@ -23,62 +23,22 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#include <strings.h>
 
-#include <sys/types.h>
+/* TODO: This can be optimized.
+   Currently it checks every single bit until finding the first set bit. */
 
-/* string.h */
-#cmakedefine01 HAVE_STRCHRNUL
-#cmakedefine01 HAVE_STRMODE
-#cmakedefine01 HAVE_EXPLICIT_BZERO
-#cmakedefine01 HAVE_MEMSET_EXPLICIT
-#cmakedefine01 HAVE_SECUREZEROMEMORY
-#cmakedefine01 HAVE_STRDUP
-#cmakedefine01 HAVE_STRNDUP
+/* Find the first bit set in VALUE. */
+int
+ffs (int value)
+{
+  int bit = 1;
 
-/* strings.h */
-#cmakedefine01 HAVE_FFS
-#cmakedefine01 HAVE_FFSL
-#cmakedefine01 HAVE_FFSLL
+  if (value == 0)
+    return 0;
 
-/* stdlib.h */
-#cmakedefine01 HAVE_REALLOCARRAY
+  for (; !(value & 1); ++bit)
+    value = (unsigned int) value >> 1;
 
-#if !HAVE_STRCHRNUL
-extern char *strchrnul (const char *str, int ch);
-#endif
-
-#if !HAVE_STRMODE
-extern void strmode (mode_t mode, char *str);
-#endif
-
-#if !HAVE_EXPLICIT_BZERO
-extern void explicit_bzero (void *s, size_t n);
-#endif
-
-#if !HAVE_STRDUP
-extern char *strdup (const char *s);
-#endif
-
-#if !HAVE_STRNDUP
-extern char *strndup (const char *s, size_t size);
-#endif
-
-#if !HAVE_FFS
-extern int ffs (int value);
-#endif
-
-#if !HAVE_FFSL
-extern int ffsl (long int value);
-#endif
-
-#if !HAVE_FFSLL
-extern int ffsll (long long int value);
-#endif
-
-#if !HAVE_REALLOCARRAY
-extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
-#endif
-
-#endif /* CONFIG_H */
+  return bit;
+}

@@ -2,6 +2,7 @@
 add_executable(test-bstree)
 add_executable(test-bswap)
 add_executable(test-circular-shift)
+add_executable(test-ffs)
 add_executable(test-hash-map)
 add_executable(test-list)
 add_executable(test-read-write-full)
@@ -11,6 +12,7 @@ add_executable(test-strmode)
 target_link_libraries(test-bstree PRIVATE cfunk)
 target_link_libraries(test-bswap PRIVATE cfunk)
 target_link_libraries(test-circular-shift PRIVATE cfunk)
+target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
 target_link_libraries(test-read-write-full PRIVATE cfunk)
@@ -27,6 +29,10 @@ target_sources(test-bswap PRIVATE
 
 target_sources(test-circular-shift PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-circular-shift.c
+)
+
+target_sources(test-ffs PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-ffs.c
 )
 
 target_sources(test-hash-map PRIVATE

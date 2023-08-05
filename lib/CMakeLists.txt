@@ -10,6 +10,7 @@ list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
 
 include(CheckSymbolExists)
 
+# string.h
 check_symbol_exists(strchrnul "string.h" HAVE_STRCHRNUL)
 check_symbol_exists(strmode "string.h" HAVE_STRMODE)
 check_symbol_exists(explicit_bzero "string.h" HAVE_EXPLICIT_BZERO)
@@ -17,6 +18,13 @@ check_symbol_exists(memset_explicit "string.h" HAVE_MEMSET_EXPLICIT)
 check_symbol_exists(SecureZeroMemory "windows.h" HAVE_SECUREZEROMEMORY)
 check_symbol_exists(strdup "string.h" HAVE_STRDUP)
 check_symbol_exists(strndup "string.h" HAVE_STRNDUP)
+
+# strings.h
+check_symbol_exists(ffs "strings.h" HAVE_FFS)
+check_symbol_exists(ffsl "strings.h" HAVE_FFSL)
+check_symbol_exists(ffsll "strings.h" HAVE_FFSLL)
+
+# stdlib.h
 check_symbol_exists(reallocarray "stdlib.h" HAVE_REALLOCARRAY)
 
 configure_file(
@@ -74,6 +82,24 @@ endif ()
 if (NOT HAVE_STRNDUP)
   target_sources(cfunk PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/strndup.c
+  )
+endif ()
+
+if (NOT HAVE_FFS)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/ffs.c
+  )
+endif ()
+
+if (NOT HAVE_FFSL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/ffsl.c
+  )
+endif ()
+
+if (NOT HAVE_FFSLL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/ffsll.c
   )
 endif ()
 
