@@ -5,6 +5,7 @@ add_executable(test-circular-shift)
 add_executable(test-ffs)
 add_executable(test-hash-map)
 add_executable(test-list)
+add_executable(test-rbtree)
 add_executable(test-read-write-full)
 add_executable(test-sha224)
 add_executable(test-sha256)
@@ -17,6 +18,7 @@ target_link_libraries(test-circular-shift PRIVATE cfunk)
 target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
+target_link_libraries(test-rbtree PRIVATE cfunk)
 target_link_libraries(test-read-write-full PRIVATE cfunk)
 target_link_libraries(test-sha224 PRIVATE cfunk) 
 target_link_libraries(test-sha256 PRIVATE cfunk)
@@ -45,6 +47,10 @@ target_sources(test-hash-map PRIVATE
 
 target_sources(test-list PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-list.c
+)
+
+target_sources(test-rbtree PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-rbtree.c
 )
 
 target_sources(test-read-write-full PRIVATE
