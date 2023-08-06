@@ -6,6 +6,8 @@ add_executable(test-ffs)
 add_executable(test-hash-map)
 add_executable(test-list)
 add_executable(test-read-write-full)
+add_executable(test-sha224)
+add_executable(test-sha256)
 add_executable(test-slist)
 add_executable(test-strmode)
 
@@ -16,6 +18,8 @@ target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
 target_link_libraries(test-read-write-full PRIVATE cfunk)
+target_link_libraries(test-sha224 PRIVATE cfunk) 
+target_link_libraries(test-sha256 PRIVATE cfunk)
 target_link_libraries(test-slist PRIVATE cfunk)
 target_link_libraries(test-strmode PRIVATE cfunk)
 
@@ -45,6 +49,14 @@ target_sources(test-list PRIVATE
 
 target_sources(test-read-write-full PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-read-write-full.c
+)
+
+target_sources(test-sha224 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-sha224.c
+)
+
+target_sources(test-sha256 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-sha256.c
 )
 
 target_sources(test-slist PRIVATE
