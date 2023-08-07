@@ -44,6 +44,9 @@
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
+#cmakedefine01 HAVE_POPCOUNT
+#cmakedefine01 HAVE_POPCOUNTL
+#cmakedefine01 HAVE_POPCOUNTLL
 
 /* stdlib.h */
 #cmakedefine01 HAVE_REALLOCARRAY
@@ -90,6 +93,18 @@ extern int flsl (long int value);
 
 #if !HAVE_FLSLL
 extern int flsll (long long int value);
+#endif
+
+#if !HAVE_POPCOUNT
+extern unsigned int popcount (unsigned int value);
+#endif
+
+#if !HAVE_POPCOUNTL
+extern unsigned int popcountl (unsigned long int value);
+#endif
+
+#if !HAVE_POPCOUNTLL
+extern unsigned int popcountll (unsigned long long int value);
 #endif
 
 #if !HAVE_REALLOCARRAY

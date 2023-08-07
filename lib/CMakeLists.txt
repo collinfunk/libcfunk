@@ -26,6 +26,9 @@ check_symbol_exists(ffsll "strings.h" HAVE_FFSLL)
 check_symbol_exists(fls "strings.h" HAVE_FLS)
 check_symbol_exists(flsl "strings.h" HAVE_FLSL)
 check_symbol_exists(flsll "strings.h" HAVE_FLSLL)
+check_symbol_exists(popcount "strings.h" HAVE_POPCOUNT)
+check_symbol_exists(popcountl "strings.h" HAVE_POPCOUNTL)
+check_symbol_exists(popcountll "strings.h" HAVE_POPCOUNTLL)
 
 # stdlib.h
 check_symbol_exists(reallocarray "stdlib.h" HAVE_REALLOCARRAY)
@@ -125,6 +128,24 @@ endif ()
 if (NOT HAVE_FLSLL)
   target_sources(cfunk PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/flsll.c
+  )
+endif ()
+
+if (NOT HAVE_POPCOUNT)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/popcount.c
+  )
+endif ()
+
+if (NOT HAVE_POPCOUNTL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/popcountl.c
+  )
+endif ()
+
+if (NOT HAVE_POPCOUNTLL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/popcountll.c
   )
 endif ()
 
