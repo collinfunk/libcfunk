@@ -42,6 +42,7 @@ static const char input[52]
 static int rbtree_char_compare (const void *aptr, const void *bptr);
 static void setup_tree (void);
 static void test_rbtree_loop_conditions (void);
+static void test_rbtree_remove_node (void);
 static void test_rbtree_search (void);
 
 int
@@ -49,6 +50,7 @@ main (void)
 {
   setup_tree ();
   test_rbtree_loop_conditions ();
+  test_rbtree_remove_node ();
   test_rbtree_search ();
 
   if (tree != NULL)
@@ -103,6 +105,55 @@ test_rbtree_loop_conditions (void)
 
   ASSERT (node1 == NULL);
   ASSERT (node2 == NULL);
+}
+
+static void
+test_rbtree_remove_node (void)
+{
+  size_t i;
+  struct rbtree_node *node;
+
+  for (;;)
+    {
+      node = rbtree_root_node (tree);
+      if (node == NULL)
+        break;
+      rbtree_remove_node (tree, node);
+    }
+
+  ASSERT (rbtree_first_node (tree) == NULL);
+  ASSERT (rbtree_last_node (tree) == NULL);
+
+  for (i = 0; i < ARRAY_SIZE (input); ++i)
+    ASSERT (rbtree_insert (tree, &input[i]) != NULL);
+
+  for (;;)
+    {
+      node = rbtree_first_node (tree);
+      if (node == NULL)
+        break;
+      rbtree_remove_node (tree, node);
+    }
+
+  ASSERT (rbtree_root_node (tree) == NULL);
+  ASSERT (rbtree_last_node (tree) == NULL);
+
+  for (i = 0; i < ARRAY_SIZE (input); ++i)
+    ASSERT (rbtree_insert (tree, &input[i]) != NULL);
+
+  for (;;)
+    {
+      node = rbtree_last_node (tree);
+      if (node == NULL)
+        break;
+      rbtree_remove_node (tree, node);
+    }
+
+  ASSERT (rbtree_first_node (tree) == NULL);
+  ASSERT (rbtree_root_node (tree) == NULL);
+
+  for (i = 0; i < ARRAY_SIZE (input); ++i)
+    ASSERT (rbtree_insert (tree, &input[i]) != NULL);
 }
 
 static void

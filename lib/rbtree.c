@@ -38,6 +38,9 @@
         as "a red node does not have a red child."
      5. For each node, all paths leading to any of it's descendant NULL leaves
         contains the same number of black nodes.
+     6. If NODE has one child, then NODE is black and the child is red. If this
+        was not the case then the paths to it's NULL descendants would contain
+        a different number of black nodes, violating rule 5.
  */
 
 /* TODO: Replace this with a iterative deletion function. */
@@ -239,6 +242,188 @@ rbtree_insert_rebalance (struct rbtree *tree, struct rbtree_node *node,
   tree->root->color = RBTREE_BLACK;
 }
 
+/* Called after the removal of a black node from the tree. PARENT is the
+   parent of the deleted node. NODE is a child of the deleted node that
+   replaces it. NODE is black (node == NULL || node->color == RBTREE_BLACK).
+   As a result the sibling node will not be NULL. */
+static void
+rbtree_remove_rebalance (struct rbtree *tree, struct rbtree_node *node,
+                         struct rbtree_node *parent)
+{
+  assert (tree != NULL);
+  assert (node == NULL || node->color == RBTREE_BLACK);
+  assert (parent != NULL);
+
+  do
+    {
+      if (parent->left == node)
+        {
+          struct rbtree_node *sibling = parent->right;
+
+          if (sibling->color == RBTREE_RED)
+            {
+              /* Sibling is red so it must have two non-NULL children which are
+                 black. Convert it to the other cases which are differentiated
+                 by the colors of the children.
+                          P                S
+                         / \              / \
+                        N   S     ->     P  Sr
+                           / \          / \
+                          Sl Sr        N  Sl
+               */
+              sibling->color = RBTREE_BLACK;
+              parent->color = RBTREE_RED;
+              rbtree_rotate_left (tree, parent);
+              /* Move sibling to be NODE's sibling (Sl on drawing). */
+              sibling = parent->right;
+            }
+          /* Now sibling is black. */
+          if ((sibling->left == NULL || sibling->left->color == RBTREE_BLACK)
+              && (sibling->right == NULL
+                  || sibling->right->color == RBTREE_BLACK))
+            {
+              /* Sibling and it's children are black. Recolor it and move up
+                 a black level. */
+              sibling->color = RBTREE_RED;
+              node = parent;
+            }
+          else /* One child is red. */
+            {
+              if (sibling->right == NULL
+                  || sibling->right->color == RBTREE_BLACK)
+                {
+                  /* Sibling's right child is black and it's left child is red.
+                     We can swap their colors, rotate the subtree, and then
+                     update the sibling pointer to transform this case into
+                     the next case.
+
+                         P               P
+                        / \             / \
+                       N   S    ->     N   Sl
+                          / \               \
+                         Sl Sr               S
+                                              \
+                                              Sr
+
+                   */
+                  sibling->left->color = RBTREE_BLACK;
+                  sibling->color = RBTREE_RED;
+                  rbtree_rotate_right (tree, sibling);
+                  /* Update the sibling pointer so sibling is black and it's
+                     right child is red. */
+                  sibling = parent->right;
+                  /* Fallthrough to the next case. */
+                }
+              /* Sibling's right child is red. Change it to black. Rotate the
+                 subtree it is rooted by sibling with parent as it's left
+                 child. Sibling takes parent's color and parent becomes
+                 black. All paths passing through N now have an extra black
+                 node.
+
+                      P              S
+                     / \            / \
+                    N   S    ->    P   Sr
+                       / \        / \
+                      Sl Sr      N  Sl
+               */
+              sibling->color = parent->color;
+              parent->color = RBTREE_BLACK;
+              sibling->right->color = RBTREE_BLACK;
+              rbtree_rotate_left (tree, parent);
+              return;
+            }
+        }
+      else if (parent->right == node)
+        {
+          struct rbtree_node *sibling = parent->left;
+
+          if (sibling->color == RBTREE_RED)
+            {
+              /* Sibling is red so it must have two non-NULL children which are
+                 black. Convert it to the other cases which are differentiated
+                 by the colors of the children.
+                          P                S
+                         / \              / \
+                        S   N     ->     Sl   P
+                       / \                   / \
+                      Sl Sr                 Sr  N
+               */
+              sibling->color = RBTREE_BLACK;
+              parent->color = RBTREE_RED;
+              rbtree_rotate_right (tree, parent);
+              /* Move sibling to be NODE's sibling (Sr on drawing). */
+              sibling = parent->left;
+            }
+          /* Now sibling is black. */
+          if ((sibling->right == NULL || sibling->right->color == RBTREE_BLACK)
+              && (sibling->left == NULL
+                  || sibling->left->color == RBTREE_BLACK))
+            {
+              /* Sibling and it's children are black. Recolor it and move up
+                 a black level. */
+              sibling->color = RBTREE_RED;
+              node = parent;
+            }
+          else /* One child is red. */
+            {
+              if (sibling->left == NULL
+                  || sibling->left->color == RBTREE_BLACK)
+                {
+                  /* Sibling's left child is black and it's right child is red.
+                     We can swap their colors, rotate the subtree, and then
+                     update the sibling pointer to transform this case into
+                     the next case.
+
+                         P               P
+                        / \             / \
+                       S   N    ->    Sr   N
+                      / \            /
+                     Sl Sr          S
+                                   /
+                                  Sl
+                   */
+                  sibling->right->color = RBTREE_BLACK;
+                  sibling->color = RBTREE_RED;
+                  rbtree_rotate_left (tree, sibling);
+                  /* Update the sibling pointer so sibling is black and it's
+                     left child is red. */
+                  sibling = parent->left;
+                  /* Fallthrough to the next case. */
+                }
+              /* Sibling's left child is red. Change it to black. Rotate the
+                 subtree it is rooted by sibling with parent as it's right
+                 child. Sibling takes parent's color and parent becomes
+                 black. All paths passing through N now have an extra black
+                 node.
+
+                      P              S
+                     / \            / \
+                    S   N    ->    Sl  P
+                   / \                / \
+                  Sl Sr              Sr  N
+               */
+              sibling->color = parent->color;
+              parent->color = RBTREE_BLACK;
+              sibling->left->color = RBTREE_BLACK;
+              rbtree_rotate_right (tree, parent);
+              return;
+            }
+        }
+      else
+        abort ();
+
+      /* If node is red change it to black and exit the loop. */
+      if (node != NULL && node->color == RBTREE_RED)
+        {
+          node->color = RBTREE_BLACK;
+          return;
+        }
+
+      parent = node->parent;
+    }
+  while (parent != NULL);
+}
+
 const void *
 rbtree_node_data (struct rbtree_node *node)
 {
@@ -419,8 +604,123 @@ rbtree_insert (struct rbtree *tree, const void *data)
   return node;
 }
 
-/* TODO */
-/* void rbtree_remove_node (struct rbtree *tree, struct rbtree_node *node); */
+void
+rbtree_remove_node (struct rbtree *tree, struct rbtree_node *node)
+{
+  struct rbtree_node *parent;
+
+  assert (tree != NULL);
+  assert (node != NULL);
+
+  parent = node->parent;
+
+  if (node->left == NULL)
+    {
+      struct rbtree_node *child = node->right;
+
+      if (parent == NULL)
+        tree->root = child;
+      else if (parent->left == node)
+        parent->left = child;
+      else if (parent->right == node)
+        parent->right = child;
+      else
+        abort ();
+
+      if (child != NULL)
+        {
+          /* Child has no sibling so it must be red. Just recolor it. */
+          child->color = RBTREE_BLACK;
+          child->parent = parent;
+        }
+      else /* child == NULL */
+        {
+          /* If the node we are removing is black and it is not the root node
+             we have to rebalance the tree. */
+          if (node->color == RBTREE_BLACK && parent != NULL)
+            rbtree_remove_rebalance (tree, child, parent);
+        }
+    }
+  else if (node->right == NULL)
+    {
+      struct rbtree_node *child = node->left;
+
+      if (parent == NULL)
+        tree->root = child;
+      else if (parent->left == node)
+        parent->left = child;
+      else if (parent->right == node)
+        parent->right = child;
+      else
+        abort ();
+
+      /* Child has no sibling so it must be red. Just recolor it. */
+      child->color = RBTREE_BLACK;
+      child->parent = parent;
+    }
+  else
+    {
+      struct rbtree_node *prev = node->right;
+      struct rbtree_node *prev_parent;
+      struct rbtree_node *child;
+      enum rbtree_color prev_color;
+
+      /* Get the minimum of the right subtree. */
+      while (prev->left != NULL)
+        prev = prev->left;
+
+      prev_parent = prev->parent;
+      child = prev->right;
+      prev_color = prev->color;
+
+      if (prev_parent != node)
+        {
+          prev_parent->left = child;
+
+          if (child != NULL)
+            child->parent = prev_parent;
+
+          prev->right = node->right;
+          prev->right->parent = prev;
+        }
+
+      if (parent == NULL)
+        tree->root = prev;
+      else if (parent->left == node)
+        parent->left = prev;
+      else if (parent->right == node)
+        parent->right = prev;
+      else
+        abort ();
+
+      prev->color = node->color;
+      prev->parent = parent;
+
+      prev->left = node->left;
+      prev->left->parent = prev;
+
+      /* If prev's original color was black we have check for violations
+         of red-black properties. */
+      if (prev_color == RBTREE_BLACK)
+        {
+          /* If child exists then it is an only child. If it is red we can
+             just flip the color. */
+          if (child != NULL && child->color == RBTREE_RED)
+            child->color = RBTREE_BLACK;
+          else /* child == NULL || child->color == RBTREE_BLACK */
+            {
+              /* Don't pass the node that we are removing to
+                 rbtree_remove_rebalance (). */
+              if (prev_parent == node)
+                rbtree_remove_rebalance (tree, child, prev);
+              else
+                rbtree_remove_rebalance (tree, child, prev_parent);
+            }
+        }
+    }
+
+  free (node);
+}
 
 struct rbtree_node *
 rbtree_search (struct rbtree *tree, const void *data)

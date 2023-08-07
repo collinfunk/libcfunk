@@ -62,8 +62,7 @@ extern struct rbtree *rbtree_new (int (*comparefunc) (const void *,
 extern void rbtree_delete (struct rbtree *tree);
 extern struct rbtree_node *rbtree_insert (struct rbtree *tree,
                                           const void *data);
-/* extern void rbtree_remove_node (struct rbtree *tree,
-   struct rbtree_node *node); */
+extern void rbtree_remove_node (struct rbtree *tree, struct rbtree_node *node);
 extern struct rbtree_node *rbtree_search (struct rbtree *tree,
                                           const void *data);
 
