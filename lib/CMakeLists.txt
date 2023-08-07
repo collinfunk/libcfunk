@@ -44,6 +44,8 @@ target_sources(cfunk PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/circular-shift.h
   ${CMAKE_CURRENT_LIST_DIR}/hash-map.h
   ${CMAKE_CURRENT_LIST_DIR}/list.h
+  ${CMAKE_CURRENT_LIST_DIR}/md4.h
+  ${CMAKE_CURRENT_LIST_DIR}/md5.h
   ${CMAKE_CURRENT_LIST_DIR}/rbtree.h
   ${CMAKE_CURRENT_LIST_DIR}/read-full.h
   ${CMAKE_CURRENT_LIST_DIR}/read-nointr.h
@@ -55,6 +57,8 @@ target_sources(cfunk PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/bstree.c
   ${CMAKE_CURRENT_LIST_DIR}/hash-map.c
   ${CMAKE_CURRENT_LIST_DIR}/list.c
+  ${CMAKE_CURRENT_LIST_DIR}/md4.c
+  ${CMAKE_CURRENT_LIST_DIR}/md5.c
   ${CMAKE_CURRENT_LIST_DIR}/rbtree.c
   ${CMAKE_CURRENT_LIST_DIR}/read-full.c
   ${CMAKE_CURRENT_LIST_DIR}/read-nointr.c

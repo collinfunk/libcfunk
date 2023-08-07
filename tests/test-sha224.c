@@ -84,13 +84,13 @@ do_sha224_testcase (const struct sha224_testcase *test)
 {
   size_t i;
   struct sha256_ctx ctx;
-  uint8_t digest[28];
+  uint8_t digest[SHA224_DIGEST_SIZE];
 
   sha224_init (&ctx);
   sha256_update (&ctx, test->message, strlen (test->message));
   sha224_final (digest, &ctx);
 
-  for (i = 0; i < 28; ++i)
+  for (i = 0; i < sizeof (digest); ++i)
     printf ("%02x", digest[i]);
   printf ("\n");
 
@@ -103,7 +103,7 @@ do_sha224_bigtest (void)
   size_t i;
   char *buffer;
   struct sha256_ctx ctx;
-  uint8_t digest[28];
+  uint8_t digest[SHA224_DIGEST_SIZE];
   const char *expect
       = "\x09\x07\xf5\xc4\x1a\xac\x4f\xaf\x84\x09\xea\xc4\x02\x2f\x8c\x5a\xe2"
         "\x03\x01\x81\x95\x0e\x0d\x3d\xf4\x9f\xc9\x50";
@@ -121,6 +121,10 @@ do_sha224_bigtest (void)
   sha224_init (&ctx);
   sha256_update (&ctx, buffer, 1000000000);
   sha224_final (digest, &ctx);
+
+  for (i = 0; i < sizeof (digest); ++i)
+    printf ("%02x", digest[i]);
+  printf ("\n");
 
   free (buffer);
 

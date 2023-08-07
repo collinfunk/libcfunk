@@ -84,7 +84,7 @@ test_popcount (void)
       backward |= (1U << (UINT_WIDTH - i - 1));
       forward_result = popcount (forward);
       backward_result = popcount (backward);
-      ASSERT ((size_t)forward_result == i + 1);
+      ASSERT ((size_t) forward_result == i + 1);
       ASSERT (forward_result == backward_result);
     }
 }
@@ -107,7 +107,7 @@ test_popcountl (void)
       backward |= (1UL << (ULONG_WIDTH - i - 1));
       forward_result = popcountl (forward);
       backward_result = popcountl (backward);
-      ASSERT ((size_t)forward_result == i + 1);
+      ASSERT ((size_t) forward_result == i + 1);
       ASSERT (forward_result == backward_result);
     }
 }
@@ -130,7 +130,7 @@ test_popcountll (void)
       backward |= (1ULL << (ULLONG_WIDTH - i - 1));
       forward_result = popcountll (forward);
       backward_result = popcountll (backward);
-      ASSERT ((size_t)forward_result == i + 1);
+      ASSERT ((size_t) forward_result == i + 1);
       ASSERT (forward_result == backward_result);
     }
 }

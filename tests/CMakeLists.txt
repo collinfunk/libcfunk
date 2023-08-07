@@ -6,6 +6,8 @@ add_executable(test-ffs)
 add_executable(test-fls)
 add_executable(test-hash-map)
 add_executable(test-list)
+add_executable(test-md4)
+add_executable(test-md5)
 add_executable(test-popcount)
 add_executable(test-rbtree)
 add_executable(test-read-write-full)
@@ -21,6 +23,8 @@ target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-fls PRIVATE cfunk)
 target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
+target_link_libraries(test-md4 PRIVATE cfunk)
+target_link_libraries(test-md5 PRIVATE cfunk)
 target_link_libraries(test-popcount PRIVATE cfunk)
 target_link_libraries(test-rbtree PRIVATE cfunk)
 target_link_libraries(test-read-write-full PRIVATE cfunk)
@@ -55,6 +59,14 @@ target_sources(test-hash-map PRIVATE
 
 target_sources(test-list PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-list.c
+)
+
+target_sources(test-md4 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-md4.c
+)
+
+target_sources(test-md5 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-md5.c
 )
 
 target_sources(test-popcount PRIVATE

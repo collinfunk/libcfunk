@@ -27,46 +27,37 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "sha256.h"
+#include "md4.h"
 #include "test-help.h"
 
-struct sha256_testcase
+struct md4_testcase
 {
   const char *message;
   const char *digest;
 };
 
-static const struct sha256_testcase testcases[] = {
-  { "", "\xe3\xb0\xc4\x42\x98\xfc\x1c\x14\x9a\xfb\xf4\xc8\x99\x6f\xb9\x24\x27"
-        "\xae\x41\xe4\x64\x9b\x93\x4c\xa4\x95\x99\x1b\x78\x52\xb8\x55" },
-  { "a", "\xca\x97\x81\x12\xca\x1b\xbd\xca\xfa\xc2\x31\xb3\x9a\x23\xdc\x4d\xa7"
-         "\x86\xef\xf8\x14\x7c\x4e\x72\xb9\x80\x77\x85\xaf\xee\x48\xbb" },
+static const struct md4_testcase testcases[] = {
+  { "", "\x31\xd6\xcf\xe0\xd1\x6a\xe9\x31\xb7\x3c\x59\xd7\xe0\xc0\x89\xc0" },
+  { "a", "\xbd\xe5\x2c\xb3\x1d\xe3\x3e\x46\x24\x5e\x05\xfb\xdb\xd6\xfb\x24" },
   { "abc",
-    "\xba\x78\x16\xbf\x8f\x01\xcf\xea\x41\x41\x40\xde\x5d\xae\x22\x23\xb0\x03"
-    "\x61\xa3\x96\x17\x7a\x9c\xb4\x10\xff\x61\xf2\x00\x15\xad" },
+    "\xa4\x48\x01\x7a\xaf\x21\xd8\x52\x5f\xc1\x0a\xe8\x7a\xa6\x72\x9d" },
   { "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
-    "\x24\x8d\x6a\x61\xd2\x06\x38\xb8\xe5\xc0\x26\x93\x0c\x3e\x60\x39\xa3\x3c"
-    "\xe4\x59\x64\xff\x21\x67\xf6\xec\xed\xd4\x19\xdb\x06\xc1" },
+    "\x46\x91\xa9\xec\x81\xb1\xa6\xbd\x1a\xb8\x55\x72\x40\xb2\x45\xc5" },
   { "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmn",
-    "\x07\x8c\x0d\xfc\x32\x78\xfd\x77\x59\x92\x0f\x5c\xca\x94\xc6\xd5\x5d\xb2"
-    "\xc6\x94\x51\x0f\x6e\x26\xa8\xfe\x5c\x5b\x50\xa4\xf4\x17" },
+    "\xde\x7c\xfe\x90\x59\xc6\x12\xb3\xec\x3b\xeb\x7d\x60\x20\x68\xf0" },
   { "hijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu",
-    "\x2f\x04\x49\x74\x57\x21\xe3\x48\xda\xfd\x26\xac\x9f\xc1\xd7\xec\x5a\x7c"
-    "\x6c\xc5\x82\x21\xc3\xf6\x67\xe9\x4e\xc4\xe2\xae\x65\x62" },
+    "\x93\x2c\xf8\x72\x6f\x67\xec\x87\x9b\xf2\x5a\xe2\xd4\x4b\x06\x84" },
   { "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopj"
     "klmnopqklmnopqrlmnopqrsmnopqrstnopqrstu",
-    "\xcf\x5b\x16\xa7\x78\xaf\x83\x80\x03\x6c\xe5\x9e\x7b\x04\x92\x37\x0b\x24"
-    "\x9b\x11\xe8\xf0\x7a\x51\xaf\xac\x45\x03\x7a\xfe\xe9\xd1" },
+    "\x21\x02\xd1\xd9\x4b\xd5\x8e\xbf\x5a\xa2\x5c\x30\x5b\xb7\x83\xad" },
   { "01234567012345670123456701234567",
-    "\xdd\x01\x45\x16\x94\x40\xe7\xe5\xc0\x34\x7a\xb0\xc1\xb4\xf8\xc9\x70\xe6"
-    "\xad\x3f\xf6\x25\xa2\xed\xfc\x52\x87\x8f\x38\x4e\x76\x81" },
+    "\x65\x05\x25\xfd\x92\x48\x13\x08\x91\xd3\xc0\x5b\xc2\x5b\xe3\xdc" },
   { "0123456701234567012345670123456701234567012345670123456701234567",
-    "\x81\x82\xca\xdb\x21\xaf\x0e\x37\xc0\x64\x14\xec\xe0\x8e\x19\xc6\x5b\xdb"
-    "\x22\xc3\x96\xd4\x8b\xa7\x34\x10\x12\xee\xa9\xff\xdf\xdd" },
+    "\x8e\x01\x59\xd4\x87\x58\xbc\xd8\x75\xe9\xa0\xbe\xf4\x2d\x3d\x92" },
 };
 
-static void do_sha256_testcase (const struct sha256_testcase *test);
-static void do_sha256_bigtest (void);
+static void do_md4_testcase (const struct md4_testcase *test);
+static void do_md4_bigtest (void);
 
 int
 main (void)
@@ -74,22 +65,22 @@ main (void)
   size_t i;
 
   for (i = 0; i < ARRAY_SIZE (testcases); ++i)
-    do_sha256_testcase (&testcases[i]);
+    do_md4_testcase (&testcases[i]);
 
-  do_sha256_bigtest ();
+  do_md4_bigtest ();
   return 0;
 }
 
 static void
-do_sha256_testcase (const struct sha256_testcase *test)
+do_md4_testcase (const struct md4_testcase *test)
 {
   size_t i;
-  struct sha256_ctx ctx;
-  uint8_t digest[SHA256_DIGEST_SIZE];
+  struct md4_ctx ctx;
+  uint8_t digest[MD4_DIGEST_SIZE];
 
-  sha256_init (&ctx);
-  sha256_update (&ctx, test->message, strlen (test->message));
-  sha256_final (digest, &ctx);
+  md4_init (&ctx);
+  md4_update (&ctx, test->message, strlen (test->message));
+  md4_final (digest, &ctx);
 
   for (i = 0; i < sizeof (digest); ++i)
     printf ("%02x", digest[i]);
@@ -99,15 +90,14 @@ do_sha256_testcase (const struct sha256_testcase *test)
 }
 
 static void
-do_sha256_bigtest (void)
+do_md4_bigtest (void)
 {
   size_t i;
   char *buffer;
-  struct sha256_ctx ctx;
-  uint8_t digest[SHA256_DIGEST_SIZE];
+  struct md4_ctx ctx;
+  uint8_t digest[MD4_DIGEST_SIZE];
   const char *expect
-      = "\x3c\xca\xf2\x67\xe1\xdc\xae\x06\x52\x9a\x76\xa4\xd5\x86\xe7\xa4\xf6"
-        "\x16\xb1\x9b\x2c\x4d\xa9\xe8\xab\xad\x6a\x2d\x6a\x6a\xd1\x3a";
+      = "\xee\x1c\x30\xfb\xe1\x0f\xfb\x0c\xe9\xb8\x8c\x52\xda\x4f\xad\x9f";
 
   buffer = malloc (1000000000);
   if (buffer == NULL)
@@ -119,9 +109,9 @@ do_sha256_bigtest (void)
   for (i = 0; i < 1000000000; ++i)
     buffer[i] = i & 0xff;
 
-  sha256_init (&ctx);
-  sha256_update (&ctx, buffer, 1000000000);
-  sha256_final (digest, &ctx);
+  md4_init (&ctx);
+  md4_update (&ctx, buffer, 1000000000);
+  md4_final (digest, &ctx);
 
   for (i = 0; i < sizeof (digest); ++i)
     printf ("%02x", digest[i]);

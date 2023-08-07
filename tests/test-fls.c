@@ -111,7 +111,7 @@ test_flsll (void)
 
   value = 0;
   ASSERT (flsll (value) == 0);
-  for (i = 0; i < LONG_WIDTH - 1; ++i)
+  for (i = 0; i < LLONG_WIDTH - 1; ++i)
     {
       value |= (1LL << i);
       result = flsll (value);
