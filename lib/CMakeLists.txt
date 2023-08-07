@@ -23,6 +23,9 @@ check_symbol_exists(strndup "string.h" HAVE_STRNDUP)
 check_symbol_exists(ffs "strings.h" HAVE_FFS)
 check_symbol_exists(ffsl "strings.h" HAVE_FFSL)
 check_symbol_exists(ffsll "strings.h" HAVE_FFSLL)
+check_symbol_exists(fls "strings.h" HAVE_FLS)
+check_symbol_exists(flsl "strings.h" HAVE_FLSL)
+check_symbol_exists(flsll "strings.h" HAVE_FLSLL)
 
 # stdlib.h
 check_symbol_exists(reallocarray "stdlib.h" HAVE_REALLOCARRAY)
@@ -104,6 +107,24 @@ endif ()
 if (NOT HAVE_FFSLL)
   target_sources(cfunk PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/ffsll.c
+  )
+endif ()
+
+if (NOT HAVE_FLS)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/fls.c
+  )
+endif ()
+
+if (NOT HAVE_FLSL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/flsl.c
+  )
+endif ()
+
+if (NOT HAVE_FLSLL)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/flsll.c
   )
 endif ()
 
