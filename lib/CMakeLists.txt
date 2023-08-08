@@ -33,6 +33,22 @@ check_symbol_exists(popcountll "strings.h" HAVE_POPCOUNTLL)
 # stdlib.h
 check_symbol_exists(reallocarray "stdlib.h" HAVE_REALLOCARRAY)
 
+# stdio.h
+check_symbol_exists(flockfile "stdio.h" HAVE_FLOCKFILE)
+check_symbol_exists(funlockfile "stdio.h" HAVE_FUNLOCKFILE)
+check_symbol_exists(getc_unlocked "stdio.h" HAVE_GETC_UNLOCKED)
+check_symbol_exists(getchar_unlocked "stdio.h" HAVE_GETCHAR_UNLOCKED)
+check_symbol_exists(putc_unlocked "stdio.h" HAVE_PUTC_UNLOCKED)
+check_symbol_exists(putchar_unlocked "stdio.h" HAVE_PUTCHAR_UNLOCKED)
+check_symbol_exists(_lock_file "stdio.h" HAVE__LOCK_FILE)
+check_symbol_exists(_unlock_file "stdio.h" HAVE__UNLOCK_FILE)
+check_symbol_exists(_getc_nolock "stdio.h" HAVE__GETC_NOLOCK)
+check_symbol_exists(_getchar_nolock "stdio.h" HAVE__GETCHAR_NOLOCK)
+check_symbol_exists(_putc_nolock "stdio.h" HAVE__PUTC_NOLOCK)
+check_symbol_exists(_putchar_nolock "stdio.h" HAVE__PUTCHAR_NOLOCK)
+check_symbol_exists(getdelim "stdio.h" HAVE_GETDELIM)
+check_symbol_exists(getline "stdio.h" HAVE_GETLINE)
+
 configure_file(
   ${CMAKE_CURRENT_LIST_DIR}/config.h.in
   ${CMAKE_CURRENT_BINARY_DIR}/config.h
@@ -158,3 +174,16 @@ if (NOT HAVE_REALLOCARRAY)
     ${CMAKE_CURRENT_LIST_DIR}/reallocarray.c
   )
 endif ()
+
+if (NOT HAVE_GETDELIM)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/getdelim.c
+  )
+endif ()
+
+if (NOT HAVE_GETLINE)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/getline.c
+  )
+endif ()
+

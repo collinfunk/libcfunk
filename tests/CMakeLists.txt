@@ -4,6 +4,7 @@ add_executable(test-bswap)
 add_executable(test-circular-shift)
 add_executable(test-ffs)
 add_executable(test-fls)
+add_executable(test-getdelim)
 add_executable(test-hash-map)
 add_executable(test-list)
 add_executable(test-md4)
@@ -21,6 +22,7 @@ target_link_libraries(test-bswap PRIVATE cfunk)
 target_link_libraries(test-circular-shift PRIVATE cfunk)
 target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-fls PRIVATE cfunk)
+target_link_libraries(test-getdelim PRIVATE cfunk)
 target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
 target_link_libraries(test-md4 PRIVATE cfunk)
@@ -51,6 +53,10 @@ target_sources(test-fls PRIVATE
 
 target_sources(test-ffs PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-ffs.c
+)
+
+target_sources(test-getdelim PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-getdelim.c
 )
 
 target_sources(test-hash-map PRIVATE
