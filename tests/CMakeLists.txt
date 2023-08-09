@@ -14,6 +14,8 @@ add_executable(test-rbtree)
 add_executable(test-read-write-full)
 add_executable(test-sha224)
 add_executable(test-sha256)
+add_executable(test-sha384)
+add_executable(test-sha512)
 add_executable(test-slist)
 add_executable(test-splay-tree)
 add_executable(test-strmode)
@@ -33,6 +35,8 @@ target_link_libraries(test-rbtree PRIVATE cfunk)
 target_link_libraries(test-read-write-full PRIVATE cfunk)
 target_link_libraries(test-sha224 PRIVATE cfunk) 
 target_link_libraries(test-sha256 PRIVATE cfunk)
+target_link_libraries(test-sha384 PRIVATE cfunk)
+target_link_libraries(test-sha512 PRIVATE cfunk)
 target_link_libraries(test-slist PRIVATE cfunk)
 target_link_libraries(test-splay-tree PRIVATE cfunk)
 target_link_libraries(test-strmode PRIVATE cfunk)
@@ -95,6 +99,14 @@ target_sources(test-sha224 PRIVATE
 
 target_sources(test-sha256 PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-sha256.c
+)
+
+target_sources(test-sha384 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-sha384.c
+)
+
+target_sources(test-sha512 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-sha512.c
 )
 
 target_sources(test-slist PRIVATE
