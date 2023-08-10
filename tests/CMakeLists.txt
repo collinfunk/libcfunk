@@ -2,6 +2,7 @@
 add_executable(test-bstree)
 add_executable(test-bswap)
 add_executable(test-circular-shift)
+add_executable(test-crc32)
 add_executable(test-ffs)
 add_executable(test-fls)
 add_executable(test-getdelim)
@@ -23,6 +24,7 @@ add_executable(test-strmode)
 target_link_libraries(test-bstree PRIVATE cfunk)
 target_link_libraries(test-bswap PRIVATE cfunk)
 target_link_libraries(test-circular-shift PRIVATE cfunk)
+target_link_libraries(test-crc32 PRIVATE cfunk)
 target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-fls PRIVATE cfunk)
 target_link_libraries(test-getdelim PRIVATE cfunk)
@@ -51,6 +53,10 @@ target_sources(test-bswap PRIVATE
 
 target_sources(test-circular-shift PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-circular-shift.c
+)
+
+target_sources(test-crc32 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-crc32.c
 )
 
 target_sources(test-fls PRIVATE
