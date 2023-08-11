@@ -39,6 +39,7 @@
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_STRDUP
 #cmakedefine01 HAVE_STRNDUP
+#cmakedefine01 HAVE_STPCPY
 
 /* strings.h */
 #cmakedefine01 HAVE_FFS
@@ -88,6 +89,10 @@ extern char *strdup (const char *s);
 
 #if !HAVE_STRNDUP
 extern char *strndup (const char *s, size_t size);
+#endif
+
+#if !HAVE_STPCPY
+extern char *stpcpy (char *dest, const char *src);
 #endif
 
 #if !HAVE_FFS
@@ -179,7 +184,8 @@ extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
 #endif
 
 #if !HAVE_GETDELIM
-extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter, FILE *stream);
+extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter,
+                         FILE *stream);
 #endif
 
 #if !HAVE_GETLINE

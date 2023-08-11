@@ -18,6 +18,7 @@ check_symbol_exists(memset_explicit "string.h" HAVE_MEMSET_EXPLICIT)
 check_symbol_exists(SecureZeroMemory "windows.h" HAVE_SECUREZEROMEMORY)
 check_symbol_exists(strdup "string.h" HAVE_STRDUP)
 check_symbol_exists(strndup "string.h" HAVE_STRNDUP)
+check_symbol_exists(stpcpy "string.h" HAVE_STPCPY)
 
 # strings.h
 check_symbol_exists(ffs "strings.h" HAVE_FFS)
@@ -118,6 +119,12 @@ endif ()
 if (NOT HAVE_STRNDUP)
   target_sources(cfunk PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/strndup.c
+  )
+endif ()
+
+if (NOT HAVE_STPCPY)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/stpcpy.c
   )
 endif ()
 
