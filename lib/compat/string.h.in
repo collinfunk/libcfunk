@@ -23,7 +23,49 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef COMPAT_STRING_H
+#define COMPAT_STRING_H
 
-#endif /* CONFIG_H */
+#include <sys/types.h>
+
+#include <stddef.h>
+
+#if @HAVE_STRING_H@
+#  include_next <string.h>
+#endif
+
+/* string.h */
+#cmakedefine01 HAVE_STRCHRNUL
+#cmakedefine01 HAVE_STRMODE
+#cmakedefine01 HAVE_EXPLICIT_BZERO
+#cmakedefine01 HAVE_MEMSET_EXPLICIT
+#cmakedefine01 HAVE_SECUREZEROMEMORY
+#cmakedefine01 HAVE_STRDUP
+#cmakedefine01 HAVE_STRNDUP
+#cmakedefine01 HAVE_STPCPY
+
+#if !HAVE_STRCHRNUL
+extern char *strchrnul (const char *str, int ch);
+#endif
+
+#if !HAVE_STRMODE
+extern void strmode (mode_t mode, char *str);
+#endif
+
+#if !HAVE_EXPLICIT_BZERO
+extern void explicit_bzero (void *s, size_t n);
+#endif
+
+#if !HAVE_STRDUP
+extern char *strdup (const char *s);
+#endif
+
+#if !HAVE_STRNDUP
+extern char *strndup (const char *s, size_t size);
+#endif
+
+#if !HAVE_STPCPY
+extern char *stpcpy (char *dest, const char *src);
+#endif
+
+#endif /* COMPAT_STRING_H */

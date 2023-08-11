@@ -23,7 +23,18 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef COMPAT_STDINT_H
+#define COMPAT_STDINT_H
 
-#endif /* CONFIG_H */
+#if @HAVE_STDINT_H@
+#  include_next <stdint.h>
+#endif
+
+#cmakedefine SIZEOF_CHAR @SIZEOF_CHAR@
+#cmakedefine SIZEOF_SHORT @SIZEOF_SHORT@
+#cmakedefine SIZEOF_LONG @SIZEOF_LONG@
+#cmakedefine SIZEOF_LONG_LONG @SIZEOF_LONG_LONG@
+
+/* TODO */
+
+#endif /* COMPAT_STDINT_H */

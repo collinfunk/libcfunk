@@ -1,0 +1,108 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_STDIO_H
+#define COMPAT_STDIO_H
+
+#include <sys/types.h>
+
+#if @HAVE_STDIO_H@
+#  include_next <stdio.h>
+#endif
+
+/* stdio.h */
+#cmakedefine01 HAVE_FLOCKFILE
+#cmakedefine01 HAVE_FUNLOCKFILE
+#cmakedefine01 HAVE_GETC_UNLOCKED
+#cmakedefine01 HAVE_GETCHAR_UNLOCKED
+#cmakedefine01 HAVE_PUTC_UNLOCKED
+#cmakedefine01 HAVE_PUTCHAR_UNLOCKED
+#cmakedefine01 HAVE__LOCK_FILE
+#cmakedefine01 HAVE__UNLOCK_FILE
+#cmakedefine01 HAVE__GETC_NOLOCK
+#cmakedefine01 HAVE__GETCHAR_NOLOCK
+#cmakedefine01 HAVE__PUTC_NOLOCK
+#cmakedefine01 HAVE__PUTCHAR_NOLOCK
+#cmakedefine01 HAVE_GETDELIM
+#cmakedefine01 HAVE_GETLINE
+
+#if !HAVE_FLOCKFILE
+#  if HAVE__LOCK_FILE
+#    define flockfile(stream) _lock_file ((stream))
+#  else
+#    define flockfile(stream)
+#  endif
+#endif
+
+#if !HAVE_FUNLOCKFILE
+#  if HAVE__UNLOCK_FILE
+#    define funlockfile(stream) _unlock_file ((stream))
+#  else
+#    define funlockfile(stream)
+#  endif
+#endif
+
+#if !HAVE_GETC_UNLOCKED
+#  if HAVE__GETC_NOLOCK
+#    define getc_unlocked(stream) _getc_nolock ((stream))
+#  else
+#    define getc_unlocked(stream) getc ((stream))
+#  endif
+#endif
+
+#if !HAVE_GETCHAR_UNLOCKED
+#  if HAVE__GETCHAR_NOLOCK
+#    define getchar_unlocked() _getchar_nolock ()
+#  else
+#    define getchar_unlocked() getchar ()
+#  endif
+#endif
+
+#if !HAVE_PUTC_UNLOCKED
+#  if HAVE__PUTC_NOLOCK
+#    define putc_unlocked(ch, stream) _putc_nolock ((ch), (stream))
+#  else
+#    define putc_unlocked(ch, stream) putc ((ch), (stream))
+#  endif
+#endif
+
+#if !HAVE_PUTCHAR_UNLOCKED
+#  if HAVE__PUTCHAR_NOLOCK
+#    define putchar_unlocked(ch) _putchar_nolock ((ch))
+#  else
+#    define putchar_unlocked(ch) putchar ((ch))
+#  endif
+#endif
+
+#if !HAVE_GETDELIM
+extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter,
+                         FILE *stream);
+#endif
+
+#if !HAVE_GETLINE
+extern ssize_t getline (char **lineptr, size_t *n, FILE *stream);
+#endif
+
+#endif /* COMPAT_STDIO_H */

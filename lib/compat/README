@@ -1,0 +1,11 @@
+This folder contains header file templates for system/libc header files. These
+files are not replacements of system headers. They only declare functions that
+are missing on the host system. This requires the use of the "#include_next"
+preprocessor directive with gcc or clang. This is also supported by at least
+the current versions of pcc and tcc in Debian Bookworm. This is not portable
+though and should be changed in the future.
+
+If a compiler does not support "#include_next" then the absolute path to a
+header file can be used. This can probably be done with CMake. Paths in
+build-systems should not be hard-coded to "/usr/include" for example though,
+as this would make cross-compiling break.

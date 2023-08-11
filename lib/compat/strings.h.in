@@ -23,7 +23,63 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef COMPAT_STRINGS_H
+#define COMPAT_STRINGS_H
 
-#endif /* CONFIG_H */
+#include <sys/types.h>
+
+#include <stddef.h>
+#include <string.h>
+
+#if @HAVE_STRINGS_H@
+#  include_next <strings.h>
+#endif
+
+/* strings.h */
+#cmakedefine01 HAVE_FFS
+#cmakedefine01 HAVE_FFSL
+#cmakedefine01 HAVE_FFSLL
+#cmakedefine01 HAVE_FLS
+#cmakedefine01 HAVE_FLSL
+#cmakedefine01 HAVE_FLSLL
+#cmakedefine01 HAVE_POPCOUNT
+#cmakedefine01 HAVE_POPCOUNTL
+#cmakedefine01 HAVE_POPCOUNTLL
+
+#if !HAVE_FFS
+extern int ffs (int value);
+#endif
+
+#if !HAVE_FFSL
+extern int ffsl (long int value);
+#endif
+
+#if !HAVE_FFSLL
+extern int ffsll (long long int value);
+#endif
+
+#if !HAVE_FLS
+extern int fls (int value);
+#endif
+
+#if !HAVE_FLSL
+extern int flsl (long int value);
+#endif
+
+#if !HAVE_FLSLL
+extern int flsll (long long int value);
+#endif
+
+#if !HAVE_POPCOUNT
+extern unsigned int popcount (unsigned int value);
+#endif
+
+#if !HAVE_POPCOUNTL
+extern unsigned int popcountl (unsigned long int value);
+#endif
+
+#if !HAVE_POPCOUNTLL
+extern unsigned int popcountll (unsigned long long int value);
+#endif
+
+#endif /* COMPAT_STRINGS_H */

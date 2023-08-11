@@ -23,7 +23,20 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef COMPAT_STDLIB_H
+#define COMPAT_STDLIB_H
 
-#endif /* CONFIG_H */
+#include <sys/types.h>
+
+#if @HAVE_STDLIB_H@
+#  include_next <stdlib.h>
+#endif
+
+/* stdlib.h */
+#cmakedefine01 HAVE_REALLOCARRAY
+
+#if !HAVE_REALLOCARRAY
+extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
+#endif
+
+#endif /* COMPAT_STDLIB_H */
