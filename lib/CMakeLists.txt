@@ -7,8 +7,6 @@ target_include_directories(cfunk PUBLIC
   ${CMAKE_CURRENT_BINARY_DIR}/compat/
 )
 
-list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
-
 # string.h
 check_include_file("string.h" HAVE_STRING_H)
 if (HAVE_STRING_H)
