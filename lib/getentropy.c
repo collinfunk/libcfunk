@@ -23,40 +23,47 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_RANDOM_H
-#define COMPAT_SYS_RANDOM_H
-
+#include <sys/random.h>
 #include <sys/types.h>
 
-#if @HAVE_SYS_RANDOM_H@
-#  include_next <sys/random.h>
-#endif
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
 
-#cmakedefine01 HAVE_GETRANDOM
-#cmakedefine01 HAVE_GETENTROPY
+int
+getentropy (void *buffer, size_t length)
+{
+  /* getentropy () can only read a maximum of 256 bytes. */
+  if (length > 256)
+    {
+      errno = EIO;
+      return -1;
+    }
 
-/* TODO: Provide backups for systems without sys/random.h. This is
-   specific to glibc and FreeBSD. */
+  while (length > 0)
+    {
+      ssize_t current_read = getrandom (buffer, length, 0);
 
-#ifndef GRND_NONBLOCK
-#  define GRND_NONBLOCK 0x01
-#endif
+      if (current_read == 0)
+        {
+          errno = EIO;
+          return -1;
+        }
 
-#ifndef GRND_RANDOM
-#  define GRND_RANDOM 0x02
-#endif
+      if (current_read < 0)
+        {
+          if (errno == EINTR)
+            continue;
+          else
+            {
+              errno = EIO;
+              return -1;
+            }
+        }
 
-#ifndef GRND_INSECURE
-#  define GRND_INSECURE 0x04
-#endif
+      buffer = (char *) buffer + current_read;
+      length -= current_read;
+    }
 
-#if !HAVE_GETRANDOM
-extern ssize_t getrandom (void *buffer, size_t length, unsigned int flags);
-#endif
-
-#if !HAVE_GETENTROPY
-extern int getentropy (void *buffer, size_t length);
-#endif
-
-#endif /* COMPAT_SYS_RANDOM_H */
-
+  return 0;
+}

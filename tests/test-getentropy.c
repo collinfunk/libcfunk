@@ -23,40 +23,29 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_RANDOM_H
-#define COMPAT_SYS_RANDOM_H
-
+#include <sys/random.h>
 #include <sys/types.h>
 
-#if @HAVE_SYS_RANDOM_H@
-#  include_next <sys/random.h>
-#endif
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#cmakedefine01 HAVE_GETRANDOM
-#cmakedefine01 HAVE_GETENTROPY
+int
+main (void)
+{
+  size_t i;
+  unsigned char buffer[128];
 
-/* TODO: Provide backups for systems without sys/random.h. This is
-   specific to glibc and FreeBSD. */
+  memset (buffer, 0, 128);
 
-#ifndef GRND_NONBLOCK
-#  define GRND_NONBLOCK 0x01
-#endif
+  /* 128 bytes shouldn't fail. */
+  if (getentropy (buffer, 128) < 0)
+    exit (1);
 
-#ifndef GRND_RANDOM
-#  define GRND_RANDOM 0x02
-#endif
+  for (i = 0; i < 128; ++i)
+    printf ("%02x", buffer[i]);
+  printf ("\n");
 
-#ifndef GRND_INSECURE
-#  define GRND_INSECURE 0x04
-#endif
-
-#if !HAVE_GETRANDOM
-extern ssize_t getrandom (void *buffer, size_t length, unsigned int flags);
-#endif
-
-#if !HAVE_GETENTROPY
-extern int getentropy (void *buffer, size_t length);
-#endif
-
-#endif /* COMPAT_SYS_RANDOM_H */
-
+  return 0;
+}

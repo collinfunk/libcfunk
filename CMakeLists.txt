@@ -9,6 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(CheckSymbolExists)
 include(CheckIncludeFile)
+include(CheckIncludeFiles)
 include(CheckTypeSize)
 
 add_subdirectory(lib)

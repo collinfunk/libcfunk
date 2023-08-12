@@ -75,6 +75,12 @@ if (HAVE_SYS_RANDOM_H)
   check_symbol_exists(getrandom "sys/random.h" HAVE_GETRANDOM)
   check_symbol_exists(getentropy "sys/random.h" HAVE_GETENTROPY)
 else ()
+  check_include_files("windows.h;bcrypt.h" HAVE_BCRYPT_H)
+  if (HAVE_BCRYPT_H)
+    target_link_libraries(cfunk PUBLIC "bcrypt")
+  else ()
+    set(HAVE_BCRYPT_H 0)
+  endif ()
   set(HAVE_SYS_RANDOM_H 0)
 endif ()
 
@@ -280,3 +286,15 @@ if (NOT HAVE_GETLINE)
   )
 endif ()
 
+if (NOT HAVE_GETRANDOM)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/getrandom.c
+  )
+endif ()
+
+
+if (NOT HAVE_GETENTROPY)
+  target_sources(cfunk PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/getentropy.c
+  )
+endif ()

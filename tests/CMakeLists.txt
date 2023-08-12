@@ -6,6 +6,8 @@ add_executable(test-crc32)
 add_executable(test-ffs)
 add_executable(test-fls)
 add_executable(test-getdelim)
+add_executable(test-getentropy)
+add_executable(test-getrandom)
 add_executable(test-hash-map)
 add_executable(test-list)
 add_executable(test-md4)
@@ -28,6 +30,8 @@ target_link_libraries(test-crc32 PRIVATE cfunk)
 target_link_libraries(test-ffs PRIVATE cfunk)
 target_link_libraries(test-fls PRIVATE cfunk)
 target_link_libraries(test-getdelim PRIVATE cfunk)
+target_link_libraries(test-getentropy PRIVATE cfunk)
+target_link_libraries(test-getrandom PRIVATE cfunk)
 target_link_libraries(test-hash-map PRIVATE cfunk)
 target_link_libraries(test-list PRIVATE cfunk)
 target_link_libraries(test-md4 PRIVATE cfunk)
@@ -69,6 +73,14 @@ target_sources(test-ffs PRIVATE
 
 target_sources(test-getdelim PRIVATE
   ${CMAKE_CURRENT_LIST_DIR}/test-getdelim.c
+)
+
+target_sources(test-getentropy PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-getentropy.c
+)
+
+target_sources(test-getrandom PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}/test-getrandom.c
 )
 
 target_sources(test-hash-map PRIVATE
