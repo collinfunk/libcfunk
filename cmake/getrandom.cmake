@@ -14,3 +14,7 @@ if (NOT HAVE_GETRANDOM)
   )
 endif ()
 
+if (LIBCFUNK_BUILD_TESTS)
+  include(${LIBCFUNK_MODULE_DIR}/test-getrandom.cmake)
+endif ()
+

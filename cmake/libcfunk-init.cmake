@@ -18,6 +18,16 @@ if (NOT DEFINED LIBCFUNK_SOURCE_DIR)
   message (FATAL_ERROR "LIBCFUNK_SOURCE_DIR is not set")
 endif ()
 
+# Location where all test source files are located.
+if (NOT DEFINED LIBCFUNK_TEST_SOURCE_DIR)
+  message (FATAL_ERROR "LIBCFUNK_TEST_SOURCE_DIR is not set")
+endif ()
+
+# Location where all test executables are placed.
+if (NOT DEFINED LIBCFUNK_TEST_BUILD_DIR)
+  message (FATAL_ERROR "LIBCFUNK_TEST_BUILD_DIR is not set")
+endif ()
+
 # The location where all generated and compiled files go.
 if (NOT DEFINED LIBCFUNK_BUILD_DIR)
   message (FATAL_ERROR "LIBCFUNK_BUILD_DIR is not set")
@@ -27,6 +37,8 @@ endif ()
 if (NOT DEFINED LIBCFUNK_MODULE_DIR)
   message (FATAL_ERROR "LIBCFUNK_MODULE_DIR is not set")
 endif ()
+
+option(LIBCFUNK_BUILD_TESTS "Build test executables" OFF)
 
 include(${LIBCFUNK_MODULE_DIR}/include-next.cmake)
 
@@ -41,6 +53,12 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 endif ()
 
 add_library(${LIBCFUNK_LIBRARY_NAME})
+
+# Make sure the output directory is set correctly.
+set_target_properties(${LIBCFUNK_LIBRARY_NAME} PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY ${LIBCFUNK_BUILD_DIR}
+  ARCHIVE_OUTPUT_DIRECTORY ${LIBCFUNK_BUILD_DIR}
+)
 
 # Headers and generated headers
 target_include_directories(${LIBCFUNK_LIBRARY_NAME} PUBLIC

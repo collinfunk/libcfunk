@@ -17,3 +17,7 @@ if (NOT HAVE_GETENTROPY)
   )
 endif ()
 
+if (LIBCFUNK_BUILD_TESTS)
+  include(${LIBCFUNK_MODULE_DIR}/test-getentropy.cmake)
+endif ()
+

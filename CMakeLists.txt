@@ -19,6 +19,14 @@ if (NOT DEFINED LIBCFUNK_SOURCE_DIR)
   set(LIBCFUNK_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/lib)
 endif ()
 
+if (NOT DEFINED LIBCFUNK_TEST_SOURCE_DIR)
+  set(LIBCFUNK_TEST_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/tests)
+endif ()
+
+if (NOT DEFINED LIBCFUNK_TEST_BUILD_DIR)
+  set(LIBCFUNK_TEST_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/tests)
+endif ()
+
 if (NOT DEFINED LIBCFUNK_BUILD_DIR)
   set(LIBCFUNK_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib)
 endif ()
@@ -27,31 +35,66 @@ if (NOT DEFINED LIBCFUNK_MODULE_DIR)
   set(LIBCFUNK_MODULE_DIR ${CMAKE_CURRENT_LIST_DIR}/cmake)
 endif ()
 
+# Always comes first
 include(cmake/libcfunk-init.cmake)
 
-include(cmake/stdio.cmake)
-include(cmake/stdlib.cmake)
+# All modules include here for testing.
+
+include(cmake/inttypes.cmake)
+include(cmake/stdint.cmake)
 include(cmake/string.cmake)
 include(cmake/strings.cmake)
-include(cmake/stdint.cmake)
-include(cmake/inttypes.cmake)
+include(cmake/stdio.cmake)
+include(cmake/stdlib.cmake)
 include(cmake/sys-random.cmake)
 
-include(cmake/getrandom.cmake)
-include(cmake/getentropy.cmake)
+# <string.h>
+include(cmake/explicit-bzero.cmake)
+include(cmake/stpcpy.cmake)
+include(cmake/strchrnul.cmake)
+include(cmake/strdup.cmake)
+include(cmake/strmode.cmake)
+include(cmake/strndup.cmake)
 
+# <strings.h>
 include(cmake/ffs.cmake)
 include(cmake/fls.cmake)
 include(cmake/popcount.cmake)
 
+# <stdio.h>
+include(cmake/getdelim.cmake)
+include(cmake/getline.cmake)
+include(cmake/unlocked-stdio.cmake)
+
+# <stdlib.h>
 include(cmake/reallocarray.cmake)
 
-include(cmake/read-nointr.cmake)
-include(cmake/write-nointr.cmake)
-include(cmake/read-full.cmake)
-include(cmake/write-full.cmake)
+# <sys/random.h> (and <unistd.h> if getentropy(2) is a system call)
+include(cmake/getentropy.cmake)
+include(cmake/getrandom.cmake)
 
+# Hash functions
+include(cmake/md4.cmake)
+include(cmake/md5.cmake)
+include(cmake/sha256.cmake)
+include(cmake/sha512.cmake)
+
+# Misc
+include(cmake/bstree.cmake)
+include(cmake/bswap.cmake)
+include(cmake/circular-shift.cmake)
+include(cmake/crc32.cmake)
+include(cmake/hash-map.cmake)
+include(cmake/list.cmake)
+include(cmake/rbtree.cmake)
+include(cmake/read-full.cmake)
+include(cmake/read-nointr.cmake)
+include(cmake/slist.cmake)
+include(cmake/splay-tree.cmake)
+include(cmake/write-full.cmake)
+include(cmake/write-nointr.cmake)
+include(cmake/xmalloc.cmake)
+
+# Always last
 include(cmake/libcfunk-final.cmake)
 
-add_subdirectory(lib)
-add_subdirectory(tests)

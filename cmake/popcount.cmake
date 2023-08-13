@@ -32,4 +32,7 @@ if (NOT HAVE_POPCOUNTLL)
   )
 endif()
 
+if (LIBCFUNK_BUILD_TESTS)
+  include(${LIBCFUNK_MODULE_DIR}/test-popcount.cmake)
+endif ()
 

@@ -32,4 +32,6 @@ if (NOT HAVE_FLSLL)
   )
 endif()
 
-
+if (LIBCFUNK_BUILD_TESTS)
+  include(${LIBCFUNK_MODULE_DIR}/test-fls.cmake)
+endif ()
