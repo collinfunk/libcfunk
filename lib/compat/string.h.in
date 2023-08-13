@@ -26,6 +26,8 @@
 #ifndef COMPAT_STRING_H
 #define COMPAT_STRING_H
 
+#include <config.h>
+
 #include <sys/types.h>
 
 #include <stddef.h>
@@ -33,16 +35,6 @@
 #if @HAVE_STRING_H@
 #  include_next <string.h>
 #endif
-
-/* string.h */
-#cmakedefine01 HAVE_STRCHRNUL
-#cmakedefine01 HAVE_STRMODE
-#cmakedefine01 HAVE_EXPLICIT_BZERO
-#cmakedefine01 HAVE_MEMSET_EXPLICIT
-#cmakedefine01 HAVE_SECUREZEROMEMORY
-#cmakedefine01 HAVE_STRDUP
-#cmakedefine01 HAVE_STRNDUP
-#cmakedefine01 HAVE_STPCPY
 
 #if !HAVE_STRCHRNUL
 extern char *strchrnul (const char *str, int ch);

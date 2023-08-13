@@ -26,17 +26,14 @@
 #ifndef COMPAT_SYS_RANDOM_H
 #define COMPAT_SYS_RANDOM_H
 
+#include <config.h>
+
 #include <sys/types.h>
+#include <unistd.h>
 
 #if @HAVE_SYS_RANDOM_H@
 #  include_next <sys/random.h>
 #endif
-
-#cmakedefine01 HAVE_GETRANDOM
-#cmakedefine01 HAVE_GETENTROPY
-
-/* TODO: Provide backups for systems without sys/random.h. This is
-   specific to glibc and FreeBSD. */
 
 #ifndef GRND_NONBLOCK
 #  define GRND_NONBLOCK 0x01

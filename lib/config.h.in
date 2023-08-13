@@ -31,5 +31,48 @@
 #endif
 
 #cmakedefine01 HAVE_BCRYPT_H
+#cmakedefine01 HAVE_SYS_RANDOM_H
+#cmakedefine01 HAVE_STDINT_H
+#cmakedefine01 HAVE_BCRYPT_H
+#cmakedefine01 HAVE_INTTYPES_H
+#cmakedefine01 HAVE_STRING_H
+#cmakedefine01 HAVE_STRINGS_H
+#cmakedefine01 HAVE_STDLIB_H
+#cmakedefine01 HAVE_STDIO_H
+
+#cmakedefine01 HAVE_GETENTROPY
+#cmakedefine01 HAVE_GETDELIM
+#cmakedefine01 HAVE__LOCK_FILE
+#cmakedefine01 HAVE_GETCHAR_UNLOCKED
+#cmakedefine01 HAVE_POPCOUNTL
+#cmakedefine01 HAVE__PUTCHAR_NOLOCK
+#cmakedefine01 HAVE__UNLOCK_FILE
+#cmakedefine01 HAVE_MEMSET_EXPLICIT
+#cmakedefine01 HAVE_STRCHRNUL
+#cmakedefine01 HAVE_STRDUP
+#cmakedefine01 HAVE_GETLINE
+#cmakedefine01 HAVE_FLOCKFILE
+#cmakedefine01 HAVE_FLS
+#cmakedefine01 HAVE_POPCOUNTLL
+#cmakedefine01 HAVE_FFS
+#cmakedefine01 HAVE_PUTC_UNLOCKED
+#cmakedefine01 HAVE_GETRANDOM
+#cmakedefine01 HAVE_FLSL
+#cmakedefine01 HAVE_REALLOCARRAY
+#cmakedefine01 HAVE_FFSLL
+#cmakedefine01 HAVE__PUTC_NOLOCK
+#cmakedefine01 HAVE_SECUREZEROMEMORY
+#cmakedefine01 HAVE_GETC_UNLOCKED
+#cmakedefine01 HAVE_PUTCHAR_UNLOCKED
+#cmakedefine01 HAVE_STRNDUP
+#cmakedefine01 HAVE_STRMODE
+#cmakedefine01 HAVE__GETCHAR_NOLOCK
+#cmakedefine01 HAVE_EXPLICIT_BZERO
+#cmakedefine01 HAVE_STPCPY
+#cmakedefine01 HAVE__GETC_NOLOCK
+#cmakedefine01 HAVE_FLSLL
+#cmakedefine01 HAVE_FFSL
+#cmakedefine01 HAVE_FUNLOCKFILE
+#cmakedefine01 HAVE_POPCOUNT
 
 #endif /* CONFIG_H */

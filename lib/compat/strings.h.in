@@ -26,6 +26,8 @@
 #ifndef COMPAT_STRINGS_H
 #define COMPAT_STRINGS_H
 
+#include <config.h>
+
 #include <sys/types.h>
 
 #include <stddef.h>
@@ -34,17 +36,6 @@
 #if @HAVE_STRINGS_H@
 #  include_next <strings.h>
 #endif
-
-/* strings.h */
-#cmakedefine01 HAVE_FFS
-#cmakedefine01 HAVE_FFSL
-#cmakedefine01 HAVE_FFSLL
-#cmakedefine01 HAVE_FLS
-#cmakedefine01 HAVE_FLSL
-#cmakedefine01 HAVE_FLSLL
-#cmakedefine01 HAVE_POPCOUNT
-#cmakedefine01 HAVE_POPCOUNTL
-#cmakedefine01 HAVE_POPCOUNTLL
 
 #if !HAVE_FFS
 extern int ffs (int value);

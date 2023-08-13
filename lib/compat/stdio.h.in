@@ -28,25 +28,11 @@
 
 #include <sys/types.h>
 
+#include <config.h>
+
 #if @HAVE_STDIO_H@
 #  include_next <stdio.h>
 #endif
-
-/* stdio.h */
-#cmakedefine01 HAVE_FLOCKFILE
-#cmakedefine01 HAVE_FUNLOCKFILE
-#cmakedefine01 HAVE_GETC_UNLOCKED
-#cmakedefine01 HAVE_GETCHAR_UNLOCKED
-#cmakedefine01 HAVE_PUTC_UNLOCKED
-#cmakedefine01 HAVE_PUTCHAR_UNLOCKED
-#cmakedefine01 HAVE__LOCK_FILE
-#cmakedefine01 HAVE__UNLOCK_FILE
-#cmakedefine01 HAVE__GETC_NOLOCK
-#cmakedefine01 HAVE__GETCHAR_NOLOCK
-#cmakedefine01 HAVE__PUTC_NOLOCK
-#cmakedefine01 HAVE__PUTCHAR_NOLOCK
-#cmakedefine01 HAVE_GETDELIM
-#cmakedefine01 HAVE_GETLINE
 
 #if !HAVE_FLOCKFILE
 #  if HAVE__LOCK_FILE

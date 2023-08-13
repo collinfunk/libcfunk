@@ -8,6 +8,26 @@ include(CheckIncludeFiles)
 include(CheckTypeSize)
 include(CheckCSourceCompiles)
 
+# The name the library is built as.
+if (NOT DEFINED LIBCFUNK_LIBRARY_NAME)
+  message (FATAL_ERROR "LIBCFUNK_LIBRARY_NAME is not set")
+endif ()
+
+# The directory where all source files are located.
+if (NOT DEFINED LIBCFUNK_SOURCE_DIR)
+  message (FATAL_ERROR "LIBCFUNK_SOURCE_DIR is not set")
+endif ()
+
+# The location where all generated and compiled files go.
+if (NOT DEFINED LIBCFUNK_BUILD_DIR)
+  message (FATAL_ERROR "LIBCFUNK_BUILD_DIR is not set")
+endif ()
+
+# The directory where all the cmake files are located.
+if (NOT DEFINED LIBCFUNK_MODULE_DIR)
+  message (FATAL_ERROR "LIBCFUNK_MODULE_DIR is not set")
+endif ()
+
 include(${LIBCFUNK_MODULE_DIR}/include-next.cmake)
 
 # Required by system header templates.
@@ -19,4 +39,20 @@ endif ()
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
   list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
 endif ()
+
+add_library(${LIBCFUNK_LIBRARY_NAME})
+
+# Headers and generated headers
+target_include_directories(${LIBCFUNK_LIBRARY_NAME} PUBLIC
+  ${LIBCFUNK_SOURCE_DIR}/
+  ${LIBCFUNK_BUILD_DIR}/
+  ${LIBCFUNK_BUILD_DIR}/compat/
+)
+
+set(LIBCFUNK_GENERATE_STRING_H FALSE)
+set(LIBCFUNK_GENERATE_STRINGS_H FALSE)
+set(LIBCFUNK_GENERATE_STDINT_H FALSE)
+set(LIBCFUNK_GENERATE_STDLIB_H FALSE)
+set(LIBCFUNK_GENERATE_STDIO_H FALSE)
+set(LIBCFUNK_GENERATE_INTTYPES_H FALSE)
 

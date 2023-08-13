@@ -26,14 +26,13 @@
 #ifndef COMPAT_STDLIB_H
 #define COMPAT_STDLIB_H
 
+#include <config.h>
+
 #include <sys/types.h>
 
 #if @HAVE_STDLIB_H@
 #  include_next <stdlib.h>
 #endif
-
-/* stdlib.h */
-#cmakedefine01 HAVE_REALLOCARRAY
 
 #if !HAVE_REALLOCARRAY
 extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
