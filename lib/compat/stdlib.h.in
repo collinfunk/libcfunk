@@ -34,8 +34,10 @@
 #  include_next <stdlib.h>
 #endif
 
-#if !HAVE_REALLOCARRAY
+#if @LIBCFUNK_DECLARE_REALLOCARRAY@
+#  if !HAVE_REALLOCARRAY
 extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
+#  endif
 #endif
 
 #endif /* COMPAT_STDLIB_H */

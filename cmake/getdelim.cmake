@@ -5,6 +5,8 @@ include(${LIBCFUNK_MODULE_DIR}/stdio.cmake)
 
 check_symbol_exists(getdelim "stdio.h" HAVE_GETDELIM)
 
+set(LIBCFUNK_DECLARE_GETDELIM 1)
+
 if (NOT HAVE_GETDELIM)
   set(HAVE_GETDELIM 0)
 

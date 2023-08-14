@@ -82,13 +82,17 @@
 #  endif
 #endif
 
-#if !HAVE_GETDELIM
+#if @LIBCFUNK_DECLARE_GETDELIM@
+#  if !HAVE_GETDELIM
 extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter,
                          FILE *stream);
+#  endif
 #endif
 
-#if !HAVE_GETLINE
+#if @LIBCFUNK_DECLARE_GETLINE@
+#  if !HAVE_GETLINE
 extern ssize_t getline (char **lineptr, size_t *n, FILE *stream);
+#  endif
 #endif
 
 #endif /* COMPAT_STDIO_H */

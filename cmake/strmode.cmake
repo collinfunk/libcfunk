@@ -5,6 +5,8 @@ include(${LIBCFUNK_MODULE_DIR}/string.cmake)
 
 check_symbol_exists(strmode "string.h" HAVE_STRMODE)
 
+set(LIBCFUNK_DECLARE_STRMODE 1)
+
 if (NOT HAVE_STRMODE)
   set(HAVE_STRMODE 0)
 

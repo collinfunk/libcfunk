@@ -36,28 +36,40 @@
 #  include_next <string.h>
 #endif
 
-#if !HAVE_STRCHRNUL
+#if @LIBCFUNK_DECLARE_STRCHRNUL@
+#  if !HAVE_STRCHRNUL
 extern char *strchrnul (const char *str, int ch);
+#  endif
 #endif
 
-#if !HAVE_STRMODE
+#if @LIBCFUNK_DECLARE_STRMODE@
+#  if !HAVE_STRMODE
 extern void strmode (mode_t mode, char *str);
+#  endif
 #endif
 
-#if !HAVE_EXPLICIT_BZERO
+#if @LIBCFUNK_DECLARE_EXPLICIT_BZERO@
+#  if !HAVE_EXPLICIT_BZERO
 extern void explicit_bzero (void *s, size_t n);
+#  endif
 #endif
 
-#if !HAVE_STRDUP
+#if @LIBCFUNK_DECLARE_STRDUP@
+#  if !HAVE_STRDUP
 extern char *strdup (const char *s);
+#  endif
 #endif
 
-#if !HAVE_STRNDUP
+#if @LIBCFUNK_DECLARE_STRNDUP@
+#  if !HAVE_STRNDUP
 extern char *strndup (const char *s, size_t size);
+#  endif
 #endif
 
-#if !HAVE_STPCPY
+#if @LIBCFUNK_DECLARE_STPCPY@
+#  if !HAVE_STPCPY
 extern char *stpcpy (char *dest, const char *src);
+#  endif
 #endif
 
 #endif /* COMPAT_STRING_H */

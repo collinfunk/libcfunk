@@ -8,6 +8,10 @@ check_symbol_exists(popcount "strings.h" HAVE_POPCOUNT)
 check_symbol_exists(popcountl "strings.h" HAVE_POPCOUNTL)
 check_symbol_exists(popcountll "strings.h" HAVE_POPCOUNTLL)
 
+set(LIBCFUNK_DECLARE_POPCOUNT 1)
+set(LIBCFUNK_DECLARE_POPCOUNTL 1)
+set(LIBCFUNK_DECLARE_POPCOUNTLL 1)
+
 if (NOT HAVE_POPCOUNT)
   set(HAVE_POPCOUNT 0)
 

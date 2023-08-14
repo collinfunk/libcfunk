@@ -3,13 +3,14 @@ include_guard(GLOBAL)
 
 include(${LIBCFUNK_MODULE_DIR}/string.cmake)
 
-check_symbol_exists(strndup "string.h" HAVE_STRNDUP)
+check_symbol_exists(strdup "string.h" HAVE_STRDUP)
 
-if (NOT HAVE_STRNDUP)
-  set(HAVE_STRNDUP 0)
+set(LIBCFUNK_DECLARE_STRDUP 1)
+
+if (NOT HAVE_STRDUP)
+  set(HAVE_STRDUP 0)
 
   target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/strndup.c
+    ${LIBCFUNK_SOURCE_DIR}/strdup.c
   )
 endif ()
-

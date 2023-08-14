@@ -5,6 +5,8 @@ include(${LIBCFUNK_MODULE_DIR}/string.cmake)
 
 check_symbol_exists(stpcpy "string.h" HAVE_STPCPY)
 
+set(LIBCFUNK_DECLARE_STPCPY 1)
+
 if (NOT HAVE_STPCPY)
   set(HAVE_STPCPY 0)
 

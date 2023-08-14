@@ -8,6 +8,10 @@ check_symbol_exists(ffs "strings.h" HAVE_FFS)
 check_symbol_exists(ffsl "strings.h" HAVE_FFSL)
 check_symbol_exists(ffsll "strings.h" HAVE_FFSLL)
 
+set(LIBCFUNK_DECLARE_FFS 1)
+set(LIBCFUNK_DECLARE_FFSL 1)
+set(LIBCFUNK_DECLARE_FFSLL 1)
+
 if (NOT HAVE_FFS)
   set(HAVE_FFS 0)
 

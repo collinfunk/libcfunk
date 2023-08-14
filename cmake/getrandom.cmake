@@ -5,6 +5,8 @@ include(${LIBCFUNK_MODULE_DIR}/sys-random.cmake)
 
 check_symbol_exists(getrandom "sys/random.h" HAVE_GETRANDOM)
 
+set(LIBCFUNK_DECLARE_GETRANDOM 1)
+
 if (NOT HAVE_GETRANDOM)
   # Make sure it can be substituted in preprocessor.
   set(HAVE_GETRANDOM 0)

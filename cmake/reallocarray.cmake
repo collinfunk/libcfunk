@@ -5,6 +5,8 @@ include(${LIBCFUNK_MODULE_DIR}/stdlib.cmake)
 
 check_symbol_exists(reallocarray "stdlib.h" HAVE_REALLOCARRAY)
 
+set(LIBCFUNK_DECLARE_REALLOCARRAY 1)
+
 if (NOT HAVE_REALLOCARRAY)
   set(HAVE_REALLOCARRAY 0)
 

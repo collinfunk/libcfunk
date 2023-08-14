@@ -37,40 +37,58 @@
 #  include_next <strings.h>
 #endif
 
-#if !HAVE_FFS
+#if @LIBCFUNK_DECLARE_FFS@
+#  if !HAVE_FFS
 extern int ffs (int value);
+#  endif
 #endif
 
-#if !HAVE_FFSL
+#if @LIBCFUNK_DECLARE_FFSL@
+#  if !HAVE_FFSL
 extern int ffsl (long int value);
+#  endif
 #endif
 
-#if !HAVE_FFSLL
+#if @LIBCFUNK_DECLARE_FFSLL@
+#  if !HAVE_FFSLL
 extern int ffsll (long long int value);
+#  endif
 #endif
 
-#if !HAVE_FLS
+#if @LIBCFUNK_DECLARE_FLS@
+#  if !HAVE_FLS
 extern int fls (int value);
+#  endif
 #endif
 
-#if !HAVE_FLSL
+#if @LIBCFUNK_DECLARE_FLSL@
+#  if !HAVE_FLSL
 extern int flsl (long int value);
+#  endif
 #endif
 
-#if !HAVE_FLSLL
+#if @LIBCFUNK_DECLARE_FLSLL@
+#  if !HAVE_FLSLL
 extern int flsll (long long int value);
+#  endif
 #endif
 
-#if !HAVE_POPCOUNT
+#if @LIBCFUNK_DECLARE_POPCOUNT@
+#  if !HAVE_POPCOUNT
 extern unsigned int popcount (unsigned int value);
+#  endif
 #endif
 
-#if !HAVE_POPCOUNTL
+#if @LIBCFUNK_DECLARE_POPCOUNTL@
+#  if !HAVE_POPCOUNTL
 extern unsigned int popcountl (unsigned long int value);
+#  endif
 #endif
 
-#if !HAVE_POPCOUNTLL
+#if @LIBCFUNK_DECLARE_POPCOUNTLL@
+#  if !HAVE_POPCOUNTLL
 extern unsigned int popcountll (unsigned long long int value);
+#  endif
 #endif
 
 #endif /* COMPAT_STRINGS_H */
