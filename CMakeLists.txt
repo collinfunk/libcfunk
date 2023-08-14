@@ -68,6 +68,7 @@ include(cmake/unlocked-stdio.cmake)
 
 # <stdlib.h>
 include(cmake/reallocarray.cmake)
+include(cmake/secure-getenv.cmake)
 
 # <sys/random.h> (and <unistd.h> if getentropy(2) is a system call)
 include(cmake/getentropy.cmake)

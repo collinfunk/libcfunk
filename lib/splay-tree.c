@@ -34,24 +34,6 @@
    called "splaying." When we splay the tree at node N, the splay step
    continues until N is at the root of the tree. */
 
-static void
-splay_tree_delete_subtree (struct splay_tree *tree,
-                           struct splay_tree_node *node)
-{
-  assert (tree != NULL);
-  assert (node != NULL);
-
-  /* Unused. */
-  (void) tree;
-
-  if (node->left != NULL)
-    splay_tree_delete_subtree (tree, node->left);
-  if (node->right != NULL)
-    splay_tree_delete_subtree (tree, node->right);
-
-  free (node);
-}
-
 /* The top-down splay function. Does not require DATA to be in the tree.
    This function is based on the algorithm "simple top-down splay" on page
    669 of "Self-adjusting Binary Search Trees" by Daniel Dominic Sleator
@@ -297,10 +279,70 @@ splay_tree_new (int (*comparefunc) (const void *, const void *))
 void
 splay_tree_delete (struct splay_tree *tree)
 {
+  struct splay_tree_node *node;
+  struct splay_tree_node *link;
+
   assert (tree != NULL);
 
-  if (tree->root != NULL)
-    splay_tree_delete_subtree (tree, tree->root);
+  node = tree->root;
+  link = NULL;
+
+  while (node != NULL)
+    {
+      if (node->left != NULL)
+        {
+          struct splay_tree_node *child = node->left;
+
+          /* Keep track of our way back up with the left pointer. */
+          node->left = link;
+          link = node;
+
+          /* Continue down the tree. */
+          node = child;
+        }
+      else if (node->right != NULL)
+        {
+          struct splay_tree_node *child = node->right;
+
+          node->right = NULL;
+
+          /* Keep track of our way back up with the left pointer. */
+          node->left = link;
+          link = node;
+
+          /* Continue down the tree. */
+          node = child;
+        }
+      else /* Node has no children. */
+        {
+          if (link == NULL)
+            {
+              free (node);
+              break;
+            }
+          else /* Not back to the root. */
+            {
+              while (link != NULL)
+                {
+                  free (node);
+
+                  if (link->right != NULL)
+                    {
+                      /* Check for right children. */
+                      node = link->right;
+                      link->right = NULL;
+                      break;
+                    }
+                  else
+                    {
+                      /* Move back up with the left pointer. */
+                      node = link;
+                      link = link->left;
+                    }
+                }
+            }
+        }
+    }
 
   free (tree);
 }

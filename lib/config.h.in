@@ -74,5 +74,12 @@
 #cmakedefine01 HAVE_FFSL
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE_POPCOUNT
+#cmakedefine01 HAVE_GETENV
+#cmakedefine01 HAVE_SECURE_GETENV
+#cmakedefine01 HAVE_ISSETUGID
+#cmakedefine01 HAVE_GETGID
+#cmakedefine01 HAVE_GETEGID
+#cmakedefine01 HAVE_GETUID
+#cmakedefine01 HAVE_GETEUID
 
 #endif /* CONFIG_H */
