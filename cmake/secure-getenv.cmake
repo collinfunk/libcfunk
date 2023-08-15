@@ -3,6 +3,8 @@ include_guard(GLOBAL)
 
 include(${LIBCFUNK_MODULE_DIR}/stdlib.cmake)
 
+set(LIBCFUNK_DECLARE_SECURE_GETENV 1)
+
 check_symbol_exists(getenv "stdlib.h" HAVE_GETENV)
 check_symbol_exists(secure_getenv "stdlib.h" HAVE_SECURE_GETENV)
 check_symbol_exists(issetugid "unistd.h" HAVE_ISSETUGID)
@@ -17,6 +19,10 @@ endif ()
 
 if (NOT HAVE_SECURE_GETENV)
   set(HAVE_SECURE_GETENV 0)
+
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/secure-getenv.c
+  )
 endif ()
 
 if (NOT HAVE_ISSETUGID)

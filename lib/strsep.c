@@ -23,27 +23,48 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDLIB_H
-#define COMPAT_STDLIB_H
-
 #include <config.h>
 
-#include <sys/types.h>
+#include <stddef.h>
+#include <string.h>
 
-#if @HAVE_STDLIB_H@
-#  include_next <stdlib.h>
-#endif
+char *
+strsep (char **stringp, const char *delim)
+{
+  char *str_pos;
+  const char *delim_pos;
+  char *ret_token;
+  char ch;
+  char curr_delim;
 
-#if @LIBCFUNK_DECLARE_REALLOCARRAY@
-#  if !HAVE_REALLOCARRAY
-extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
-#  endif
-#endif
+  /* If the string pointer is NULL, return NULL. */
+  if (*stringp == NULL)
+    return NULL;
 
-#if !@LIBCFUNK_DECLARE_SECURE_GETENV@
-#  if !HAVE_SECURE_GETENV
-extern char *secure_getenv (const char *name);
-#  endif
-#endif
+  /* Save our starting position to return as the token. */
+  str_pos = ret_token = *stringp;
 
-#endif /* COMPAT_STDLIB_H */
+  for (;;)
+    {
+      ch = *str_pos++;
+      delim_pos = delim;
+
+      /* For each delimiter character in the DELIM string. */
+      for (;;)
+        {
+          curr_delim = *delim_pos++;
+          if (curr_delim == ch)
+            {
+              /* If we reach the end of the string, set STRINGP to NULL. */
+              if (ch == '\0')
+                str_pos = NULL;
+              else /* Overwrite the delimiter with the NUL byte. */
+                str_pos[-1] = '\0';
+              *stringp = str_pos;
+              return ret_token;
+            }
+          if (curr_delim == '\0')
+            break;
+        }
+    }
+}

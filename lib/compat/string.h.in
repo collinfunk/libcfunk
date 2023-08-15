@@ -66,9 +66,33 @@ extern char *strndup (const char *s, size_t size);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRLEN@
+#  if !HAVE_STRLEN
+extern size_t strlen (const char *str);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRNLEN@
+#  if !HAVE_STRNLEN
+extern size_t strnlen (const char *str, size_t maxlen);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STPCPY@
 #  if !HAVE_STPCPY
 extern char *stpcpy (char *dest, const char *src);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRSEP@
+#  if !HAVE_STRSEP
+extern char *strsep (char **stringp, const char *delim);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRPBRK@
+#  if !HAVE_STRPBRK
+extern char *strpbrk (const char *str, const char *charset);
 #  endif
 #endif
 

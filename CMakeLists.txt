@@ -55,6 +55,9 @@ include(cmake/strchrnul.cmake)
 include(cmake/strdup.cmake)
 include(cmake/strmode.cmake)
 include(cmake/strndup.cmake)
+include(cmake/stpncpy.cmake)
+include(cmake/strsep.cmake)
+include(cmake/strpbrk.cmake)
 
 # <strings.h>
 include(cmake/ffs.cmake)

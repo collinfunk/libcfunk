@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include(${LIBCFUNK_MODULE_DIR}/string.cmake)
+include(${LIBCFUNK_MODULE_DIR}/strlen.cmake)
 
 check_symbol_exists(strdup "string.h" HAVE_STRDUP)
 

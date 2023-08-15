@@ -81,5 +81,9 @@
 #cmakedefine01 HAVE_GETEGID
 #cmakedefine01 HAVE_GETUID
 #cmakedefine01 HAVE_GETEUID
+#cmakedefine01 HAVE_STRLEN
+#cmakedefine01 HAVE_STRNLEN
+#cmakedefine01 HAVE_STRSEP
+#cmakedefine01 HAVE_STRPBRK
 
 #endif /* CONFIG_H */

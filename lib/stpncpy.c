@@ -23,27 +23,14 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDLIB_H
-#define COMPAT_STDLIB_H
+#include <stddef.h>
+#include <string.h>
 
-#include <config.h>
+char *
+stpncpy (char *dest, const char *src, size_t size)
+{
+  size_t srclen = strnlen (src, size);
 
-#include <sys/types.h>
-
-#if @HAVE_STDLIB_H@
-#  include_next <stdlib.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_REALLOCARRAY@
-#  if !HAVE_REALLOCARRAY
-extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
-#  endif
-#endif
-
-#if !@LIBCFUNK_DECLARE_SECURE_GETENV@
-#  if !HAVE_SECURE_GETENV
-extern char *secure_getenv (const char *name);
-#  endif
-#endif
-
-#endif /* COMPAT_STDLIB_H */
+  dest = (char *) memcpy (dest, src, srclen) + srclen;
+  return srclen == size ? dest : memset (dest, '\0', size - srclen);
+}

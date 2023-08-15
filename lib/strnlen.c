@@ -23,27 +23,18 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDLIB_H
-#define COMPAT_STDLIB_H
-
 #include <config.h>
 
-#include <sys/types.h>
+#include <stddef.h>
+#include <string.h>
 
-#if @HAVE_STDLIB_H@
-#  include_next <stdlib.h>
-#endif
+size_t
+strnlen (const char *str, size_t maxlen)
+{
+  const char *p = str;
 
-#if @LIBCFUNK_DECLARE_REALLOCARRAY@
-#  if !HAVE_REALLOCARRAY
-extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
-#  endif
-#endif
+  for (; maxlen > 0 && *p != '\0'; --maxlen, ++p)
+    ;
 
-#if !@LIBCFUNK_DECLARE_SECURE_GETENV@
-#  if !HAVE_SECURE_GETENV
-extern char *secure_getenv (const char *name);
-#  endif
-#endif
-
-#endif /* COMPAT_STDLIB_H */
+  return p - str;
+}
