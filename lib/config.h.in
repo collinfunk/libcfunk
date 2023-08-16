@@ -39,6 +39,7 @@
 #cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_STDLIB_H
 #cmakedefine01 HAVE_STDIO_H
+#cmakedefine01 HAVE_TIME_H
 
 #cmakedefine01 HAVE_GETENTROPY
 #cmakedefine01 HAVE_GETDELIM
@@ -85,5 +86,14 @@
 #cmakedefine01 HAVE_STRNLEN
 #cmakedefine01 HAVE_STRSEP
 #cmakedefine01 HAVE_STRPBRK
+#cmakedefine01 HAVE_STRCASECMP
+#cmakedefine01 HAVE_STRNCASECMP
+#cmakedefine01 HAVE_STRUCT_TIMESPEC
+#cmakedefine01 HAVE_STRUCT_ITIMERSPEC
+#cmakedefine01 HAVE_DYSIZE
+#cmakedefine01 HAVE_TIMESPEC_GET
+#cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_GETTIMEOFDAY
+
 
 #endif /* CONFIG_H */

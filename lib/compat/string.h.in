@@ -96,4 +96,16 @@ extern char *strpbrk (const char *str, const char *charset);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRCASECMP@
+#  if !HAVE_STRCASECMP
+extern int strcasecmp (const char *str1, const char *str2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRNCASECMP@
+#  if !HAVE_STRNCASECMP
+extern int strncasecmp (const char *str1, const char *str2, size_t size);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

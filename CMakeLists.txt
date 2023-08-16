@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
 
 project(libcfunk LANGUAGES C)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -47,6 +47,7 @@ include(cmake/strings.cmake)
 include(cmake/stdio.cmake)
 include(cmake/stdlib.cmake)
 include(cmake/sys-random.cmake)
+include(cmake/time.cmake)
 
 # <string.h>
 include(cmake/explicit-bzero.cmake)
@@ -58,6 +59,8 @@ include(cmake/strndup.cmake)
 include(cmake/stpncpy.cmake)
 include(cmake/strsep.cmake)
 include(cmake/strpbrk.cmake)
+include(cmake/strcasecmp.cmake)
+include(cmake/strncasecmp.cmake)
 
 # <strings.h>
 include(cmake/ffs.cmake)
@@ -71,11 +74,15 @@ include(cmake/unlocked-stdio.cmake)
 
 # <stdlib.h>
 include(cmake/reallocarray.cmake)
-include(cmake/secure-getenv.cmake)
+#include(cmake/secure-getenv.cmake)
 
 # <sys/random.h> (and <unistd.h> if getentropy(2) is a system call)
 include(cmake/getentropy.cmake)
 include(cmake/getrandom.cmake)
+
+# time.h
+include(cmake/dysize.cmake)
+include(cmake/timespec-get.cmake)
 
 # Hash functions
 include(cmake/md4.cmake)

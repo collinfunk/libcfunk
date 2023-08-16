@@ -55,3 +55,9 @@ if (LIBCFUNK_GENERATE_INTTYPES_H)
   )
 endif ()
 
+if (LIBCFUNK_GENERATE_TIME_H)
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/time.h.in
+    ${LIBCFUNK_BUILD_DIR}/compat/time.h
+  )
+endif ()

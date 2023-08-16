@@ -1,0 +1,63 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_TIME_H
+#define COPMAT_TIME_H
+
+#include <sys/types.h>
+
+#include <config.h>
+
+/* Show dysize if the system has it. */
+#ifdef __GLIBC__
+#  define  __DEFAULT_SOURCE
+#endif
+
+#if @HAVE_TIME_H@
+#  include_next <time.h>
+#endif
+
+/* HAVE_STRUCT_TIMESPEC */
+/* HAVE_STRUCT_ITIMERSPEC */
+
+/* I think this is implementation defined, but it is defined as 1 everywhere I
+   have seen. */
+#ifndef TIME_UTC
+#  define TIME_UTC 1
+#endif
+
+#if @LIBCFUNK_DECLARE_DYSIZE@
+#  if !HAVE_DYSIZE
+extern int dysize (int year);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TIMESPEC_GET@
+#  if !HAVE_TIMESPEC_GET
+extern int timespec_get (struct timespec *ts, int base);
+#  endif
+#endif
+
+#endif /* COMPAT_TIME_H */
