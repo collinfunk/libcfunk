@@ -41,16 +41,6 @@
 #  else
 #    error "Your system does not have <sysinfoapi.h>"
 #  endif
-#else
-/* TODO: These are not portable. They only work on Linux and FreeBSD. Maybe
-   a few others? */
-#  ifndef _SC_NPROCESSORS_ONLN
-#    error "cpu_count_avaliable () is unsupported."
-#  endif
-
-#  ifndef _SC_NPROCESSORS_CONF
-#    error "cpu_count_total () is unsupported."
-#  endif
 #endif
 
 long int
@@ -63,7 +53,7 @@ cpu_count_available (void)
   GetSystemInfo (&system_info);
   return system_info.dwNumberOfProcessors;
 #elif HAVE_SYS_SYSCTL_H && defined(HW_NCPU)
-  int mib[2] = { CTL_HW, CTL_NPROC };
+  int mib[2] = { CTL_HW, HW_NCPU };
   int cpu_count;
   size_t len;
 
