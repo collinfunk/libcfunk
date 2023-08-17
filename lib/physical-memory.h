@@ -26,11 +26,13 @@
 #ifndef PHYSICAL_MEMORY_H
 #define PHYSICAL_MEMORY_H
 
-#include <stddef.h>
+#include <stdint.h>
+
+extern uint64_t physical_memory_available (void);
 
 /* Returns the number of bytes that the system has in physical memory. If
    a function call to sysconf fails, then 0 is returned. If the number of bytes
-   is too large to be represented by size_t, then SIZE_MAX is returned. */
-size_t physical_memory_total (void);
+   is too large to be represented by uint64_t, then UINT64_MAX is returned. */
+extern uint64_t physical_memory_total (void);
 
 #endif /* PHYSICAL_MEMORY_H */

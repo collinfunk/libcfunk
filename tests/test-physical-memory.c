@@ -23,6 +23,7 @@
  * SUCH DAMAGE.
  */
 
+#include <limits.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -33,7 +34,8 @@
 int
 main (void)
 {
-  size_t total_bytes = physical_memory_total ();
+  uint64_t total_bytes = physical_memory_total ();
+  uint64_t available_bytes = physical_memory_available ();
 
   if (total_bytes == 0)
     {
@@ -41,13 +43,22 @@ main (void)
       abort ();
     }
 
-  if (total_bytes == SIZE_MAX)
+  if (total_bytes == UINT64_MAX)
     {
-      fprintf (stderr, "Physical memory cannot fit in 'size_t'.\n");
+      fprintf (stderr, "Physical memory cannot fit in 'uint64_t'.\n");
       abort ();
     }
 
-  printf ("Total bytes of physical memory: %zu\n", total_bytes);
+  if (total_bytes < available_bytes)
+    {
+      fprintf (stderr,
+               "physical_memory_total () < physical_memory_available ()\n");
+      abort ();
+    }
+
+  printf ("Total bytes of physical memory: %ju\n", (uintmax_t) total_bytes);
+  printf ("Number of bytes available:      %ju\n",
+          (uintmax_t) available_bytes);
 
   return 0;
 }

@@ -24,7 +24,7 @@
  */
 
 #ifndef COMPAT_TIME_H
-#define COPMAT_TIME_H
+#define COMPAT_TIME_H
 
 #include <sys/types.h>
 

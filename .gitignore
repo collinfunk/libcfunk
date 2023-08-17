@@ -9,6 +9,10 @@
 tags
 TAGS
 
+*.core
+*.diff
+*.patch
+
 *.o
 *.a
 *.so
