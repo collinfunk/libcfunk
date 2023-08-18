@@ -108,4 +108,11 @@ extern int strncasecmp (const char *str1, const char *str2, size_t size);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_TIMINGSAFE_BCMP@
+#  if !HAVE_TIMINGSAFE_BCMP
+extern int timingsafe_bcmp (const void *b1, const void *b2, size_t len);
+#  endif
+#endif
+
+
 #endif /* COMPAT_STRING_H */

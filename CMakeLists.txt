@@ -62,6 +62,10 @@ include(cmake/strsep.cmake)
 include(cmake/strpbrk.cmake)
 include(cmake/strcasecmp.cmake)
 include(cmake/strncasecmp.cmake)
+include(cmake/timingsafe-bcmp.cmake)
+
+# <inttypes.h>
+include(cmake/strtoumax.cmake)
 
 # <strings.h>
 include(cmake/ffs.cmake)
@@ -75,6 +79,8 @@ include(cmake/unlocked-stdio.cmake)
 
 # <stdlib.h>
 include(cmake/reallocarray.cmake)
+include(cmake/strtoul.cmake)
+include(cmake/strtoul.cmake)
 #include(cmake/secure-getenv.cmake)
 
 # <sys/random.h> (and <unistd.h> if getentropy(2) is a system call)

@@ -23,41 +23,20 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDLIB_H
-#define COMPAT_STDLIB_H
+#include <stddef.h>
+#include <string.h>
 
-#include <config.h>
+/* Timing safe bcmp function. First appeared in OpenBSD 4.9. Also
+   avaliable on FreeBSD and MacOS. */
+int
+timingsafe_bcmp (const void *b1, const void *b2, size_t len)
+{
+  const unsigned char *p1 = (const unsigned char *) b1;
+  const unsigned char *p2 = (const unsigned char *) b2;
+  unsigned int result = 0;
 
-#include <sys/types.h>
+  for (; len > 0; --len)
+    result |= *p1++ ^ *p2++;
 
-#if @HAVE_STDLIB_H@
-#  include_next <stdlib.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_REALLOCARRAY@
-#  if !HAVE_REALLOCARRAY
-extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_STRTOUL@
-#  if !HAVE_STRTOUL
-extern unsigned long int strtoul (const char *str, char **endptr, int base);
-#  endif
-#endif
-
-
-#if @LIBCFUNK_DECLARE_STRTOULL@
-#  if !HAVE_STRTOULL
-extern unsigned long long int strtoull (const char *str, char **endptr,
-                                        int base);
-#  endif
-#endif
-
-#if !@LIBCFUNK_DECLARE_SECURE_GETENV@
-#  if !HAVE_SECURE_GETENV
-extern char *secure_getenv (const char *name);
-#  endif
-#endif
-
-#endif /* COMPAT_STDLIB_H */
+  return (1 & ((~(result - 1)) >> 8));
+}
