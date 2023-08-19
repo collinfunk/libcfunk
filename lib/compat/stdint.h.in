@@ -39,4 +39,52 @@
 
 /* TODO */
 
+#ifndef INT8_C
+#  define INT8_C(value) value
+#endif
+
+#ifndef UINT8_C
+#  define UINT8_C(value) value
+#endif
+
+#ifndef INT16_C
+#  define INT16_C(value) value
+#endif
+
+#ifndef UINT16_C
+#  define UINT16_C(value) value
+#endif
+
+#ifndef INT32_C
+#  define INT32_C(value) value
+#endif
+
+#ifndef UINT32_C
+#  define UINT32_C(value) value ## U
+#endif
+
+#if @SIZEOF_VOID_P@ == 4
+
+#  ifndef INT64_C
+#    define INT64_C(value) value ## LL
+#  endif
+
+#  ifndef UINT64_C
+#    define UINT64_C(value) value ## ULL
+#  endif
+
+#elif @SIZEOF_VOID_P@ == 8
+
+#  ifndef INT64_C
+#    define INT64_C(value) value ## L
+#  endif
+
+#  ifndef UINT64_C
+#    define UINT64_C(value) value ## UL
+#  endif
+
+#else
+#  error "Unsupported architecture."
+#endif
+
 #endif /* COMPAT_STDINT_H */

@@ -89,6 +89,9 @@
 #cmakedefine01 HAVE_STRNLEN
 #cmakedefine01 HAVE_STRPBRK
 #cmakedefine01 HAVE_STRSEP
+#cmakedefine01 HAVE_STRTOIMAX
+#cmakedefine01 HAVE_STRTOL
+#cmakedefine01 HAVE_STRTOLL
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX

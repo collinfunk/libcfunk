@@ -109,6 +109,12 @@
 /* TODO: Rest of these. 64-bit types are dependent on
    architecture. */
 
+#if @LIBCFUNK_DECLARE_STRTOIMAX@
+#  if !HAVE_STRTOIMAX
+extern intmax_t strtoimax (const char *str, char **endptr, int base);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STRTOUMAX@
 #  if !HAVE_STRTOUMAX
 extern uintmax_t strtoumax (const char *str, char **endptr, int base);

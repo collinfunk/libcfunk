@@ -65,6 +65,7 @@ include(cmake/strncasecmp.cmake)
 include(cmake/timingsafe-bcmp.cmake)
 
 # <inttypes.h>
+include(cmake/strtoimax.cmake)
 include(cmake/strtoumax.cmake)
 
 # <strings.h>
@@ -79,7 +80,7 @@ include(cmake/unlocked-stdio.cmake)
 
 # <stdlib.h>
 include(cmake/reallocarray.cmake)
-include(cmake/strtoul.cmake)
+include(cmake/strtol.cmake)
 include(cmake/strtoul.cmake)
 #include(cmake/secure-getenv.cmake)
 

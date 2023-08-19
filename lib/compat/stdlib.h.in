@@ -40,12 +40,23 @@ extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRTOL@
+#  if !HAVE_STRTOL
+extern long int strtol (const char *str, char **endptr, int base);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRTOLL@
+#  if !HAVE_STRTOLL
+extern long long int strtoll (const char *str, char **endptr, int base);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STRTOUL@
 #  if !HAVE_STRTOUL
 extern unsigned long int strtoul (const char *str, char **endptr, int base);
 #  endif
 #endif
-
 
 #if @LIBCFUNK_DECLARE_STRTOULL@
 #  if !HAVE_STRTOULL

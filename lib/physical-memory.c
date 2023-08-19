@@ -123,8 +123,8 @@ physical_memory_total (void)
     return 0;
 
   /* Check for overflow. If so return the maximum that be stored in size_t. */
-  if ((uint64_t) page_count > (SIZE_MAX / (uint64_t) page_size))
-    return SIZE_MAX;
+  if ((uint64_t) page_count > (UINT64_MAX / (uint64_t) page_size))
+    return UINT64_MAX;
 
   return page_count * page_size;
 #elif defined(HW_PHYSMEM64)
