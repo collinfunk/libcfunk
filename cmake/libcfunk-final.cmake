@@ -68,3 +68,11 @@ if (LIBCFUNK_GENERATE_SYS_TIME_H)
     ${LIBCFUNK_BUILD_DIR}/compat/sys/time.h
   )
 endif ()
+
+if (LIBCFUNK_GENERATE_CTYPE_H)
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in
+    ${LIBCFUNK_BUILD_DIR}/compat/ctype.h
+  )
+endif ()
+

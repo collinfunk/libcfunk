@@ -1,0 +1,180 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_CTYPE_H
+#define COMPAT_CTYPE_H
+
+#include <config.h>
+
+#if @HAVE_CTYPE_H@
+#  include_next <ctype.h>
+#endif
+
+/* Replacement functions for <ctype.h> if they are missing. */
+
+#if !HAVE_ISALNUM
+static inline int
+isalnum (int c)
+{
+  return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
+         || (c >= 'a' && c <= 'z');
+}
+#endif
+
+#if !HAVE_ISALPHA
+static inline int
+isalpha (int c)
+{
+  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
+#endif
+
+#if !HAVE_ISASCII
+static inline int
+isascii (int c)
+{
+  return c >= 0 && c < 128;
+}
+#endif
+
+#if !HAVE_ISBLANK
+static inline int
+isblank (int c)
+{
+  return c == ' ' || c == '\t';
+}
+#endif
+
+#if !HAVE_ISCNTRL
+static inline int
+iscntrl (int c)
+{
+  return c < 32 || c == 127;
+}
+#endif
+
+#if !HAVE_ISDIGIT
+static inline int
+isdigit (int c)
+{
+  return c >= '0' && c <= '9';
+}
+#endif
+
+#if !HAVE_ISGRAPH
+static inline int
+isgraph (int c)
+{
+  return c >= 33 && c <= 126;
+}
+#endif
+
+#if !HAVE_ISLOWER
+static inline int
+islower (int c)
+{
+  return c >= 'a' && c <= 'z';
+}
+#endif
+
+#if !HAVE_ISPRINT
+static inline int
+isprint (int c)
+{
+  return c >= 32 && c <= 126;
+}
+#endif
+
+#if !HAVE_ISPUNCT
+static inline int
+ispunct (int c)
+{
+  return (c >= 33 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96)
+         || (c >= 123 && c <= 126);
+}
+#endif
+
+#if !HAVE_ISSPACE
+static inline int
+isspace (int c)
+{
+  return c == ' ' || (c >= 9 && c <= 13);
+}
+#endif
+
+
+#if !HAVE_ISUPPER
+static inline int
+isupper (int c)
+{
+  return c >= 'A' && c <= 'Z';
+}
+#endif
+
+#if !HAVE_ISXDIGIT
+static inline int
+isxdigit (int c)
+{
+  return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')
+         || (c >= 'A' && c <= 'F');
+}
+#endif
+
+#if !HAVE_TOASCII
+static inline int
+toascii (int c)
+{
+  return c & 127;
+}
+#endif
+
+#if !HAVE_TOLOWER
+static inline int
+tolower (int c)
+{
+  return c >= 'A' && c <= 'Z' ? c + 32 : c;
+}
+#endif
+
+#if !HAVE_TOUPPER
+static inline int
+toupper (int c)
+{
+  return c >= 'a' && c <= 'z' ? c - 32 : c;
+}
+#endif
+
+/* POSIX requires that these are defined as macros. They are required
+   to check C is a lowercase character before converting (or vice versa).
+   This is already required in the non prefixed functions according to C99. */
+#ifndef _toupper
+#  define _toupper(c) toupper (c)
+#endif
+
+#ifndef _tolower
+#  define _tolower(c) tolower ((c))
+#endif
+
+#endif /* COMPAT_CTYPE_H */

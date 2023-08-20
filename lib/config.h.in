@@ -31,6 +31,7 @@
 #endif
 
 #cmakedefine01 HAVE_BCRYPT_H
+#cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_INTTYPES_H
 #cmakedefine01 HAVE_STDINT_H
 #cmakedefine01 HAVE_STDIO_H
@@ -67,7 +68,20 @@
 #cmakedefine01 HAVE_GETRANDOM
 #cmakedefine01 HAVE_GETTIMEOFDAY
 #cmakedefine01 HAVE_GETUID
+#cmakedefine01 HAVE_ISALNUM
+#cmakedefine01 HAVE_ISALPHA
+#cmakedefine01 HAVE_ISASCII
+#cmakedefine01 HAVE_ISBLANK
+#cmakedefine01 HAVE_ISCNTRL
+#cmakedefine01 HAVE_ISDIGIT
+#cmakedefine01 HAVE_ISGRAPH
+#cmakedefine01 HAVE_ISLOWER
+#cmakedefine01 HAVE_ISPRINT
+#cmakedefine01 HAVE_ISPUNCT
 #cmakedefine01 HAVE_ISSETUGID
+#cmakedefine01 HAVE_ISSPACE
+#cmakedefine01 HAVE_ISUPPER
+#cmakedefine01 HAVE_ISXDIGIT
 #cmakedefine01 HAVE_MEMSET_EXPLICIT
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
@@ -97,6 +111,9 @@
 #cmakedefine01 HAVE_STRTOUMAX
 #cmakedefine01 HAVE_TIMESPEC_GET
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP
+#cmakedefine01 HAVE_TOASCII
+#cmakedefine01 HAVE_TOLOWER
+#cmakedefine01 HAVE_TOUPPER
 #cmakedefine01 HAVE__GETCHAR_NOLOCK
 #cmakedefine01 HAVE__GETC_NOLOCK
 #cmakedefine01 HAVE__LOCK_FILE

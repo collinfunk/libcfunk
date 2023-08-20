@@ -49,6 +49,7 @@ include(cmake/stdlib.cmake)
 include(cmake/sys-random.cmake)
 include(cmake/time.cmake)
 include(cmake/sys-time.cmake)
+include(cmake/ctype.cmake)
 
 # <string.h>
 include(cmake/explicit-bzero.cmake)
