@@ -76,3 +76,10 @@ if (LIBCFUNK_GENERATE_CTYPE_H)
   )
 endif ()
 
+if (LIBCFUNK_GENERATE_UNISTD_H)
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/unistd.h.in
+    ${LIBCFUNK_BUILD_DIR}/compat/unistd.h
+  )
+endif ()
+

@@ -50,6 +50,7 @@ include(cmake/sys-random.cmake)
 include(cmake/time.cmake)
 include(cmake/sys-time.cmake)
 include(cmake/ctype.cmake)
+include(cmake/unistd.cmake)
 
 # <string.h>
 include(cmake/explicit-bzero.cmake)
@@ -92,6 +93,9 @@ include(cmake/getrandom.cmake)
 # time.h
 include(cmake/dysize.cmake)
 include(cmake/timespec-get.cmake)
+
+# <unistd.h>
+include(cmake/getusershell.cmake)
 
 # Hash functions
 include(cmake/md4.cmake)
