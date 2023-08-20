@@ -30,66 +30,114 @@ if (NOT HAVE_CTYPE_H)
   set(HAVE_CTYPE_H 0)
 endif ()
 
-if (NOT ISALNUM)
+if (NOT HAVE_ISALNUM)
   set(HAVE_ISALNUM 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isalnum.c
+  )
 endif ()
 
-if (NOT ISALPHA)
+if (NOT HAVE_ISALPHA)
   set(HAVE_ISALPHA 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isalpha.c
+  )
 endif ()
 
-if (NOT ISASCII)
+if (NOT HAVE_ISASCII)
   set(HAVE_ISASCII 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isascii.c
+  )
 endif ()
 
-if (NOT ISBLANK)
+if (NOT HAVE_ISBLANK)
   set(HAVE_ISBLANK 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isblank.c
+  )
 endif ()
 
-if (NOT ISCNTRL)
+if (NOT HAVE_ISCNTRL)
   set(HAVE_ISCNTRL 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/iscntrl.c
+  )
 endif ()
 
-if (NOT ISDIGIT)
+if (NOT HAVE_ISDIGIT)
   set(HAVE_ISDIGIT 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isdigit.c
+  )
 endif ()
 
-if (NOT ISGRAPH)
+if (NOT HAVE_ISGRAPH)
   set(HAVE_ISGRAPH 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isgraph.c
+  )
 endif ()
 
-if (NOT ISLOWER)
+if (NOT HAVE_ISLOWER)
   set(HAVE_ISLOWER 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/islower.c
+  )
 endif ()
 
-if (NOT ISPRINT)
+if (NOT HAVE_ISPRINT)
   set(HAVE_ISPRINT 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isprint.c
+  )
 endif ()
 
-if (NOT ISPUNCT)
+if (NOT HAVE_ISPUNCT)
   set(HAVE_ISPUNCT 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/ispunct.c
+  )
 endif ()
 
-if (NOT ISSPACE)
+if (NOT HAVE_ISSPACE)
   set(HAVE_ISSPACE 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isspace.c
+  )
 endif ()
 
-if (NOT ISUPPER)
+if (NOT HAVE_ISUPPER)
   set(HAVE_ISUPPER 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isupper.c
+  )
 endif ()
 
-if (NOT ISXDIGIT)
+if (NOT HAVE_ISXDIGIT)
   set(HAVE_ISXDIGIT 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/isxdigit.c
+  )
 endif ()
 
-if (NOT TOASCII)
+if (NOT HAVE_TOASCII)
   set(HAVE_TOASCII 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/toascii.c
+  )
 endif ()
 
-if (NOT TOLOWER)
+if (NOT HAVE_TOLOWER)
   set(HAVE_TOLOWER 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/tolower.c
+  )
 endif ()
 
-if (NOT TOUPPER)
+if (NOT HAVE_TOUPPER)
   set(HAVE_TOUPPER 0)
+  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
+    ${LIBCFUNK_SOURCE_DIR}/toupper.c
+  )
 endif ()

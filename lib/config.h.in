@@ -26,10 +26,6 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#ifdef _WIN32
-#  include <windows.h>
-#endif
-
 #cmakedefine01 HAVE_BCRYPT_H
 #cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_INTTYPES_H

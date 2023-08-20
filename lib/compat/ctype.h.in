@@ -34,143 +34,75 @@
 
 /* Replacement functions for <ctype.h> if they are missing. */
 
-#if !HAVE_ISALNUM
-static inline int
-isalnum (int c)
-{
-  return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
-         || (c >= 'a' && c <= 'z');
-}
+#if !@HAVE_ISALNUM@
+extern int isalnum (int c);
 #endif
 
-#if !HAVE_ISALPHA
-static inline int
-isalpha (int c)
-{
-  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
-}
+#if !@HAVE_ISALPHA@
+extern int isalpha (int c);
 #endif
 
-#if !HAVE_ISASCII
-static inline int
-isascii (int c)
-{
-  return c >= 0 && c < 128;
-}
+#if !@HAVE_ISASCII@
+extern int isascii (int c);
 #endif
 
-#if !HAVE_ISBLANK
-static inline int
-isblank (int c)
-{
-  return c == ' ' || c == '\t';
-}
+#if !@HAVE_ISBLANK@
+extern int isblank (int c);
 #endif
 
-#if !HAVE_ISCNTRL
-static inline int
-iscntrl (int c)
-{
-  return c < 32 || c == 127;
-}
+#if !@HAVE_ISCNTRL@
+extern int iscntrl (int c);
 #endif
 
-#if !HAVE_ISDIGIT
-static inline int
-isdigit (int c)
-{
-  return c >= '0' && c <= '9';
-}
+#if !@HAVE_ISDIGIT@
+extern int isdigit (int c);
 #endif
 
-#if !HAVE_ISGRAPH
-static inline int
-isgraph (int c)
-{
-  return c >= 33 && c <= 126;
-}
+#if !@HAVE_ISGRAPH@
+extern int isgraph (int c);
 #endif
 
-#if !HAVE_ISLOWER
-static inline int
-islower (int c)
-{
-  return c >= 'a' && c <= 'z';
-}
+#if !@HAVE_ISLOWER@
+extern int islower (int c);
 #endif
 
-#if !HAVE_ISPRINT
-static inline int
-isprint (int c)
-{
-  return c >= 32 && c <= 126;
-}
+#if !@HAVE_ISPRINT@
+extern int isprint (int c);
 #endif
 
-#if !HAVE_ISPUNCT
-static inline int
-ispunct (int c)
-{
-  return (c >= 33 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96)
-         || (c >= 123 && c <= 126);
-}
+#if !@HAVE_ISPUNCT@
+extern int ispunct (int c);
 #endif
 
-#if !HAVE_ISSPACE
-static inline int
-isspace (int c)
-{
-  return c == ' ' || (c >= 9 && c <= 13);
-}
+#if !@HAVE_ISSPACE@
+extern int isspace (int c);
 #endif
 
-
-#if !HAVE_ISUPPER
-static inline int
-isupper (int c)
-{
-  return c >= 'A' && c <= 'Z';
-}
+#if !@HAVE_ISUPPER@
+extern int isupper (int c);
 #endif
 
-#if !HAVE_ISXDIGIT
-static inline int
-isxdigit (int c)
-{
-  return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f')
-         || (c >= 'A' && c <= 'F');
-}
+#if !@HAVE_ISXDIGIT@
+extern int isxdigit (int c);
 #endif
 
-#if !HAVE_TOASCII
-static inline int
-toascii (int c)
-{
-  return c & 127;
-}
+#if !@HAVE_TOASCII@
+extern int toascii (int c);
 #endif
 
-#if !HAVE_TOLOWER
-static inline int
-tolower (int c)
-{
-  return c >= 'A' && c <= 'Z' ? c + 32 : c;
-}
+#if !@HAVE_TOLOWER@
+extern int tolower (int c);
 #endif
 
-#if !HAVE_TOUPPER
-static inline int
-toupper (int c)
-{
-  return c >= 'a' && c <= 'z' ? c - 32 : c;
-}
+#if !@HAVE_TOUPPER@
+extern int toupper (int c);
 #endif
 
 /* POSIX requires that these are defined as macros. They are required
    to check C is a lowercase character before converting (or vice versa).
    This is already required in the non prefixed functions according to C99. */
 #ifndef _toupper
-#  define _toupper(c) toupper (c)
+#  define _toupper(c) toupper ((c))
 #endif
 
 #ifndef _tolower

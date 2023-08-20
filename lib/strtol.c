@@ -150,7 +150,7 @@ strtol (const char *str, char **endptr, int base)
 
   if (p == start)
     {
-      /* FIXME: The don't think the else case (no prefix) is possible since we
+      /* FIXME: I don't think the else case (no prefix) is possible since we
          check for an empty string after whitespace in the switch statement.
          Also maybe set EINVAL here? */
       if (endptr != NULL)
