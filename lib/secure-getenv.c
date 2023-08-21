@@ -46,6 +46,10 @@
    For systems that are POSIX-compliant, we can use the getgid(2), geteguid(2),
    getuid(2), and geteuid(2) system calls. If the effective and real ID's
    are the same, then return the environment variables.
+
+   For Windows, running a program with higher privileges requires the user to
+   accept a prompt beforehand. If the prompt is not accepted to program will
+   not be executed. In this case, just return the environment variable.
  */
 
 char *
@@ -63,6 +67,8 @@ secure_getenv (const char *name)
   /* Check if effected by setuid. */
   if (getuid () != geteuid ())
     return NULL;
+  return getenv (name);
+#elif defined(_WIN32)
   return getenv (name);
 #else
 #  error "secure_getenv not implemented for your system."
