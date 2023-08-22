@@ -96,6 +96,7 @@ include(cmake/timespec-get.cmake)
 
 # <unistd.h>
 include(cmake/getusershell.cmake)
+include(cmake/getcwd.cmake)
 
 # Hash functions
 include(cmake/md4.cmake)
@@ -122,6 +123,7 @@ include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
 include(cmake/copy-file.cmake)
 include(cmake/program-name.cmake)
+include(cmake/basename.cmake)
 
 # Always last
 include(cmake/libcfunk-final.cmake)

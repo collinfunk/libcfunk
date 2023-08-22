@@ -55,6 +55,7 @@
 #cmakedefine01 HAVE_FLSLL
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE_GETCHAR_UNLOCKED
+#cmakedefine01 HAVE_GETCWD
 #cmakedefine01 HAVE_GETC_UNLOCKED
 #cmakedefine01 HAVE_GETDELIM
 #cmakedefine01 HAVE_GETEGID
@@ -115,6 +116,7 @@
 #cmakedefine01 HAVE_TOLOWER
 #cmakedefine01 HAVE_TOUPPER
 #cmakedefine01 HAVE__GETCHAR_NOLOCK
+#cmakedefine01 HAVE__GETCWD
 #cmakedefine01 HAVE__GETC_NOLOCK
 #cmakedefine01 HAVE__LOCK_FILE
 #cmakedefine01 HAVE__PUTCHAR_NOLOCK

@@ -23,41 +23,15 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
-
 #include <config.h>
 
-#include <sys/types.h>
-
-#include <stddef.h>
-
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
+#if defined(_WIN32)
+#  include <direct.h>
 #endif
 
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+/* For Windows. Could just be a macro... */
+char *
+getcwd (char *buffer, size_t size)
+{
+  return _getcwd (buffer, size);
+}

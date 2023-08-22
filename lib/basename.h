@@ -23,41 +23,12 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
+#ifndef BASENAME_H
+#define BASENAME_H
 
-#include <config.h>
+/* Similar to basename(3) which is required by POSIX. Unlike the POSIX version,
+   this function will not modify FILE_NAME. The returned string is malloc'ed.
+   If malloc() fails then errno is set and NULL is returned. */
+extern char *get_basename (const char *file_name);
 
-#include <sys/types.h>
-
-#include <stddef.h>
-
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+#endif /* BASENAME_H */

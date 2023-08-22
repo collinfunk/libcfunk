@@ -23,41 +23,60 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
+#include <stdlib.h>
+#include <string.h>
 
-#include <config.h>
+#include "basename.h"
 
-#include <sys/types.h>
+char *
+get_basename (const char *file_name)
+{
+  const char *p;
+  const char *end;
+  size_t len;
+  char *base;
 
-#include <stddef.h>
+  /* Skip leading slashes in FILE_NAME. */
+  for (p = file_name; *p == '/'; ++p)
+    ;
 
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
-#endif
+  /* Lead P to the last '/' that isn't the end of the string. */
+  for (end = p; *end != '\0'; ++end)
+    {
+      /* Skip consecutive slashes. */
+      if (*end == '/')
+        {
+          do
+            ++end;
+          while (*end == '/');
+          if (*end != '\0')
+            p = end;
+          else
+            break;
+        }
+    }
 
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
+  /* Get the length of the basename without slashes. */
+  for (len = end - p; len > 1 && end[-1] == '/'; --len)
+    --end;
 
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
+  /* BASE is an actual filename. */
+  if (len > 0)
+    {
+      base = malloc (len + 1);
+      if (base == NULL)
+        return NULL;
+      memcpy (base, p, len);
+      base[len] = '\0';
+    }
+  else /* Root or current working directory. */
+    {
+      base = malloc (2);
+      if (base == NULL)
+        return NULL;
+      base[0] = *file_name == '/' ? '/' : '.';
+      base[1] = '\0';
+    }
 
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+  return base;
+}

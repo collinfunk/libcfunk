@@ -23,41 +23,60 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
-
-#include <config.h>
-
-#include <sys/types.h>
-
 #include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
-#endif
+#include "basename.h"
+#include "test-help.h"
 
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
+struct testcase
+{
+  const char *file_name;
+  const char *base_name;
+};
 
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
+static const struct testcase test_cases[] = {
+  { "", "." },
+  { ".", "." },
+  { "/", "/" },
+  { "//", "/" },
+  { "usr", "usr" },
+  { "usr/", "usr" },
+  { "///", "/" },
+  { "/usr/", "usr" },
+  { "/usr/lib", "lib" },
+  { "//usr//lib//", "lib" },
+  { "/home//dwc//test", "test" },
+  { "/dir1////dir2", "dir2" },
+  { "//dir1////dir2////", "dir2" },
+  { "/dir1/dir2/dir3/file.c", "file.c" },
+};
 
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
+static void try_basename (const struct testcase *test);
 
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
+int
+main (void)
+{
+  size_t i;
 
-#endif /* COMPAT_UNISTD_H */
+  for (i = 0; i < ARRAY_SIZE (test_cases); ++i)
+    try_basename (&test_cases[i]);
+
+  return 0;
+}
+
+static void
+try_basename (const struct testcase *test)
+{
+  char *result = get_basename (test->file_name);
+  if (result == NULL)
+    {
+      fprintf (stderr, "malloc() failed.\n");
+      abort ();
+    }
+
+  printf ("%s\n", result);
+  ASSERT (strcmp (result, test->base_name) == 0);
+  free (result);
+}

@@ -33,6 +33,7 @@ target_sources_regexp = re.compile(r"\s?target_sources\s*?\(\s*?"
 set_regexp = re.compile(r"\s?set\s*?\(\*?"
                         r"(.+?)\s+?(.?+)\s*?\)")
 
+
 def read_file(filename: Path) -> str:
     lines = []
     try:
@@ -41,6 +42,33 @@ def read_file(filename: Path) -> str:
                 lines.append(line)
     finally:
         return "".join(lines)
+
+
+def find_config_vars(files: list[Path]) -> set:
+    """ Returns a set of all the HAVE_* definitions for the config file. """
+    variables = set()
+    for file in files:
+        content = read_file(file)
+        headers = re.finditer(check_include_file_regexp, content)
+        for header in headers:
+            variables.add(header[2])
+        symbols = re.finditer(check_symbol_exists_regexp, content)
+        for symbol in symbols:
+            variables.add(symbol[3])
+    return variables
+
+
+def emit_config_file(files: list[Path]) -> str:
+    """ Returns the string to be contained in the config file. """
+    variables = list(find_config_vars(files))
+    headers = sorted([x for x in variables if x.endswith("_H")])
+    symbols = sorted([x for x in variables if not x.endswith("_H")])
+
+    gaurd = "#ifdef CONFIG_H\n#define CONFIG_H\n\n"
+    body = "\n".join(["#cmakedefine01 " + x for x in headers + symbols])
+    end = "\n\n#endif /* CONFIG_H */"
+    return gaurd + body + end
+
 
 def main() -> None:
     argv = sys.argv
@@ -51,6 +79,7 @@ def main() -> None:
         exit(1)
 
     files = [Path(x).resolve() for x in argv[1:]]
+    print(emit_config_file(files))
 
 
 if __name__ == "__main__":
