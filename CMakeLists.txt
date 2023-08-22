@@ -120,6 +120,8 @@ include(cmake/splay-tree.cmake)
 include(cmake/write-full.cmake)
 include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
+include(cmake/copy-file.cmake)
+include(cmake/program-name.cmake)
 
 # Always last
 include(cmake/libcfunk-final.cmake)
