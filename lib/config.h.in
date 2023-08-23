@@ -35,9 +35,11 @@
 #cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_STRING_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
+#cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H
+#cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE_WINDOWS_H
