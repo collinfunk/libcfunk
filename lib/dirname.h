@@ -23,63 +23,11 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef DIRNAME_H
+#define DIRNAME_H
 
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
+/* Acts similarly to dirname(3) except FILE_NAME is not modified and the result
+   is malloc'ed. */
+extern char *get_dirname (const char *file_name);
 
-#include "basename.h"
-
-char *
-get_basename (const char *file_name)
-{
-  const char *p;
-  const char *end;
-  size_t len;
-  char *base;
-
-  /* Skip leading slashes in FILE_NAME. */
-  for (p = file_name; *p == '/'; ++p)
-    ;
-
-  /* Lead P to the last '/' that isn't the end of the string. */
-  for (end = p; *end != '\0'; ++end)
-    {
-      /* Skip consecutive slashes. */
-      if (*end == '/')
-        {
-          do
-            ++end;
-          while (*end == '/');
-          if (*end != '\0')
-            p = end;
-          else
-            break;
-        }
-    }
-
-  /* Get the length of the basename without slashes. */
-  for (len = end - p; len > 1 && end[-1] == '/'; --len)
-    --end;
-
-  /* BASE is an actual filename. */
-  if (len > 0)
-    {
-      base = malloc (len + 1);
-      if (base == NULL)
-        return NULL;
-      memcpy (base, p, len);
-      base[len] = '\0';
-    }
-  else /* Root or current working directory. */
-    {
-      base = malloc (2);
-      if (base == NULL)
-        return NULL;
-      base[0] = *file_name == '/' ? '/' : '.';
-      base[1] = '\0';
-    }
-
-  return base;
-}
+#endif /* DIRNAME_H */

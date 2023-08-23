@@ -23,63 +23,60 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
-
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "basename.h"
+#include "dirname.h"
+#include "test-help.h"
 
-char *
-get_basename (const char *file_name)
+struct testcase
 {
-  const char *p;
-  const char *end;
-  size_t len;
-  char *base;
+  const char *file_name;
+  const char *dir_name;
+};
 
-  /* Skip leading slashes in FILE_NAME. */
-  for (p = file_name; *p == '/'; ++p)
-    ;
+static const struct testcase test_cases[] = {
+  { "", "." },
+  { ".", "." },
+  { "/", "/" },
+  { "//", "/" },
+  { "usr", "." },
+  { "usr/", "." },
+  { "///", "/" },
+  { "/usr/", "/" },
+  { "/usr/lib", "/usr" },
+  { "//usr//lib//", "//usr" },
+  { "/home//dwc//test", "/home//dwc" },
+  { "/dir1////dir2", "/dir1" },
+  { "//dir1////dir2////", "//dir1" },
+  { "/dir1/dir2/dir3/file.c", "/dir1/dir2/dir3" },
+};
 
-  /* Lead P to the last '/' that isn't the end of the string. */
-  for (end = p; *end != '\0'; ++end)
+static void try_dirname (const struct testcase *test);
+
+int
+main (void)
+{
+  size_t i;
+
+  for (i = 0; i < ARRAY_SIZE (test_cases); ++i)
+    try_dirname (&test_cases[i]);
+
+  return 0;
+}
+
+static void
+try_dirname (const struct testcase *test)
+{
+  char *result = get_dirname (test->file_name);
+  if (result == NULL)
     {
-      /* Skip consecutive slashes. */
-      if (*end == '/')
-        {
-          do
-            ++end;
-          while (*end == '/');
-          if (*end != '\0')
-            p = end;
-          else
-            break;
-        }
+      fprintf (stderr, "malloc() failed.\n");
+      abort ();
     }
 
-  /* Get the length of the basename without slashes. */
-  for (len = end - p; len > 1 && end[-1] == '/'; --len)
-    --end;
-
-  /* BASE is an actual filename. */
-  if (len > 0)
-    {
-      base = malloc (len + 1);
-      if (base == NULL)
-        return NULL;
-      memcpy (base, p, len);
-      base[len] = '\0';
-    }
-  else /* Root or current working directory. */
-    {
-      base = malloc (2);
-      if (base == NULL)
-        return NULL;
-      base[0] = *file_name == '/' ? '/' : '.';
-      base[1] = '\0';
-    }
-
-  return base;
+  printf ("%s\n", result);
+  ASSERT (strcmp (result, test->dir_name) == 0);
+  free (result);
 }

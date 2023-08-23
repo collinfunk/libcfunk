@@ -29,15 +29,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "basename.h"
+#include "dirname.h"
 
 char *
-get_basename (const char *file_name)
+get_dirname (const char *file_name)
 {
   const char *p;
   const char *end;
   size_t len;
-  char *base;
+  char *dir;
 
   /* Skip leading slashes in FILE_NAME. */
   for (p = file_name; *p == '/'; ++p)
@@ -59,27 +59,27 @@ get_basename (const char *file_name)
         }
     }
 
-  /* Get the length of the basename without slashes. */
-  for (len = end - p; len > 1 && end[-1] == '/'; --len)
-    --end;
+  /* Move P to the last character that isn't '/' or the basename. */
+  for (len = p - file_name; len > 1 && p[-1] == '/'; --len)
+    --p;
 
-  /* BASE is an actual filename. */
+  /* DIR is an actual filename. */
   if (len > 0)
     {
-      base = malloc (len + 1);
-      if (base == NULL)
+      dir = malloc (len + 1);
+      if (dir == NULL)
         return NULL;
-      memcpy (base, p, len);
-      base[len] = '\0';
+      memcpy (dir, file_name, len);
+      dir[len] = '\0';
     }
   else /* Root or current working directory. */
     {
-      base = malloc (2);
-      if (base == NULL)
+      dir = malloc (2);
+      if (dir == NULL)
         return NULL;
-      base[0] = *file_name == '/' ? '/' : '.';
-      base[1] = '\0';
+      dir[0] = *file_name == '/' ? '/' : '.';
+      dir[1] = '\0';
     }
 
-  return base;
+  return dir;
 }

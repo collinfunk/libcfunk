@@ -124,6 +124,7 @@ include(cmake/xmalloc.cmake)
 include(cmake/copy-file.cmake)
 include(cmake/program-name.cmake)
 include(cmake/basename.cmake)
+include(cmake/dirname.cmake)
 
 # Always last
 include(cmake/libcfunk-final.cmake)

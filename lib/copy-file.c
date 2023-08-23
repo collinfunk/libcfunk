@@ -76,17 +76,9 @@ copy_file (const char *src, const char *dest)
     {
       size_t current_read = read_nointr (src_fd, buffer, sizeof (buffer));
 
-      /* EOF. */
+      /* EOF or error. */
       if (current_read == 0)
         break;
-
-      /* Error. */
-      if (current_read < 0)
-        {
-          close (src_fd);
-          close (dest_fd);
-          return false;
-        }
 
       /* Write to the copy. */
       if (write_full (dest_fd, buffer, current_read) != current_read)
