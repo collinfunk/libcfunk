@@ -1,8 +1,6 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/strdup.cmake)
-include(${LIBCFUNK_MODULE_DIR}/strndup.cmake)
 include(${LIBCFUNK_MODULE_DIR}/reallocarray.cmake)
 
 target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE

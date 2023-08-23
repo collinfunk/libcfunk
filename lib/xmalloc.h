@@ -37,6 +37,7 @@ extern void *xmalloc (size_t size);
 extern void *xcalloc (size_t nelem, size_t elsize);
 extern void *xrealloc (void *ptr, size_t size);
 extern void *xreallocarray (void *ptr, size_t nelem, size_t elsize);
+extern void *xmemdup (const char *ptr, size_t n);
 extern char *xstrdup (const char *s);
 extern char *xstrndup (const char *s, size_t size);
 

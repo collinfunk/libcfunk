@@ -80,26 +80,29 @@ xreallocarray (void *ptr, size_t nelem, size_t elsize)
   return new_ptr;
 }
 
+void *
+xmemdup (const char *ptr, size_t n)
+{
+  void *copy = malloc (n);
+  if (copy == NULL)
+    {
+      fprintf (stderr, "xmemdup (): Out of memory.\n");
+      abort ();
+    }
+  return memcpy (copy, ptr, n);
+}
+
 char *
 xstrdup (const char *s)
 {
-  char *copy = strdup (s);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strdup (): Out of memory.\n");
-      abort ();
-    }
-  return copy;
+  return (char *) xmemdup (s, strlen (s) + 1);
 }
 
 char *
 xstrndup (const char *s, size_t size)
 {
-  char *copy = strndup (s, size);
-  if (copy == NULL)
-    {
-      fprintf (stderr, "strndup (): Out of memory.\n");
-      abort ();
-    }
+  size_t slen = strnlen (s, size);
+  char *copy = (char *) xmemdup (s, slen + 1);
+  copy[slen] = '\0';
   return copy;
 }
