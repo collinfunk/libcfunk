@@ -114,5 +114,16 @@ extern int timingsafe_bcmp (const void *b1, const void *b2, size_t len);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRCHR@
+#  if !HAVE_STRCHR
+extern char *strchr (const char *s, int c);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRRCHR@
+#  if !HAVE_STRRCHR
+extern char *strrchr (const char *s, int c);
+#  endif
+#endif
 
 #endif /* COMPAT_STRING_H */

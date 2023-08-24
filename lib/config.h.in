@@ -44,6 +44,9 @@
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE_WINDOWS_H
 
+#cmakedefine01 HAVE_BCMP
+#cmakedefine01 HAVE_BCOPY
+#cmakedefine01 HAVE_BZERO
 #cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_ENDUSERSHELL
@@ -70,6 +73,7 @@
 #cmakedefine01 HAVE_GETTIMEOFDAY
 #cmakedefine01 HAVE_GETUID
 #cmakedefine01 HAVE_GETUSERSHELL
+#cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
 #cmakedefine01 HAVE_ISASCII
@@ -91,12 +95,14 @@
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_REALLOCARRAY
+#cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_STPCPY
 #cmakedefine01 HAVE_STPNCPY
 #cmakedefine01 HAVE_STRCASECMP
+#cmakedefine01 HAVE_STRCHR
 #cmakedefine01 HAVE_STRCHRNUL
 #cmakedefine01 HAVE_STRDUP
 #cmakedefine01 HAVE_STRLEN
@@ -105,6 +111,7 @@
 #cmakedefine01 HAVE_STRNDUP
 #cmakedefine01 HAVE_STRNLEN
 #cmakedefine01 HAVE_STRPBRK
+#cmakedefine01 HAVE_STRRCHR
 #cmakedefine01 HAVE_STRSEP
 #cmakedefine01 HAVE_STRTOIMAX
 #cmakedefine01 HAVE_STRTOL

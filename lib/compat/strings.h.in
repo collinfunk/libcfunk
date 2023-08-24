@@ -91,4 +91,34 @@ extern unsigned int popcountll (unsigned long long int value);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_BCMP@
+#  if !HAVE_BCMP
+extern int bcmp (const void *s1, const void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_BCOPY@
+#  if !HAVE_BCOPY
+extern void bcopy (const void *s1, void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_BZERO@
+#  if !HAVE_BZERO
+extern void bzero (void *s, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_INDEX@
+#  if !HAVE_INDEX
+char *index (const char *s, int c);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RINDEX@
+#  if !HAVE_RINDEX
+char *rindex (const char *s, int c);
+#  endif
+#endif
+
 #endif /* COMPAT_STRINGS_H */

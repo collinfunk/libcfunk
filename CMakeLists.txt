@@ -65,6 +65,8 @@ include(cmake/strpbrk.cmake)
 include(cmake/strcasecmp.cmake)
 include(cmake/strncasecmp.cmake)
 include(cmake/timingsafe-bcmp.cmake)
+include(cmake/strchr.cmake)
+include(cmake/strrchr.cmake)
 
 # <inttypes.h>
 include(cmake/strtoimax.cmake)
@@ -74,6 +76,11 @@ include(cmake/strtoumax.cmake)
 include(cmake/ffs.cmake)
 include(cmake/fls.cmake)
 include(cmake/popcount.cmake)
+include(cmake/bcmp.cmake)
+include(cmake/bcopy.cmake)
+include(cmake/bzero.cmake)
+include(cmake/index.cmake)
+include(cmake/rindex.cmake)
 
 # <stdio.h>
 include(cmake/getdelim.cmake)
