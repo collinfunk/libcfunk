@@ -67,6 +67,9 @@ include(cmake/strncasecmp.cmake)
 include(cmake/timingsafe-bcmp.cmake)
 include(cmake/strchr.cmake)
 include(cmake/strrchr.cmake)
+include(cmake/memchr.cmake)
+include(cmake/memrchr.cmake)
+include(cmake/rawmemchr.cmake)
 
 # <inttypes.h>
 include(cmake/strtoimax.cmake)
@@ -104,6 +107,7 @@ include(cmake/timespec-get.cmake)
 # <unistd.h>
 include(cmake/getusershell.cmake)
 include(cmake/getcwd.cmake)
+include(cmake/swab.cmake)
 
 # Hash functions
 include(cmake/md4.cmake)
@@ -133,6 +137,7 @@ include(cmake/program-name.cmake)
 include(cmake/basename.cmake)
 include(cmake/dirname.cmake)
 include(cmake/termsize.cmake)
+include(cmake/gcd.cmake)
 
 # Always last
 include(cmake/libcfunk-final.cmake)

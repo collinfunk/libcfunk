@@ -23,47 +23,26 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
-
-#include <config.h>
-
 #include <sys/types.h>
 
-#include <stddef.h>
+#include <unistd.h>
 
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
-#endif
+void
+swab (const void *src, void *dest, ssize_t nbytes)
+{
+  const unsigned char *s = (const unsigned char *) src;
+  unsigned char *d = (unsigned char *) dest;
+  if (nbytes > 1)
+    {
+      nbytes -= (nbytes & 1) ? 1 : 0;
 
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SWAB@
-#  if !HAVE_SWAB
-extern void swab (const void *src, void *dest, ssize_t nbytes);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+      do
+        {
+          const unsigned char t0 = s[--nbytes];
+          const unsigned char t1 = s[--nbytes];
+          d[nbytes] = t0;
+          d[nbytes + 1] = t1;
+        }
+      while (nbytes > 1);
+    }
+}

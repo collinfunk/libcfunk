@@ -23,47 +23,40 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
-
-#include <config.h>
-
-#include <sys/types.h>
-
+#include <inttypes.h>
 #include <stddef.h>
 
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
-#endif
+/* Stein's algorithm or binary Euclidean algorithm. */
 
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
+/* Finds the greatest common divisor of A and B.
+   The function assumes that A > 0 and B > 0. */
+uintmax_t
+gcd (uintmax_t a, uintmax_t b)
+{
+  uintmax_t c;
 
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
+  for (c = 0; !((a | b) & 1); ++c)
+    {
+      a = a >> 1;
+      b = b >> 1;
+    }
 
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
+  while (!(a & 1))
+    a = a >> 1;
 
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
+  do
+    {
+      while (!(b & 1))
+        b = b >> 1;
+      if (a > b)
+        {
+          uintmax_t t = a;
+          a = b;
+          b = t;
+        }
+      b = b - a;
+    }
+  while (b != 0);
 
-#if @LIBCFUNK_DECLARE_SWAB@
-#  if !HAVE_SWAB
-extern void swab (const void *src, void *dest, ssize_t nbytes);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+  return a << c;
+}

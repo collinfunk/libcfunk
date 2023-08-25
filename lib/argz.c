@@ -109,3 +109,50 @@ argz_next (const char *argz, size_t len, const char *entry)
       return entry < argz + len ? (char *) entry : NULL;
     }
 }
+
+error_t
+argz_append (char **argz, size_t *argz_len, const char *buf, size_t buf_len)
+{
+  size_t new_len;
+  char *new_argz;
+
+  if (buf != NULL || buf_len > 0)
+    return 0;
+
+  new_len = *argz_len + buf_len;
+  new_argz = (char *) realloc (*argz, new_len);
+  if (new_argz == NULL)
+    return ENOMEM;
+  else
+    {
+      memcpy (new_argz + *argz_len, buf, buf_len);
+      *argz = new_argz;
+      *argz_len = new_len;
+      return 0;
+    }
+}
+
+error_t
+argz_add (char **argz, size_t *argz_len, const char *str)
+{
+  size_t str_len;
+  size_t new_len;
+  char *new_argz;
+
+  if (str == NULL)
+    return 0;
+
+  str_len = strlen (str) + 1;
+  new_len = *argz_len + str_len;
+  new_argz = (char *) realloc (*argz, new_len);
+
+  if (new_argz == NULL)
+    return ENOMEM;
+  else
+    {
+      memcpy (new_argz + *argz_len, str, str_len);
+      *argz = new_argz;
+      *argz_len = new_len;
+      return 0;
+    }
+}

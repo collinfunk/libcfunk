@@ -88,12 +88,15 @@
 #cmakedefine01 HAVE_ISSPACE
 #cmakedefine01 HAVE_ISUPPER
 #cmakedefine01 HAVE_ISXDIGIT
+#cmakedefine01 HAVE_MEMCHR
+#cmakedefine01 HAVE_MEMRCHR
 #cmakedefine01 HAVE_MEMSET_EXPLICIT
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
 #cmakedefine01 HAVE_PUTC_UNLOCKED
+#cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SECUREZEROMEMORY
@@ -119,6 +122,7 @@
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
+#cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_TIMESPEC_GET
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP
 #cmakedefine01 HAVE_TOASCII

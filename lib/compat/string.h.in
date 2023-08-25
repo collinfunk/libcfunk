@@ -126,4 +126,22 @@ extern char *strrchr (const char *s, int c);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_MEMCHR@
+#  if !HAVE_MEMCHR
+extern void *memchr (const void *s, int c, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MEMRCHR@
+#  if !HAVE_MEMRCHR
+extern void *memrchr (const void *s, int c, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RAWMEMCHR@
+#  if !HAVE_RAWMEMCHR
+extern void *rawmemchr (const void *s, int c);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

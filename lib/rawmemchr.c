@@ -23,47 +23,18 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
-
 #include <config.h>
 
-#include <sys/types.h>
-
 #include <stddef.h>
+#include <string.h>
 
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !HAVE_GETUSERSHELL
-extern char *getusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !HAVE_SETUSERSHELL
-extern void setusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !HAVE_ENDUSERSHELL
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !HAVE_GETCWD
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SWAB@
-#  if !HAVE_SWAB
-extern void swab (const void *src, void *dest, ssize_t nbytes);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+void *
+rawmemchr (const void *s, int c)
+{
+  unsigned char *p = (unsigned char *) s;
+  for (;; ++p)
+    {
+      if (*p == (unsigned char) c)
+        return (void *) p;
+    }
+}
