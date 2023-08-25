@@ -136,7 +136,7 @@ include(cmake/copy-file.cmake)
 include(cmake/program-name.cmake)
 include(cmake/basename.cmake)
 include(cmake/dirname.cmake)
-include(cmake/termsize.cmake)
+include(cmake/term-size.cmake)
 include(cmake/gcd.cmake)
 
 # Always last

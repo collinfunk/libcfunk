@@ -10,5 +10,5 @@ target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
 )
 
 if (LIBCFUNK_BUILD_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-termsize.cmake)
+  include(${LIBCFUNK_MODULE_DIR}/test-term-size.cmake)
 endif ()
