@@ -138,6 +138,7 @@ include(cmake/basename.cmake)
 include(cmake/dirname.cmake)
 include(cmake/term-size.cmake)
 include(cmake/gcd.cmake)
+include(cmake/getpagesize.cmake)
 
 # Always last
 include(cmake/libcfunk-final.cmake)
