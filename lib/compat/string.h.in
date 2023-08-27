@@ -144,4 +144,58 @@ extern void *rawmemchr (const void *s, int c);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_MEMCMP@
+#  if !HAVE_MEMCMP
+extern int memcmp (const void *s1, const void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MEMCPY@
+#  if !HAVE_MEMCPY
+extern void *memcpy (void *s1, const void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MEMMOVE@
+#  if !HAVE_MEMMOVE
+extern void *memmove (void *s1, const void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MEMSET@
+#  if !HAVE_MEMSET
+extern void *memset (void *s, int c, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRCAT@
+#  if !HAVE_STRCAT
+extern char *strcat (char *s1, const char *s2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRCMP@
+#  if !HAVE_STRCMP
+extern int strcmp (const char *s1, const char *s2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRNCAT@
+#  if !HAVE_STRNCAT
+extern char *strncat (char *s1, const char *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRNCMP@
+#  if !HAVE_STRNCMP
+extern int strncmp (const char *s1, const char *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRNCPY@
+#  if !HAVE_STRNCPY
+extern char *strncpy (char *s1, const char *s2, size_t n);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

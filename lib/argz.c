@@ -116,7 +116,7 @@ argz_append (char **argz, size_t *argz_len, const char *buf, size_t buf_len)
   size_t new_len;
   char *new_argz;
 
-  if (buf != NULL || buf_len > 0)
+  if (buf == NULL || buf_len > 0)
     return 0;
 
   new_len = *argz_len + buf_len;
