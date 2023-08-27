@@ -198,4 +198,16 @@ extern char *strncpy (char *s1, const char *s2, size_t n);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRSPN@
+#  if !HAVE_STRSPN
+extern size_t strspn (const char *s1, const char *s2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRCSPN@
+#  if !HAVE_STRCSPN
+extern size_t strcspn (const char *s1, const char *s2);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

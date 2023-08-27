@@ -79,6 +79,8 @@ include(cmake/strcmp.cmake)
 include(cmake/strncat.cmake)
 include(cmake/strncmp.cmake)
 include(cmake/strncpy.cmake)
+include(cmake/strspn.cmake)
+include(cmake/strcspn.cmake)
 
 # <inttypes.h>
 include(cmake/strtoimax.cmake)

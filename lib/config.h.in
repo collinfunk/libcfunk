@@ -114,6 +114,7 @@
 #cmakedefine01 HAVE_STRCHR
 #cmakedefine01 HAVE_STRCHRNUL
 #cmakedefine01 HAVE_STRCMP
+#cmakedefine01 HAVE_STRCSPN
 #cmakedefine01 HAVE_STRDUP
 #cmakedefine01 HAVE_STRLEN
 #cmakedefine01 HAVE_STRMODE
@@ -126,6 +127,7 @@
 #cmakedefine01 HAVE_STRPBRK
 #cmakedefine01 HAVE_STRRCHR
 #cmakedefine01 HAVE_STRSEP
+#cmakedefine01 HAVE_STRSPN
 #cmakedefine01 HAVE_STRTOIMAX
 #cmakedefine01 HAVE_STRTOL
 #cmakedefine01 HAVE_STRTOLL
