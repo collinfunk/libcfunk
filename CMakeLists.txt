@@ -112,6 +112,7 @@ include(cmake/swab.cmake)
 # Hash functions
 include(cmake/md4.cmake)
 include(cmake/md5.cmake)
+include(cmake/sha1.cmake)
 include(cmake/sha256.cmake)
 include(cmake/sha512.cmake)
 
