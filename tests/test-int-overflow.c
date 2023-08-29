@@ -24,6 +24,7 @@
  */
 
 #include <limits.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -36,15 +37,65 @@
 #undef UINT_MIN
 #define UINT_MIN 0U
 
+static void test_type_max_unsigned (void);
+static void test_type_min_unsigned (void);
+static void test_type_max_signed (void);
+static void test_type_min_signed (void);
 static void test_int_add_range_overflow (void);
 static void test_int_sub_range_overflow (void);
+static void test_int_mul_range_overflow (void);
 
 int
 main (void)
 {
+  test_type_max_unsigned ();
+  test_type_min_unsigned ();
+  test_type_max_signed ();
+  test_type_min_signed ();
   test_int_add_range_overflow ();
   test_int_sub_range_overflow ();
+  test_int_mul_range_overflow ();
   return 0;
+}
+
+static void
+test_type_max_unsigned (void)
+{
+  ASSERT (TYPE_MAX_UNSIGNED (unsigned char) == UCHAR_MAX);
+  ASSERT (TYPE_MAX_UNSIGNED (unsigned short) == USHRT_MAX);
+  ASSERT (TYPE_MAX_UNSIGNED (unsigned int) == UINT_MAX);
+  ASSERT (TYPE_MAX_UNSIGNED (unsigned long int) == ULONG_MAX);
+  ASSERT (TYPE_MAX_UNSIGNED (unsigned long long int) == ULLONG_MAX);
+}
+
+static void
+test_type_min_unsigned (void)
+{
+  ASSERT (TYPE_MIN_UNSIGNED (unsigned char) == 0);
+  ASSERT (TYPE_MIN_UNSIGNED (unsigned short) == 0);
+  ASSERT (TYPE_MIN_UNSIGNED (unsigned int) == 0);
+  ASSERT (TYPE_MIN_UNSIGNED (unsigned long int) == 0);
+  ASSERT (TYPE_MIN_UNSIGNED (unsigned long long int) == 0);
+}
+
+static void
+test_type_max_signed (void)
+{
+  ASSERT (TYPE_MAX_SIGNED (signed char) == CHAR_MAX);
+  ASSERT (TYPE_MAX_SIGNED (signed short) == SHRT_MAX);
+  ASSERT (TYPE_MAX_SIGNED (signed int) == INT_MAX);
+  ASSERT (TYPE_MAX_SIGNED (signed long int) == LONG_MAX);
+  ASSERT (TYPE_MAX_SIGNED (signed long long int) == LLONG_MAX);
+}
+
+static void
+test_type_min_signed (void)
+{
+  ASSERT (TYPE_MIN_SIGNED (signed char) == CHAR_MIN);
+  ASSERT (TYPE_MIN_SIGNED (signed short) == SHRT_MIN);
+  ASSERT (TYPE_MIN_SIGNED (signed int) == INT_MIN);
+  ASSERT (TYPE_MIN_SIGNED (signed long int) == LONG_MIN);
+  ASSERT (TYPE_MIN_SIGNED (signed long long int) == LLONG_MIN);
 }
 
 static void
@@ -121,4 +172,67 @@ test_int_sub_range_overflow (void)
   ASSERT (INT_SUB_RANGE_OVERFLOW (UINT_MAX, -1, UINT_MIN, UINT_MAX));
   ASSERT (INT_SUB_RANGE_OVERFLOW (UINT_MIN, 2, UINT_MIN, UINT_MAX));
   ASSERT (INT_SUB_RANGE_OVERFLOW (UINT_MAX, -2, UINT_MIN, UINT_MAX));
+}
+
+static void
+test_int_mul_range_overflow (void)
+{
+  /* No overflow. */
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (INT_MIN, 0, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (INT_MAX, 0, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (INT_MIN, 1, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (INT_MAX, 1, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (INT_MIN + 1, -1, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (INT_MAX, -1, INT_MIN, INT_MAX));
+  /* a * b == b * a */
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (0, INT_MIN, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (0, INT_MAX, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (1, INT_MIN, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (1, INT_MAX, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (-1, INT_MIN + 1, INT_MIN, INT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (-1, INT_MAX, INT_MIN, INT_MAX));
+
+  /* Overflow. */
+  ASSERT (INT_MUL_RANGE_OVERFLOW (INT_MIN, 2, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (INT_MAX, 2, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (INT_MIN, 3, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (INT_MAX, 3, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (INT_MIN, -1, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (INT_MAX, -2, INT_MIN, INT_MAX));
+
+  /* a * b == b * a */
+  ASSERT (INT_MUL_RANGE_OVERFLOW (2, INT_MIN, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (2, INT_MAX, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (3, INT_MIN, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (3, INT_MAX, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (-1, INT_MIN, INT_MIN, INT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (-2, INT_MAX, INT_MIN, INT_MAX));
+
+  /* No overflow. */
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (UINT_MIN, 0, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (UINT_MAX, 0, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (UINT_MIN, 1, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (UINT_MAX, 1, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (UINT_MIN, 2, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (UINT_MIN, 3, UINT_MIN, UINT_MAX));
+  /* a * b == b * a */
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (0, UINT_MIN, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (0, UINT_MAX, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (1, UINT_MIN, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (1, UINT_MAX, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (2, UINT_MIN, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_MUL_RANGE_OVERFLOW (3, UINT_MIN, UINT_MIN, UINT_MAX));
+
+  /* Overflow. */
+  ASSERT (INT_MUL_RANGE_OVERFLOW (UINT_MAX, 2, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (UINT_MAX, 3, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (UINT_MAX, -1, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (UINT_MAX, -2, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (UINT_MAX, -3, UINT_MIN, UINT_MAX));
+  /* a * b == b * a */
+  ASSERT (INT_MUL_RANGE_OVERFLOW (2, UINT_MAX, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (3, UINT_MAX, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (-1, UINT_MAX, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (-2, UINT_MAX, UINT_MIN, UINT_MAX));
+  ASSERT (INT_MUL_RANGE_OVERFLOW (-3, UINT_MAX, UINT_MIN, UINT_MAX));
 }

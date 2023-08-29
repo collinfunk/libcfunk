@@ -29,8 +29,28 @@
 #include <limits.h>
 #include <stdint.h>
 
+#undef TYPE_MAX_UNSIGNED
+#undef TYPE_MIN_UNSIGNED
+#undef TYPE_MAX_SIGNED
+#undef TYPE_MIN_SIGNED
 #undef INT_ADD_RANGE_OVERFLOW
 #undef INT_SUB_RANGE_OVERFLOW
+#undef INT_MUL_RANGE_OVERFLOW
+#undef INT_DIV_RANGE_OVERFLOW
+
+/* type TYPE_MAX_UNSIGNED */
+#define TYPE_MAX_UNSIGNED(type)                                               \
+  ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 1)) - 1) * 2) + 1)
+
+/* type TYPE_MIN_UNSIGNED */
+#define TYPE_MIN_UNSIGNED(type) ((type) 0)
+
+/* type TYPE_MAX_SIGNED */
+#define TYPE_MAX_SIGNED(type)                                                 \
+  ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1)
+
+/* type TYPE_MIN_SIGNED */
+#define TYPE_MIN_SIGNED(type) (~TYPE_MAX_SIGNED (type))
 
 /* bool INT_ADD_RANGE_OVERFLOW */
 #define INT_ADD_RANGE_OVERFLOW(a, b, min, max)                                \
@@ -45,5 +65,19 @@
    : (a) < 0 ? 1                                                              \
    : (b) < 0 ? (a) >= (a) - (b)                                               \
              : (a) < (b))
+
+/* bool INT_MUL_RANGE_OVERFLOW */
+#define INT_MUL_RANGE_OVERFLOW(a, b, min, max)                                \
+  ((a) > 0   ? (b) > 0   ? (a) > (max) / (b)                                  \
+               : (b) < 0 ? (min) == 0 ? 1 : (b) < (min) / (a)                 \
+                         : 0                                                  \
+   : (a) < 0 ? (b) > 0   ? (min) == 0 ? 1 : (a) < (min) / (b)                 \
+                 : (b) < 0 ? b < (max) / (a)                                  \
+                         : 0                                                  \
+             : 0)
+
+/* bool INT_DIV_RANGE_OVERFLOW */
+/* TODO */
+/* #define INT_DIV_RANGE_OVERFLOW(a, b, min, max) */
 
 #endif /* INT_OVERFLOW_H */
