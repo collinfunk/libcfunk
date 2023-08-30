@@ -47,11 +47,25 @@ main (int argc, char **argv)
   ASSERT (get_program_name () == NULL);
   set_program_name (argv[0]);
   ASSERT (get_program_name () != NULL);
+  ASSERT (getprogname () != NULL);
+  ASSERT (getexecname () != NULL);
 
   printf ("argv[0]:             \"%s\"\n", argv[0]);
   printf ("get_program_name (): \"%s\"\n", get_program_name ());
+  printf ("getprogname ():      \"%s\"\n", getprogname ());
+  printf ("getexecname ():      \"%s\"\n", getexecname ());
+  printf ("\n\n");
 
+  /* Make sure any needed required internal buffers are set. */
+  printf ("argv[0]:             \"%s\"\n", argv[0]);
+  printf ("get_program_name (): \"%s\"\n", get_program_name ());
+  printf ("getprogname ():      \"%s\"\n", getprogname ());
+  printf ("getexecname ():      \"%s\"\n", getexecname ());
+
+  /* These may fail on some operating systems. */
   ASSERT (strcmp (get_program_name (), PROGRAM_NAME) == 0);
+  ASSERT (strcmp (get_program_name (), getprogname ()) == 0);
+  ASSERT (strcmp (getexecname (), argv[0]) == 0);
 
   return 0;
 }

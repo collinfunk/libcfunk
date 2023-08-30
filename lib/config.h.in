@@ -68,9 +68,11 @@
 #cmakedefine01 HAVE_GETENTROPY
 #cmakedefine01 HAVE_GETENV
 #cmakedefine01 HAVE_GETEUID
+#cmakedefine01 HAVE_GETEXECNAME
 #cmakedefine01 HAVE_GETGID
 #cmakedefine01 HAVE_GETLINE
 #cmakedefine01 HAVE_GETPAGESIZE
+#cmakedefine01 HAVE_GETPROGNAME
 #cmakedefine01 HAVE_GETRANDOM
 #cmakedefine01 HAVE_GETTIMEOFDAY
 #cmakedefine01 HAVE_GETUID
@@ -102,6 +104,8 @@
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
+#cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
+#cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_RAWMEMCHR
@@ -109,6 +113,7 @@
 #cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SECURE_GETENV
+#cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_STPCPY
 #cmakedefine01 HAVE_STPNCPY
@@ -150,5 +155,7 @@
 #cmakedefine01 HAVE__PUTCHAR_NOLOCK
 #cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE__UNLOCK_FILE
+#cmakedefine01 HAVE___ARGC
+#cmakedefine01 HAVE___ARGV
 
 #endif /* CONFIG_H */

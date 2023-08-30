@@ -89,7 +89,7 @@ copy_file (const char *src, const char *dest)
         break;
 
       /* Write to the copy. */
-      if (write_full (dest_fd, buffer, current_read) != current_read)
+      if (write_full (dest_fd, buffer, current_read) != (size_t) current_read)
         {
           close (src_fd);
           close (dest_fd);

@@ -41,4 +41,20 @@ extern void set_program_name (const char *file_name);
    has not been called. */
 extern const char *get_program_name (void);
 
+/* This function emulates getprogname(3) from BSD with OS-specific interfaces.
+   If an operating system does not have an implementation then a default
+   string is returned. This function prioritizes operating system interfaces
+   that return the basename of the current process. If the program is executed
+   by the shell command `/usr/bin/abc', then this function would try to
+   return `abc'. */
+extern const char *getprogname (void);
+
+/* This function emulates getprogname(3) from Solaris with OS-specific
+   interfaces. If an operating system does not have an implementation a default
+   string is returned. This function prioritizes operating system interfaces
+   that return the complete path of the current process. If the program is
+   executed by the shell command `abc' where `abc' is a program in the user's
+   $PATH, this function would try to return the full path to the executable. */
+extern const char *getexecname (void);
+
 #endif /* PROGRAM_NAME_H */
