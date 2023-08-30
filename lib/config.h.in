@@ -46,6 +46,7 @@
 
 #cmakedefine01 HAVE_BCMP
 #cmakedefine01 HAVE_BCOPY
+#cmakedefine01 HAVE_BSEARCH
 #cmakedefine01 HAVE_BZERO
 #cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_DYSIZE
@@ -96,6 +97,8 @@
 #cmakedefine01 HAVE_MEMRCHR
 #cmakedefine01 HAVE_MEMSET
 #cmakedefine01 HAVE_MEMSET_EXPLICIT
+#cmakedefine01 HAVE_MKDTEMP
+#cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL

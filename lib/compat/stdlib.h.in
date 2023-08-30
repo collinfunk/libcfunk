@@ -65,9 +65,29 @@ extern unsigned long long int strtoull (const char *str, char **endptr,
 #  endif
 #endif
 
-#if !@LIBCFUNK_DECLARE_SECURE_GETENV@
+#if @LIBCFUNK_DECLARE_SECURE_GETENV@
 #  if !HAVE_SECURE_GETENV
 extern char *secure_getenv (const char *name);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MKSTEMP@
+#  if !HAVE_MKSTEMP
+extern int mkstemp (char *template);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MKDTEMP@
+#  if !HAVE_MKDTEMP
+extern char *mkdtemp (char *template);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_BSEARCH@
+#  if !HAVE_BSEARCH
+extern void *bsearch (const void *key, const void *base, size_t nel,
+                      size_t width, int (*compar) (const void *,
+                                                   const void *));
 #  endif
 #endif
 
