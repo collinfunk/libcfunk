@@ -38,18 +38,18 @@
 #undef INT_MUL_RANGE_OVERFLOW
 #undef INT_DIV_RANGE_OVERFLOW
 
-/* type TYPE_MAX_UNSIGNED */
+/* type TYPE_MAX_UNSIGNED(type) */
 #define TYPE_MAX_UNSIGNED(type)                                               \
   ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 1)) - 1) * 2) + 1)
 
-/* type TYPE_MIN_UNSIGNED */
+/* type TYPE_MIN_UNSIGNED(type) */
 #define TYPE_MIN_UNSIGNED(type) ((type) 0)
 
-/* type TYPE_MAX_SIGNED */
+/* type TYPE_MAX_SIGNED(type) */
 #define TYPE_MAX_SIGNED(type)                                                 \
   ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1)
 
-/* type TYPE_MIN_SIGNED */
+/* type TYPE_MIN_SIGNED(type) */
 #define TYPE_MIN_SIGNED(type) (~TYPE_MAX_SIGNED (type))
 
 /* bool INT_ADD_RANGE_OVERFLOW */
@@ -77,7 +77,11 @@
              : 0)
 
 /* bool INT_DIV_RANGE_OVERFLOW */
-/* TODO */
-/* #define INT_DIV_RANGE_OVERFLOW(a, b, min, max) */
+#define INT_DIV_RANGE_OVERFLOW(a, b, min, max)                                \
+  ((b) == 0    ? 1                                                            \
+   : (min) < 0 ? (a) == (min) ? (b) == -1 ? 1 : 0 : 0                         \
+   : (a) < 0   ? (b) < (a) + (b)                                              \
+   : (b) < 0   ? (a) >= (a) + (b) ? 1 : 0                                     \
+               : 0)
 
 #endif /* INT_OVERFLOW_H */

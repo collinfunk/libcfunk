@@ -44,6 +44,7 @@ static void test_type_min_signed (void);
 static void test_int_add_range_overflow (void);
 static void test_int_sub_range_overflow (void);
 static void test_int_mul_range_overflow (void);
+static void test_int_div_range_overflow (void);
 
 int
 main (void)
@@ -55,6 +56,7 @@ main (void)
   test_int_add_range_overflow ();
   test_int_sub_range_overflow ();
   test_int_mul_range_overflow ();
+  test_int_div_range_overflow ();
   return 0;
 }
 
@@ -235,4 +237,27 @@ test_int_mul_range_overflow (void)
   ASSERT (INT_MUL_RANGE_OVERFLOW (-1, UINT_MAX, UINT_MIN, UINT_MAX));
   ASSERT (INT_MUL_RANGE_OVERFLOW (-2, UINT_MAX, UINT_MIN, UINT_MAX));
   ASSERT (INT_MUL_RANGE_OVERFLOW (-3, UINT_MAX, UINT_MIN, UINT_MAX));
+}
+
+static void
+test_int_div_range_overflow (void)
+{
+  /* No overflow. */
+  ASSERT (!INT_DIV_RANGE_OVERFLOW (INT_MIN, 1, INT_MIN, INT_MAX));
+  ASSERT (!INT_DIV_RANGE_OVERFLOW (INT_MAX, 1, INT_MIN, INT_MAX));
+  ASSERT (!INT_DIV_RANGE_OVERFLOW (INT_MAX, -1, INT_MIN, INT_MAX));
+
+  /* Overflow. */
+  ASSERT (INT_DIV_RANGE_OVERFLOW (INT_MIN, 0, INT_MIN, INT_MAX));
+  ASSERT (INT_DIV_RANGE_OVERFLOW (INT_MAX, 0, INT_MIN, INT_MAX));
+  ASSERT (INT_DIV_RANGE_OVERFLOW (INT_MIN, -1, INT_MIN, INT_MAX));
+
+  /* No overflow. */
+  ASSERT (!INT_DIV_RANGE_OVERFLOW (UINT_MIN, 1, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_DIV_RANGE_OVERFLOW (UINT_MAX, 1, UINT_MIN, UINT_MAX));
+  ASSERT (!INT_DIV_RANGE_OVERFLOW (UINT_MIN, -1, UINT_MIN, UINT_MAX));
+
+  ASSERT (INT_DIV_RANGE_OVERFLOW (UINT_MIN, 0, UINT_MIN, UINT_MAX));
+  ASSERT (INT_DIV_RANGE_OVERFLOW (UINT_MIN, 0, UINT_MIN, UINT_MAX));
+  ASSERT (INT_DIV_RANGE_OVERFLOW (UINT_MAX, -1, UINT_MIN, UINT_MAX));
 }
