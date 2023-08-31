@@ -38,6 +38,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "filename.h"
 #include "program-name.h"
 
 #ifndef PATH_MAX
@@ -50,23 +51,28 @@
 
 /* Could just extern this in the header but it seems like it might cause
    collisions. */
-const char *program_name = NULL;
+static const char *program_name = NULL;
 
 /* Default filename to return for systems where getprogname(3) and
    getexecname(3) have not been implemented. */
 static const char default_program_name[8] = "unknown";
 
-#if !HAVE_PROGRAM_INVOCATION_NAME && !HAVE_GETEXECNAME && !HAVE___ARGV        \
-    && !HAVE__PROGNAME && !HAVE__GETPROGNAME
+/* Some implementations of getprogname and getexecname use pointers to
+   allocated memory. Since the real implementation's of these functions are
+   not malloc'ed, free(3) will not be called on these pointers. Since the
+   allocations are done once and they are only the size of a filename, it
+   shouldn't be a big deal.
+ */
+#if !HAVE_PROGRAM_INVOCATION_NAME && !HAVE_PROGRAM_INVOCATION_SHORT_NAME      \
+    && !HAVE_GET_GETEXECNAME && !HAVE__PROGNAME && !HAVE___ARGV
 static int exec_name_initialized = 0;
-static char exec_name[PATH_MAX];
+static char *exec_name = NULL;
 #endif
 
-#if !HAVE_PROGRAM_INVOCATION_SHORT_NAME && !HAVE_PROGRAM_INVOCATION_NAME      \
-    && !HAVE___PROGNAME && !HAVE_GETPROGNAME && !HAVE_GETEXECNAME             \
-    && !HAVE___ARGV
+#if !HAVE_PROGRAM_INVOCATION_NAME && !HAVE_PROGRAM_INVOCATION_SHORT_NAME      \
+    && !HAVE_GET_GETEXECNAME && !HAVE__PROGNAME && !HAVE___ARGV
 static int prog_name_initialized = 0;
-static char prog_name[PATH_MAX];
+static char *prog_name = NULL;
 #endif
 
 /* BSD */
@@ -87,8 +93,7 @@ extern char *program_invocation_short_name;
 void
 set_program_name (const char *file_name)
 {
-  const char *fixed_name = strrchr (file_name, '/');
-  program_name = fixed_name != NULL ? fixed_name + 1 : file_name;
+  program_name = filename_last_component (file_name);
 }
 
 const char *
@@ -107,38 +112,33 @@ getprogname (void)
 #  elif __HAVE_PROGNAME
   return (const char *) __progname;
 #  elif HAVE_GETEXECNAME
-  const char *exec_name = getexecname ();
-  if (exec_name != NULL)
-    {
-      const char *fixed_name = strrchr (exec_name, '/');
-      return fixed_name != NULL ? fixed_name + 1 : exec_name;
-    }
+  const char *gexec_name = getexecname ();
+  if (gexec_name != NULL)
+    return filename_last_component (gexec_name);
 #  elif HAVE_PROGRAM_INVOCATION_NAME
-  const char *fixed_name = strrchr (program_invocation_name, '/');
-  return program_invocation_name != NULL ? fixed_name + 1
-                                         : program_invocation_name;
+  return filename_last_component (program_invocation_name);
 #  elif HAVE___ARGV
-  const char *fixed_name = strrchr (__argv[0], '/');
-  fixed_name = fixed_name != NULL ? fixed_name + 1 : __argv[0];
-  fixed_name = strrchr (__argv[0], '\\');
-  fixed_name = fixed_name != NULL ? fixed_name + 1 : __argv[0];
-  return fixed_name;
+  /* TODO: malloc and strip the .exe extension? */
+  return filename_last_component (__argv[0]);
 #  elif defined(_WIN32)
+  char buffer[PATH_MAX];
   /* https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamea */
   if (prog_name_initialized)
     return (const char *) prog_name;
   else
     {
-      if (GetModuleFileName (NULL, prog_name, sizeof (prog_name)))
+      if (GetModuleFileName (NULL, buffer, sizeof (buffer)))
         {
-          /* FIXME: \\ :/ */
-          const char *fixed_name = strrchr (prog_name, '/');
-          fixed_name = fixed_name != NULL ? fixed_name + 1 : prog_name;
-          fixed_name = strrchr (prog_name, '\\');
-          fixed_name = fixed_name != NULL ? fixed_name + 1 : prog_name;
-          prog_name_initialized = 1;
-          return (const char *) memmove (prog_name, fixed_name,
-                                         strlen (fixed_name) + 1);
+          char *last = (char *) filename_last_component (buffer);
+          size_t last_len;
+          filename_strip_extension (last);
+          last_len = strlen (last);
+          prog_name = (char *) malloc (last_len + 1);
+          if (prog_name != NULL)
+            {
+              prog_name_initialized = 1;
+              return (const char *) memcpy (prog_name, last, last_len + 1);
+            }
         }
     }
 #  elif !defined(_WIN32) /* Check for procfs file before returning a
@@ -159,6 +159,7 @@ getprogname (void)
       if (fd >= 0)
         {
           size_t total_read = 0;
+          size_t len;
           const char *p;
 
           while (total_read < sizeof (buffer))
@@ -169,14 +170,22 @@ getprogname (void)
                 break;
               total_read += current_read;
             }
-          buffer[total_read] = '\0';
-          p = strrchr (buffer, '/');
-          p = p != NULL ? p + 1 : (const char *) buffer;
 
-          memcpy (prog_name, p, strlen (p) + 1);
-          close (fd);
-          prog_name_initialized = 1;
-          return prog_name;
+          buffer[total_read] = '\0';
+
+          p = filename_last_component (buffer);
+          len = strlen (p);
+
+          prog_name = (char *) malloc (len + 1);
+          if (prog_name != NULL)
+            {
+              memcpy (prog_name, p, len + 1);
+              close (fd);
+              prog_name_initialized = 1;
+              return prog_name;
+            }
+          else
+            close (fd);
         }
     }
 #  endif
@@ -194,24 +203,30 @@ getexecname (void)
 #  elif HAVE___ARGV
   return (const char *) __argv[0];
 #  elif defined(_WIN32)
+  char buffer[PATH_MAX];
   /* https://learn.microsoft.com/en-us/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamea */
   if (exec_name_initialized)
     return (const char *) exec_name;
   else
     {
-      if (GetModuleFileName (NULL, exec_name, sizeof (exec_name)))
+      if (GetModuleFileName (NULL, buffer, sizeof (buffer)))
         {
-          exec_name_initialized = 1;
-          return (const char *) exec_name;
+          size_t exec_name_len = strlen (buffer);
+          exec_name = (char *) malloc (exec_name_len + 1);
+          if (exec_name != NULL)
+            {
+              exec_name_initialized = 1;
+              return (const char *) memcpy (exec_name, buffer,
+                                            exec_name_len + 1);
+            }
         }
     }
-#  elif HAVE_PROGRAM_INVOCATION_SHORT_NAME
+#  elif 0 && HAVE_PROGRAM_INVOCATION_SHORT_NAME
   return (const char *) program_invocation_short_name;
 #  elif __HAVE_PROGNAME
   return (const char *) __progname;
 #  elif !defined(_WIN32) /* Check for procfs file before returning a
                             generic string. */
-
   pid_t current_pid = getpid ();
   int fd;
   char proc_file[PATH_MAX];
@@ -227,6 +242,7 @@ getexecname (void)
       if (fd >= 0)
         {
           size_t total_read = 0;
+          size_t len;
 
           while (total_read < sizeof (buffer))
             {
@@ -238,11 +254,18 @@ getexecname (void)
             }
 
           buffer[total_read] = '\0';
+          len = strlen (buffer);
 
-          memcpy (exec_name, buffer, strlen (buffer) + 1);
-          close (fd);
-          exec_name_initialized = 1;
-          return exec_name;
+          exec_name = (char *) malloc (len + 1);
+          if (exec_name != NULL)
+            {
+              memcpy (exec_name, buffer, len + 1);
+              close (fd);
+              exec_name_initialized = 1;
+              return exec_name;
+            }
+          else
+            close (fd);
         }
     }
 #  endif

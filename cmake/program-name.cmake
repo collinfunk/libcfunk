@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include(${LIBCFUNK_MODULE_DIR}/filename.cmake)
+
 # glibc
 check_symbol_exists(program_invocation_name "errno.h" HAVE_PROGRAM_INVOCATION_NAME)
 check_symbol_exists(program_invocation_short_name "errno.h" HAVE_PROGRAM_INVOCATION_SHORT_NAME)
@@ -62,9 +64,9 @@ if (NOT HAVE_GETEXECNAME)
 endif ()
 
 if (NOT HAVE___ARGC)
-  set (HAVE__ARGC 0)
+  set (HAVE___ARGC 0)
 endif ()
 
 if (NOT HAVE___ARGV)
-  set(HAVE__ARGV 0)
+  set(HAVE___ARGV 0)
 endif ()

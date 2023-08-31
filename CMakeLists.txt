@@ -51,6 +51,8 @@ include(cmake/time.cmake)
 include(cmake/sys-time.cmake)
 include(cmake/ctype.cmake)
 include(cmake/unistd.cmake)
+include(cmake/err.cmake)
+
 
 # <string.h>
 include(cmake/explicit-bzero.cmake)

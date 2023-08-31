@@ -83,3 +83,10 @@ if (LIBCFUNK_GENERATE_UNISTD_H)
   )
 endif ()
 
+if (LIBCFUNK_GENERATE_ERR_H)
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/err.h.in
+    ${LIBCFUNK_BUILD_DIR}/compat/err.h
+  )
+endif ()
+
