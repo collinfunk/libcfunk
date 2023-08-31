@@ -23,54 +23,52 @@
  * SUCH DAMAGE.
  */
 
+#include <errno.h>
+#include <error.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include "filename.h"
 #include "program-name.h"
 #include "test-help.h"
 
-/* The name of this executable without any directory components.
-   If you run this program from "/home/user/src/test-program-name",
-   get_program_name () should return "test-program-name" */
-#ifndef PROGRAM_NAME
-#  ifdef _WIN32
-#    define PROGRAM_NAME "test-program-name.exe"
-#  else
-#    define PROGRAM_NAME "test-program-name"
-#  endif
-#endif
+static void custom_print_name (void);
 
 int
 main (int argc, char **argv)
 {
-  /* Pointless check to silence compiler errors :) */
+  int i;
+
+  /* Silence warnings. */
   if (argc < 0)
     abort ();
 
-  ASSERT (get_program_name () == NULL);
+  /* This should print 5 times. */
+  for (i = 0; i < 5; ++i)
+    error_at_line (0, EACCES, __FILE__, __LINE__, "%d print multple", i);
+  ASSERT (error_message_count == 5);
+
+  /* This should print 1 time. */
+  error_one_per_line = 1;
+  for (i = 0; i < 5; ++i)
+    error_at_line (0, EEXIST, __FILE__, __LINE__, "%d print once", i);
+  ASSERT (error_message_count == 6);
+
+  /* Use get_program_name instead of getprogname. */
   set_program_name (argv[0]);
-  ASSERT (get_program_name () != NULL);
-  ASSERT (getprogname () != NULL);
-  ASSERT (getexecname () != NULL);
+  error (0, ENOENT, "%d %s", 1, "error");
+  ASSERT (error_message_count == 7);
 
-  printf ("argv[0]:             \"%s\"\n", argv[0]);
-  printf ("get_program_name (): \"%s\"\n", get_program_name ());
-  printf ("getprogname ():      \"%s\"\n", getprogname ());
-  printf ("getexecname ():      \"%s\"\n", getexecname ());
-  printf ("\n\n");
-
-  /* Make sure any needed required internal buffers are set. */
-  printf ("argv[0]:             \"%s\"\n", argv[0]);
-  printf ("get_program_name (): \"%s\"\n", get_program_name ());
-  printf ("getprogname ():      \"%s\"\n", getprogname ());
-  printf ("getexecname ():      \"%s\"\n", getexecname ());
-
-  /* These may fail on some operating systems. */
-  ASSERT (strcmp (get_program_name (), PROGRAM_NAME) == 0);
-  ASSERT (strcmp (get_program_name (), getprogname ()) == 0);
-  ASSERT (strcmp (getexecname (), argv[0]) == 0);
+  /* Use a function pointer to print the program name. */
+  error_print_progname = custom_print_name;
+  error (0, 0, "%d %s", 2, "function pointer print");
+  ASSERT (error_message_count == 8);
 
   return 0;
+}
+
+static void
+custom_print_name (void)
+{
+  fprintf (stderr, "custom_print_name (): ");
 }

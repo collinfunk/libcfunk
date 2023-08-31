@@ -90,3 +90,9 @@ if (LIBCFUNK_GENERATE_ERR_H)
   )
 endif ()
 
+if (LIBCFUNK_GENERATE_ERROR_H)
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/error.h.in
+    ${LIBCFUNK_BUILD_DIR}/compat/error.h
+  )
+endif ()
