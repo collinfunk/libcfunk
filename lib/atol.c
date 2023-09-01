@@ -23,73 +23,15 @@
  * SUCH DAMAGE.
  */
 
-/* #include <config.h> */
+#define ATOI_FUNC_NAME atol
+#define ATOI_INT_TYPE long int
+#define ATOI_SIGNED_INT_TYPE signed long int
+#define ATOI_UNSIGNED_INT_TYPE unsigned long int
+#define ATOI_INT_MAX LONG_MAX
+#define ATOI_INT_MIN LONG_MIN
+#define ATOI_SIGNED_INT_MAX LONG_MAX
+#define ATOI_SIGNED_INT_MIN LONG_MIN
+#define ATOI_UNSIGNED_INT_MAX ULONG_MAX
+#define ATOI_UNSIGNED_INT_MIN ULONG_MIN
 
-#include <ctype.h>
-#include <limits.h>
-#include <stddef.h>
-#include <string.h>
-
-/* XXX: Changes to atoi.c, atol.c, and atoll.c files should, in most cases, be
-   used in all of the functions. The example sed commands given below can help
-   with this. */
-/* sed -e 's/atoi/atol/g' -e 's/int/long int/g' -e 's/INT_MAX/LONG_MAX/g' atoi.c */
-/* sed -e 's/atoi/atoll/g' -e 's/int/long long int/g' -e 's/INT_MAX/LLONG_MAX/g' atoi.c */
-/* sed -e 's/atoll/atoi/g' -e 's/long long int/int/g' -e 's/LLONG_MAX/INT_MAX/g' atoi.c */
-
-/* Use strol instead of this. */
-long int
-atol (const char *str)
-{
-  unsigned char ch;
-  long int value;
-  long int negative;
-
-  /* Skip leading whitespace characters. */
-  while (isspace ((unsigned char) *str))
-    str++;
-
-  /* Check for a sign character. */
-  switch (*str)
-    {
-    case '-':
-      negative = 1;
-      str++;
-      break;
-    case '+':
-      negative = 0;
-      str++;
-      break;
-    default:
-      negative = 0;
-      break;
-    }
-
-  value = 0;
-  for (;; ++str)
-    {
-      ch = *str;
-
-      if (ch == '\0')
-        break;
-      if (isdigit (ch))
-        ch -= '0';
-      else
-        break;
-
-      /* VALUE * 10 overflows long int. */
-      if (value > LONG_MAX / 10)
-        return negative ? -LONG_MAX : LONG_MAX;
-      else
-        {
-          value *= 10;
-          /* VALUE + CH overflows long int. */
-          if (value > LONG_MAX - (long int) ch)
-            return negative ? -LONG_MAX : LONG_MAX;
-          else
-            value += (long int) ch;
-        }
-    }
-
-  return negative ? -value : value;
-}
+#include "atoi.c"

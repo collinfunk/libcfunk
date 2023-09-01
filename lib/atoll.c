@@ -23,73 +23,15 @@
  * SUCH DAMAGE.
  */
 
-/* #include <config.h> */
+#define ATOI_FUNC_NAME atoll
+#define ATOI_INT_TYPE long long int
+#define ATOI_SIGNED_INT_TYPE signed long long int
+#define ATOI_UNSIGNED_INT_TYPE unsigned long long int
+#define ATOI_INT_MAX LLONG_MAX
+#define ATOI_INT_MIN LLONG_MIN
+#define ATOI_SIGNED_INT_MAX LLONG_MAX
+#define ATOI_SIGNED_INT_MIN LLONG_MIN
+#define ATOI_UNSIGNED_INT_MAX ULLONG_MAX
+#define ATOI_UNSIGNED_INT_MIN ULLONG_MIN
 
-#include <ctype.h>
-#include <limits.h>
-#include <stddef.h>
-#include <string.h>
-
-/* XXX: Changes to atoi.c, atol.c, and atoll.c files should, in most cases, be
-   used in all of the functions. The example sed commands given below can help
-   with this. */
-/* sed -e 's/atoi/atol/g' -e 's/int/long int/g' -e 's/INT_MAX/LONG_MAX/g' atoi.c */
-/* sed -e 's/atoi/atoll/g' -e 's/int/long long int/g' -e 's/INT_MAX/LLONG_MAX/g' atoi.c */
-/* sed -e 's/atoll/atoi/g' -e 's/long long int/int/g' -e 's/LLONG_MAX/INT_MAX/g' atoi.c */
-
-/* Use stroll instead of this. */
-long long int
-atoll (const char *str)
-{
-  unsigned char ch;
-  long long int value;
-  long long int negative;
-
-  /* Skip leading whitespace characters. */
-  while (isspace ((unsigned char) *str))
-    str++;
-
-  /* Check for a sign character. */
-  switch (*str)
-    {
-    case '-':
-      negative = 1;
-      str++;
-      break;
-    case '+':
-      negative = 0;
-      str++;
-      break;
-    default:
-      negative = 0;
-      break;
-    }
-
-  value = 0;
-  for (;; ++str)
-    {
-      ch = *str;
-
-      if (ch == '\0')
-        break;
-      if (isdigit (ch))
-        ch -= '0';
-      else
-        break;
-
-      /* VALUE * 10 overflows long long int. */
-      if (value > LLONG_MAX / 10)
-        return negative ? -LLONG_MAX : LLONG_MAX;
-      else
-        {
-          value *= 10;
-          /* VALUE + CH overflows long long int. */
-          if (value > LLONG_MAX - (long long int) ch)
-            return negative ? -LLONG_MAX : LLONG_MAX;
-          else
-            value += (long long int) ch;
-        }
-    }
-
-  return negative ? -value : value;
-}
+#include "atoi.c"
