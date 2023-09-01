@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-check_include_file("unistd.h" HAVE_UNISTD_H)
+libcfunk_check_include_file("unistd.h" HAVE_UNISTD_H)
 
 set(LIBCFUNK_GENERATE_UNISTD_H TRUE)
 
@@ -12,9 +12,4 @@ set(LIBCFUNK_DECLARE_ENDUSERSHELL 0)
 set(LIBCFUNK_DECLARE_GETCWD 0)
 set(LIBCFUNK_DECLARE_SWAB 0)
 set(LIBCFUNK_DECLARE_GETPAGESIZE 0)
-
-if (HAVE_UNISTD_H)
-else ()
-  set(HAVE_UNISTD_H 0)
-endif ()
 

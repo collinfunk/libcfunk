@@ -1,7 +1,5 @@
 
 include_guard(GLOBAL)
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/filename.h
-  ${LIBCFUNK_SOURCE_DIR}/filename.c
-)
+libcfunk_add_sources("filename.h;filename.c")
+

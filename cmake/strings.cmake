@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-check_include_file("strings.h" HAVE_STRINGS_H)
+libcfunk_check_include_file("strings.h" HAVE_STRINGS_H)
 
 set(LIBCFUNK_GENERATE_STRINGS_H TRUE)
 
@@ -19,9 +19,4 @@ set(LIBCFUNK_DECLARE_BCOPY 0)
 set(LIBCFUNK_DECLARE_BZERO 0)
 set(LIBCFUNK_DECLARE_INDEX 0)
 set(LIBCFUNK_DECLARE_RINDEX 0)
-
-if (HAVE_STRINGS_H)
-else ()
-  set(HAVE_STRINGS_H 0)
-endif ()
 

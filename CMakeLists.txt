@@ -11,29 +11,24 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Work in progress build system allowing only the functions a
 # program needs. This CMakeLists.txt file is used for testing.
 
-if (NOT DEFINED LIBCFUNK_LIBRARY_NAME)
-  set(LIBCFUNK_LIBRARY_NAME cfunk)
-endif ()
+set(LIBCFUNK_LIBRARY_NAME "cfunk" CACHE STRING "The name of the library \
+that is built, excluding the lib prefix.")
 
-if (NOT DEFINED LIBCFUNK_SOURCE_DIR)
-  set(LIBCFUNK_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/lib)
-endif ()
+set(LIBCFUNK_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/lib" CACHE STRING
+"The directory containing all source files for the library.")
 
-if (NOT DEFINED LIBCFUNK_TEST_SOURCE_DIR)
-  set(LIBCFUNK_TEST_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/tests)
-endif ()
+set (LIBCFUNK_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/lib" CACHE STRING
+"The directory where the library file is stored when built.")
 
-if (NOT DEFINED LIBCFUNK_TEST_BUILD_DIR)
-  set(LIBCFUNK_TEST_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/tests)
-endif ()
+set(LIBCFUNK_TEST_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/tests" CACHE STRING
+"The directory containing all test source files.")
 
-if (NOT DEFINED LIBCFUNK_BUILD_DIR)
-  set(LIBCFUNK_BUILD_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib)
-endif ()
+set(LIBCFUNK_TEST_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}/tests" CACHE STRING
+"The directory where all test executables are stored when built.")
 
-if (NOT DEFINED LIBCFUNK_MODULE_DIR)
-  set(LIBCFUNK_MODULE_DIR ${CMAKE_CURRENT_LIST_DIR}/cmake)
-endif ()
+set(LIBCFUNK_MODULE_DIR "${CMAKE_CURRENT_LIST_DIR}/cmake" CACHE STRING
+"The directory where all .cmake files containing build instructions \
+are located.")
 
 # Always comes first
 include(cmake/libcfunk-init.cmake)

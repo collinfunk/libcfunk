@@ -3,15 +3,11 @@ include_guard(GLOBAL)
 
 include(${LIBCFUNK_MODULE_DIR}/string.cmake)
 
-check_symbol_exists(stpcpy "string.h" HAVE_STPCPY)
+libcfunk_check_symbol_exists(stpcpy "string.h" HAVE_STPCPY)
 
 set(LIBCFUNK_DECLARE_STPCPY 1)
 
 if (NOT HAVE_STPCPY)
-  set(HAVE_STPCPY 0)
-
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/stpcpy.c
-  )
+    libcfunk_add_sources("stpcpy.c")
 endif ()
 

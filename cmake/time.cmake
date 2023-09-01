@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-check_include_file("time.h" HAVE_TIME_H)
+libcfunk_check_include_file("time.h" HAVE_TIME_H)
 
 set(LIBCFUNK_GENERATE_TIME_H TRUE)
 
