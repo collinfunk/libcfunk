@@ -39,7 +39,7 @@ timespec_get (struct timespec *ts, int base)
     return 0;
 
     /* POSIX Issue 5 Realtime Extension. */
-#if HAVE_CLOCKGETTIME && defined(CLOCK_REALTIME)
+#if HAVE_CLOCK_GETTIME && defined(CLOCK_REALTIME)
   /* I don't think this can ever fail? Might be pointless to check. */
   return clock_gettime (CLOCK_REALTIME, ts) < 0 ? 0 : base;
 #elif HAVE_GETTIMEOFDAY

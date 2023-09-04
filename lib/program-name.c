@@ -64,19 +64,19 @@ static const char default_program_name[8] = "unknown";
    shouldn't be a big deal.
  */
 #if !HAVE_PROGRAM_INVOCATION_NAME && !HAVE_PROGRAM_INVOCATION_SHORT_NAME      \
-    && !HAVE_GET_GETEXECNAME && !HAVE__PROGNAME && !HAVE___ARGV
+    && !HAVE_GET_GETEXECNAME && !HAVE___PROGNAME && !HAVE___ARGV
 static int exec_name_initialized = 0;
 static char *exec_name = NULL;
 #endif
 
 #if !HAVE_PROGRAM_INVOCATION_NAME && !HAVE_PROGRAM_INVOCATION_SHORT_NAME      \
-    && !HAVE_GET_GETEXECNAME && !HAVE__PROGNAME && !HAVE___ARGV
+    && !HAVE_GET_GETEXECNAME && !HAVE___PROGNAME && !HAVE___ARGV
 static int prog_name_initialized = 0;
 static char *prog_name = NULL;
 #endif
 
 /* BSD */
-#if HAVE__PROGNAME
+#if HAVE___PROGNAME
 extern char *__progname;
 #endif
 
@@ -109,7 +109,7 @@ getprogname (void)
 {
 #  if HAVE_PROGRAM_INVOCATION_SHORT_NAME
   return (const char *) program_invocation_short_name;
-#  elif __HAVE_PROGNAME
+#  elif HAVE___PROGNAME
   return (const char *) __progname;
 #  elif HAVE_GETEXECNAME
   const char *gexec_name = getexecname ();
@@ -223,7 +223,7 @@ getexecname (void)
     }
 #  elif 0 && HAVE_PROGRAM_INVOCATION_SHORT_NAME
   return (const char *) program_invocation_short_name;
-#  elif __HAVE_PROGNAME
+#  elif HAVE___PROGNAME
   return (const char *) __progname;
 #  elif !defined(_WIN32) /* Check for procfs file before returning a
                             generic string. */

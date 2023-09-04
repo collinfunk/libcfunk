@@ -1,0 +1,28 @@
+
+add_executable(test-bstree)
+add_executable(test-cpu-count)
+add_executable(test-list)
+add_executable(test-physical-memory)
+add_executable(test-program-name)
+add_executable(test-rbtree)
+add_executable(test-slist)
+add_executable(test-splay-tree)
+
+
+target_link_libraries(test-bstree PRIVATE cfunk)
+target_link_libraries(test-cpu-count PRIVATE cfunk)
+target_link_libraries(test-list PRIVATE cfunk)
+target_link_libraries(test-physical-memory PRIVATE cfunk)
+target_link_libraries(test-program-name PRIVATE cfunk)
+target_link_libraries(test-rbtree PRIVATE cfunk)
+target_link_libraries(test-slist PRIVATE cfunk)
+target_link_libraries(test-splay-tree PRIVATE cfunk)
+
+target_sources(test-bstree PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-bstree.c)
+target_sources(test-cpu-count PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-cpu-count.c)
+target_sources(test-list PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-list.c)
+target_sources(test-physical-memory PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-physical-memory.c)
+target_sources(test-program-name PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-program-name.c)
+target_sources(test-rbtree PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-rbtree.c)
+target_sources(test-slist PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-slist.c)
+target_sources(test-splay-tree PRIVATE ${CMAKE_CURRENT_LIST_DIR}/test-splay-tree.c)
