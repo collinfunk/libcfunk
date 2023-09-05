@@ -38,85 +38,85 @@
 #endif
 
 #if @LIBCFUNK_DECLARE_FFS@
-#  if !HAVE_FFS
+#  if !@HAVE_FFS@
 extern int ffs (int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FFSL@
-#  if !HAVE_FFSL
+#  if !@HAVE_FFSL@
 extern int ffsl (long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FFSLL@
-#  if !HAVE_FFSLL
+#  if !@HAVE_FFSLL@
 extern int ffsll (long long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FLS@
-#  if !HAVE_FLS
+#  if !@HAVE_FLS@
 extern int fls (int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FLSL@
-#  if !HAVE_FLSL
+#  if !@HAVE_FLSL@
 extern int flsl (long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FLSLL@
-#  if !HAVE_FLSLL
+#  if !@HAVE_FLSLL@
 extern int flsll (long long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POPCOUNT@
-#  if !HAVE_POPCOUNT
+#  if !@HAVE_POPCOUNT@
 extern unsigned int popcount (unsigned int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POPCOUNTL@
-#  if !HAVE_POPCOUNTL
+#  if !@HAVE_POPCOUNTL@
 extern unsigned int popcountl (unsigned long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POPCOUNTLL@
-#  if !HAVE_POPCOUNTLL
+#  if !@HAVE_POPCOUNTLL@
 extern unsigned int popcountll (unsigned long long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_BCMP@
-#  if !HAVE_BCMP
+#  if !@HAVE_BCMP@
 extern int bcmp (const void *s1, const void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_BCOPY@
-#  if !HAVE_BCOPY
+#  if !@HAVE_BCOPY@
 extern void bcopy (const void *s1, void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_BZERO@
-#  if !HAVE_BZERO
+#  if !@HAVE_BZERO@
 extern void bzero (void *s, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_INDEX@
-#  if !HAVE_INDEX
+#  if !@HAVE_INDEX@
 char *index (const char *s, int c);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_RINDEX@
-#  if !HAVE_RINDEX
+#  if !@HAVE_RINDEX@
 char *rindex (const char *s, int c);
 #  endif
 #endif

@@ -26,8 +26,8 @@
 #ifndef COMPAT_ERR_H
 #define COMPAT_ERR_H
 
-#include <config.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 /* BSD-like error message functions. */
 
@@ -35,76 +35,52 @@
 #  include_next <err.h>
 #endif
 
-#if @LIBCFUNK_DECLARE_ERR@
-#  if !HAVE_ERR
+#if !@HAVE_ERR@
 extern void err (int status, const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VERR@
-#  if !HAVE_VERR
+#if !@HAVE_VERR@
 extern void verr (int status, const char *format, va_list args);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ERRC@
-#  if !HAVE_ERRC
+#if !@HAVE_ERRC@
 extern void errc (int status, int code, const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VERRC@
-#  if !HAVE_VERRC
+#if !@HAVE_VERRC@
 extern void verrc (int status, int code, const char *format, va_list args);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ERRX@
-#  if !HAVE_ERRX
+#if !@HAVE_ERRX@
 extern void errx (int status, const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VERRX@
-#  if !HAVE_VERRX
+#if !@HAVE_VERRX@
 extern void verrx (int status, const char *format, va_list args);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_WARN@
-#  if !HAVE_WARN
+#if !@HAVE_WARN@
 extern void warn (const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VWARN@
-#  if !HAVE_VWARN
+#if !@HAVE_VWARN@
 extern void vwarn (const char *format, va_list args);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_WARNC@
-#  if !HAVE_WARNC
+#if !@HAVE_WARNC@
 extern void warnc (int code, const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VWARNC@
-#  if !HAVE_VWARNC
+#if !@HAVE_VWARNC@
 extern void vwarnc (int code, const char *format, va_list args);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_WARNX@
-#  if !HAVE_WARNX
+#if !@HAVE_WARNX@
 extern void warnx (const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VWARNX@
-#  if !HAVE_VWARNX
+#if !@HAVE_VWARNX@
 extern void vwarnx (const char *format, va_list args);
-#  endif
 #endif
 
 #endif /* COMPAT_ERR_H */

@@ -26,42 +26,32 @@
 #ifndef COMPAT_ERROR_H
 #define COMPAT_ERROR_H
 
-#include <config.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 #if @HAVE_ERROR_H@
 #  include_next <error.h>
 #endif
 
-#if @LIBCFUNK_DECLARE_ERROR_MESSAGE_COUNT@
-#  if !HAVE_ERROR_MESSAGE_COUNT
+#if !@HAVE_ERROR_MESSAGE_COUNT@
 extern unsigned int error_message_count;
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ERROR_ONE_PER_LINE@
-#  if !HAVE_ERROR_ONE_PER_LINE
+#if !@HAVE_ERROR_ONE_PER_LINE@
 extern int error_one_per_line;
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ERROR_PRINT_PROGNAME@
-#  if !HAVE_ERROR_PRINT_PROGNAME
+#if !@HAVE_ERROR_PRINT_PROGNAME@
 extern void (*error_print_progname) (void);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ERROR@
-#  if !HAVE_ERROR
+#if !@HAVE_ERROR@
 extern void error (int status, int code, const char *format, ...);
-#  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ERROR_AT_LINE@
-#  if !HAVE_ERROR_AT_LINE
+#if !@HAVE_ERROR_AT_LINE@
 extern void error_at_line (int status, int code, const char *file_name,
                            unsigned int line_number, const char *format, ...);
-#  endif
 #endif
 
 #endif /* COMPAT_ERROR_H */
