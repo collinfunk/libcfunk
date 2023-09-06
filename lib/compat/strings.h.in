@@ -111,13 +111,25 @@ extern void bzero (void *s, size_t n);
 
 #if @LIBCFUNK_DECLARE_INDEX@
 #  if !@HAVE_INDEX@
-char *index (const char *s, int c);
+extern char *index (const char *s, int c);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_RINDEX@
 #  if !@HAVE_RINDEX@
-char *rindex (const char *s, int c);
+extern char *rindex (const char *s, int c);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRCASECMP@
+#  if !@HAVE_STRCASECMP@
+extern int strcasecmp (const char *str1, const char *str2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_STRNCASECMP@
+#  if !@HAVE_STRNCASECMP@
+extern int strncasecmp (const char *str1, const char *str2, size_t size);
 #  endif
 #endif
 

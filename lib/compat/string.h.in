@@ -37,175 +37,163 @@
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCHRNUL@
-#  if !HAVE_STRCHRNUL
+#  if !@HAVE_STRCHRNUL@
 extern char *strchrnul (const char *str, int ch);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRMODE@
-#  if !HAVE_STRMODE
+#  if !@HAVE_STRMODE@
 extern void strmode (mode_t mode, char *str);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_EXPLICIT_BZERO@
-#  if !HAVE_EXPLICIT_BZERO
+#  if !@HAVE_EXPLICIT_BZERO@
 extern void explicit_bzero (void *s, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRDUP@
-#  if !HAVE_STRDUP
+#  if !@HAVE_STRDUP@
 extern char *strdup (const char *s);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRNDUP@
-#  if !HAVE_STRNDUP
+#  if !@HAVE_STRNDUP@
 extern char *strndup (const char *s, size_t size);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRLEN@
-#  if !HAVE_STRLEN
+#  if !@HAVE_STRLEN@
 extern size_t strlen (const char *str);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRNLEN@
-#  if !HAVE_STRNLEN
+#  if !@HAVE_STRNLEN@
 extern size_t strnlen (const char *str, size_t maxlen);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STPCPY@
-#  if !HAVE_STPCPY
+#  if !@HAVE_STPCPY@
 extern char *stpcpy (char *dest, const char *src);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRSEP@
-#  if !HAVE_STRSEP
+#  if !@HAVE_STRSEP@
 extern char *strsep (char **stringp, const char *delim);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRPBRK@
-#  if !HAVE_STRPBRK
+#  if !@HAVE_STRPBRK@
 extern char *strpbrk (const char *str, const char *charset);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_STRCASECMP@
-#  if !HAVE_STRCASECMP
-extern int strcasecmp (const char *str1, const char *str2);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_STRNCASECMP@
-#  if !HAVE_STRNCASECMP
-extern int strncasecmp (const char *str1, const char *str2, size_t size);
-#  endif
-#endif
-
 #if @LIBCFUNK_DECLARE_TIMINGSAFE_BCMP@
-#  if !HAVE_TIMINGSAFE_BCMP
+#  if !@HAVE_TIMINGSAFE_BCMP@
 extern int timingsafe_bcmp (const void *b1, const void *b2, size_t len);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCHR@
-#  if !HAVE_STRCHR
+#  if !@HAVE_STRCHR@
 extern char *strchr (const char *s, int c);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRRCHR@
-#  if !HAVE_STRRCHR
+#  if !@HAVE_STRRCHR@
 extern char *strrchr (const char *s, int c);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMCHR@
-#  if !HAVE_MEMCHR
+#  if !@HAVE_MEMCHR@
 extern void *memchr (const void *s, int c, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMRCHR@
-#  if !HAVE_MEMRCHR
+#  if !@HAVE_MEMRCHR@
 extern void *memrchr (const void *s, int c, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_RAWMEMCHR@
-#  if !HAVE_RAWMEMCHR
+#  if !@HAVE_RAWMEMCHR@
 extern void *rawmemchr (const void *s, int c);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMCMP@
-#  if !HAVE_MEMCMP
+#  if !@HAVE_MEMCMP@
 extern int memcmp (const void *s1, const void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMCPY@
-#  if !HAVE_MEMCPY
+#  if !@HAVE_MEMCPY@
 extern void *memcpy (void *s1, const void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMMOVE@
-#  if !HAVE_MEMMOVE
+#  if !@HAVE_MEMMOVE@
 extern void *memmove (void *s1, const void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMSET@
-#  if !HAVE_MEMSET
+#  if !@HAVE_MEMSET@
 extern void *memset (void *s, int c, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCAT@
-#  if !HAVE_STRCAT
+#  if !@HAVE_STRCAT@
 extern char *strcat (char *s1, const char *s2);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCMP@
-#  if !HAVE_STRCMP
+#  if !@HAVE_STRCMP@
 extern int strcmp (const char *s1, const char *s2);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRNCAT@
-#  if !HAVE_STRNCAT
+#  if !@HAVE_STRNCAT@
 extern char *strncat (char *s1, const char *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRNCMP@
-#  if !HAVE_STRNCMP
+#  if !@HAVE_STRNCMP@
 extern int strncmp (const char *s1, const char *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRNCPY@
-#  if !HAVE_STRNCPY
+#  if !@HAVE_STRNCPY@
 extern char *strncpy (char *s1, const char *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRSPN@
-#  if !HAVE_STRSPN
+#  if !@HAVE_STRSPN@
 extern size_t strspn (const char *s1, const char *s2);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCSPN@
-#  if !HAVE_STRCSPN
+#  if !@HAVE_STRCSPN@
 extern size_t strcspn (const char *s1, const char *s2);
 #  endif
 #endif

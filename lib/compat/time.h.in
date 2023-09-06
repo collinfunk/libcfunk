@@ -49,13 +49,13 @@
 #endif
 
 #if @LIBCFUNK_DECLARE_DYSIZE@
-#  if !HAVE_DYSIZE
+#  if !@HAVE_DYSIZE@
 extern int dysize (int year);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_TIMESPEC_GET@
-#  if !HAVE_TIMESPEC_GET
+#  if !@HAVE_TIMESPEC_GET@
 extern int timespec_get (struct timespec *ts, int base);
 #  endif
 #endif

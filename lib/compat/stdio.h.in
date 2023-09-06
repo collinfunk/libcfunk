@@ -34,63 +34,75 @@
 #  include_next <stdio.h>
 #endif
 
-#if !HAVE_FLOCKFILE
-#  if HAVE__LOCK_FILE
-#    define flockfile(stream) _lock_file ((stream))
-#  else
-#    define flockfile(stream)
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FLOCKFILE@
+#    if @HAVE__LOCK_FILE@
+#      define flockfile(stream) _lock_file ((stream))
+#    else
+#      define flockfile(stream)
+#    endif
 #  endif
 #endif
 
-#if !HAVE_FUNLOCKFILE
-#  if HAVE__UNLOCK_FILE
-#    define funlockfile(stream) _unlock_file ((stream))
-#  else
-#    define funlockfile(stream)
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FUNLOCKFILE@
+#    if @HAVE__UNLOCK_FILE@
+#      define funlockfile(stream) _unlock_file ((stream))
+#    else
+#      define funlockfile(stream)
+#    endif
 #  endif
 #endif
 
-#if !HAVE_GETC_UNLOCKED
-#  if HAVE__GETC_NOLOCK
-#    define getc_unlocked(stream) _getc_nolock ((stream))
-#  else
-#    define getc_unlocked(stream) getc ((stream))
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_GETC_UNLOCKED@
+#    if @HAVE__GETC_NOLOCK@
+#      define getc_unlocked(stream) _getc_nolock ((stream))
+#    else
+#      define getc_unlocked(stream) getc ((stream))
+#    endif
 #  endif
 #endif
 
-#if !HAVE_GETCHAR_UNLOCKED
-#  if HAVE__GETCHAR_NOLOCK
-#    define getchar_unlocked() _getchar_nolock ()
-#  else
-#    define getchar_unlocked() getchar ()
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_GETCHAR_UNLOCKED@
+#    if @HAVE__GETCHAR_NOLOCK@
+#      define getchar_unlocked() _getchar_nolock ()
+#    else
+#      define getchar_unlocked() getchar ()
+#    endif
 #  endif
 #endif
 
-#if !HAVE_PUTC_UNLOCKED
-#  if HAVE__PUTC_NOLOCK
-#    define putc_unlocked(ch, stream) _putc_nolock ((ch), (stream))
-#  else
-#    define putc_unlocked(ch, stream) putc ((ch), (stream))
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_PUTC_UNLOCKED@
+#    if @HAVE__PUTC_NOLOCK@
+#      define putc_unlocked(ch, stream) _putc_nolock ((ch), (stream))
+#    else
+#      define putc_unlocked(ch, stream) putc ((ch), (stream))
+#    endif
 #  endif
 #endif
 
-#if !HAVE_PUTCHAR_UNLOCKED
-#  if HAVE__PUTCHAR_NOLOCK
-#    define putchar_unlocked(ch) _putchar_nolock ((ch))
-#  else
-#    define putchar_unlocked(ch) putchar ((ch))
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_PUTCHAR_UNLOCKED@
+#    if @HAVE__PUTCHAR_NOLOCK@
+#      define putchar_unlocked(ch) _putchar_nolock ((ch))
+#    else
+#      define putchar_unlocked(ch) putchar ((ch))
+#    endif
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_GETDELIM@
-#  if !HAVE_GETDELIM
+#  if !@HAVE_GETDELIM@
 extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter,
                          FILE *stream);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_GETLINE@
-#  if !HAVE_GETLINE
+#  if !@HAVE_GETLINE@
 extern ssize_t getline (char **lineptr, size_t *n, FILE *stream);
 #  endif
 #endif
