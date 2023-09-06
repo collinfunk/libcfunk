@@ -3,8 +3,10 @@ include_guard(GLOBAL)
 
 include(CheckSymbolExists)
 include(CheckFunctionExists)
+include(CheckStructHasMember)
 include(CheckIncludeFile)
 include(CheckIncludeFiles)
+include(CheckCSourceCompiles)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
@@ -36,10 +38,12 @@ target_include_directories("${LIBCFUNK_LIBRARY_NAME}" PUBLIC
 )
 
 # Internal cache values to signal libcfunk-final needs to create headers.
+set(LIBCFUNK_GENERATE_ALLOCA_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_CTYPE_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_ERR_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_ERROR_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_INTTYPES_H "0" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_MALLOC_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_STDINT_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_STDIO_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_STDLIB_H "0" CACHE INTERNAL "")

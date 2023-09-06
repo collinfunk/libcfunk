@@ -14,6 +14,14 @@ configure_file(
   ${LIBCFUNK_BUILD_DIR}/config.h
 )
 
+if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
+  bool_to_int(HAVE_ALLOCA_H "$CACHE{HAVE_ALLOCA_H}")
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
+    ${LIBCFUNK_BUILD_DIR}/alloca.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   bool_to_int(HAVE_CTYPE_H "$CACHE{HAVE_CTYPE_H}")
   bool_to_int(HAVE_ISALNUM "$CACHE{HAVE_ISALNUM}")
@@ -79,6 +87,14 @@ if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in
     ${LIBCFUNK_BUILD_DIR}/inttypes.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
+  bool_to_int(HAVE_MALLOC_H "$CACHE{HAVE_MALLOC_H}")
+  configure_file(
+    ${LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
+    ${LIBCFUNK_BUILD_DIR}/malloc.h
   )
 endif ()
 
