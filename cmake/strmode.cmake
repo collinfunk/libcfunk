@@ -16,6 +16,6 @@ if (NOT HAVE_STRMODE)
   )
 endif ()
 
-if (LIBCFUNK_MODULE_DIR)
+if (LIBCFUNK_ENABLE_TESTS)
   include(${LIBCFUNK_MODULE_DIR}/test-strmode.cmake)
 endif ()

@@ -11,14 +11,14 @@ endfunction ()
 
 configure_file(
   ${LIBCFUNK_SOURCE_DIR}/config.h.cmake
-  ${LIBCFUNK_BUILD_DIR}/config.h
+  ${LIBCFUNK_CONFIG_DIR}/config.h
 )
 
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   bool_to_int(HAVE_ALLOCA_H "$CACHE{HAVE_ALLOCA_H}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
-    ${LIBCFUNK_BUILD_DIR}/alloca.h
+    ${LIBCFUNK_CONFIG_DIR}/alloca.h
   )
 endif ()
 
@@ -42,7 +42,7 @@ if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   bool_to_int(HAVE_TOUPPER "$CACHE{HAVE_TOUPPER}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in
-    ${LIBCFUNK_BUILD_DIR}/ctype.h
+    ${LIBCFUNK_CONFIG_DIR}/ctype.h
   )
 endif ()
 
@@ -63,7 +63,7 @@ if ($CACHE{LIBCFUNK_GENERATE_ERR_H})
   bool_to_int(HAVE_VWARNX "$CACHE{HAVE_VWARNX}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/err.h.in
-    ${LIBCFUNK_BUILD_DIR}/err.h
+    ${LIBCFUNK_CONFIG_DIR}/err.h
   )
 endif ()
 
@@ -76,7 +76,7 @@ if ($CACHE{LIBCFUNK_GENERATE_ERROR_H})
   bool_to_int(HAVE_ERROR_AT_LINE "$CACHE{HAVE_ERROR_AT_LINE}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/error.h.in
-    ${LIBCFUNK_BUILD_DIR}/error.h
+    ${LIBCFUNK_CONFIG_DIR}/error.h
   )
 endif ()
 
@@ -86,7 +86,7 @@ if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   bool_to_int(HAVE_STRTOUMAX "$CACHE{HAVE_STRTOUMAX_H}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in
-    ${LIBCFUNK_BUILD_DIR}/inttypes.h
+    ${LIBCFUNK_CONFIG_DIR}/inttypes.h
   )
 endif ()
 
@@ -94,7 +94,7 @@ if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   bool_to_int(HAVE_MALLOC_H "$CACHE{HAVE_MALLOC_H}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
-    ${LIBCFUNK_BUILD_DIR}/malloc.h
+    ${LIBCFUNK_CONFIG_DIR}/malloc.h
   )
 endif ()
 
@@ -102,7 +102,7 @@ if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
   bool_to_int(HAVE_STDINT_H "$CACHE{HAVE_STDINT_H}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
-    ${LIBCFUNK_BUILD_DIR}/stdint.h
+    ${LIBCFUNK_CONFIG_DIR}/stdint.h
   )
 endif ()
 
@@ -124,7 +124,7 @@ if ($CACHE{LIBCFUNK_GENERATE_STDIO_H})
   bool_to_int(HAVE__UNLOCK_FILE "$CACHE{HAVE__UNLOCK_FILE}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/stdio.h.in
-    ${LIBCFUNK_BUILD_DIR}/stdio.h
+    ${LIBCFUNK_CONFIG_DIR}/stdio.h
   )
 endif ()
 
@@ -141,7 +141,7 @@ if ($CACHE{LIBCFUNK_GENERATE_STDLIB_H})
   bool_to_int(HAVE_STRTOULL "$CACHE{HAVE_STRTOULL}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/stdlib.h.in
-    ${LIBCFUNK_BUILD_DIR}/stdlib.h
+    ${LIBCFUNK_CONFIG_DIR}/stdlib.h
   )
 endif ()
 
@@ -176,7 +176,7 @@ if ($CACHE{LIBCFUNK_GENERATE_STRING_H})
   bool_to_int(HAVE_TIMINGSAFE_BCMP "$CACHE{HAVE_TIMINGSAFE_BCMP}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/string.h.in
-    ${LIBCFUNK_BUILD_DIR}/string.h
+    ${LIBCFUNK_CONFIG_DIR}/string.h
   )
 endif ()
 
@@ -200,7 +200,7 @@ if ($CACHE{LIBCFUNK_GENERATE_STRINGS_H})
   bool_to_int(HAVE_STRNCASECMP "$CACHE{HAVE_STRNCASECMP}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/strings.h.in
-    ${LIBCFUNK_BUILD_DIR}/strings.h
+    ${LIBCFUNK_CONFIG_DIR}/strings.h
   )
 endif ()
 
@@ -210,7 +210,7 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_RANDOM_H})
   bool_to_int(HAVE_GETRANDOM "$CACHE{HAVE_GETRANDOM}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/sys/random.h.in
-    ${LIBCFUNK_BUILD_DIR}/sys/random.h
+    ${LIBCFUNK_CONFIG_DIR}/sys/random.h
   )
 endif ()
 
@@ -218,7 +218,7 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
   bool_to_int(HAVE_SYS_TIME_H "$CACHE{HAVE_SYS_TIME_H}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/sys/time.h.in
-    ${LIBCFUNK_BUILD_DIR}/sys/time.h
+    ${LIBCFUNK_CONFIG_DIR}/sys/time.h
   )
 endif ()
 
@@ -228,7 +228,7 @@ if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
   bool_to_int(HAVE_TIMESPEC_GET "$CACHE{HAVE_TIMESPEC_GET}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/time.h.in
-    ${LIBCFUNK_BUILD_DIR}/time.h
+    ${LIBCFUNK_CONFIG_DIR}/time.h
   )
 endif ()
 
@@ -242,6 +242,6 @@ if ($CACHE{LIBCFUNK_GENERATE_UNISTD_H})
   bool_to_int(HAVE_SWAB "$CACHE{HAVE_SWAB}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/unistd.h.in
-    ${LIBCFUNK_BUILD_DIR}/unistd.h
+    ${LIBCFUNK_CONFIG_DIR}/unistd.h
   )
 endif ()
