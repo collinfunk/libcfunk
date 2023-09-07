@@ -23,164 +23,23 @@
  * SUCH DAMAGE.
  */
 
-/* #include <config.h> */
-
 #include <ctype.h>
 #include <errno.h>
 #include <inttypes.h>
 #include <limits.h>
 #include <stdlib.h>
 
-/* XXX: Changes to stroul.c, strtoull.c, and strtoumax.c files should, in most
-   cases, be used in all of the functions. The example sed commands given
-   below can help with this. */
-/* sed -e 's/strtoul/strtoull/g' -e 's/unsigned long int/unsigned long long int/g' \
-   -e 's/ULONG_MAX/ULLONG_MAX/g' strtoul.c */
-/* sed -e 's/strtoul/strtoumax/g' -e 's/unsigned long int/uintmax_t/g' \
-   -e 's/ULONG_MAX/UINTMAX_MAX/g' strtoul.c */
+#define STRTOL_FUNC_NAME cf_strtoumax
+#define STRTOL_INT_TYPE uintmax_t
+#define STRTOL_SIGNED_INT_TYPE intmax_t
+#define STRTOL_UNSIGNED_INT_TYPE uintmax_t
+#define STRTOL_INT_MAX UINTMAX_MAX
+#define STRTOL_INT_MIN 0ULL
+#define STRTOL_SIGNED_INT_MAX INTMAX_MAX
+#define STRTOL_SIGNED_INT_MIN INTMAX_MIN
+#define STRTOL_UNSIGNED_INT_MAX UINTMAX_MAX
+#define STRTOL_UNSIGNED_INT_MIN 0ULL
+#define STRTOL_RETURN_UNSIGNED 1
+#define STRTOL_SUPPORT_C23 1
 
-uintmax_t
-strtoumax (const char *str, char **endptr, int base)
-{
-  const char *p;
-  const char *start;
-  uintmax_t value;
-  unsigned char ch;
-  int negative;
-  int overflow;
-
-  /* Base must be a value between 2 and 36. If it is 0, then assumptions are
-     made based on the prefix of the string. */
-  if (base < 0 || base == 1 || base > 36)
-    {
-      errno = EINVAL;
-      return 0;
-    }
-
-  /* Skip leading whitespace characters. */
-  for (p = str; isspace ((unsigned char) *p); ++p)
-    ;
-
-  /* Check for a sign character. */
-  switch (*p)
-    {
-    case '-':
-      negative = 1;
-      p++;
-      break;
-    case '+':
-      negative = 0;
-      p++;
-      break;
-    case '\0':
-      /* Empty string. */
-      if (endptr != NULL)
-        *endptr = (char *) str;
-      return 0;
-    default:
-      negative = 0;
-      break;
-    }
-
-  if (*p != '0')
-    {
-      /* Default to a base 10 integer. */
-      if (base == 0)
-        base = 10;
-    }
-  else /* *p == '0' */
-    {
-      switch (p[1])
-        {
-        case 'x':
-          /* Fallthrough */
-        case 'X':
-          /* Hexadecimal constant. */
-          if (base == 0 || base == 16)
-            {
-              p += 2;
-              base = 16;
-            }
-          break;
-        default:
-          /* Octal constant. */
-          base = 8;
-          break;
-        }
-    }
-
-  /* Save the starting position. Note that START refers to the start of the
-     digit sequence (after any whitespace), while STR refers to the start of
-     the string passed by the user. This is used to check whether any
-     conversion was performed. If none was performed ENDPTR must be set
-     to STR. */
-  start = p;
-
-  value = 0;
-  overflow = 0;
-  for (;; ++p)
-    {
-      ch = *p;
-
-      if (ch == '\0')
-        break;
-
-      if (isdigit (ch))
-        ch -= '0';
-      else if (isalpha (ch))
-        ch = isupper (ch) ? ch - 55 : ch - 87;
-
-      /* Check if the current character exceeds our base. */
-      if ((int) ch >= base)
-        break;
-
-      /* Check if VALUE * BASE would overflow uintmax_t. */
-      if (value > UINTMAX_MAX / (uintmax_t) base)
-        {
-          overflow = 1;
-          break;
-        }
-      else
-        {
-          value *= (uintmax_t) base;
-
-          /* Check if VALUE + CH would overflow uintmax_t. */
-          if (value > UINTMAX_MAX - (uintmax_t) ch)
-            {
-              overflow = 1;
-              break;
-            }
-          value += (uintmax_t) ch;
-        }
-    }
-
-  if (p == start)
-    {
-      /* FIXME: I don't think the else case (no prefix) is possible since we
-         check for an empty string after whitespace in the switch statement.
-         Also maybe set EINVAL here? */
-      if (endptr != NULL)
-        {
-          /* Return a pointer to the 'x' of the "0x" prefix if we have one. */
-          if (p - str >= 2 && p[-2] == '0' && (p[-1] == 'x' || p[-1] == 'X'))
-            *endptr = (char *) p - 1;
-          else
-            *endptr = (char *) str;
-        }
-      return 0;
-    }
-
-  /* If ENDPTR isn't NULL, set it to the character that caused the loop
-     to break. */
-  if (endptr != NULL)
-    *endptr = (char *) p;
-
-  /* Check if we broke the loop because of an overflow. */
-  if (overflow)
-    {
-      errno = ERANGE;
-      return UINTMAX_MAX;
-    }
-
-  return negative ? -value : value;
-}
+#include "strtol.c"

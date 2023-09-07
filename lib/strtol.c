@@ -23,28 +23,88 @@
  * SUCH DAMAGE.
  */
 
-/* #include <config.h> */
-
 #include <ctype.h>
 #include <errno.h>
 #include <limits.h>
 #include <stdlib.h>
 
-/* XXX: Changes to strol.c, strtoll.c, and strtoimax.c files should, in most
-   cases, be used in all of the functions. */
+/* The name of this function. */
+#ifndef STRTOL_FUNC_NAME
+#  define STRTOL_FUNC_NAME strtol
+#endif
 
-long int
-strtol (const char *str, char **endptr, int base)
+/* The integer type that this function returns. May be signed or unsigned. */
+#ifndef STRTOL_INT_TYPE
+#  define STRTOL_INT_TYPE long int
+#endif
+
+/* The signed integer representation of the return type. */
+#ifndef STRTOL_SIGNED_INT_TYPE
+#  define STRTOL_SIGNED_INT_TYPE signed long int
+#endif
+
+/* The unsigned integer representation of the return type. */
+#ifndef STRTOL_UNSIGNED_INT_TYPE
+#  define STRTOL_UNSIGNED_INT_TYPE unsigned long int
+#endif
+
+/* The maximum value that can be represented in the return type. */
+#ifndef STRTOL_INT_MAX
+#  define STRTOL_INT_MAX LONG_MAX
+#endif
+
+/* The minimum value that can be represented in the return type. */
+#ifndef STRTOL_INT_MIN
+#  define STRTOL_INT_MIN LONG_MIN
+#endif
+
+/* The maximum value that can be held in the signed representation of the
+   return type. */
+#ifndef STRTOL_SIGNED_INT_MAX
+#  define STRTOL_SIGNED_INT_MAX LONG_MAX
+#endif
+
+/* The minimum value that can be held in the signed representation of the
+   return type. */
+#ifndef STRTOL_SIGNED_INT_MIN
+#  define STRTOL_SIGNED_INT_MIN LONG_MIN
+#endif
+
+/* The maximum value that can be held in the unsigned representation of the
+   return type. */
+#ifndef STRTOL_UNSIGNED_INT_MAX
+#  define STRTOL_UNSIGNED_INT_MAX ULONG_MAX
+#endif
+
+/* The minimum value that can be held in the unsigned representation of the
+   return type. */
+#ifndef STRTOL_UNSIGNED_INT_MIN
+#  define STRTOL_UNSIGNED_INT_MIN 0UL
+#endif
+
+/* Defined to 1 if this function is returning an unsigned integer or 0 if it
+   is returning a signed integer. */
+#ifndef STRTOL_RETURN_UNSIGNED
+#  define STRTOL_RETURN_UNSIGNED 0
+#endif
+
+/* This should be defined to 1 if the resulting function should recognize
+   base 2 integers with the '0b' or '0B' prefix. */
+#ifndef STRTOL_SUPPORT_C23
+#  define STRTOL_SUPPORT_C23 1
+#endif
+
+STRTOL_INT_TYPE
+STRTOL_FUNC_NAME (const char *str, char **endptr, int base)
 {
   const char *p;
   const char *start;
-  unsigned long int value;
+  STRTOL_UNSIGNED_INT_TYPE value;
   unsigned char ch;
   int negative;
   int overflow;
 
-  /* Base must be a value between 2 and 36. If it is 0, then assumptions are
-     made based on the prefix of the string. */
+  /* If a non-zero base is given it must be between 2 and 36. */
   if (base < 0 || base == 1 || base > 36)
     {
       errno = EINVAL;
@@ -76,6 +136,7 @@ strtol (const char *str, char **endptr, int base)
       break;
     }
 
+  /* Check for a prefix only if the first character is '0'. */
   if (*p != '0')
     {
       /* Default to a base 10 integer. */
@@ -96,6 +157,18 @@ strtol (const char *str, char **endptr, int base)
               base = 16;
             }
           break;
+#if STRTOL_SUPPORT_C23
+        case 'b':
+          /* Fallthrough */
+        case 'B':
+          /* Binary constant. */
+          if (base == 0 || base == 2)
+            {
+              p += 2;
+              base = 2;
+            }
+          break;
+#endif
         default:
           /* Octal constant. */
           base = 8;
@@ -129,22 +202,22 @@ strtol (const char *str, char **endptr, int base)
         break;
 
       /* Check if VALUE * BASE would overflow unsigned long int. */
-      if (value > ULONG_MAX / (unsigned long int) base)
+      if (value > STRTOL_UNSIGNED_INT_MAX / (STRTOL_UNSIGNED_INT_TYPE) base)
         {
           overflow = 1;
           break;
         }
       else
         {
-          value *= (unsigned long int) base;
+          value *= (STRTOL_UNSIGNED_INT_TYPE) base;
 
           /* Check if VALUE + CH would overflow unsigned long int. */
-          if (value > ULONG_MAX - (unsigned long int) ch)
+          if (value > STRTOL_UNSIGNED_INT_MAX - (STRTOL_UNSIGNED_INT_TYPE) ch)
             {
               overflow = 1;
               break;
             }
-          value += (unsigned long int) ch;
+          value += (STRTOL_UNSIGNED_INT_TYPE) ch;
         }
     }
 
@@ -155,9 +228,18 @@ strtol (const char *str, char **endptr, int base)
          Also maybe set EINVAL here? */
       if (endptr != NULL)
         {
-          /* Return a pointer to the 'x' of the "0x" prefix if we have one. */
-          if (p - str >= 2 && p[-2] == '0' && (p[-1] == 'x' || p[-1] == 'X'))
-            *endptr = (char *) p - 1;
+          /* Return the last character of the prefix if we have one. */
+          if (p - str >= 2 && p[-2] == '0')
+            {
+              if (p[-1] == 'x' || p[-1] == 'X')
+                *endptr = (char *) p - 1;
+#if STRTOL_SUPPORT_C23
+              if (p[-1] == 'b' || p[-1] == 'B')
+                *endptr = (char *) p - 1;
+#endif
+              else
+                *endptr = (char *) str;
+            }
           else
             *endptr = (char *) str;
         }
@@ -169,21 +251,46 @@ strtol (const char *str, char **endptr, int base)
   if (endptr != NULL)
     *endptr = (char *) p;
 
-  /* Overflow flag currently tells us whether unsigned long int would overflow.
-     Make sure it is safe to convert VALUE to signed long int. */
-  overflow
-      = overflow
-            ? 1
-            : value > (negative ? (unsigned long int) -(LONG_MIN + LONG_MAX)
-                                      + LONG_MAX
-                                : (unsigned long int) LONG_MAX);
-
-  /* Check if we overflowed. */
+#if STRTOL_RETURN_UNSIGNED
   if (overflow)
     {
       errno = ERANGE;
-      return negative ? LONG_MIN : LONG_MAX;
+      return STRTOL_INT_MAX;
+    }
+#else
+  /* Check for overflow that did not terminate the loop. */
+  if (!overflow)
+    {
+      if (!negative)
+        overflow = value > (STRTOL_UNSIGNED_INT_TYPE) STRTOL_INT_MAX;
+      else
+        {
+          overflow = value > (STRTOL_UNSIGNED_INT_TYPE)
+                                 - (STRTOL_INT_MIN + STRTOL_INT_MAX)
+                                 + STRTOL_INT_MAX;
+        }
     }
 
-  return negative ? (long int) -value : (long int) value;
+  /* Actually check for overflow. */
+  if (overflow)
+    {
+      errno = ERANGE;
+      return negative ? STRTOL_INT_MIN : STRTOL_INT_MAX;
+    }
+#endif
+
+  return negative ? (STRTOL_INT_TYPE) -value : (STRTOL_INT_TYPE) value;
 }
+
+#undef STRTOL_FUNC_NAME
+#undef STRTOL_INT_TYPE
+#undef STRTOL_SIGNED_INT_TYPE
+#undef STRTOL_UNSIGNED_INT_TYPE
+#undef STRTOL_INT_MAX
+#undef STRTOL_INT_MIN
+#undef STRTOL_SIGNED_INT_MAX
+#undef STRTOL_SIGNED_INT_MIN
+#undef STRTOL_UNSIGNED_INT_MAX
+#undef STRTOL_UNSIGNED_INT_MIN
+#undef STRTOL_RETURN_UNSIGNED
+#undef STRTOL_SUPPORT_C23
