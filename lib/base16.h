@@ -28,7 +28,25 @@
 
 #include <stddef.h>
 
+/* The number of bytes occupied by encoding NBYTES of data.
+   This does not include a null-terminator. */
+#define BASE16_LENGTH(nbytes) ((nbytes) *2)
+
+/* The number of bytes occupied by encoding NBYTES of data.
+   This includes an extra byte for the null-terminator. */
+#define BASE16_STRING_LENGTH(nbytes) (((nbytes) *2) + 1)
+
+/* Base16 encode SRC_LEN bytes and store the result in the buffer
+   pointed to by DEST_PTR. This function does not care about the size of
+   the destination buffer and does not add a NUL byte at the end. */
 void base16_encode_unsafe (const void *src_ptr, size_t src_len,
                            void *dest_ptr);
+
+/* Base16 encode SRC_LEN bytes of the buffer pointed to by SRC_PTR. The
+   result is stored in the buffer pointed to by DEST_PTR. This function
+   will never encode more than DEST_LEN bytes. The result will always be
+   null-terminated if possible. */
+void base16_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
+                    size_t dest_len);
 
 #endif /* BASE16_H */

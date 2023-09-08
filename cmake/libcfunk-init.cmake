@@ -52,6 +52,9 @@ if (NOT EXISTS $CACHE{LIBCFUNK_MODULE_DIR}/libcfunk-init.cmake)
 LIBCFUNK_MODULE_DIR. Make sure you set the paths correctly.")
 endif ()
 
+# Make sure the configuration directory exists before we try anything.
+file(MAKE_DIRECTORY $CACHE{LIBCFUNK_CONFIG_DIR})
+
 # Build shared library if requested.
 if ($CACHE{LIBCFUNK_BUILD_SHARED})
   add_library(${LIBCFUNK_LIBRARY_NAME} SHARED)

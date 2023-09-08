@@ -46,6 +46,29 @@ base16_encode_unsafe (const void *src_ptr, size_t src_len, void *dest_ptr)
     }
 }
 
+void
+base16_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
+               size_t dest_len)
+{
+  const unsigned char *src = (const unsigned char *) src_ptr;
+  char *dest = (char *) dest_ptr;
+
+  while (src_len > 0 && dest_len > 0)
+    {
+      *dest++ = base16_alphabet[(src[0] / 16) & 15];
+      if (!--dest_len)
+        break;
+      *dest++ = base16_alphabet[(src[0] & 15)];
+      if (!--dest_len)
+        break;
+      --src_len;
+      ++src;
+    }
+
+  if (dest_len > 0)
+    *dest = '\0';
+}
+
 #if 0
 int
 main (void)
@@ -55,9 +78,9 @@ main (void)
 
   memset (str, 0, sizeof (str));
   memset (buffer, 0, sizeof (buffer));
-  strcpy (str, "Hello ");
+  strcpy (str, "Hello ghi xyz");
 
-  base16_encode_unsafe (str, strlen (str), buffer);
+  base16_encode (str, strlen (str), buffer, sizeof (buffer));
 
   printf ("%s\n", buffer);
 
