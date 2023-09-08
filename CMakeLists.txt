@@ -4,6 +4,7 @@ project(libcfunk LANGUAGES C)
 
 include(cmake/libcfunk-init.cmake)
 
+
 include(cmake/alloca-h.cmake)
 include(cmake/base16.cmake)
 include(cmake/base32.cmake)
@@ -14,6 +15,7 @@ include(cmake/bsearch.cmake)
 include(cmake/bstree.cmake)
 include(cmake/bswap.cmake)
 include(cmake/memxor.cmake)
+include(cmake/timespec-getres.cmake)
 include(cmake/memset-explicit.cmake)
 include(cmake/bzero.cmake)
 include(cmake/circular-shift.cmake)

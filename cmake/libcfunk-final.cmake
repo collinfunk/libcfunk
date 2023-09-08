@@ -9,10 +9,17 @@ function (bool_to_int str_var bool_var)
   endif ()
 endfunction ()
 
-configure_file(
-  ${LIBCFUNK_SOURCE_DIR}/config.h.cmake
-  ${LIBCFUNK_CONFIG_DIR}/config.h
+
+execute_process(COMMAND "$CACHE{PERL_PROGRAM}"
+  "$CACHE{LIBCFUNK_SCRIPT_DIR}/cmake-autoheader.pl"
+  "${CMAKE_BINARY_DIR}/CMakeCache.txt"
+  "$CACHE{LIBCFUNK_CONFIG_DIR}/config.h"
 )
+
+#configure_file(
+#  ${LIBCFUNK_SOURCE_DIR}/config.h.cmake
+#  ${LIBCFUNK_CONFIG_DIR}/config.h
+#)
 
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   bool_to_int(HAVE_ALLOCA_H "$CACHE{HAVE_ALLOCA_H}")
@@ -227,6 +234,7 @@ if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
   bool_to_int(HAVE_TIME_H "$CACHE{HAVE_TIME_H}")
   bool_to_int(HAVE_DYSIZE "$CACHE{HAVE_DYSIZE}")
   bool_to_int(HAVE_TIMESPEC_GET "$CACHE{HAVE_TIMESPEC_GET}")
+  bool_to_int(HAVE_TIMESPEC_GETRES "$CACHE{HAVE_TIMESPEC_GETRES}")
   configure_file(
     ${LIBCFUNK_SOURCE_DIR}/compat/time.h.in
     ${LIBCFUNK_CONFIG_DIR}/time.h

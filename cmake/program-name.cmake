@@ -8,7 +8,7 @@ check_symbol_exists("program_invocation_name" "errno.h" HAVE_PROGRAM_INVOCATION_
 check_symbol_exists("program_invocation_short_name" "errno.h" HAVE_PROGRAM_INVOCATION_SHORT_NAME)
 
 # 4.4BSD
-check_symbol_exists("__progname" "stdlib.h" HAVE__PROGNAME)
+check_symbol_exists("__progname" "stdlib.h" HAVE___PROGNAME)
 
 # NetBSD, FreeBSD, DragonFly, OpenBSD
 check_symbol_exists("getprogname" "stdlib.h" HAVE_GETPROGNAME)

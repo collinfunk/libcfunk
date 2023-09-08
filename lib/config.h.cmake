@@ -20,16 +20,16 @@
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H
 #cmakedefine01 HAVE_TERMIOS_H
-
-
 #cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE_WINDOWS_H
+
 #cmakedefine01 HAVE_BCMP
 #cmakedefine01 HAVE_BCOPY
 #cmakedefine01 HAVE_BSEARCH
 #cmakedefine01 HAVE_BZERO
 #cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_ENDUSERSHELL
 #cmakedefine01 HAVE_ERR
@@ -133,6 +133,7 @@
 #cmakedefine01 HAVE_STRTOUMAX
 #cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_TIMESPEC_GET
+#cmakedefine01 HAVE_TIMESPEC_GETRES
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP
 #cmakedefine01 HAVE_TOASCII
 #cmakedefine01 HAVE_TOLOWER

@@ -23,47 +23,23 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_TIME_H
-#define COMPAT_TIME_H
+/* #include <config.h> */
 
+#include <stdio.h>
+#include <sys/time.h>
 #include <sys/types.h>
+#include <time.h>
 
-#include <config.h>
-
-/* Show dysize if the system has it. */
-#ifdef __GLIBC__
-#  define  __DEFAULT_SOURCE
+int
+timespec_getres (struct timespec *ts, int base)
+{
+  /* Only support TIME_UTC. */
+  if (base != TIME_UTC)
+    return 0;
+#if HAVE_CLOCKGETRES && defined(CLOCK_REALTIME)
+  return clock_getres (CLOCK_REALTIME, ts) < 0 ? 0 : base;
+  /* TODO */
+#else
+#  error "timespec_getres not implemented for your system."
 #endif
-
-#if @HAVE_TIME_H@
-#  include_next <time.h>
-#endif
-
-/* HAVE_STRUCT_TIMESPEC */
-/* HAVE_STRUCT_ITIMERSPEC */
-
-/* I think this is implementation defined, but it is defined as 1 everywhere I
-   have seen. */
-#ifndef TIME_UTC
-#  define TIME_UTC 1
-#endif
-
-#if @LIBCFUNK_DECLARE_DYSIZE@
-#  if !@HAVE_DYSIZE@
-extern int dysize (int year);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_TIMESPEC_GET@
-#  if !@HAVE_TIMESPEC_GET@
-extern int timespec_get (struct timespec *ts, int base);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_TIMESPEC_GETRES@
-#  if !@HAVE_TIMESPEC_GETRES@
-extern int timespec_getres (struct timespec *ts, int base);
-#  endif
-#endif
-
-#endif /* COMPAT_TIME_H */
+}

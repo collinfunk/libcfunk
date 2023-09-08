@@ -7,6 +7,7 @@ include(CheckStructHasMember)
 include(CheckIncludeFile)
 include(CheckIncludeFiles)
 include(CheckCSourceCompiles)
+include(FindPerl)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
@@ -29,10 +30,18 @@ dependent modules.")
 set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING
   "The directory containing all generated files and headers used for building
 the library.")
+set(LIBCFUNK_SCRIPT_DIR "${CMAKE_SOURCE_DIR}/scripts" CACHE STRING
+  "The directory containing all helper scripts.")
 set(LIBCFUNK_BUILD_SHARED OFF CACHE BOOL
   "This library should typically be built as a static library where you
 include what your program needs. Setting this to true will build a shared
 library anyways.")
+
+# Programs
+set(PERL_PROGRAM "${PERL_EXECUTABLE}" CACHE STRING
+  "Perl is required to generate a configuration header. CMake should have
+autodetected this. If it is not found or is incorrect, set PERL_PROGRAM
+to the proper path.")
 
 # Enable testing by default.
 set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "Build test executables.")
