@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include(${LIBCFUNK_MODULE_DIR}/getrandom.cmake)
+
 add_executable(test-timingsafe-bcmp)
 
 target_link_libraries(test-timingsafe-bcmp PRIVATE

@@ -198,4 +198,10 @@ extern size_t strcspn (const char *s1, const char *s2);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_MEMSET_EXPLICIT@
+#  if !@HAVE_MEMSET_EXPLICIT@
+extern void *memset_explicit (void *s, int c, size_t n);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */
