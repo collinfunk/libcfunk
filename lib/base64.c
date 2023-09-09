@@ -52,6 +52,62 @@ base64_encode_unsafe (const void *src_ptr, size_t src_len, void *dest_ptr)
     }
 }
 
+void
+base64_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
+               size_t dest_len)
+{
+  const unsigned char *src = (const unsigned char *) src_ptr;
+  char *dest = (char *) dest_ptr;
+
+  while (src_len && dest_len)
+    {
+      *dest++ = base64_alphabet[(src[0] >> 2) & 63];
+      if (!--dest_len)
+        return;
+      if (--src_len)
+        *dest++ = base64_alphabet[((src[0] << 4) + (src[1] >> 4)) & 63];
+      else
+        {
+          *dest++ = base64_alphabet[(src[0] << 4) & 63];
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          break;
+        }
+      if (!--dest_len)
+        return;
+      if (--src_len)
+        *dest++ = base64_alphabet[((src[1] << 2) + (src[2] >> 6)) & 63];
+      else
+        {
+          *dest++ = base64_alphabet[(src[1] << 2) & 63];
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          break;
+        }
+      if (!--dest_len)
+        return;
+      *dest++ = base64_alphabet[src[2] & 63];
+      if (!--dest_len)
+        return;
+      if (src_len)
+        --src_len;
+      if (src_len)
+        src += 3;
+    }
+
+  if (dest_len)
+    *dest = '\0';
+}
+
 #if 0
 int
 main (void)
@@ -60,10 +116,10 @@ main (void)
   char buffer[30];
 
   memset (str, 0, sizeof (str));
-  memset (buffer, 0, sizeof (buffer));
-  strcpy (str, "Hello ");
+  memset (buffer, 1, sizeof (buffer));
+  strcpy (str, "abcdefghij");
 
-  base64_encode_unsafe (str, strlen (str), buffer);
+  base64_encode (str, strlen (str), buffer, sizeof (buffer));
 
   printf ("%s\n", buffer);
 

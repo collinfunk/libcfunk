@@ -28,7 +28,20 @@
 
 #include <stddef.h>
 
-void base32_encode_unsafe (const void *src_ptr, size_t src_len,
-                           void *dest_ptr);
+#define BASE32_LENGTH(nbytes) ((((nbytes) + 4) / 5) * 8)
+#define BASE32_STRING_LENGTH(nbytes) (((((nbytes) + 4) / 5) * 8) + 1)
+
+/* Base32 encode a buffer pointed to by SRC_PTR and store the result in the
+   buffer pointed to by DEST_PTR. This function does not care about the size
+   of the designation buffer. It also requires that SRC_LEN is divisible by 5
+   without a remainder. The resulting buffer is not null-terminated. */
+extern void base32_encode_unsafe (const void *src_ptr, size_t src_len,
+                                  void *dest_ptr);
+
+/* Base32 encode the buffer pointed to by SRC_PTR and store the result in
+   the buffer pointed to by DEST_PTR. This function will never encode more than
+   DEST_LEN bytes. If possible, the result will be null-terminated. */
+extern void base32_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
+                           size_t dest_len);
 
 #endif /* BASE32_H */

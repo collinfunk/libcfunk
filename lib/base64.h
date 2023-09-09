@@ -28,7 +28,20 @@
 
 #include <stddef.h>
 
-void base64_encode_unsafe (const void *src_ptr, size_t src_len,
-                           void *dest_ptr);
+#define BASE64_LENGTH(nbytes) ((((nbytes) + 2) / 3) * 4)
+#define BASE64_STRING_LENGTH(nbytes) (((((nbytes) + 2) / 3) * 4) + 1)
+
+/* Base64 encode a buffer pointed to by SRC_PTR and store the result in the
+   buffer pointed to by DEST_PTR. This function does not care about the size
+   of the designation buffer. It also requires that SRC_LEN is divisible by 3
+   without a remainder. The resulting buffer is not null-terminated. */
+extern void base64_encode_unsafe (const void *src_ptr, size_t src_len,
+                                  void *dest_ptr);
+
+/* Base64 encode the buffer pointed to by SRC_PTR and store the result in
+   the buffer pointed to by DEST_PTR. This function will never encode more than
+   DEST_LEN bytes. If possible, the result will be null-terminated. */
+extern void base64_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
+                           size_t dest_len);
 
 #endif /* BASE64_H */

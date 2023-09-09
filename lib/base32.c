@@ -55,6 +55,123 @@ base32_encode_unsafe (const void *src_ptr, size_t src_len, void *dest_ptr)
     }
 }
 
+void
+base32_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
+               size_t dest_len)
+{
+  const unsigned char *src = (const unsigned char *) src_ptr;
+  char *dest = (char *) dest_ptr;
+
+  while (src_len && dest_len)
+    {
+      *dest++ = base32_alphabet[(src[0] >> 3) & 31];
+      if (!--dest_len)
+        return;
+      if (--src_len)
+        *dest++ = base32_alphabet[((src[0] << 2) + (src[1] >> 6)) & 31];
+      else
+        {
+          *dest++ = base32_alphabet[(src[0] << 2) & 31];
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          break;
+        }
+      if (!--dest_len)
+        return;
+      *dest++ = base32_alphabet[(src[1] >> 1) & 31];
+      if (!--dest_len)
+        return;
+      if (--src_len)
+        *dest++ = base32_alphabet[((src[1] << 4) + (src[2] >> 4)) & 31];
+      else
+        {
+          *dest++ = base32_alphabet[(src[1] << 4) & 31];
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          break;
+        }
+      if (!--dest_len)
+        return;
+      if (--src_len)
+        *dest++ = base32_alphabet[((src[2] << 1) + (src[3] >> 7)) & 31];
+      else
+        {
+          *dest++ = base32_alphabet[(src[2] << 1) & 31];
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          break;
+        }
+      if (!--dest_len)
+        break;
+      *dest++ = base32_alphabet[(src[3] >> 2) & 31];
+      if (!--dest_len)
+        return;
+      if (--src_len)
+        *dest++ = base32_alphabet[((src[3] << 3) + (src[4] >> 5)) & 31];
+      else
+        {
+          *dest++ = base32_alphabet[(src[3] << 3) & 31];
+          if (!--dest_len)
+            return;
+          *dest++ = '=';
+          if (!--dest_len)
+            return;
+          break;
+        }
+      if (!--dest_len)
+        return;
+      *dest++ = base32_alphabet[src[4] & 31];
+      if (!--dest_len)
+        return;
+      if (src_len)
+        --src_len;
+      if (src_len)
+        src += 5;
+    }
+
+  if (dest_len)
+    *dest = '\0';
+}
+
 #if 0
 int
 main (void)
@@ -72,4 +189,4 @@ main (void)
 
   return 0;
 }
-#endif 0
+#endif
