@@ -31,7 +31,7 @@
 static const char base32_alphabet[32] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
 /* Base32 without any bounds checking or padding. This function requires that
-   SRC_LEN is divisible by 8 without a remainder. It also requires that the
+   SRC_LEN is divisible by 5 without a remainder. It also requires that the
    buffer pointed to by DEST_PTR has a size >= ((SRC_LEN / 5) * 8). The
    result is not null-terminated.
  */
@@ -50,8 +50,8 @@ base32_encode_unsafe (const void *src_ptr, size_t src_len, void *dest_ptr)
       *dest++ = base32_alphabet[(src[3] >> 2) & 31];
       *dest++ = base32_alphabet[((src[3] << 3) + (src[4] >> 5)) & 31];
       *dest++ = base32_alphabet[src[4] & 31];
-      src += 8;
-      src_len -= 8;
+      src += 5;
+      src_len -= 5;
     }
 }
 
@@ -64,7 +64,7 @@ main (void)
 
   memset (str, 0, sizeof (str));
   memset (buffer, 0, sizeof (buffer));
-  strcpy (str, "Hello   ");
+  strcpy (str, "Hello   asdasfa");
 
   base32_encode_unsafe (str, strlen (str), buffer);
 
@@ -72,4 +72,4 @@ main (void)
 
   return 0;
 }
-#endif
+#endif 0
