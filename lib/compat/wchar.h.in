@@ -1,0 +1,115 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_WCHAR_H
+#define COMPAT_WCHAR_H
+
+#include <sys/types.h>
+
+#include <stddef.h>
+
+#if @HAVE_WCHAR_H@
+#  include_next <wchar.h>
+#endif
+
+#if @LIBCFUNK_DECLARE_WCPCPY@
+#  if !@HAVE_WCPCPY@
+extern wchar_t *wcpcpy (wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSCAT@
+#  if !@HAVE_WCSCAT@
+extern wchar_t *wcscat (wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSCHR@
+#  if !@HAVE_WCSCHR@
+extern wchar_t *wcschr (const wchar_t *ws, wchar_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSCMP@
+#  if !@HAVE_WCSCMP@
+extern int wcscmp (const wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSCPY@
+#  if !@HAVE_WCSCPY@
+extern wchar_t *wcscpy (wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSDUP@
+#  if !@HAVE_WCSDUP@
+extern wchar_t *wcsdup (const wchar_t *string);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSLEN@
+#  if !@HAVE_WCSLEN@
+extern size_t wcslen (const wchar_t *ws);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSNLEN@
+#  if !@HAVE_WCSNLEN@
+extern size_t wcsnlen (const wchar_t *ws, size_t maxlen);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WMEMCHR@
+#  if !@HAVE_WMEMCHR@
+extern wchar_t *wmemchr (const wchar_t *ws, wchar_t wc, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WMEMCMP@
+#  if !@HAVE_WMEMCMP@
+extern int wmemcmp (const wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WMEMCPY@
+#  if !@HAVE_WMEMCPY@
+extern wchar_t *wmemcpy (wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WMEMMOVE@
+#  if !@HAVE_WMEMMOVE@
+extern wchar_t *wmemmove (wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WMEMSET@
+#  if !@HAVE_WMEMSET@
+extern wchar_t *wmemset (wchar_t *ws, wchar_t wc, size_t n);
+#  endif
+#endif
+
+#endif /* COMPAT_WCHAR_H */

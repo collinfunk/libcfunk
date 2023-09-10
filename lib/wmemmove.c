@@ -23,15 +23,27 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDINT_H
-#define COMPAT_STDINT_H
-
 #include <config.h>
 
-#if @HAVE_STDINT_H@
-#  include_next <stdint.h>
-#endif
+#include <stddef.h>
+#include <wchar.h>
 
-/* TODO */
-
-#endif /* COMPAT_STDINT_H */
+wchar_t *
+wmemmove (wchar_t *ws1, const wchar_t *ws2, size_t n)
+{
+  wchar_t *p1 = ws1;
+  const wchar_t *p2 = ws2;
+  if (p1 < p2)
+    {
+      for (; n > 0; --n, ++p1, ++p2)
+        *p1 = *p2;
+    }
+  else if (p1 > p2)
+    {
+      p1 = p1 + n - 1;
+      p2 = p2 + n - 1;
+      for (; n > 0; --n, --p1, --p2)
+        *p1 = *p2;
+    }
+  return ws1;
+}

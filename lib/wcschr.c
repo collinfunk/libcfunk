@@ -23,15 +23,19 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDINT_H
-#define COMPAT_STDINT_H
-
 #include <config.h>
 
-#if @HAVE_STDINT_H@
-#  include_next <stdint.h>
-#endif
+#include <stddef.h>
+#include <wchar.h>
 
-/* TODO */
-
-#endif /* COMPAT_STDINT_H */
+wchar_t *
+wcschr (const wchar_t *ws, wchar_t wc)
+{
+  for (;; ++ws)
+    {
+      if (*ws == wc)
+        return (wchar_t *) ws;
+      if (*ws == (wchar_t) '\0')
+        return NULL;
+    }
+}

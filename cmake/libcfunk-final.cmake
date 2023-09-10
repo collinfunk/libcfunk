@@ -21,6 +21,7 @@ function (substitute_header template_file output_file)
     "${template_file}"
     "${output_file}"
     DEPENDS "${CMAKE_BINARY_DIR}/CMakeCache.txt"
+    "${template_file}"
     COMMENT "Generating `${output_file}'."
     VERBATIM
   )
@@ -92,6 +93,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
+  substitute_header(
+    ${LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
+    ${LIBCFUNK_CONFIG_DIR}/stdint.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDIO_H})
   substitute_header(
     ${LIBCFUNK_SOURCE_DIR}/compat/stdio.h.in
@@ -145,5 +153,12 @@ if ($CACHE{LIBCFUNK_GENERATE_UNISTD_H})
   substitute_header(
     ${LIBCFUNK_SOURCE_DIR}/compat/unistd.h.in
     ${LIBCFUNK_CONFIG_DIR}/unistd.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_WCHAR_H})
+  substitute_header(
+    ${LIBCFUNK_SOURCE_DIR}/compat/wchar.h.in
+    ${LIBCFUNK_CONFIG_DIR}/wchar.h
   )
 endif ()

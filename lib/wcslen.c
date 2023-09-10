@@ -23,15 +23,16 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDINT_H
-#define COMPAT_STDINT_H
-
 #include <config.h>
 
-#if @HAVE_STDINT_H@
-#  include_next <stdint.h>
-#endif
+#include <stddef.h>
+#include <wchar.h>
 
-/* TODO */
-
-#endif /* COMPAT_STDINT_H */
+size_t
+wcslen (const wchar_t *ws)
+{
+  const wchar_t *p = ws;
+  for (; *p != (wchar_t) '\0'; ++p)
+    ;
+  return p - ws;
+}

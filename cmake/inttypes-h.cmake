@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include(${LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
+
 # Generate <inttypes.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_INTTYPES_H "1" CACHE INTERNAL "")
 

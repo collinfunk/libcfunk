@@ -23,15 +23,16 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDINT_H
-#define COMPAT_STDINT_H
-
 #include <config.h>
 
-#if @HAVE_STDINT_H@
-#  include_next <stdint.h>
-#endif
+#include <stddef.h>
+#include <wchar.h>
 
-/* TODO */
-
-#endif /* COMPAT_STDINT_H */
+wchar_t *
+wmemset (wchar_t *ws, wchar_t wc, size_t n)
+{
+  wchar_t *p = ws;
+  for (; n > 0; --n)
+    *p++ = wc;
+  return ws;
+}

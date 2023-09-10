@@ -23,15 +23,27 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDINT_H
-#define COMPAT_STDINT_H
-
 #include <config.h>
 
-#if @HAVE_STDINT_H@
-#  include_next <stdint.h>
-#endif
+#include <errno.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <wchar.h>
 
-/* TODO */
+wchar_t *
+wcsdup (const wchar_t *string)
+{
+  wchar_t *copy;
+  size_t len = wcslen (string) + 1;
 
-#endif /* COMPAT_STDINT_H */
+  copy = (wchar_t *) malloc (len * sizeof (wchar_t));
+  if (copy == NULL)
+    {
+      errno = ENOMEM;
+      return NULL;
+    }
+
+  wmemcpy (copy, string, len);
+
+  return copy;
+}
