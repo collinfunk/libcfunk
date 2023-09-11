@@ -204,4 +204,10 @@ extern void *memset_explicit (void *s, int c, size_t n);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRERRORNAME_NP@
+#  if !@HAVE_STRERRORNAME_NP@
+extern const char *strerrorname_np (int errnum);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

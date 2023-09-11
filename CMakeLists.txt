@@ -122,6 +122,7 @@ include(cmake/wmemset.cmake)
 include(cmake/write-full.cmake)
 include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
+include(cmake/strerrorname-np.cmake)
 
 # include(cmake/int-overflow.cmake)
 
