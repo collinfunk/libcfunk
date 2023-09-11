@@ -123,6 +123,7 @@ include(cmake/write-full.cmake)
 include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
 include(cmake/strerrorname-np.cmake)
+include(cmake/unicode.cmake)
 
 # include(cmake/int-overflow.cmake)
 
