@@ -34,6 +34,24 @@
 #  include_next <stdlib.h>
 #endif
 
+#if @LIBCFUNK_DECLARE_ATOI@
+#  if !@HAVE_ATOI@
+extern int atoi (const char *str);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ATOL@
+#  if !@HAVE_ATOL@
+extern long int atol (const char *str);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ATOLL@
+#  if !@HAVE_ATOLL@
+extern long long int atoll (const char *str);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_REALLOCARRAY@
 #  if !@HAVE_REALLOCARRAY@
 extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);

@@ -1,7 +1,7 @@
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
-include(${LIBCFUNK_MODULE_DIR}/unlocked-stdio.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/unlocked-stdio.cmake)
 
 if (HAVE_STDIO_H)
   check_symbol_exists("getdelim" "stdio.h" HAVE_GETDELIM)
@@ -12,7 +12,7 @@ endif()
 set(LIBCFUNK_DECLARE_GETDELIM "1" CACHE INTERNAL "")
 
 if (NOT HAVE_GETDELIM)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/getdelim.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/getdelim.c
   )
 endif ()

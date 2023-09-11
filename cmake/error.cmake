@@ -1,8 +1,8 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/error-h.cmake)
-include(${LIBCFUNK_MODULE_DIR}/program-name.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/error-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/program-name.cmake)
 
 if (HAVE_ERROR_H)
   check_symbol_exists("error_message_count" "error.h" HAVE_ERROR_MESSAGE_COUNT)
@@ -21,12 +21,12 @@ endif ()
 if (NOT HAVE_ERROR_MESSAGE_COUNT OR NOT HAVE_ERROR_ONE_PER_LINE
     OR NOT HAVE_ERROR_PRINT_PROGNAME OR NOT HAVE_ERROR
     OR NOT HAVE_ERROR_AT_LINE)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/error.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/error.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-error.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-error.cmake)
 endif ()
 

@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
 
 if (HAVE_CTYPE_H)
   check_symbol_exists("isalnum" "ctype.h" HAVE_ISALNUM)
@@ -41,97 +41,97 @@ endif ()
 
 if (NOT HAVE_ISALNUM)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isalnum.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isalnum.c
   )
 endif ()
 
 if (NOT HAVE_ISALPHA)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isalpha.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isalpha.c
   )
 endif ()
 
 if (NOT HAVE_ISASCII)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isascii.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isascii.c
   )
 endif ()
 
 if (NOT HAVE_ISBLANK)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isblank.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isblank.c
   )
 endif ()
 
 if (NOT HAVE_ISCNTRL)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/iscntrl.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/iscntrl.c
   )
 endif ()
 
 if (NOT HAVE_ISDIGIT)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isdigit.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isdigit.c
   )
 endif ()
 
 if (NOT HAVE_ISGRAPH)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isgraph.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isgraph.c
   )
 endif ()
 
 if (NOT HAVE_ISLOWER)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/islower.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/islower.c
   )
 endif ()
 
 if (NOT HAVE_ISPRINT)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isprint.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isprint.c
   )
 endif ()
 
 if (NOT HAVE_ISPUNCT)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/ispunct.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/ispunct.c
   )
 endif ()
 
 if (NOT HAVE_ISSPACE)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isspace.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isspace.c
   )
 endif ()
 
 if (NOT HAVE_ISUPPER)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isupper.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isupper.c
   )
 endif ()
 
 if (NOT HAVE_ISXDIGIT)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/isxdigit.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/isxdigit.c
   )
 endif ()
 
 if (NOT HAVE_TOASCII)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/toascii.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/toascii.c
   )
 endif ()
 
 if (NOT HAVE_TOLOWER)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/tolower.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/tolower.c
   )
 endif ()
 
 if (NOT HAVE_TOUPPER)
   target_sources({LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/toupper.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/toupper.c
   )
 endif ()
 

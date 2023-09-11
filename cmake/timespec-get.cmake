@@ -1,6 +1,6 @@
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/time-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
 
 if (HAVE_TIME_H)
   check_symbol_exists("timespec_get" "time.h" HAVE_TIMESPEC_GET)
@@ -16,11 +16,11 @@ if (NOT HAVE_TIMESPEC_GET)
   if (NOT HAVE_CLOCK_GETTIME AND NOT HAVE_GETTIMEOFDAY)
     message(FATAL_ERROR "Could not find a replacement for `timespec_get'.")
   endif ()
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/timespec-get.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/timespec-get.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-timespec-get.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-timespec-get.cmake)
 endif ()

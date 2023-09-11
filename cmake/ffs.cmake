@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/strings-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
 if (HAVE_STRINGS_H)
   check_symbol_exists("ffs" "strings.h" HAVE_FFS)
@@ -18,23 +18,23 @@ set(LIBCFUNK_DECLARE_FFSL "1" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_FFSLL "1" CACHE INTERNAL "")
 
 if (NOT HAVE_FFS)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/ffs.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/ffs.c
   )
 endif ()
 
 if (NOT HAVE_FFSL)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/ffsl.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/ffsl.c
   )
 endif ()
 
 if (NOT HAVE_FFSLL)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/ffsll.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/ffsll.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-ffs.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-ffs.cmake)
 endif ()

@@ -58,22 +58,22 @@ file(MAKE_DIRECTORY $CACHE{LIBCFUNK_CONFIG_DIR})
 
 # Build shared library if requested.
 if ($CACHE{LIBCFUNK_BUILD_SHARED})
-  add_library(${LIBCFUNK_LIBRARY_NAME} SHARED)
+  add_library("$CACHE{LIBCFUNK_LIBRARY_NAME}" SHARED)
 else ()
-  add_library(${LIBCFUNK_LIBRARY_NAME} STATIC)
+  add_library("$CACHE{LIBCFUNK_LIBRARY_NAME}" STATIC)
 endif ()
 
 # Set build directory for static and shared library.
-set_target_properties(${LIBCFUNK_LIBRARY_NAME} PROPERTIES
-  LIBRARY_OUTPUT_DIRECTORY "${LIBCFUNK_BUILD_DIR}"
-  ARCHIVE_OUTPUT_DIRECTORY "${LIBCFUNK_BUILD_DIR}"
+set_target_properties("$CACHE{LIBCFUNK_LIBRARY_NAME}" PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY "$CACHE{LIBCFUNK_BUILD_DIR}"
+  ARCHIVE_OUTPUT_DIRECTORY "$CACHE{LIBCFUNK_BUILD_DIR}"
 )
 
 # Include paths
-target_include_directories(${LIBCFUNK_LIBRARY_NAME} PUBLIC
-  ${LIBCFUNK_SOURCE_DIR}
-  ${LIBCFUNK_BUILD_DIR}
-  ${LIBCFUNK_CONFIG_DIR}
+target_include_directories("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC
+  $CACHE{LIBCFUNK_SOURCE_DIR}
+  $CACHE{LIBCFUNK_BUILD_DIR}
+  $CACHE{LIBCFUNK_CONFIG_DIR}
 )
 
 # Internal cache values to signal libcfunk-final needs to create headers.

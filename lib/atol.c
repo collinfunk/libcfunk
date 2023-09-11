@@ -23,15 +23,13 @@
  * SUCH DAMAGE.
  */
 
-#define ATOI_FUNC_NAME atol
-#define ATOI_INT_TYPE long int
-#define ATOI_SIGNED_INT_TYPE signed long int
-#define ATOI_UNSIGNED_INT_TYPE unsigned long int
-#define ATOI_INT_MAX LONG_MAX
-#define ATOI_INT_MIN LONG_MIN
-#define ATOI_SIGNED_INT_MAX LONG_MAX
-#define ATOI_SIGNED_INT_MIN LONG_MIN
-#define ATOI_UNSIGNED_INT_MAX ULONG_MAX
-#define ATOI_UNSIGNED_INT_MIN ULONG_MIN
+#include <config.h>
 
-#include "atoi.c"
+#include <stdlib.h>
+
+long int
+atol (const char *str)
+{
+  return strtol (str, (char **) NULL, 10);
+}
+

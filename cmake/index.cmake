@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/strings-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
 if (HAVE_STRINGS_H)
   check_symbol_exists("index" "strings.h" HAVE_INDEX)
@@ -12,8 +12,8 @@ endif ()
 set(LIBCFUNK_DECLARE_INDEX "1" CACHE INTERNAL "")
 
 if (NOT HAVE_INDEX)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/index.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/index.c
   )
 endif ()
 

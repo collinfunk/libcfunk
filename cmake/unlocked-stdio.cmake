@@ -1,6 +1,6 @@
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 
 set(LIBCFUNK_UNLOCKED_STDIO "1" CACHE INTERNAL "")
 

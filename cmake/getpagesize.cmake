@@ -1,6 +1,6 @@
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("getpagesize" "unistd.h" HAVE_GETPAGESIZE)
@@ -15,12 +15,12 @@ if (NOT HAVE_GETPAGESIZE)
   if (NOT HAVE_WINDOWS_H)
     message(FATAL_ERROR "Unsupported operating system")
   endif ()
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/getpagesize.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/getpagesize.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-getpagesize.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-getpagesize.cmake)
 endif ()
 

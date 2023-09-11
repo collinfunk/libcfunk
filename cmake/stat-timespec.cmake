@@ -59,12 +59,12 @@ main (int argc, char **argv)
   return 0;
 }" HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC)
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/stat-timespec.c
-  ${LIBCFUNK_SOURCE_DIR}/stat-timespec.h
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/stat-timespec.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/stat-timespec.h
 )
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-stat-timespec.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-stat-timespec.cmake)
 endif ()
 

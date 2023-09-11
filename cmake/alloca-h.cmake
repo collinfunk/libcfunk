@@ -7,5 +7,5 @@ set(LIBCFUNK_GENERATE_ALLOCA_H "1" CACHE INTERNAL "")
 check_include_file("alloca.h" HAVE_ALLOCA_H)
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-alloca.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-alloca.cmake)
 endif ()

@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/err-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/err-h.cmake)
 
 if (HAVE_ERR_H)
   check_symbol_exists("err" "err.h" HAVE_ERR)
@@ -34,12 +34,12 @@ endif ()
 if (NOT HAVE_ERR OR NOT HAVE_VERR OR NOT HAVE_ERRC OR NOT HAVE_VERRC
     OR NOT HAVE_ERRX OR NOT HAVE_VERRX OR NOT HAVE_WARN OR NOT HAVE_VWARN
     OR NOT HAVE_WARNC OR NOT HAVE_VWARNC OR NOT HAVE_WARNX OR NOT HAVE_VWARNX)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/err.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/err.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-err.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-err.cmake)
 endif ()
 

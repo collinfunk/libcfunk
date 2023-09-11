@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/strings-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
 if (HAVE_STRINGS_H)
   check_symbol_exists("popcount" "strings.h" HAVE_POPCOUNT)
@@ -18,24 +18,24 @@ set(LIBCFUNK_DECLARE_POPCOUNTL "1" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_POPCOUNTLL "1" CACHE INTERNAL "")
 
 if (NOT HAVE_POPCOUNT)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/popcount.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/popcount.c
   )
 endif ()
 
 if (NOT HAVE_POPCOUNTL)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/popcountl.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/popcountl.c
   )
 endif ()
 
 if (NOT HAVE_POPCOUNTLL)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/popcountll.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/popcountll.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-popcount.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-popcount.cmake)
 endif ()
 

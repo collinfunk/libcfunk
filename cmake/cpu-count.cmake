@@ -14,12 +14,12 @@ than are actually avaliable.")
   endif ()
 endif ()
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/cpu-count.c
-  ${LIBCFUNK_SOURCE_DIR}/cpu-count.h
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/cpu-count.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/cpu-count.h
 )
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-cpu-count.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-cpu-count.cmake)
 endif ()
 

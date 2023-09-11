@@ -25,7 +25,7 @@ function (substitute_header template_file output_file)
     COMMENT "Generating `${output_file}'."
     VERBATIM
   )
-  target_sources($CACHE{LIBCFUNK_LIBRARY_NAME} PRIVATE
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     "${output_file}")
 endfunction ()
 
@@ -40,125 +40,125 @@ add_custom_command(
   VERBATIM
 )
 
-target_sources($CACHE{LIBCFUNK_LIBRARY_NAME} PRIVATE
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   "$CACHE{LIBCFUNK_CONFIG_DIR}/config.h")
 
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
-    ${LIBCFUNK_CONFIG_DIR}/alloca.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/alloca.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in
-    ${LIBCFUNK_CONFIG_DIR}/ctype.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/ctype.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_ERR_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/err.h.in
-    ${LIBCFUNK_CONFIG_DIR}/err.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/err.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/err.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_ERROR_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/error.h.in
-    ${LIBCFUNK_CONFIG_DIR}/error.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/error.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/error.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in
-    ${LIBCFUNK_CONFIG_DIR}/inttypes.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/inttypes.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
-    ${LIBCFUNK_CONFIG_DIR}/malloc.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/malloc.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
 
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
-    ${LIBCFUNK_CONFIG_DIR}/stdint.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdint.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
-    ${LIBCFUNK_CONFIG_DIR}/stdint.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdint.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_STDIO_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/stdio.h.in
-    ${LIBCFUNK_CONFIG_DIR}/stdio.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdio.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdio.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_STDLIB_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/stdlib.h.in
-    ${LIBCFUNK_CONFIG_DIR}/stdlib.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdlib.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdlib.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_STRING_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/string.h.in
-    ${LIBCFUNK_CONFIG_DIR}/string.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/string.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/string.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_STRINGS_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/strings.h.in
-    ${LIBCFUNK_CONFIG_DIR}/strings.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/strings.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/strings.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_SYS_RANDOM_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/sys/random.h.in
-    ${LIBCFUNK_CONFIG_DIR}/sys/random.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/random.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/random.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/sys/time.h.in
-    ${LIBCFUNK_CONFIG_DIR}/sys/time.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/time.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/time.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/time.h.in
-    ${LIBCFUNK_CONFIG_DIR}/time.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/time.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/time.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_UNISTD_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/unistd.h.in
-    ${LIBCFUNK_CONFIG_DIR}/unistd.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/unistd.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/unistd.h
   )
 endif ()
 
 if ($CACHE{LIBCFUNK_GENERATE_WCHAR_H})
   substitute_header(
-    ${LIBCFUNK_SOURCE_DIR}/compat/wchar.h.in
-    ${LIBCFUNK_CONFIG_DIR}/wchar.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/wchar.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/wchar.h
   )
 endif ()

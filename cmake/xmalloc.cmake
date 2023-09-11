@@ -1,10 +1,10 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/reallocarray.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/reallocarray.cmake)
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/xmalloc.c
-  ${LIBCFUNK_SOURCE_DIR}/xmalloc.h
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/xmalloc.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/xmalloc.h
 )
 

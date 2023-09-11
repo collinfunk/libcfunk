@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
 
 if (HAVE_SYS_RANDOM_H)
   check_symbol_exists("getrandom" "sys/random.h" HAVE_GETRANDOM)
@@ -15,7 +15,7 @@ if (NOT HAVE_GETRANDOM)
   if (HAVE_WINDOWS_H)
     check_include_files("windows.h;bcrypt.h" HAVE_BCRYPT_H)
     if (HAVE_BCRYPT_H)
-      target_link_libraries(${LIBCFUNK_LIBRARY_NAME} "bcrypt")
+      target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" "bcrypt")
     else ()
       message(FATAL_ERROR "Unsupported windows version.")
     endif ()
@@ -25,12 +25,12 @@ endif ()
 set(LIBCFUNK_DECLARE_GETRANDOM "1" CACHE INTERNAL "")
 
 if (NOT HAVE_GETRANDOM)
-  target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-    ${LIBCFUNK_SOURCE_DIR}/getrandom.c
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/getrandom.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-getrandom.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-getrandom.cmake)
 endif ()
 

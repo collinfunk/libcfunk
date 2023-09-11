@@ -1,12 +1,12 @@
 
 include_guard(GLOBAL)
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/bstree.c
-  ${LIBCFUNK_SOURCE_DIR}/bstree.h
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/bstree.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/bstree.h
 )
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-bstree.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-bstree.cmake)
 endif ()
 

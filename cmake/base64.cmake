@@ -1,11 +1,11 @@
 
 include_guard(GLOBAL)
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/base64.c
-  ${LIBCFUNK_SOURCE_DIR}/base64.h
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/base64.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/base64.h
 )
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include(${LIBCFUNK_MODULE_DIR}/test-base64.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-base64.cmake)
 endif ()

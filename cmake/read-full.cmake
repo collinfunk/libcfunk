@@ -1,9 +1,9 @@
 
 include_guard(GLOBAL)
 
-include(${LIBCFUNK_MODULE_DIR}/read-nointr.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/read-nointr.cmake)
 
-target_sources(${LIBCFUNK_LIBRARY_NAME} PRIVATE
-  ${LIBCFUNK_SOURCE_DIR}/read-full.c
-  ${LIBCFUNK_SOURCE_DIR}/read-full.h
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/read-full.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/read-full.h
 )
