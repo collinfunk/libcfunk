@@ -23,64 +23,42 @@
  * SUCH DAMAGE.
  */
 
-#include <stdbool.h>
+#include <errno.h>
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#include <stdio.h>
+#include "memdup.h"
+#include "test-help.h"
 
-#include "filename.h"
+#ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 8192
+#endif /* BUFFER_SIZE */
 
-bool
-filename_strip_extension (char *file_name)
+int
+main (void)
 {
-  size_t file_name_len = strlen (file_name);
-  char *p;
+  char buffer[BUFFER_SIZE];
+  char *copy;
+  size_t i;
 
-  for (p = file_name + file_name_len;
-       p >= file_name && !FILENAME_IS_DIRSEP (p[0]); --p)
+  for (i = 0; i < BUFFER_SIZE; ++i)
+    buffer[i] = i & 0xff;
+
+  copy = memdup (buffer, BUFFER_SIZE);
+  if (copy == NULL)
     {
-      if (p[0] == '.')
-        {
-          p[0] = '\0';
-          return true;
-        }
+      fprintf (stderr, "memdup (): %s\n", strerror (errno));
+      abort ();
     }
 
-  return false;
-}
-
-const char *
-filename_last_component (const char *file_name)
-{
-  const char *p;
-  const char *lead;
-
-  /* Skip Windows device prefixes. */
-  if (FILENAME_HAS_DRIVE_PREFIX (file_name))
-    p = file_name + 2;
-  else
-    p = file_name;
-
-  /* Skip leading slashes in the filename. */
-  for (; FILENAME_IS_DIRSEP (p[0]); ++p)
-    ;
-
-  /* Lead P to the character past the last slash. */
-  for (lead = p; *lead != '\0'; ++lead)
+  if (memcmp (copy, buffer, BUFFER_SIZE) != 0)
     {
-      if (FILENAME_IS_DIRSEP (lead[0]))
-        {
-          do
-            ++lead;
-          while (FILENAME_IS_DIRSEP (lead[0]));
-          /* Check for the case where FILE_NAME ends with a slash. */
-          if (lead[0] != '\0')
-            p = lead;
-          else
-            break;
-        }
+      fprintf (stderr, "memdup () did not create an equal buffer.\n");
+      abort ();
     }
 
-  return p;
+  free (copy);
+  return 0;
 }

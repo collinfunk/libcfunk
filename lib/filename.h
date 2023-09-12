@@ -26,13 +26,44 @@
 #ifndef FILENAME_H
 #define FILENAME_H
 
+/* Macros and functions for dealing with filenames. */
+
+/* Windows file path format documentation:
+   https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file
+   https://learn.microsoft.com/en-us/dotnet/standard/io/file-path-formats */
+
 #include <stdbool.h>
 
-/* Remove the extension from FILE_NAME. If FILE_NAME has an extension then the
-   '.' is replaced with a NUL byte and true is returned. */
+/* Macros:
+   bool FILENAME_IS_DIRSEP(ch)
+     Returns true if CH is a character that joins pathname components.
+   bool FILENAME_IS_LISTSEP(ch)
+     Returns true if CH is a character used to seperate a list of files such
+     as $PATH.
+   bool FILENAME_HAS_DRIVE_PREFIX(str)
+     Returns true if STR has a DOS style volume prefix. Valid volume prefixes
+     are A: to Z: case insensitive. It is possible on some versions of
+     DOS/Windows to use other prefixes but it is not supported.
+ */
+#if defined(_WIN32)
+#  define FILENAME_IS_DIRSEP(ch) ((ch) == '/' || (ch) == '\\')
+#  define FILENAME_IS_LISTSEP(ch) ((ch) == ';')
+#  define FILENAME_HAS_DRIVE_PREFIX(str)                                      \
+    ((((str)[0] >= 'A' && (str)[0] <= 'Z')                                    \
+      || ((str)[0] >= 'a' && (str)[0] <= 'z'))                                \
+     && ((str)[1] == ':'))
+#else
+#  define FILENAME_IS_DIRSEP(ch) ((ch) == '/')
+#  define FILENAME_IS_LISTSEP(ch) ((ch) == ':')
+#  define FILENAME_HAS_DRIVE_PREFIX(str) (0)
+#endif
+
+/* Truncates filename at the last '.' character which is not part of a directory
+   component of FILE_NAME. Returns true if a '\0' was placed over '.'. */
 extern bool filename_strip_extension (char *file_name);
 
-/* Returns a pointer to to the final path component in FILE_NAME. */
+/* Returns a pointer to the last directory component of FILE_NAME. The input
+   string is not modified. */
 extern const char *filename_last_component (const char *file_name);
 
 #endif /* FILENAME_H */

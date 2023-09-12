@@ -23,64 +23,12 @@
  * SUCH DAMAGE.
  */
 
-#include <stdbool.h>
+#ifndef MEMDUP_H
+#define MEMDUP_H
+
 #include <stddef.h>
-#include <string.h>
 
-#include <stdio.h>
+/* Return a malloc'ed copy of the buffer pointed to by PTR. */
+extern void *memdup (const void *ptr, size_t size);
 
-#include "filename.h"
-
-bool
-filename_strip_extension (char *file_name)
-{
-  size_t file_name_len = strlen (file_name);
-  char *p;
-
-  for (p = file_name + file_name_len;
-       p >= file_name && !FILENAME_IS_DIRSEP (p[0]); --p)
-    {
-      if (p[0] == '.')
-        {
-          p[0] = '\0';
-          return true;
-        }
-    }
-
-  return false;
-}
-
-const char *
-filename_last_component (const char *file_name)
-{
-  const char *p;
-  const char *lead;
-
-  /* Skip Windows device prefixes. */
-  if (FILENAME_HAS_DRIVE_PREFIX (file_name))
-    p = file_name + 2;
-  else
-    p = file_name;
-
-  /* Skip leading slashes in the filename. */
-  for (; FILENAME_IS_DIRSEP (p[0]); ++p)
-    ;
-
-  /* Lead P to the character past the last slash. */
-  for (lead = p; *lead != '\0'; ++lead)
-    {
-      if (FILENAME_IS_DIRSEP (lead[0]))
-        {
-          do
-            ++lead;
-          while (FILENAME_IS_DIRSEP (lead[0]));
-          /* Check for the case where FILE_NAME ends with a slash. */
-          if (lead[0] != '\0')
-            p = lead;
-          else
-            break;
-        }
-    }
-
-  return p;
-}
+#endif /* MEMDUP_H */
