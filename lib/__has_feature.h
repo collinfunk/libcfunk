@@ -23,65 +23,11 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UNISTD_H
-#define COMPAT_UNISTD_H
+#ifndef CHECK__HAS_FEATURE_H
+#define CHECK__HAS_FEATURE_H
 
-#include <config.h>
-
-#include <sys/types.h>
-
-#include <stddef.h>
-
-#if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
+#ifndef __has_feature
+#  define __has_feature(x) 0
 #endif
 
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !@HAVE_GETUSERSHELL@
-extern char *getusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !@HAVE_SETUSERSHELL@
-extern void setusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !@HAVE_ENDUSERSHELL@
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if !@HAVE_GETCWD@
-extern char *getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SWAB@
-#  if !@HAVE_SWAB@
-extern void swab (const void *src, void *dest, ssize_t nbytes);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETPAGESIZE@
-#  if !@HAVE_GETPAGESIZE@
-extern int getpagesize (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETLOGIN@
-#  if !@HAVE_GETLOGIN@
-extern char *getlogin (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETLOGIN_R@
-#  if !@HAVE_GETLOGIN_R@
-extern int getlogin_r (char *name, size_t namesize);
-#  endif
-#endif
-
-#endif /* COMPAT_UNISTD_H */
+#endif /* CHECK__HAS_FEATURE_H */
