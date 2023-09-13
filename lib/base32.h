@@ -26,6 +26,7 @@
 #ifndef BASE32_H
 #define BASE32_H
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #define BASE32_LENGTH(nbytes) ((((nbytes) + 4) / 5) * 8)
@@ -43,5 +44,9 @@ extern void base32_encode_unsafe (const void *src_ptr, size_t src_len,
    DEST_LEN bytes. If possible, the result will be null-terminated. */
 extern void base32_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
                            size_t dest_len);
+
+/* Returns true if CH is a valid encoded Base32 character. This does not
+   include the '=' padding character. */
+extern bool isbase32 (char ch);
 
 #endif /* BASE32_H */

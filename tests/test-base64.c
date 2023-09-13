@@ -23,6 +23,7 @@
  * SUCH DAMAGE.
  */
 
+#include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +31,10 @@
 
 #include "base64.h"
 #include "test-help.h"
+
+#ifndef CHAR_MIN
+#  define CHAR_MIN 0
+#endif
 
 struct base64_testcase
 {
@@ -52,12 +57,14 @@ static char buffer[4096];
 
 static void test_base64_encode (void);
 static void test_base64_string_len (void);
+static void test_isbase64 (void);
 
 int
 main (void)
 {
   test_base64_encode ();
   test_base64_string_len ();
+  test_isbase64 ();
   return 0;
 }
 
@@ -113,4 +120,143 @@ test_base64_string_len (void)
     }
 
   free (str);
+}
+
+static void
+test_isbase64 (void)
+{
+  char i;
+
+  for (i = CHAR_MIN; i < 0; ++i)
+    ASSERT (!isbase64 (i));
+
+  ASSERT (!isbase64 ('\0'));
+  ASSERT (!isbase64 (1));
+  ASSERT (!isbase64 (2));
+  ASSERT (!isbase64 (3));
+  ASSERT (!isbase64 (4));
+  ASSERT (!isbase64 (5));
+  ASSERT (!isbase64 (6));
+  ASSERT (!isbase64 ('\a'));
+  ASSERT (!isbase64 ('\b'));
+  ASSERT (!isbase64 ('\t'));
+  ASSERT (!isbase64 ('\n'));
+  ASSERT (!isbase64 ('\v'));
+  ASSERT (!isbase64 ('\f'));
+  ASSERT (!isbase64 ('\r'));
+  ASSERT (!isbase64 (14));
+  ASSERT (!isbase64 (14));
+  ASSERT (!isbase64 (15));
+  ASSERT (!isbase64 (16));
+  ASSERT (!isbase64 (17));
+  ASSERT (!isbase64 (18));
+  ASSERT (!isbase64 (19));
+  ASSERT (!isbase64 (20));
+  ASSERT (!isbase64 (21));
+  ASSERT (!isbase64 (22));
+  ASSERT (!isbase64 (23));
+  ASSERT (!isbase64 (24));
+  ASSERT (!isbase64 (25));
+  ASSERT (!isbase64 (26));
+  ASSERT (!isbase64 (27));
+  ASSERT (!isbase64 (28));
+  ASSERT (!isbase64 (29));
+  ASSERT (!isbase64 (30));
+  ASSERT (!isbase64 (31));
+  ASSERT (!isbase64 (' '));
+  ASSERT (!isbase64 ('!'));
+  ASSERT (!isbase64 ('"'));
+  ASSERT (!isbase64 ('#'));
+  ASSERT (!isbase64 ('$'));
+  ASSERT (!isbase64 ('%'));
+  ASSERT (!isbase64 ('&'));
+  ASSERT (!isbase64 ('\''));
+  ASSERT (!isbase64 ('('));
+  ASSERT (!isbase64 (')'));
+  ASSERT (!isbase64 ('*'));
+  ASSERT (isbase64 ('+'));
+  ASSERT (!isbase64 (','));
+  ASSERT (!isbase64 ('-'));
+  ASSERT (!isbase64 ('.'));
+  ASSERT (isbase64 ('/'));
+  ASSERT (isbase64 ('0'));
+  ASSERT (isbase64 ('1'));
+  ASSERT (isbase64 ('2'));
+  ASSERT (isbase64 ('3'));
+  ASSERT (isbase64 ('4'));
+  ASSERT (isbase64 ('5'));
+  ASSERT (isbase64 ('6'));
+  ASSERT (isbase64 ('7'));
+  ASSERT (isbase64 ('8'));
+  ASSERT (isbase64 ('9'));
+  ASSERT (!isbase64 (':'));
+  ASSERT (!isbase64 (';'));
+  ASSERT (!isbase64 ('<'));
+  ASSERT (!isbase64 ('='));
+  ASSERT (!isbase64 ('>'));
+  ASSERT (!isbase64 ('?'));
+  ASSERT (!isbase64 ('@'));
+  ASSERT (isbase64 ('A'));
+  ASSERT (isbase64 ('B'));
+  ASSERT (isbase64 ('C'));
+  ASSERT (isbase64 ('D'));
+  ASSERT (isbase64 ('E'));
+  ASSERT (isbase64 ('F'));
+  ASSERT (isbase64 ('G'));
+  ASSERT (isbase64 ('H'));
+  ASSERT (isbase64 ('I'));
+  ASSERT (isbase64 ('J'));
+  ASSERT (isbase64 ('K'));
+  ASSERT (isbase64 ('L'));
+  ASSERT (isbase64 ('M'));
+  ASSERT (isbase64 ('N'));
+  ASSERT (isbase64 ('O'));
+  ASSERT (isbase64 ('P'));
+  ASSERT (isbase64 ('Q'));
+  ASSERT (isbase64 ('R'));
+  ASSERT (isbase64 ('S'));
+  ASSERT (isbase64 ('T'));
+  ASSERT (isbase64 ('U'));
+  ASSERT (isbase64 ('V'));
+  ASSERT (isbase64 ('W'));
+  ASSERT (isbase64 ('X'));
+  ASSERT (isbase64 ('Y'));
+  ASSERT (isbase64 ('Z'));
+  ASSERT (!isbase64 ('['));
+  ASSERT (!isbase64 ('\\'));
+  ASSERT (!isbase64 (']'));
+  ASSERT (!isbase64 ('^'));
+  ASSERT (!isbase64 ('_'));
+  ASSERT (!isbase64 ('`'));
+  ASSERT (isbase64 ('a'));
+  ASSERT (isbase64 ('b'));
+  ASSERT (isbase64 ('c'));
+  ASSERT (isbase64 ('d'));
+  ASSERT (isbase64 ('e'));
+  ASSERT (isbase64 ('f'));
+  ASSERT (isbase64 ('g'));
+  ASSERT (isbase64 ('h'));
+  ASSERT (isbase64 ('i'));
+  ASSERT (isbase64 ('j'));
+  ASSERT (isbase64 ('k'));
+  ASSERT (isbase64 ('l'));
+  ASSERT (isbase64 ('m'));
+  ASSERT (isbase64 ('n'));
+  ASSERT (isbase64 ('o'));
+  ASSERT (isbase64 ('p'));
+  ASSERT (isbase64 ('q'));
+  ASSERT (isbase64 ('r'));
+  ASSERT (isbase64 ('s'));
+  ASSERT (isbase64 ('t'));
+  ASSERT (isbase64 ('u'));
+  ASSERT (isbase64 ('v'));
+  ASSERT (isbase64 ('w'));
+  ASSERT (isbase64 ('x'));
+  ASSERT (isbase64 ('y'));
+  ASSERT (isbase64 ('z'));
+  ASSERT (!isbase64 ('{'));
+  ASSERT (!isbase64 ('|'));
+  ASSERT (!isbase64 ('}'));
+  ASSERT (!isbase64 ('~'));
+  ASSERT (!isbase64 (127));
 }

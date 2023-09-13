@@ -26,6 +26,7 @@
 #ifndef BASE64_H
 #define BASE64_H
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #define BASE64_LENGTH(nbytes) ((((nbytes) + 2) / 3) * 4)
@@ -43,5 +44,9 @@ extern void base64_encode_unsafe (const void *src_ptr, size_t src_len,
    DEST_LEN bytes. If possible, the result will be null-terminated. */
 extern void base64_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
                            size_t dest_len);
+
+/* Returns true if CH is a valid encoded Base64 character. This does not
+   include the '=' padding character. */
+extern bool isbase64 (char ch);
 
 #endif /* BASE64_H */

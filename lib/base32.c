@@ -23,12 +23,31 @@
  * SUCH DAMAGE.
  */
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #include "base32.h"
 
 /* RFC 4648 */
 static const char base32_alphabet[32] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+
+/* Don't assume that char is signed. */
+static const signed char base32_decode_table[256]
+    = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29,
+        30, 31, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,  1,  2,  3,  4,  5,  6,
+        7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+        25, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        -1, -1, -1, -1 };
 
 /* Base32 without any bounds checking or padding. This function requires that
    SRC_LEN is divisible by 5 without a remainder. It also requires that the
@@ -170,6 +189,14 @@ base32_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
 
   if (dest_len)
     *dest = '\0';
+}
+
+bool
+isbase32 (char ch)
+{
+  unsigned char idx = (unsigned char) ch;
+
+  return base32_decode_table[idx] >= 0;
 }
 
 #if 0

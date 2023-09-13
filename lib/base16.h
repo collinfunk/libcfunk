@@ -26,7 +26,15 @@
 #ifndef BASE16_H
 #define BASE16_H
 
+#include <stdbool.h>
 #include <stddef.h>
+
+/* State structure for decoding. */
+struct base16_decode_ctx
+{
+  unsigned int word; /* Bit register. */
+  bool have_bits;    /* Set to true if value has data. */
+};
 
 /* The number of bytes occupied by encoding NBYTES of data.
    This does not include a null-terminator. */
@@ -48,5 +56,17 @@ extern void base16_encode_unsafe (const void *src_ptr, size_t src_len,
    null-terminated if possible. */
 extern void base16_encode (const void *src_ptr, size_t src_len, void *dest_ptr,
                            size_t dest_len);
+
+/* Returns true if CH is a valid encoded Base16 character. This function is not
+   case-sensitive. */
+extern bool isbase16 (char ch);
+
+/* Initialize CTX for decoding. */
+extern void base16_decode_init (struct base16_decode_ctx *ctx);
+
+/* Decode the buffer pointed to by SRC_PTR and store the result in DEST_PTR.
+   Returns false if an invalid character is reached. */
+extern bool base16_decode (struct base16_decode_ctx *ctx, const void *src_ptr,
+                           size_t src_len, void *dest_ptr, size_t dest_len);
 
 #endif /* BASE16_H */
