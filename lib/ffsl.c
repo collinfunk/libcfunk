@@ -25,12 +25,17 @@
 
 #include <strings.h>
 
+#include "__has_builtin.h"
+
 /* TODO: Optimize. */
 
 /* Find the first bit set in VALUE. */
 int
 ffsl (long int value)
 {
+#if __has_builtin(__builtin_ffsl)
+  return __builtin_ffsl (value);
+#else
   int bit = 1;
 
   if (value == 0)
@@ -40,4 +45,5 @@ ffsl (long int value)
     value = (unsigned long int) value >> 1;
 
   return bit;
+#endif
 }

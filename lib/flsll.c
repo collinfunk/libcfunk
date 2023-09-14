@@ -23,7 +23,14 @@
  * SUCH DAMAGE.
  */
 
+#include <limits.h>
 #include <strings.h>
+
+#include "__has_builtin.h"
+
+#ifndef CHAR_BIT
+#  define CHAR_BIT 8
+#endif
 
 /* TODO: Optimize. */
 
@@ -31,6 +38,11 @@
 int
 flsll (long long int value)
 {
+#if __has_builtin(__builtin_clzll)
+  return value == 0
+             ? 0
+             : (sizeof (long long int) * CHAR_BIT) - __builtin_clzll (value);
+#else
   int bit = 1;
 
   if (value == 0)
@@ -40,4 +52,5 @@ flsll (long long int value)
     value = (unsigned long long int) value >> 1;
 
   return bit;
+#endif
 }

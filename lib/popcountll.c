@@ -25,12 +25,17 @@
 
 #include <strings.h>
 
+#include "__has_builtin.h"
+
 /* TODO: Optimize. */
 
 /* Find the number of set bits in VALUE. */
 unsigned int
 popcountll (unsigned long long int value)
 {
+#if __has_builtin(__builtin_popcountll)
+  return (unsigned int) __builtin_popcountll (value);
+#else
   unsigned int count = 0;
 
   while (value > 0)
@@ -40,4 +45,5 @@ popcountll (unsigned long long int value)
     }
 
   return count;
+#endif
 }

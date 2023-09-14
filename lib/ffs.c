@@ -25,6 +25,8 @@
 
 #include <strings.h>
 
+#include "__has_builtin.h"
+
 /* TODO: This can be optimized.
    Currently it checks every single bit until finding the first set bit. */
 
@@ -32,6 +34,9 @@
 int
 ffs (int value)
 {
+#if __has_builtin(__builtin_ffs)
+  return __builtin_ffs (value);
+#else
   int bit = 1;
 
   if (value == 0)
@@ -41,4 +46,5 @@ ffs (int value)
     value = (unsigned int) value >> 1;
 
   return bit;
+#endif
 }

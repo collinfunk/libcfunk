@@ -25,6 +25,8 @@
 
 #include <strings.h>
 
+#include "__has_builtin.h"
+
 /* TODO: This can be optimized.
    Currently counts every bit individually. */
 
@@ -32,6 +34,9 @@
 unsigned int
 popcount (unsigned int value)
 {
+#if __has_builtin(__builtin_popcount)
+  return (unsigned int) __builtin_popcount (value);
+#else
   unsigned int count = 0;
 
   while (value > 0)
@@ -41,4 +46,5 @@ popcount (unsigned int value)
     }
 
   return count;
+#endif
 }

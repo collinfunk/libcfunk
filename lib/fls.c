@@ -23,7 +23,14 @@
  * SUCH DAMAGE.
  */
 
+#include <limits.h>
 #include <strings.h>
+
+#include "__has_builtin.h"
+
+#ifndef CHAR_BIT
+#  define CHAR_BIT 8
+#endif
 
 /* TODO: This can be optimized.
    Currently it checks every single bit until finding the last set bit. */
@@ -32,6 +39,9 @@
 int
 fls (int value)
 {
+#if __has_builtin(__builtin_clz)
+  return value == 0 ? 0 : (sizeof (int) * CHAR_BIT) - __builtin_clz (value);
+#else
   int bit = 1;
 
   if (value == 0)
@@ -41,4 +51,5 @@ fls (int value)
     value = (unsigned int) value >> 1;
 
   return bit;
+#endif
 }
