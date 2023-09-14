@@ -15,6 +15,16 @@ indent_style = space
 indent_size = 2
 indent_style = space
 
+# Perl
+[*.{pl,pm}]
+indent_size = 2
+indent_style = space
+
+# Python
+[*.py]
+indent_size = 2
+indent_style = space
+
 # Shell
 [*.sh]
 indent_size = 2
