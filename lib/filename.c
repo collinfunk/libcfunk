@@ -50,6 +50,24 @@ filename_strip_extension (char *file_name)
   return false;
 }
 
+int
+filename_strip_slashes (char *file_name)
+{
+  size_t file_name_len = strlen (file_name);
+  char *p = file_name + file_name_len;
+  int slash_count = 0;
+
+  if (p > file_name && FILENAME_IS_DIRSEP (p[-1]))
+    {
+      for (--p, ++slash_count; p > file_name && FILENAME_IS_DIRSEP (p[-1]);
+           --p, ++slash_count)
+        ;
+      *p = '\0';
+    }
+
+  return slash_count;
+}
+
 const char *
 filename_last_component (const char *file_name)
 {

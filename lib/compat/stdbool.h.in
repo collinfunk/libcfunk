@@ -23,35 +23,24 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
+#ifndef COMPAT_STDBOOL_H
+#define COMPAT_STDBOOL_H
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
-/* Assumes that size_t is an unsigned integer without padding bits. */
-#define SQRT_SIZE_MAX ((size_t) 1 << (CHAR_BIT * sizeof (size_t) / 2))
-
-/* Common extension from OpenBSD that is now on the rest of the BSDs
-   and glibc. */
-void *
-reallocarray (void *ptr, size_t nelem, size_t elsize)
+#if !@HAVE_C23_BOOL@
+#  if !@HAVE_C99_BOOL@
+/* _Bool must promote to int or unsigned int. */
+typedef enum
 {
-  /* Check if NELEM and ELSIZE are large enough for overflow to be
-     possible. */
-  if (nelem >= SQRT_SIZE_MAX || elsize >= SQRT_SIZE_MAX)
-    {
-      /* Check if NELEM * ELSIZE would overflow while checking for division by
-         zero. */
-      if (nelem > 0 && elsize > SIZE_MAX / nelem)
-        {
-          errno = ENOMEM;
-          return NULL;
-        }
-    }
-  return realloc (ptr, nelem * elsize);
-}
+  false = 0,
+  true = 1
+} _Bool;
+#  endif /* !HAVE_C99_BOOL */
+/* Define bool and let true/false be accessed as macros. */
+#  define bool _Bool
+#  define false 0
+#  define true 0
+#endif /* !HAVE_C23_BOOL */
+
+#define __bool_true_false_are_defined 1
+
+#endif /* COMPAT_STDBOOL_H */

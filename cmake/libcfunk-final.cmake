@@ -1,3 +1,6 @@
+
+include_guard(GLOBAL)
+
 # Convert variables to 0/1's that are suitable for use in
 # configuration files using the c preprocessor.
 function (bool_to_int str_var bool_var)
@@ -50,6 +53,13 @@ if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/assert.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/assert.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in
@@ -85,11 +95,17 @@ if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   )
 endif ()
 
-if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
-
+if ($CACHE{LIBCFUNK_GENERATE_STDBOOL_H})
   substitute_header(
-    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdint.h.in
-    $CACHE{LIBCFUNK_CONFIG_DIR}/stdint.h
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdbool.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdbool.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_STDCKDINT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdckdint.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdckdint.h
   )
 endif ()
 

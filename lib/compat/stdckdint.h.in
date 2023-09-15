@@ -23,35 +23,28 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
+#ifndef COMPAT_STDCKDINT_H
+#define COMPAT_STDCKDINT_H
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
+#include <stdbool.h>
+
+#include "__has_builtin.h"
+
+/* This header requires a recent version of GCC or Clang. */
+
+#if __has_builtin(__builtin_add_overflow)
+#  define ckd_add(result, a, b)                                               \
+    ((bool) __builtin_add_overflow ((a), (b), (result)))
 #endif
 
-/* Assumes that size_t is an unsigned integer without padding bits. */
-#define SQRT_SIZE_MAX ((size_t) 1 << (CHAR_BIT * sizeof (size_t) / 2))
+#if __has_builtin(__builtin_sub_overflow)
+#  define ckd_sub(result, a, b)                                               \
+    ((bool) __builtin_sub_overflow ((a), (b), (result)))
+#endif
 
-/* Common extension from OpenBSD that is now on the rest of the BSDs
-   and glibc. */
-void *
-reallocarray (void *ptr, size_t nelem, size_t elsize)
-{
-  /* Check if NELEM and ELSIZE are large enough for overflow to be
-     possible. */
-  if (nelem >= SQRT_SIZE_MAX || elsize >= SQRT_SIZE_MAX)
-    {
-      /* Check if NELEM * ELSIZE would overflow while checking for division by
-         zero. */
-      if (nelem > 0 && elsize > SIZE_MAX / nelem)
-        {
-          errno = ENOMEM;
-          return NULL;
-        }
-    }
-  return realloc (ptr, nelem * elsize);
-}
+#if __has_builtin(__builtin_mul_overflow)
+#  define ckd_mul(result, a, b)                                               \
+    ((bool) __builtin_mul_overflow ((a), (b), (result)))
+#endif
+
+#endif /* COMPAT_STDCKDINT_H */

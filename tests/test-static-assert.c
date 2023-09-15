@@ -23,35 +23,16 @@
  * SUCH DAMAGE.
  */
 
-#include <errno.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdint.h>
+#include <assert.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
-/* Assumes that size_t is an unsigned integer without padding bits. */
-#define SQRT_SIZE_MAX ((size_t) 1 << (CHAR_BIT * sizeof (size_t) / 2))
-
-/* Common extension from OpenBSD that is now on the rest of the BSDs
-   and glibc. */
-void *
-reallocarray (void *ptr, size_t nelem, size_t elsize)
+int
+main (void)
 {
-  /* Check if NELEM and ELSIZE are large enough for overflow to be
-     possible. */
-  if (nelem >= SQRT_SIZE_MAX || elsize >= SQRT_SIZE_MAX)
-    {
-      /* Check if NELEM * ELSIZE would overflow while checking for division by
-         zero. */
-      if (nelem > 0 && elsize > SIZE_MAX / nelem)
-        {
-          errno = ENOMEM;
-          return NULL;
-        }
-    }
-  return realloc (ptr, nelem * elsize);
+  static_assert (1 + 1 == 2);
+  static_assert (1 + 1 == 2, "Testing C23 static assert.");
+  _Static_assert(1 + 1 == 2);
+  _Static_assert(1 + 1 == 2, "Testing C11 static assert.");
+  return 0;
 }

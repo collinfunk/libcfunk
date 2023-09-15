@@ -1,10 +1,14 @@
 
-cmake_minimum_required(VERSION 3.20 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 project(libcfunk LANGUAGES C)
+
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(cmake/libcfunk-init.cmake)
 
 include(cmake/alloca-h.cmake)
+include(cmake/assert-h.cmake)
 include(cmake/atoi.cmake)
 include(cmake/atol.cmake)
 include(cmake/atoll.cmake)
@@ -78,6 +82,8 @@ include(cmake/sha512.cmake)
 include(cmake/slist.cmake)
 include(cmake/splay-tree.cmake)
 include(cmake/stat-timespec.cmake)
+include(cmake/stdckdint-h.cmake)
+include(cmake/stdbool-h.cmake)
 include(cmake/stdio-h.cmake)
 include(cmake/stpcpy.cmake)
 include(cmake/strcasecmp.cmake)

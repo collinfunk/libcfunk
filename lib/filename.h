@@ -62,6 +62,9 @@
    component of FILE_NAME. Returns true if a '\0' was placed over '.'. */
 extern bool filename_strip_extension (char *file_name);
 
+/* Strip trailing slashes in FILE_NAME and return the number removed. */
+extern int filename_strip_slashes (char *file_name);
+
 /* Returns a pointer to the last directory component of FILE_NAME. The input
    string is not modified. */
 extern const char *filename_last_component (const char *file_name);
