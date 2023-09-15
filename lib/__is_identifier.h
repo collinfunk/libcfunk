@@ -23,16 +23,11 @@
  * SUCH DAMAGE.
  */
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef CHECK__IS_IDENTIFIER_H
+#define CHECK__IS_IDENTIFIER_H
 
-int
-main (void)
-{
-  static_assert (1 + 1 == 2);
-  static_assert (1 + 1 == 2, "Testing C23 static assert.");
-  _Static_assert (1 + 1 == 2);
-  _Static_assert (1 + 1 == 2, "Testing C11 static assert.");
-  return 0;
-}
+#ifndef __is_identifier
+#  define __is_identifier(x) 1
+#endif
+
+#endif /* CHECK__IS_IDENTIFIER_H */

@@ -36,7 +36,7 @@ memset_explicit (void *s, int c, size_t n)
   return s;
 #elif defined(__GNUC__) || defined(__clang__)
   memset (s, c, n);
-  __asm__ __volatile__("" : : "r"(s) : "memory");
+  __asm__ __volatile__ ("" : : "r"(s) : "memory");
   return s;
 #else
   volatile unsigned char *volatile ptr = (volatile unsigned char *volatile) s;

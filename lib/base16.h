@@ -38,11 +38,11 @@ struct base16_decode_ctx
 
 /* The number of bytes occupied by encoding NBYTES of data.
    This does not include a null-terminator. */
-#define BASE16_LENGTH(nbytes) ((nbytes) *2)
+#define BASE16_LENGTH(nbytes) ((nbytes) * 2)
 
 /* The number of bytes occupied by encoding NBYTES of data.
    This includes an extra byte for the null-terminator. */
-#define BASE16_STRING_LENGTH(nbytes) (((nbytes) *2) + 1)
+#define BASE16_STRING_LENGTH(nbytes) (((nbytes) * 2) + 1)
 
 /* Base16 encode SRC_LEN bytes and store the result in the buffer
    pointed to by DEST_PTR. This function does not care about the size of

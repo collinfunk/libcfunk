@@ -23,16 +23,11 @@
  * SUCH DAMAGE.
  */
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef CHECK__HAS_C_ATTRIBUTE_H
+#define CHECK__HAS_C_ATTRIBUTE_H
 
-int
-main (void)
-{
-  static_assert (1 + 1 == 2);
-  static_assert (1 + 1 == 2, "Testing C23 static assert.");
-  _Static_assert (1 + 1 == 2);
-  _Static_assert (1 + 1 == 2, "Testing C11 static assert.");
-  return 0;
-}
+#ifndef __has_c_attribute
+#  define __has_c_attribute(x) 0
+#endif
+
+#endif /* CHECK__HAS_C_ATTRIBUTE_H */

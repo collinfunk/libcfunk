@@ -82,7 +82,6 @@ include(cmake/sha512.cmake)
 include(cmake/slist.cmake)
 include(cmake/splay-tree.cmake)
 include(cmake/stat-timespec.cmake)
-include(cmake/stdckdint-h.cmake)
 include(cmake/stdbool-h.cmake)
 include(cmake/stdio-h.cmake)
 include(cmake/stpcpy.cmake)
@@ -139,7 +138,10 @@ include(cmake/write-full.cmake)
 include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
 
+# Not portable enough to keep enabled. These will fail with some older
+# compilers.
 # include(cmake/int-overflow.cmake)
 # include(cmake/timespec-getres.cmake)
+# include(cmake/stdckdint-h.cmake)
 
 include(cmake/libcfunk-final.cmake)

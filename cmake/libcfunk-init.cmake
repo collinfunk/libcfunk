@@ -53,6 +53,11 @@ if (NOT EXISTS $CACHE{LIBCFUNK_MODULE_DIR}/libcfunk-init.cmake)
 LIBCFUNK_MODULE_DIR. Make sure you set the paths correctly.")
 endif ()
 
+if (NOT PERL_PROGRAM)
+  message(FATAL_ERROR "Perl is required to generate headers. Install it from \
+your systems repositories or `https://www.perl.org'.")
+endif ()
+
 # Make sure the configuration directory exists before we try anything.
 file(MAKE_DIRECTORY $CACHE{LIBCFUNK_CONFIG_DIR})
 

@@ -42,7 +42,7 @@ explicit_bzero (void *s, size_t n)
   memset_explicit (s, 0, n);
 #elif defined(__GNUC__) || defined(__clang__)
   memset (s, 0, n);
-  __asm__ __volatile__("" : : "r"(s) : "memory");
+  __asm__ __volatile__ ("" : : "r"(s) : "memory");
 #else
   volatile unsigned char *volatile ptr = (volatile unsigned char *volatile) s;
 
