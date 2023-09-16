@@ -1,35 +1,29 @@
 
 include_guard(GLOBAL)
 
-# Convert variables to 0/1's that are suitable for use in
-# configuration files using the c preprocessor.
-function (bool_to_int str_var bool_var)
-  if (${bool_var})
-    set(${str_var} "1" PARENT_SCOPE)
-  else ()
-    set(${str_var} "0" PARENT_SCOPE)
-  endif ()
-endfunction ()
-
-# Generate a header which uses @VAR@ substitution.
 function (substitute_header template_file output_file)
-  cmake_path(GET output_file FILENAME basename)
-  cmake_path(GET output_file PARENT_PATH dest_dir)
-  file(MAKE_DIRECTORY "${dest_dir}")
-  add_custom_command(
-    OUTPUT "${output_file}"
-    COMMAND "$CACHE{PERL_PROGRAM}"
-    "$CACHE{LIBCFUNK_SCRIPT_DIR}/substitute-header.pl"
-    "${CMAKE_BINARY_DIR}/CMakeCache.txt"
-    "${template_file}"
-    "${output_file}"
-    DEPENDS "${CMAKE_BINARY_DIR}/CMakeCache.txt"
-    "${template_file}"
-    COMMENT "Generating `${output_file}'."
-    VERBATIM
-  )
-  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    "${output_file}")
+  if (NOT EXISTS "${template_file}")
+    message(FATAL_ERROR "Template file `${template_file}' does not exist.")
+  endif ()
+  file(READ "${template_file}" TEMPLATE_CONTENTS)
+  string(REGEX MATCHALL "@[A-Za-z1-9_]+@" VARIABLE_LIST "${TEMPLATE_CONTENTS}")
+  if (NOT VARIABLE_LIST)
+    configure_file("${template_file}" "${output_file}")
+    break ()
+  endif ()
+  string(REPLACE "@" "" VARIABLE_LIST "${VARIABLE_LIST}")
+  foreach (VARIABLE ${VARIABLE_LIST})
+    if ("${${VARIABLE}}")
+      if ("${${VARIABLE}}" STREQUAL "" OR "${${VARIABLE}}" STREQUAL "FALSE")
+        set(${${VARIABLE}} "0" CACHE INTERNAL "")
+      elseif ("${${VARIABLE}}" STREQUAL "TRUE")
+        set(${${VARIABLE}} "1" CACHE INTERNAL "")
+      endif ()
+    else ()
+      set(${VARIABLE} "0" CACHE INTERNAL "")
+    endif ()
+  endforeach ()
+  configure_file("${template_file}" "${output_file}")
 endfunction ()
 
 add_custom_command(
