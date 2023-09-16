@@ -81,6 +81,21 @@ target_include_directories("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC
   $CACHE{LIBCFUNK_CONFIG_DIR}
 )
 
+# Add sources used by various different files.
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_attribute.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_builtin.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_c_attribute.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_cpp_attribute.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_declspec_attribute.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_extension.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_feature.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_include.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_include_next.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__has_warning.h
+  $CACHE{LIBCFUNK_SOURCE_DIR}/__is_identifier.h
+)
+
 # Internal cache values to signal libcfunk-final needs to create headers.
 set(LIBCFUNK_GENERATE_ALLOCA_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_ASSERT_H "0" CACHE INTERNAL "")
