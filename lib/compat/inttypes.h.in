@@ -109,6 +109,12 @@
 /* TODO: Rest of these. 64-bit types are dependent on
    architecture. */
 
+#if @LIBCFUNK_DECLARE_IMAXABS@
+#  if !@HAVE_IMAXABS@
+extern intmax_t imaxabs (intmax_t value);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STRTOIMAX@
 #  if !@HAVE_STRTOIMAX@
 extern intmax_t strtoimax (const char *str, char **endptr, int base);

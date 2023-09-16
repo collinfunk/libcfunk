@@ -34,6 +34,24 @@
 #  include_next <stdlib.h>
 #endif
 
+#if @LIBCFUNK_DECLARE_ABS@
+#  if !@HAVE_ABS@
+extern int abs (int value);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LABS@
+#  if !@HAVE_LABS@
+extern long int labs (long int value);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LLABS@
+#  if !@HAVE_LLABS@
+extern long long int llabs (long long int value);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ATOI@
 #  if !@HAVE_ATOI@
 extern int atoi (const char *str);
