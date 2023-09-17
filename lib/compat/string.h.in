@@ -36,6 +36,13 @@
 #  include_next <string.h>
 #endif
 
+
+#if @LIBCFUNK_DECLARE_STRSTR@
+#  if !@HAVE_STRSTR@
+extern char *strstr (const char *s1, const char *s2);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STRCHRNUL@
 #  if !@HAVE_STRCHRNUL@
 extern char *strchrnul (const char *str, int ch);

@@ -48,6 +48,12 @@ extern char **environ;
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_TTYNAME_R@
+#  if !@HAVE_TTYNAME_R@
+extern int ttyname_r (int fd, char *buffer, size_t buffer_len);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_GETUSERSHELL@
 #  if !@HAVE_GETUSERSHELL@
 extern char *getusershell (void);

@@ -23,23 +23,32 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CHECK_C11__ALIGNOF_H
-#define CHECK_C11__ALIGNOF_H
-
 #include <config.h>
 
-#include <stddef.h>
+#include <errno.h>
+#include <stdio.h>
+#include <unistd.h>
 
-#include "offsetof.h"
+#include "test-help.h"
 
-/* Define C11 _Alignof. */
-
-#if !HAVE_C11__ALIGNOF
-#  ifndef _Alignof
-/* clang-format off */
-#    define _Alignof(type) offsetof (struct { char __a; type __b; }, __b)
-/* clang-format on */
-#  endif
+/* ttyname_r(3) should always return ENOTTY on Windows. */
+#if HAVE_WINDOWS_H
+static const int expected_return = ENOTTY;
+#else
+static const int expected_return = 0;
 #endif
 
-#endif /* CHECK_C11__ALIGNOF_H */
+static char buffer[1024];
+
+int
+main (void)
+{
+  const int result = ttyname_r (STDOUT_FILENO, buffer, sizeof (buffer));
+
+  ASSERT (result == expected_return);
+
+  if (result == 0)
+    printf ("STDOUT TTY: %s\n", buffer);
+
+  return 0;
+}

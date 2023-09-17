@@ -23,23 +23,30 @@
  * SUCH DAMAGE.
  */
 
-#ifndef CHECK_C11__ALIGNOF_H
-#define CHECK_C11__ALIGNOF_H
-
 #include <config.h>
 
 #include <stddef.h>
+#include <string.h>
 
-#include "offsetof.h"
+char *
+strstr (const char *s1, const char *s2)
+{
+  size_t s2_len;
 
-/* Define C11 _Alignof. */
+  if (*s2 == '\0')
+    return (char *) s1;
 
-#if !HAVE_C11__ALIGNOF
-#  ifndef _Alignof
-/* clang-format off */
-#    define _Alignof(type) offsetof (struct { char __a; type __b; }, __b)
-/* clang-format on */
-#  endif
-#endif
+  s2_len = strlen (s2);
+  for (;;)
+    {
+      const char *p = strchr (s1, *s2);
+      if (p == NULL)
+        return NULL;
+      if (strncmp (p, s2, s2_len) == 0)
+        return (char *) p;
+      else
+        ++s1;
+    }
 
-#endif /* CHECK_C11__ALIGNOF_H */
+  return NULL;
+}

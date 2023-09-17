@@ -20,40 +20,17 @@
 #  define __STDC_WANT_IEC_60559_BFP_EXT__ 1
 #endif
 
-#cmakedefine01 HAVE_ALLOCA_H
-#cmakedefine01 HAVE_ASSERT_H
-#cmakedefine01 HAVE_BCRYPT_H
-#cmakedefine01 HAVE_CRT_EXTERNS_H
-#cmakedefine01 HAVE_CTYPE_H
-#cmakedefine01 HAVE_ERR_H
-#cmakedefine01 HAVE_ERROR_H
-#cmakedefine01 HAVE_INTTYPES_H
-#cmakedefine01 HAVE_MALLOC_H
-#cmakedefine01 HAVE_STDBOOL_H
-#cmakedefine01 HAVE_STDCKDINT_H
-#cmakedefine01 HAVE_STDINT_H
-#cmakedefine01 HAVE_STDIO_H
-#cmakedefine01 HAVE_STDLIB_H
-#cmakedefine01 HAVE_STRING_H
-#cmakedefine01 HAVE_STRINGS_H
-#cmakedefine01 HAVE_SYSINFOAPI_H
-#cmakedefine01 HAVE_SYS_IOCTL_H
-#cmakedefine01 HAVE_SYS_RANDOM_H
-#cmakedefine01 HAVE_SYS_SYSCTL_H
-#cmakedefine01 HAVE_TERMIOS_H
-#cmakedefine01 HAVE_TIME_H
-#cmakedefine01 HAVE_UNISTD_H
-#cmakedefine01 HAVE_WCHAR_H
-#cmakedefine01 HAVE_WINDOWS_H
-
 #cmakedefine01 HAVE_ABS
+#cmakedefine01 HAVE_ALLOCA_H
 #cmakedefine01 HAVE___ARGC
 #cmakedefine01 HAVE___ARGV
+#cmakedefine01 HAVE_ASSERT_H
 #cmakedefine01 HAVE_ATOI
 #cmakedefine01 HAVE_ATOL
 #cmakedefine01 HAVE_ATOLL
 #cmakedefine01 HAVE_BCMP
 #cmakedefine01 HAVE_BCOPY
+#cmakedefine01 HAVE_BCRYPT_H
 #cmakedefine01 HAVE_BSEARCH
 #cmakedefine01 HAVE_BZERO
 #cmakedefine01 HAVE_C11__ALIGNAS
@@ -68,13 +45,17 @@
 #cmakedefine01 HAVE_C99_BOOL
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_CRT_EXTERNS_H
+#cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_ENDUSERSHELL
 #cmakedefine01 HAVE_ENVIRON
 #cmakedefine01 HAVE_ERR
 #cmakedefine01 HAVE_ERRC
+#cmakedefine01 HAVE_ERR_H
 #cmakedefine01 HAVE_ERROR
 #cmakedefine01 HAVE_ERROR_AT_LINE
+#cmakedefine01 HAVE_ERROR_H
 #cmakedefine01 HAVE_ERROR_MESSAGE_COUNT
 #cmakedefine01 HAVE_ERROR_ONE_PER_LINE
 #cmakedefine01 HAVE_ERROR_PRINT_PROGNAME
@@ -110,6 +91,7 @@
 #cmakedefine01 HAVE_GETUSERSHELL
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_INDEX
+#cmakedefine01 HAVE_INTTYPES_H
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
 #cmakedefine01 HAVE_ISASCII
@@ -127,6 +109,7 @@
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE__LOCK_FILE
+#cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY
@@ -155,6 +138,11 @@
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETUSERSHELL
+#cmakedefine01 HAVE_STDBOOL_H
+#cmakedefine01 HAVE_STDCKDINT_H
+#cmakedefine01 HAVE_STDINT_H
+#cmakedefine01 HAVE_STDIO_H
+#cmakedefine01 HAVE_STDLIB_H
 #cmakedefine01 HAVE_STPCPY
 #cmakedefine01 HAVE_STRCASECMP
 #cmakedefine01 HAVE_STRCAT
@@ -164,6 +152,8 @@
 #cmakedefine01 HAVE_STRCSPN
 #cmakedefine01 HAVE_STRDUP
 #cmakedefine01 HAVE_STRERRORNAME_NP
+#cmakedefine01 HAVE_STRING_H
+#cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_STRLEN
 #cmakedefine01 HAVE_STRMODE
 #cmakedefine01 HAVE_STRNCASECMP
@@ -193,12 +183,21 @@
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
 #cmakedefine01 HAVE_STRVERSCMP
 #cmakedefine01 HAVE_SWAB
+#cmakedefine01 HAVE_SYSINFOAPI_H
+#cmakedefine01 HAVE_SYS_IOCTL_H
+#cmakedefine01 HAVE_SYS_RANDOM_H
+#cmakedefine01 HAVE_SYS_SYSCTL_H
+#cmakedefine01 HAVE_TERMIOS_H
+#cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_TIMESPEC_GET
 #cmakedefine01 HAVE_TIMESPEC_GETRES
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP
 #cmakedefine01 HAVE_TOASCII
 #cmakedefine01 HAVE_TOLOWER
 #cmakedefine01 HAVE_TOUPPER
+#cmakedefine01 HAVE_TTYNAME
+#cmakedefine01 HAVE_TTYNAME_R
+#cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
@@ -209,6 +208,7 @@
 #cmakedefine01 HAVE_WARN
 #cmakedefine01 HAVE_WARNC
 #cmakedefine01 HAVE_WARNX
+#cmakedefine01 HAVE_WCHAR_H
 #cmakedefine01 HAVE_WCPCPY
 #cmakedefine01 HAVE_WCSCAT
 #cmakedefine01 HAVE_WCSCHR
@@ -217,6 +217,7 @@
 #cmakedefine01 HAVE_WCSDUP
 #cmakedefine01 HAVE_WCSLEN
 #cmakedefine01 HAVE_WCSNLEN
+#cmakedefine01 HAVE_WINDOWS_H
 #cmakedefine01 HAVE_WMEMCHR
 #cmakedefine01 HAVE_WMEMCMP
 #cmakedefine01 HAVE_WMEMCPY
