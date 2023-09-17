@@ -23,37 +23,26 @@
  * SUCH DAMAGE.
  */
 
-#include <stddef.h>
-#include <stdint.h>
+#include <config.h>
 
-#include "_Alignas.h"
-#include "test-help.h"
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
-#define CHECK_ALIGNMENT(variable, alignment)                                  \
-  (((uintptr_t) & (variable) % (alignment)) == 0)
-
+/* Make sure that `environ' is declared in unistd. */
 int
 main (void)
 {
-  _Alignas (16) char aligned_char = 0;
-  _Alignas (16) short aligned_short = 0;
-  _Alignas (16) int aligned_int = 0;
-  _Alignas (16) long int aligned_long = 0;
-  _Alignas (16) long long int aligned_long_long = 0;
-  _Alignas (16) unsigned char aligned_uchar = 0;
-  _Alignas (16) unsigned short aligned_ushort = 0;
-  _Alignas (16) unsigned int aligned_uint = 0;
-  _Alignas (16) unsigned long int aligned_ulong = 0;
-  _Alignas (16) unsigned long long int aligned_ulong_long = 0;
-  ASSERT (CHECK_ALIGNMENT (aligned_char, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_short, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_int, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_long, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_long_long, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_uchar, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_ushort, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_uint, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_ulong, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_ulong_long, 16));
+  char **environ_ptr = environ;
+  char *current_variable;
+
+  for (;;)
+    {
+      current_variable = *environ_ptr++;
+      if (current_variable == NULL)
+        break;
+      printf ("%s\n", current_variable);
+    }
+
   return 0;
 }

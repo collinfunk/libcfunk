@@ -3,35 +3,74 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+/* TODO: Move these. */
+#ifndef _ALL_SOURCE
+#  define _ALL_SOURCE 1
+#endif
+
+#ifndef _GNU_SOURCE
+#  define _GNU_SOURCE 1
+#endif
+
+#ifndef __STDC_WANT_LIB_EXT2__
+#  define __STDC_WANT_LIB_EXT2__ 1
+#endif
+
+#ifndef __STDC_WANT_IEC_60559_BFP_EXT__
+#  define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+#endif
+
 #cmakedefine01 HAVE_ALLOCA_H
+#cmakedefine01 HAVE_ASSERT_H
 #cmakedefine01 HAVE_BCRYPT_H
+#cmakedefine01 HAVE_CRT_EXTERNS_H
 #cmakedefine01 HAVE_CTYPE_H
-#cmakedefine01 HAVE_ERROR_H
 #cmakedefine01 HAVE_ERR_H
+#cmakedefine01 HAVE_ERROR_H
 #cmakedefine01 HAVE_INTTYPES_H
+#cmakedefine01 HAVE_MALLOC_H
+#cmakedefine01 HAVE_STDBOOL_H
+#cmakedefine01 HAVE_STDCKDINT_H
 #cmakedefine01 HAVE_STDINT_H
 #cmakedefine01 HAVE_STDIO_H
 #cmakedefine01 HAVE_STDLIB_H
-#cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_STRING_H
+#cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
-#cmakedefine01 HAVE_SYS_TIME_H
 #cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_UNISTD_H
+#cmakedefine01 HAVE_WCHAR_H
 #cmakedefine01 HAVE_WINDOWS_H
 
+#cmakedefine01 HAVE_ABS
+#cmakedefine01 HAVE___ARGC
+#cmakedefine01 HAVE___ARGV
+#cmakedefine01 HAVE_ATOI
+#cmakedefine01 HAVE_ATOL
+#cmakedefine01 HAVE_ATOLL
 #cmakedefine01 HAVE_BCMP
 #cmakedefine01 HAVE_BCOPY
 #cmakedefine01 HAVE_BSEARCH
 #cmakedefine01 HAVE_BZERO
-#cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_C11__ALIGNAS
+#cmakedefine01 HAVE_C11__ALIGNOF
+#cmakedefine01 HAVE_C11__NORETURN
+#cmakedefine01 HAVE_C11_STATIC_ASSERT
+#cmakedefine01 HAVE_C23_ALIGNAS
+#cmakedefine01 HAVE_C23_ALIGNOF
+#cmakedefine01 HAVE_C23_BOOL
+#cmakedefine01 HAVE_C23_NULLPTR
+#cmakedefine01 HAVE_C23_STATIC_ASSERT
+#cmakedefine01 HAVE_C99_BOOL
 #cmakedefine01 HAVE_CLOCK_GETRES
+#cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_ENDUSERSHELL
+#cmakedefine01 HAVE_ENVIRON
 #cmakedefine01 HAVE_ERR
 #cmakedefine01 HAVE_ERRC
 #cmakedefine01 HAVE_ERROR
@@ -49,8 +88,9 @@
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
 #cmakedefine01 HAVE_FUNLOCKFILE
+#cmakedefine01 HAVE__GETCHAR_NOLOCK
 #cmakedefine01 HAVE_GETCHAR_UNLOCKED
-#cmakedefine01 HAVE_GETCWD
+#cmakedefine01 HAVE__GETC_NOLOCK
 #cmakedefine01 HAVE_GETC_UNLOCKED
 #cmakedefine01 HAVE_GETDELIM
 #cmakedefine01 HAVE_GETEGID
@@ -59,6 +99,8 @@
 #cmakedefine01 HAVE_GETEXECNAME
 #cmakedefine01 HAVE_GETGID
 #cmakedefine01 HAVE_GETLINE
+#cmakedefine01 HAVE_GETLOGIN
+#cmakedefine01 HAVE_GETLOGIN_R
 #cmakedefine01 HAVE_GETPAGESIZE
 #cmakedefine01 HAVE_GETPROGNAME
 #cmakedefine01 HAVE_GETRANDOM
@@ -66,6 +108,7 @@
 #cmakedefine01 HAVE_GETUID
 #cmakedefine01 HAVE_GETUSERHSELL
 #cmakedefine01 HAVE_GETUSERSHELL
+#cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
@@ -81,28 +124,35 @@
 #cmakedefine01 HAVE_ISSPACE
 #cmakedefine01 HAVE_ISUPPER
 #cmakedefine01 HAVE_ISXDIGIT
+#cmakedefine01 HAVE_LABS
+#cmakedefine01 HAVE_LLABS
+#cmakedefine01 HAVE__LOCK_FILE
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY
 #cmakedefine01 HAVE_MEMMOVE
 #cmakedefine01 HAVE_MEMRCHR
 #cmakedefine01 HAVE_MEMSET
-#cmakedefine01 HAVE_MEMSET_S
 #cmakedefine01 HAVE_MEMSET_EXPLICIT
+#cmakedefine01 HAVE_MEMSET_S
 #cmakedefine01 HAVE_MKDTEMP
 #cmakedefine01 HAVE_MKSTEMP
+#cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
+#cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
+#cmakedefine01 HAVE__PUTCHAR_NOLOCK
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
+#cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_RINDEX
-#cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SECURE_GETENV
+#cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_STPCPY
@@ -113,6 +163,7 @@
 #cmakedefine01 HAVE_STRCMP
 #cmakedefine01 HAVE_STRCSPN
 #cmakedefine01 HAVE_STRDUP
+#cmakedefine01 HAVE_STRERRORNAME_NP
 #cmakedefine01 HAVE_STRLEN
 #cmakedefine01 HAVE_STRMODE
 #cmakedefine01 HAVE_STRNCASECMP
@@ -131,6 +182,16 @@
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
+#cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
+#cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
+#cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_STRUCT_STAT_ST_CTIM
+#cmakedefine01 HAVE_STRUCT_STAT_ST_CTIMESPEC
+#cmakedefine01 HAVE_STRUCT_STAT_ST_CTIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM
+#cmakedefine01 HAVE_STRUCT_STAT_ST_MTIMESPEC
+#cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_STRVERSCMP
 #cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_TIMESPEC_GET
 #cmakedefine01 HAVE_TIMESPEC_GETRES
@@ -138,6 +199,7 @@
 #cmakedefine01 HAVE_TOASCII
 #cmakedefine01 HAVE_TOLOWER
 #cmakedefine01 HAVE_TOUPPER
+#cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
 #cmakedefine01 HAVE_VERRX
@@ -147,24 +209,18 @@
 #cmakedefine01 HAVE_WARN
 #cmakedefine01 HAVE_WARNC
 #cmakedefine01 HAVE_WARNX
-#cmakedefine01 HAVE__GETCHAR_NOLOCK
-#cmakedefine01 HAVE__GETC_NOLOCK
-#cmakedefine01 HAVE__LOCK_FILE
-#cmakedefine01 HAVE__PROGNAME
-#cmakedefine01 HAVE__PUTCHAR_NOLOCK
-#cmakedefine01 HAVE__PUTC_NOLOCK
-#cmakedefine01 HAVE__UNLOCK_FILE
-#cmakedefine01 HAVE___ARGC
-#cmakedefine01 HAVE___ARGV
-
-#cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
-#cmakedefine01 HAVE_STRUCT_STAT_ST_CTIM
-#cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM
-#cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
-#cmakedefine01 HAVE_STRUCT_STAT_ST_CTIMESPEC
-#cmakedefine01 HAVE_STRUCT_STAT_ST_MTIMESPEC
-#cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC
-#cmakedefine01 HAVE_STRUCT_STAT_ST_CTIM_TIMESPEC_TV_NSEC
-#cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_WCPCPY
+#cmakedefine01 HAVE_WCSCAT
+#cmakedefine01 HAVE_WCSCHR
+#cmakedefine01 HAVE_WCSCMP
+#cmakedefine01 HAVE_WCSCPY
+#cmakedefine01 HAVE_WCSDUP
+#cmakedefine01 HAVE_WCSLEN
+#cmakedefine01 HAVE_WCSNLEN
+#cmakedefine01 HAVE_WMEMCHR
+#cmakedefine01 HAVE_WMEMCMP
+#cmakedefine01 HAVE_WMEMCPY
+#cmakedefine01 HAVE_WMEMMOVE
+#cmakedefine01 HAVE_WMEMSET
 
 #endif /* CONFIG_H */

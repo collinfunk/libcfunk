@@ -210,4 +210,10 @@ extern const char *strerrorname_np (int errnum);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRVERSCMP@
+#  if !@HAVE_STRVERSCMP@
+extern int strverscmp (const char *s1, const char *s2);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

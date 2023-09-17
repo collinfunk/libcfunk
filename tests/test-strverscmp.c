@@ -23,37 +23,66 @@
  * SUCH DAMAGE.
  */
 
-#include <stddef.h>
-#include <stdint.h>
+#include <config.h>
 
-#include "_Alignas.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "test-help.h"
 
-#define CHECK_ALIGNMENT(variable, alignment)                                  \
-  (((uintptr_t) & (variable) % (alignment)) == 0)
+struct test_case
+{
+  const char *str1; /* String 1. */
+  const char *str2; /* String 2. */
+  int expect;       /* Negative, 0, or positive */
+};
+
+static const struct test_case test_cases[]
+    = { { "", "", 0 },
+        { "same-string", "same-string", 0 },
+        { "000", "00", -1 },
+        { "00", "01", -1 },
+        { "01", "010", -1 },
+        { "010", "09", -1 },
+        { "09", "0", -1 },
+        { "0", "1", -1 },
+        { "1", "9", -1 },
+        { "9", "10", -1 },
+        { "numbers99", "numbers100", -1 },
+        { "same-prefix012", "same-prefix01", 1 },
+        { "leading-zeros002", "leading-zeros02", -1 } };
+
+static void do_test_case (const struct test_case *test);
 
 int
 main (void)
 {
-  _Alignas (16) char aligned_char = 0;
-  _Alignas (16) short aligned_short = 0;
-  _Alignas (16) int aligned_int = 0;
-  _Alignas (16) long int aligned_long = 0;
-  _Alignas (16) long long int aligned_long_long = 0;
-  _Alignas (16) unsigned char aligned_uchar = 0;
-  _Alignas (16) unsigned short aligned_ushort = 0;
-  _Alignas (16) unsigned int aligned_uint = 0;
-  _Alignas (16) unsigned long int aligned_ulong = 0;
-  _Alignas (16) unsigned long long int aligned_ulong_long = 0;
-  ASSERT (CHECK_ALIGNMENT (aligned_char, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_short, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_int, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_long, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_long_long, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_uchar, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_ushort, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_uint, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_ulong, 16));
-  ASSERT (CHECK_ALIGNMENT (aligned_ulong_long, 16));
+  size_t i;
+
+  for (i = 0; i < ARRAY_SIZE (test_cases); ++i)
+    do_test_case (&test_cases[i]);
+
   return 0;
+}
+
+static void
+do_test_case (const struct test_case *test)
+{
+  int result = strverscmp (test->str1, test->str2);
+
+  if (test->expect == 0)
+    ASSERT (result == 0);
+  else if (test->expect < 0)
+    {
+      ASSERT (result < 0);
+      result = strverscmp (test->str2, test->str1);
+      ASSERT (result > 0);
+    }
+  else /* test->expect > 0 */
+    {
+      ASSERT (result > 0);
+      result = strverscmp (test->str2, test->str1);
+      ASSERT (result < 0);
+    }
 }

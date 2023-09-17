@@ -31,9 +31,21 @@
 #include <sys/types.h>
 
 #include <stddef.h>
+#include <stdlib.h>
 
 #if @HAVE_UNISTD_H@
 #  include_next <unistd.h>
+#endif
+
+#if @LIBCFUNK_DECLARE_ENVIRON@
+#  if !@HAVE_ENVIRON@
+#    if @HAVE_CRT_EXTERNS_H@ && @HAVE__NSGETENVIRON@
+#      include <crt_externs.h>
+#      define environ (*_NSGetEnviron ())
+#    else
+extern char **environ;
+#    endif
+#  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_GETUSERSHELL@

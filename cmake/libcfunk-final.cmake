@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+# Create a configure file substituting missing variables with 0.
 function (substitute_header template_file output_file)
   if (NOT EXISTS "${template_file}")
     message(FATAL_ERROR "Template file `${template_file}' does not exist.")
@@ -15,30 +16,20 @@ function (substitute_header template_file output_file)
   foreach (VARIABLE ${VARIABLE_LIST})
     if ("${${VARIABLE}}")
       if ("${${VARIABLE}}" STREQUAL "" OR "${${VARIABLE}}" STREQUAL "FALSE")
-        set(${${VARIABLE}} "0" CACHE INTERNAL "")
+        set(${${VARIABLE}} "0")
       elseif ("${${VARIABLE}}" STREQUAL "TRUE")
-        set(${${VARIABLE}} "1" CACHE INTERNAL "")
+        set(${${VARIABLE}} "1")
       endif ()
     else ()
-      set(${VARIABLE} "0" CACHE INTERNAL "")
+      set(${VARIABLE} "0")
     endif ()
   endforeach ()
   configure_file("${template_file}" "${output_file}")
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    "${output_file}"
+  )
 endfunction ()
 
-add_custom_command(
-  OUTPUT "$CACHE{LIBCFUNK_CONFIG_DIR}/config.h"
-  COMMAND "$CACHE{PERL_PROGRAM}"
-  "$CACHE{LIBCFUNK_SCRIPT_DIR}/cmake-autoheader.pl"
-  "${CMAKE_BINARY_DIR}/CMakeCache.txt"
-  "$CACHE{LIBCFUNK_CONFIG_DIR}/config.h"
-  DEPENDS "${CMAKE_BINARY_DIR}/CMakeCache.txt"
-  COMMENT "Generating `$CACHE{LIBCFUNK_CONFIG_DIR}/config.h'."
-  VERBATIM
-)
-
-target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-  "$CACHE{LIBCFUNK_CONFIG_DIR}/config.h")
 
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   substitute_header(
@@ -172,3 +163,12 @@ if ($CACHE{LIBCFUNK_GENERATE_WCHAR_H})
     $CACHE{LIBCFUNK_CONFIG_DIR}/wchar.h
   )
 endif ()
+
+configure_file(
+  $CACHE{LIBCFUNK_SOURCE_DIR}/config.h.cmake
+  $CACHE{LIBCFUNK_CONFIG_DIR}/config.h
+)
+
+target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+  $CACHE{LIBCFUNK_CONFIG_DIR}/config.h
+)

@@ -30,7 +30,7 @@
 #include "test-help.h"
 
 #define CHECK_ALIGNMENT(variable, alignment)                                  \
-  ((uintptr_t) & (variable) % (alignment) == 0)
+  (((uintptr_t) & (variable) % (alignment)) == 0)
 
 int
 main (void)
@@ -45,15 +45,15 @@ main (void)
   alignas (16) unsigned int aligned_uint = 0;
   alignas (16) unsigned long int aligned_ulong = 0;
   alignas (16) unsigned long long int aligned_ulong_long = 0;
-  CHECK_ALIGNMENT (aligned_char, 16);
-  CHECK_ALIGNMENT (aligned_short, 16);
-  CHECK_ALIGNMENT (aligned_int, 16);
-  CHECK_ALIGNMENT (aligned_long, 16);
-  CHECK_ALIGNMENT (aligned_long_long, 16);
-  CHECK_ALIGNMENT (aligned_uchar, 16);
-  CHECK_ALIGNMENT (aligned_ushort, 16);
-  CHECK_ALIGNMENT (aligned_uint, 16);
-  CHECK_ALIGNMENT (aligned_ulong, 16);
-  CHECK_ALIGNMENT (aligned_ulong_long, 16);
+  ASSERT (CHECK_ALIGNMENT (aligned_char, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_short, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_int, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_long, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_long_long, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_uchar, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_ushort, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_uint, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_ulong, 16));
+  ASSERT (CHECK_ALIGNMENT (aligned_ulong_long, 16));
   return 0;
 }

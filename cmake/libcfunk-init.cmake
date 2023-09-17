@@ -10,10 +10,6 @@ include(CheckIncludeFiles)
 include(CheckCSourceCompiles)
 include(FindPerl)
 
-if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
-  list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
-endif ()
-
 # Cache variables for directories
 set(LIBCFUNK_LIBRARY_NAME "cfunk" CACHE STRING
   "The name of the library to build.")
@@ -95,6 +91,10 @@ target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/__has_warning.h
   $CACHE{LIBCFUNK_SOURCE_DIR}/__is_identifier.h
 )
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
+endif ()
 
 # Internal cache values to signal libcfunk-final needs to create headers.
 set(LIBCFUNK_GENERATE_ALLOCA_H "0" CACHE INTERNAL "")
