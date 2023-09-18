@@ -136,10 +136,31 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_RANDOM_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_STAT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/stat.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/stat.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/time.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/time.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/types.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/types.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_WAIT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/wait.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/wait.h
   )
 endif ()
 

@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdbool-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/read-nointr.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/write-full.cmake)
 

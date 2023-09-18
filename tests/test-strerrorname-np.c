@@ -23,37 +23,45 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TIME_H
-#define COMPAT_SYS_TIME_H
-
-#include <sys/types.h>
-
 #include <config.h>
 
-#if @HAVE_SYS_TIME_H@
-#  include_next <sys/time.h>
-#endif
+#include <errno.h>
+#include <string.h>
 
-/* Convert TV to a struct timespec stored in TS. */
-#ifndef TIMEVAL_TO_TIMESPEC
-#  define TIMEVAL_TO_TIMESPEC(tv, ts)                                         \
-    do                                                                        \
-      {                                                                       \
-        (ts)->tv_sec = (tv)->tv_sec;                                          \
-        (ts)->tv_nsec = (tv)->tv_usec * 1000;                                 \
-      }                                                                       \
-    while (0)
-#endif
+#include "test-help.h"
 
-/* Convert TS to struct timeval stored in TV. */
-#ifndef TIMESPEC_TO_TIMEVAL
-#  define TIMESPEC_TO_TIMEVAL(tv, ts)                                         \
-    do                                                                        \
-      {                                                                       \
-        (tv)->tv_sec = (ts)->tv_sec;                                          \
-        (tv)->tv_usec = (ts)->tv_nsec / 1000;                                 \
-      }                                                                       \
-    while (0)
-#endif
+struct test_error_number
+{
+  int number;      /* Numerical value. */
+  const char *str; /* String. */
+};
 
-#endif /* COMPAT_SYS_TIME_H */
+/* Test the error numbers required by C99. */
+static const struct test_error_number test_cases[] = {
+#ifdef EDOM
+  { EDOM, "EDOM" },
+#endif
+#ifdef EILSEQ
+  { EILSEQ, "EILSEQ" },
+#endif
+#ifdef ERANGE
+  { ERANGE, "ERANGE" }
+#endif
+};
+
+int
+main (void)
+{
+  size_t i;
+
+  for (i = 0; i < ARRAY_SIZE (test_cases); ++i)
+    {
+      int number = test_cases[i].number;
+      const char *str = test_cases[i].str;
+      const char *result = strerrorname_np (number);
+      ASSERT (result != 0);
+      ASSERT (strcmp (result, str) == 0);
+    }
+
+  return 0;
+}

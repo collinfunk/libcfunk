@@ -23,37 +23,29 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TIME_H
-#define COMPAT_SYS_TIME_H
-
-#include <sys/types.h>
-
 #include <config.h>
 
-#if @HAVE_SYS_TIME_H@
-#  include_next <sys/time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include <errno.h>
+#include <unistd.h>
+
+#include "__has_attribute.h"
+
+#if !HAVE_WINDOWS_H
+#  error "This file should only be built on Windows."
 #endif
 
-/* Convert TV to a struct timespec stored in TS. */
-#ifndef TIMEVAL_TO_TIMESPEC
-#  define TIMEVAL_TO_TIMESPEC(tv, ts)                                         \
-    do                                                                        \
-      {                                                                       \
-        (ts)->tv_sec = (tv)->tv_sec;                                          \
-        (ts)->tv_nsec = (tv)->tv_usec * 1000;                                 \
-      }                                                                       \
-    while (0)
+#if __has_attribute(__unused__)
+#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
 #endif
 
-/* Convert TS to struct timeval stored in TV. */
-#ifndef TIMESPEC_TO_TIMEVAL
-#  define TIMESPEC_TO_TIMEVAL(tv, ts)                                         \
-    do                                                                        \
-      {                                                                       \
-        (tv)->tv_sec = (ts)->tv_sec;                                          \
-        (tv)->tv_usec = (ts)->tv_nsec / 1000;                                 \
-      }                                                                       \
-    while (0)
-#endif
-
-#endif /* COMPAT_SYS_TIME_H */
+/* chown(2) which always fails on Windows. */
+int
+chown (const char *path ATTRIBUTE_UNUSED, uid_t owner ATTRIBUTE_UNUSED,
+       gid_t group ATTRIBUTE_UNUSED)
+{
+  errno = ENOSYS;
+  return -1;
+}

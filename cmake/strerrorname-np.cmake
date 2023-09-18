@@ -15,3 +15,7 @@ if (NOT HAVE_STRERRORNAME_NP)
     $CACHE{LIBCFUNK_SOURCE_DIR}/strerrorname-np.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strerrorname-np.cmake)
+endif ()

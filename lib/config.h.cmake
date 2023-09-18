@@ -43,6 +43,8 @@
 #cmakedefine01 HAVE_C23_NULLPTR
 #cmakedefine01 HAVE_C23_STATIC_ASSERT
 #cmakedefine01 HAVE_C99_BOOL
+#cmakedefine01 HAVE_CHMOD
+#cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_CRT_EXTERNS_H
@@ -89,6 +91,7 @@
 #cmakedefine01 HAVE_GETUID
 #cmakedefine01 HAVE_GETUSERHSELL
 #cmakedefine01 HAVE_GETUSERSHELL
+#cmakedefine01 HAVE_GID_T
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_INTTYPES_H
@@ -166,6 +169,7 @@
 #cmakedefine01 HAVE_STRRCHR
 #cmakedefine01 HAVE_STRSEP
 #cmakedefine01 HAVE_STRSPN
+#cmakedefine01 HAVE_STRSTR
 #cmakedefine01 HAVE_STRTOIMAX
 #cmakedefine01 HAVE_STRTOL
 #cmakedefine01 HAVE_STRTOLL
@@ -186,7 +190,11 @@
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
+#cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
+#cmakedefine01 HAVE_SYS_TIME_H
+#cmakedefine01 HAVE_SYS_TYPES_H
+#cmakedefine01 HAVE_SYS_WAIT_H
 #cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_TIMESPEC_GET
@@ -197,6 +205,7 @@
 #cmakedefine01 HAVE_TOUPPER
 #cmakedefine01 HAVE_TTYNAME
 #cmakedefine01 HAVE_TTYNAME_R
+#cmakedefine01 HAVE_UID_T
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_VERR
@@ -205,6 +214,7 @@
 #cmakedefine01 HAVE_VWARN
 #cmakedefine01 HAVE_VWARNC
 #cmakedefine01 HAVE_VWARNX
+#cmakedefine01 HAVE_WAITPID
 #cmakedefine01 HAVE_WARN
 #cmakedefine01 HAVE_WARNC
 #cmakedefine01 HAVE_WARNX

@@ -8,7 +8,6 @@ include(CheckTypeSize)
 include(CheckIncludeFile)
 include(CheckIncludeFiles)
 include(CheckCSourceCompiles)
-include(FindPerl)
 
 # Cache variables for directories
 set(LIBCFUNK_LIBRARY_NAME "cfunk" CACHE STRING
@@ -34,12 +33,6 @@ set(LIBCFUNK_BUILD_SHARED OFF CACHE BOOL
 include what your program needs. Setting this to true will build a shared
 library anyways.")
 
-# Programs
-set(PERL_PROGRAM "${PERL_EXECUTABLE}" CACHE STRING
-  "Perl is required to generate a configuration header. CMake should have
-autodetected this. If it is not found or is incorrect, set PERL_PROGRAM
-to the proper path.")
-
 # Enable testing by default.
 set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "Build test executables.")
 
@@ -47,11 +40,6 @@ set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "Build test executables.")
 if (NOT EXISTS $CACHE{LIBCFUNK_MODULE_DIR}/libcfunk-init.cmake)
   message(FATAL_ERROR "Could not find `libcfunk-init.cmake' in \
 LIBCFUNK_MODULE_DIR. Make sure you set the paths correctly.")
-endif ()
-
-if (NOT PERL_PROGRAM)
-  message(FATAL_ERROR "Perl is required to generate headers. Install it from \
-your systems repositories or `https://www.perl.org'.")
 endif ()
 
 # Make sure the configuration directory exists before we try anything.
@@ -111,7 +99,10 @@ set(LIBCFUNK_GENERATE_STDLIB_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_STRING_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_STRINGS_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_SYS_RANDOM_H "0" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_STAT_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_SYS_TIME_H "0" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_TYPES_H "0" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_WAIT_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_STDBOOL_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_TIME_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_UNISTD_H "0" CACHE INTERNAL "")
