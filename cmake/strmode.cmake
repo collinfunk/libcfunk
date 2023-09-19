@@ -1,6 +1,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-stat-h.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("strmode" "string.h" HAVE_STRMODE)

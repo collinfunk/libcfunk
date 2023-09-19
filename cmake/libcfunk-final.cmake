@@ -10,7 +10,7 @@ function (substitute_header template_file output_file)
   string(REGEX MATCHALL "@[A-Za-z1-9_]+@" VARIABLE_LIST "${TEMPLATE_CONTENTS}")
   if (NOT VARIABLE_LIST)
     configure_file("${template_file}" "${output_file}")
-    break ()
+    return ()
   endif ()
   string(REPLACE "@" "" VARIABLE_LIST "${VARIABLE_LIST}")
   foreach (VARIABLE ${VARIABLE_LIST})
@@ -52,6 +52,13 @@ if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_DIRENT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/dirent.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/dirent.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_ERR_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/err.h.in
@@ -66,6 +73,13 @@ if ($CACHE{LIBCFUNK_GENERATE_ERROR_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_FCNTL_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/fcntl.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/fcntl.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in
@@ -77,6 +91,13 @@ if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/malloc.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_PTY_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pty.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/pty.h
   )
 endif ()
 
@@ -129,6 +150,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STRINGS_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_IOCTL_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/ioctl.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/ioctl.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_RANDOM_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/random.h.in
@@ -168,6 +196,13 @@ if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/time.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/time.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_TERMIOS_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/termios.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/termios.h
   )
 endif ()
 

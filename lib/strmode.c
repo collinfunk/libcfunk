@@ -28,33 +28,6 @@
 
 #include <string.h>
 
-/* Directory restricted deletion flag. Not required by POSIX. */
-#ifndef S_ISVTX
-#  define S_ISVTX 01000
-#endif
-
-/* Macro to check for whiteout files. Defined on 4.4BSD and its descendants.
-   Not defined by glibc. */
-#ifndef S_ISWHT
-#  define S_ISWHT(mode) 0
-#endif
-
-#ifndef S_ISLNK
-#  define S_ISLNK(mode) 0
-#endif
-
-#ifndef S_ISSOCK
-#  define S_ISSOCK(mode) 0
-#endif
-
-#ifndef S_ISUID
-#  define S_ISUID 0
-#endif
-
-#ifndef S_ISGID
-#  define S_ISGID 0
-#endif
-
 /* strmode(3) function based on 4.4BSD.
    Converts a file mode into a symbolic string.
    STR should be atleast 12 characters and the resulting string will always end

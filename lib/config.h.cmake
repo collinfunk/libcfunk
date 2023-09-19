@@ -22,6 +22,7 @@
 
 #cmakedefine01 HAVE_ABS
 #cmakedefine01 HAVE_ALLOCA_H
+#cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
 #cmakedefine01 HAVE___ARGV
 #cmakedefine01 HAVE_ASSERT_H
@@ -47,8 +48,10 @@
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRT_EXTERNS_H
 #cmakedefine01 HAVE_CTYPE_H
+#cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_ENDUSERSHELL
 #cmakedefine01 HAVE_ENVIRON
@@ -63,6 +66,7 @@
 #cmakedefine01 HAVE_ERROR_PRINT_PROGNAME
 #cmakedefine01 HAVE_ERRX
 #cmakedefine01 HAVE_EXPLICIT_BZERO
+#cmakedefine01 HAVE_FCNTL_H
 #cmakedefine01 HAVE_FFS
 #cmakedefine01 HAVE_FFSL
 #cmakedefine01 HAVE_FFSLL
@@ -130,6 +134,7 @@
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
+#cmakedefine01 HAVE_PTY_H
 #cmakedefine01 HAVE__PUTCHAR_NOLOCK
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
 #cmakedefine01 HAVE__PUTC_NOLOCK
@@ -185,6 +190,8 @@
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_STRUCT_TERMIOS
+#cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
 #cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_SYSINFOAPI_H
@@ -211,6 +218,7 @@
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
 #cmakedefine01 HAVE_VERRX
+#cmakedefine01 HAVE_VERSIONSORT
 #cmakedefine01 HAVE_VWARN
 #cmakedefine01 HAVE_VWARNC
 #cmakedefine01 HAVE_VWARNX
