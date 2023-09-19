@@ -34,6 +34,8 @@
 
 #if __has_attribute(__unused__)
 #  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
+#else
+#  define ATTRIBUTE_UNUSED
 #endif
 
 /* Make sure that struct winsize is declared on systems without it. */

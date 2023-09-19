@@ -25,29 +25,80 @@
 
 #include <config.h>
 
-#include <sys/stat.h>
-#include <sys/types.h>
+#include <limits.h>
 
-#include <errno.h>
-#include <unistd.h>
+#include "__has_builtin.h"
+#include "clz.h"
 
-#include "__has_attribute.h"
-
-#if !HAVE_WINDOWS_H
-#  error "This file should only be built on Windows."
+#ifndef CHAR_BIT
+#  define CHAR_BIT 8
 #endif
 
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
-#endif
-
-/* chown(2) which always fails on Windows. */
 int
-chown (const char *path ATTRIBUTE_UNUSED, uid_t owner ATTRIBUTE_UNUSED,
-       gid_t group ATTRIBUTE_UNUSED)
+clz (unsigned int value)
 {
-  errno = ENOSYS;
-  return -1;
+#if __has_builtin(__builtin_clz)
+  if (value == 0)
+    return CHAR_BIT * value;
+  return __builtin_clz (value);
+#else
+  unsigned int bit = 1U << ((sizeof (value) * CHAR_BIT) - 1);
+  int count = 0;
+
+  if (value == 0)
+    return CHAR_BIT * value;
+
+  while (!(value & bit))
+    {
+      bit >>= 1;
+      ++count;
+    }
+  return count;
+#endif
+}
+
+int
+clzl (unsigned long int value)
+{
+#if __has_builtin(__builtin_clzl)
+  if (value == 0)
+    return CHAR_BIT * value;
+  return __builtin_clzl (value);
+#else
+  unsigned long int bit = 1UL << ((sizeof (value) * CHAR_BIT) - 1);
+  int count = 0;
+
+  if (value == 0)
+    return CHAR_BIT * value;
+
+  while (!(value & bit))
+    {
+      bit >>= 1;
+      ++count;
+    }
+  return count;
+#endif
+}
+
+int
+clzll (unsigned long long int value)
+{
+#if __has_builtin(__builtin_clzll)
+  if (value == 0)
+    return CHAR_BIT * value;
+  return __builtin_clzll (value);
+#else
+  unsigned long long int bit = 1ULL << ((sizeof (value) * CHAR_BIT) - 1);
+  int count = 0;
+
+  if (value == 0)
+    return CHAR_BIT * value;
+
+  while (!(value & bit))
+    {
+      bit >>= 1;
+      ++count;
+    }
+  return count;
+#endif
 }

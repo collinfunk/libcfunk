@@ -23,31 +23,74 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include <sys/stat.h>
-#include <sys/types.h>
+#include "clz.h"
+#include "test-help.h"
 
-#include <errno.h>
-#include <unistd.h>
-
-#include "__has_attribute.h"
-
-#if !HAVE_WINDOWS_H
-#  error "This file should only be built on Windows."
+#ifndef CHAR_BIT
+#  define CHAR_BIT 8
 #endif
 
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
-#endif
+static void test_clz (void);
+static void test_clzl (void);
+static void test_clzll (void);
 
-/* chown(2) which always fails on Windows. */
 int
-chown (const char *path ATTRIBUTE_UNUSED, uid_t owner ATTRIBUTE_UNUSED,
-       gid_t group ATTRIBUTE_UNUSED)
+main (void)
 {
-  errno = ENOSYS;
-  return -1;
+  test_clz ();
+  test_clzl ();
+  test_clzll ();
+  return 0;
+}
+
+static void
+test_clz (void)
+{
+  unsigned int value;
+  int result;
+  size_t i;
+
+  for (i = 0; i < sizeof (value) * CHAR_BIT; ++i)
+    {
+      value = 1U << i;
+      result = clz (value);
+      printf ("clz (%08x): %d\n", value, result);
+      ASSERT ((size_t) result == (sizeof (value) * CHAR_BIT) - i - 1);
+    }
+}
+
+static void
+test_clzl (void)
+{
+  unsigned long int value;
+  int result;
+  size_t i;
+
+  for (i = 0; i < sizeof (value) * CHAR_BIT; ++i)
+    {
+      value = 1UL << i;
+      result = clzl (value);
+      printf ("clzl (%016lx): %d\n", value, result);
+      ASSERT ((size_t) result == (sizeof (value) * CHAR_BIT) - i - 1);
+    }
+}
+
+static void
+test_clzll (void)
+{
+  unsigned long long int value;
+  int result;
+  size_t i;
+
+  for (i = 0; i < sizeof (value) * CHAR_BIT; ++i)
+    {
+      value = 1ULL << i;
+      result = clzll (value);
+      printf ("clzll (%016llx): %d\n", value, result);
+      ASSERT ((size_t) result == (sizeof (value) * CHAR_BIT) - i - 1);
+    }
 }

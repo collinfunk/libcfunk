@@ -33,6 +33,8 @@
 
 #if __has_attribute(__unused__)
 #  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
+#else
+#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
 #endif
 
 /* Make sure that struct termios is declared on systems without it. */

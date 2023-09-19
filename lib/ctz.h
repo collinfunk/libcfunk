@@ -23,31 +23,11 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef CTZ_H
+#define CTZ_H
 
-#include <sys/stat.h>
-#include <sys/types.h>
+extern int ctz (unsigned int value);
+extern int ctzl (unsigned long int value);
+extern int ctzll (unsigned long long int value);
 
-#include <errno.h>
-#include <unistd.h>
-
-#include "__has_attribute.h"
-
-#if !HAVE_WINDOWS_H
-#  error "This file should only be built on Windows."
-#endif
-
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
-#endif
-
-/* chown(2) which always fails on Windows. */
-int
-chown (const char *path ATTRIBUTE_UNUSED, uid_t owner ATTRIBUTE_UNUSED,
-       gid_t group ATTRIBUTE_UNUSED)
-{
-  errno = ENOSYS;
-  return -1;
-}
+#endif /* CTZ_H */
