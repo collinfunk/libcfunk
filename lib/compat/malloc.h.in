@@ -28,6 +28,10 @@
 
 #include <stdlib.h>
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_MALLOC_H@
 #  include_next <malloc.h>
 #endif

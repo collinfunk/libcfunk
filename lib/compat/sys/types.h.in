@@ -26,6 +26,10 @@
 #ifndef COMPAT_SYS_TYPES_H
 #define COMPAT_SYS_TYPES_H
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_SYS_TYPES_H@
 #  include_next <sys/types.h>
 #endif

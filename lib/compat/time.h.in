@@ -28,11 +28,13 @@
 
 #include <sys/types.h>
 
-#include <config.h>
-
 /* Show dysize if the system has it. */
 #ifdef __GLIBC__
 #  define  __DEFAULT_SOURCE
+#endif
+
+#ifdef __GNUC__
+#  pragma GCC system_header
 #endif
 
 #if @HAVE_TIME_H@

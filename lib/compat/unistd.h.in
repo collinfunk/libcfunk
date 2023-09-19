@@ -31,6 +31,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_UNISTD_H@
 #  include_next <unistd.h>
 #endif

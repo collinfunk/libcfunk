@@ -26,12 +26,14 @@
 #ifndef COMPAT_STRINGS_H
 #define COMPAT_STRINGS_H
 
-#include <config.h>
-
 #include <sys/types.h>
 
 #include <stddef.h>
 #include <string.h>
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
 #if @HAVE_STRINGS_H@
 #  include_next <strings.h>

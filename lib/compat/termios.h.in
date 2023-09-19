@@ -31,6 +31,10 @@
 /* struct winsize */
 #include <sys/ioctl.h>
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_TERMIOS_H@
 #  include_next <termios.h>
 #endif

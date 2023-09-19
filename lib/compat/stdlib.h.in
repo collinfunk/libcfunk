@@ -26,9 +26,11 @@
 #ifndef COMPAT_STDLIB_H
 #define COMPAT_STDLIB_H
 
-#include <config.h>
-
 #include <sys/types.h>
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
 #if @HAVE_STDLIB_H@
 #  include_next <stdlib.h>

@@ -26,6 +26,10 @@
 #ifndef COMPAT_ALLOCA_H
 #define COMPAT_ALLOCA_H
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_ALLOCA_H@
 #  include_next <alloca.h>
 #endif

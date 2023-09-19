@@ -26,16 +26,17 @@
 #ifndef COMPAT_STRING_H
 #define COMPAT_STRING_H
 
-#include <config.h>
-
 #include <sys/types.h>
 
 #include <stddef.h>
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_STRING_H@
 #  include_next <string.h>
 #endif
-
 
 #if @LIBCFUNK_DECLARE_STRSTR@
 #  if !@HAVE_STRSTR@

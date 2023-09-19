@@ -28,7 +28,9 @@
 
 #include <sys/types.h>
 
-#include <config.h>
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
 #if @HAVE_STDIO_H@
 #  include_next <stdio.h>

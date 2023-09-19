@@ -28,6 +28,10 @@
 
 #include <sys/types.h>
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_SYS_WAIT_H@
 #  include_next <sys/wait.h>
 #endif

@@ -28,6 +28,10 @@
 
 #include <sys/types.h>
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 #if @HAVE_SYS_IOCTL_H@
 #  include_next <sys/ioctl.h>
 #endif
