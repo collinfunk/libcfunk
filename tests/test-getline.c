@@ -57,7 +57,7 @@ main (int argc, char **argv)
 
   for (;;)
     {
-      ssize_t current_read = getdelim (&buffer, &buffer_size, '\n', fp);
+      ssize_t current_read = getline (&buffer, &buffer_size, fp);
       if (current_read < 0)
         break;
       ASSERT ((size_t) current_read < buffer_size);

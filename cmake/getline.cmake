@@ -1,3 +1,4 @@
+
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
@@ -16,3 +17,8 @@ if (NOT HAVE_GETLINE)
     $CACHE{LIBCFUNK_SOURCE_DIR}/getline.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-getline.cmake)
+endif ()
+
