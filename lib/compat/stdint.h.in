@@ -26,6 +26,8 @@
 #ifndef COMPAT_STDINT_H
 #define COMPAT_STDINT_H
 
+#include <limits.h>
+
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -34,5 +36,56 @@
 #  include_next <stdint.h>
 #endif
 
+/* TODO */
+
+#ifndef __INT8_TYPE__
+#  define __INT8_TYPE__ signed char
+#endif
+
+#ifndef __INT16_TYPE__
+#endif
+
+#ifndef __INT32_TYPE__
+#endif
+
+#ifndef __INT64_TYPE__
+#endif
+
+#ifndef __UINT8_TYPE__
+#  define __UINT8_TYPE__ unsigned char
+#endif
+
+#ifndef __UINT16_TYPE__
+#endif
+
+#ifndef __UINT32_TYPE__
+#endif
+
+#ifndef __UINT64_TYPE__
+#endif
+
+#ifndef __INT8_C
+#endif
+
+#ifndef __INT16_C
+#endif
+
+#ifndef __INT32_C
+#endif
+
+#ifndef __INT64_C
+#endif
+
+#ifndef __UINT8_C
+#endif
+
+#ifndef __UINT16_C
+#endif
+
+#ifndef __UINT32_C
+#endif
+
+#ifndef __UINT64_C
+#endif
 
 #endif /* COMPAT_STDINT_H */

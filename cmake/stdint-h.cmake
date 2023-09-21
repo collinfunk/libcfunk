@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
+
 # Generate <stdint.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STDINT_H "1" CACHE INTERNAL "")
 

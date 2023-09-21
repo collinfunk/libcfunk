@@ -83,6 +83,13 @@ if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_LIMITS_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/limits.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/limits.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in

@@ -1,0 +1,305 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_LIMITS_H
+#define COMPAT_LIMITS_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_LIMITS_H@
+#  include_next <limits.h>
+#endif
+
+/*
+#undef __CHAR_BIT__
+#undef __SCHAR_MAX__
+#undef __SHRT_MAX__
+#undef __INT_MAX__
+#undef __LONG_MAX__
+#undef __LONG_LONG_MAX__
+#undef __SCHAR_WIDTH__
+#undef __SHRT_WIDTH__
+#undef __INT_WIDTH__
+#undef __LONG_WIDTH__
+#undef __LONG_LONG_WIDTH__
+*/
+
+#ifndef __CHAR_UNSIGNED__
+#  if @CHAR_IS_UNSIGNED@
+#    define __CHAR_UNSIGNED__ 1
+#  endif
+#endif
+
+#ifndef __CHAR_BIT__
+#  define __CHAR_BIT__ 8
+#endif
+
+#ifndef __SCHAR_WIDTH__
+#  define __SCHAR_WIDTH__ @SCHAR_WIDTH@
+#endif
+
+#ifndef __SHRT_WIDTH__
+#  define __SHRT_WIDTH__ @SHRT_WIDTH@
+#endif
+
+#ifndef __INT_WIDTH__
+#  define __INT_WIDTH__ @INT_WIDTH@
+#endif
+
+#ifndef __LONG_WIDTH__
+#  define __LONG_WIDTH__ @LONG_WIDTH@
+#endif
+
+#ifndef __LONG_LONG_WIDTH__
+#  define __LONG_LONG_WIDTH__ @LONG_LONG_WIDTH@
+#endif
+
+#ifndef __SCHAR_MAX__
+#  if __SCHAR_WIDTH__ == 8
+#    define __SCHAR_MAX__ 127
+#  elif __SCHAR_WIDTH__ == 16
+#    define __SCHAR_MAX__ 32767
+#  elif __SCHAR_WIDTH__ == 32
+#    define __SCHAR_MAX__ 2147483647
+#  elif __SCHAR_WIDTH__ == 64
+#    define __SCHAR_MAX__ 9223372036854775807
+#  endif
+#endif
+
+#ifndef __SHRT_MAX__
+#  if __SHRT_WIDTH__ == 8
+#    define __SHRT_MAX__ 127
+#  elif __SHRT_WIDTH__ == 16
+#    define __SHRT_MAX__ 32767
+#  elif __SHRT_WIDTH__ == 32
+#    define __SHRT_MAX__ 2147483647
+#  elif __SHRT_WIDTH__ == 64
+#    define __SHRT_MAX__ 9223372036854775807
+#  endif
+#endif
+
+#ifndef __INT_MAX__
+#  if __INT_WIDTH__ == 8
+#    define __INT_MAX__ 127
+#  elif __INT_WIDTH__ == 16
+#    define __INT_MAX__ 32767
+#  elif __INT_WIDTH__ == 32
+#    define __INT_MAX__ 2147483647
+#  elif __INT_WIDTH__ == 64
+#    define __INT_MAX__ 9223372036854775807
+#  endif
+#endif
+
+#ifndef __LONG_MAX__
+#  if __LONG_WIDTH__ == 8
+#    define __LONG_MAX__ 127L
+#  elif __LONG_WIDTH__ == 16
+#    define __LONG_MAX__ 32767L
+#  elif __LONG_WIDTH__ == 32
+#    define __LONG_MAX__ 2147483647L
+#  elif __LONG_WIDTH__ == 64
+#    define __LONG_MAX__ 9223372036854775807L
+#  endif
+#endif
+
+#ifndef __LONG_LONG_MAX__
+#  if __LONG_LONG_WIDTH__ == 8
+#    define __LONG_LONG_MAX__ 127LL
+#  elif __LONG_LONG_WIDTH__ == 16
+#    define __LONG_LONG_MAX__ 32767LL
+#  elif __LONG_LONG_WIDTH__ == 32
+#    define __LONG_LONG_MAX__ 2147483647LL
+#  elif __LONG_LONG_WIDTH__ == 64
+#    define __LONG_LONG_MAX__ 9223372036854775807LL
+#  endif
+#endif
+
+#ifndef CHAR_BIT
+#  define CHAR_BIT __CHAR_BIT__
+#endif
+
+#ifndef WORD_BIT
+#  define WORD_BIT __INT_WIDTH__
+#endif
+
+#ifndef LONG_BIT
+#  define LONG_BIT __LONG_WIDTH__
+#endif
+
+#ifndef CHAR_WIDTH
+#  define CHAR_WIDTH __SCHAR_WIDTH__
+#endif
+
+#ifndef SCHAR_WIDTH
+#  define SCHAR_WIDTH __SCHAR_WIDTH__
+#endif
+
+#ifndef UCHAR_WIDTH
+#  define UCHAR_WIDTH __SCHAR_WIDTH__
+#endif
+
+#ifndef SHRT_WIDTH
+#  define SHRT_WIDTH __SHRT_WIDTH__
+#endif
+
+#ifndef USHRT_WIDTH
+#  define USHRT_WIDTH __SHRT_WIDTH__
+#endif
+
+#ifndef INT_WIDTH
+#  define INT_WIDTH __INT_WIDTH__
+#endif
+
+#ifndef UINT_WIDTH
+#  define UINT_WIDTH __INT_WIDTH__
+#endif
+
+#ifndef LONG_WIDTH
+#  define LONG_WIDTH __LONG_WIDTH__
+#endif
+
+#ifndef ULONG_WIDTH
+#  define ULONG_WIDTH __LONG_WIDTH__
+#endif
+
+#ifndef LLONG_WIDTH
+#  define LLONG_WIDTH __LONG_LONG_WIDTH__
+#endif
+
+#ifndef ULLONG_WIDTH
+#  define ULLONG_WIDTH __LONG_LONG_WIDTH__
+#endif
+
+#ifndef SCHAR_MAX
+#  define SCHAR_MAX __SCHAR_MAX__
+#endif
+
+#ifndef SHRT_MAX
+#  define SHRT_MAX __SHRT_MAX__
+#endif
+
+#ifndef INT_MAX
+#  define INT_MAX __INT_MAX__
+#endif
+
+#ifndef LONG_MAX
+#  define LONG_MAX __LONG_MAX__
+#endif
+
+#ifndef LLONG_MAX
+#  define LLONG_MAX __LONG_LONG_MAX__
+#endif
+
+#ifndef SCHAR_MIN
+#  define SCHAR_MIN (-SCHAR_MAX - 1)
+#endif
+
+#ifndef SHRT_MIN
+#  define SHRT_MIN (-SHRT_MAX - 1)
+#endif
+
+#ifndef INT_MIN
+#  define INT_MIN (-INT_MAX - 1)
+#endif
+
+#ifndef LONG_MIN
+#  define LONG_MIN (-LONG_MAX - 1L)
+#endif
+
+#ifndef LLONG_MIN
+#  define LLONG_MIN (-LLONG_MAX - 1LL)
+#endif
+
+#ifndef UCHAR_MIN
+#  if SCHAR_MAX == INT_MAX
+#    define UCHAR_MAX (SCHAR_MAX * 2U + 1U)
+#  else
+#    define UCHAR_MAX (SCHAR_MAX * 2 + 1)
+#  endif
+#endif
+
+#ifndef USHRT_MAX
+#  if SHRT_MAX == INT_MAX
+#    define USHRT_MAX (SHRT_MAX * 2U + 1U)
+#  else
+#    define USHRT_MAX (SHRT_MAX * 2 + 1)
+#  endif
+#endif
+
+#ifndef UINT_MAX
+#  define UINT_MAX (INT_MAX * 2U + 1U)
+#endif
+
+#ifndef ULONG_MAX
+#  define ULONG_MAX (LONG_MAX * 2UL + 1UL)
+#endif
+
+#ifndef ULLONG_MAX
+#  define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+#endif
+
+#ifndef CHAR_MIN
+#  ifdef __CHAR_UNSIGNED__
+#    if __SCHAR_MAX__ == __INT_MAX__
+#      define CHAR_MIN 0U
+#    else
+#      define CHAR_MIN 0
+#    endif
+#  else
+#    define CHAR_MIN SCHAR_MIN
+#  endif
+#endif
+
+#ifndef CHAR_MAX
+#  ifdef __CHAR_UNSIGNED__
+#    define CHAR_MAX UCHAR_MAX
+#  else
+#    define CHAR_MAX SCHAR_MAX
+#  endif
+#endif
+
+#ifndef LONG_LONG_MIN
+#  define LONG_LONG_MIN LLONG_MIN
+#endif
+
+#ifndef LONG_LONG_MAX
+#  define LONG_LONG_MAX LLONG_MAX
+#endif
+
+#ifndef ULONG_LONG_MAX
+#  define ULONG_LONG_MAX ULLONG_MAX
+#endif
+
+#ifndef BOOL_WIDTH
+#  define BOOL_WIDTH 1
+#endif
+
+#ifndef BOOL_MAX
+#  define BOOL_MAX 1
+#endif
+
+#endif /* COMPAT_LIMITS_H */

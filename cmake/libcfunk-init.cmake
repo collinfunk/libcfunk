@@ -141,16 +141,13 @@ representation. This is required by the POSIX standard.")
 endif ()
 
 # Make sure sizeof (TYPE) * 8 equals the number of bits in TYPE.
-check_c_source_runs("
-
+check_c_source_compiles("
 int
 main (void)
 {
-  unsigned char uchar_max;
-  uchar_max = (unsigned char) -1;
-  if (uchar_max != 255)
-    return 1;
-  return 0;
+  int array[1 - 2 * (((unsigned char) -1) != 255)];
+  array[0] = 0;
+  return array[0];
 }" CHAR_IS_8_BITS)
 
 if (NOT CHAR_IS_8_BITS)
