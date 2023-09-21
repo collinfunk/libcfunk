@@ -36,6 +36,24 @@
 #  include_next <stdlib.h>
 #endif
 
+#ifndef EXIT_FAILURE
+#  define EXIT_FAILURE 1
+#else
+#  if EXIT_FAILURE != 1
+#    undef EXIT_FAILURE
+#    define EXIT_FAILURE 1
+#  endif
+#endif
+
+#ifndef EXIT_SUCCESS
+#  define EXIT_SUCCESS 0
+#else
+#  if EXIT_SUCCESS != 0
+#    undef EXIT_SUCCESS
+#    define EXIT_SUCCESS 0
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ABS@
 #  if !@HAVE_ABS@
 extern int abs (int value);

@@ -138,6 +138,7 @@ include(cmake/strtoull.cmake)
 include(cmake/strtoumax.cmake)
 include(cmake/strverscmp.cmake)
 include(cmake/swab.cmake)
+include(cmake/sys-endian-h.cmake)
 include(cmake/sys-ioctl-h.cmake)
 include(cmake/sys-stat-h.cmake)
 include(cmake/sys-time-h.cmake)
@@ -171,8 +172,9 @@ include(cmake/write-full.cmake)
 include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
 
-# Not portable enough to keep enabled. These will fail with some older
-# compilers.
+# Don't leave enabled, have portability problems.
+# include(cmake/getppidof.cmake)
+# include(cmake/getprognameof.cmake)
 # include(cmake/int-overflow.cmake)
 # include(cmake/timespec-getres.cmake)
 # include(cmake/stdckdint-h.cmake)

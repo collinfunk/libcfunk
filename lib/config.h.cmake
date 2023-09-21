@@ -53,6 +53,7 @@
 #cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DYSIZE
+#cmakedefine01 HAVE_ENDIAN_H
 #cmakedefine01 HAVE_ENDUSERSHELL
 #cmakedefine01 HAVE_ENVIRON
 #cmakedefine01 HAVE_ERR
@@ -194,6 +195,7 @@
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
 #cmakedefine01 HAVE_SWAB
+#cmakedefine01 HAVE_SYS_ENDIAN_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_RANDOM_H

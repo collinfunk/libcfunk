@@ -14,14 +14,8 @@ function (substitute_header template_file output_file)
   endif ()
   string(REPLACE "@" "" VARIABLE_LIST "${VARIABLE_LIST}")
   foreach (VARIABLE ${VARIABLE_LIST})
-    if ("${${VARIABLE}}")
-      if ("${${VARIABLE}}" STREQUAL "" OR "${${VARIABLE}}" STREQUAL "FALSE")
-        set(${${VARIABLE}} "0")
-      elseif ("${${VARIABLE}}" STREQUAL "TRUE")
-        set(${${VARIABLE}} "1")
-      endif ()
-    else ()
-      set(${VARIABLE} "0")
+    if ("${${VARIABLE}}" STREQUAL "")
+      set("${VARIABLE}" "0")
     endif ()
   endforeach ()
   configure_file("${template_file}" "${output_file}")
@@ -147,6 +141,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STRINGS_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/strings.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/strings.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_ENDIAN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/endian.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/endian.h
   )
 endif ()
 
