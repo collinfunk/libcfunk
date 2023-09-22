@@ -51,3 +51,7 @@ check_type_size("uintptr_t" UINTPTR_T)
 # Greatest-width integer types.
 check_type_size("intmax_t" INTMAX_T)
 check_type_size("uintmax_t" UINTMAX_T)
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-stdint-h.cmake)
+endif ()

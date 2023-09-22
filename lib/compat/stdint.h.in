@@ -36,56 +36,1101 @@
 #  include_next <stdint.h>
 #endif
 
-/* TODO */
+/*
+#undef __SIZEOF_POINTER__
+#undef __POINTER_WIDTH__
+#undef __INT_LEAST8_WIDTH__
+#undef __INT_LEAST16_WIDTH__
+#undef __INT_LEAST32_WIDTH__
+#undef __INT_LEAST64_WIDTH__
+#undef __INT_FAST8_WIDTH__
+#undef __INT_FAST16_WIDTH__
+#undef __INT_FAST32_WIDTH__
+#undef __INT_FAST64_WIDTH__
+#undef __INTPTR_WIDTH__
+#undef __INTMAX_WIDTH__
+#undef __INT8_C_SUFFIX__
+#undef __INT16_C_SUFFIX__
+#undef __INT32_C_SUFFIX__
+#undef __INT64_C_SUFFIX__
+#undef __UINT8_C_SUFFIX__
+#undef __UINT16_C_SUFFIX__
+#undef __UINT32_C_SUFFIX__
+#undef __UINT64_C_SUFFIX__
+#undef __INTMAX_C_SUFFIX__
+#undef __UINTMAX_C_SUFFIX__
+#undef __INT8_C
+#undef __INT16_C
+#undef __INT32_C
+#undef __INT64_C
+#undef __UINT8_C
+#undef __UINT16_C
+#undef __UINT32_C
+#undef __UINT64_C
+#undef __INTMAX_C
+#undef __UINTMAX_C
+#undef __INT8_MAX__
+#undef __INT16_MAX__
+#undef __INT32_MAX__
+#undef __INT64_MAX__
+#undef __UINT8_MAX__
+#undef __UINT16_MAX__
+#undef __UINT32_MAX__
+#undef __UINT64_MAX__
+#undef __INT_LEAST8_MAX__
+#undef __INT_LEAST16_MAX__
+#undef __INT_LEAST32_MAX__
+#undef __INT_LEAST64_MAX__
+#undef __UINT_LEAST8_MAX__
+#undef __UINT_LEAST16_MAX__
+#undef __UINT_LEAST32_MAX__
+#undef __UINT_LEAST64_MAX__
+#undef __INT_FAST8_MAX__
+#undef __INT_FAST16_MAX__
+#undef __INT_FAST32_MAX__
+#undef __INT_FAST64_MAX__
+#undef __UINT_FAST8_MAX__
+#undef __UINT_FAST16_MAX__
+#undef __UINT_FAST32_MAX__
+#undef __UINT_FAST64_MAX__
+#undef __INTPTR_MAX__
+#undef __UINTPTR_MAX__
+#undef __INTMAX_MAX__
+#undef __UINTMAX_MAX__
+#undef __INT8_TYPE__
+#undef __INT16_TYPE__
+#undef __INT32_TYPE__
+#undef __INT64_TYPE__
+#undef __UINT8_TYPE__
+#undef __UINT16_TYPE__
+#undef __UINT32_TYPE__
+#undef __UINT64_TYPE__
+#undef __INT_LEAST8_TYPE__
+#undef __INT_LEAST16_TYPE__
+#undef __INT_LEAST32_TYPE__
+#undef __INT_LEAST64_TYPE__
+#undef __UINT_LEAST8_TYPE__
+#undef __UINT_LEAST16_TYPE__
+#undef __UINT_LEAST32_TYPE__
+#undef __UINT_LEAST64_TYPE__
+#undef __INT_FAST8_TYPE__
+#undef __INT_FAST16_TYPE__
+#undef __INT_FAST32_TYPE__
+#undef __INT_FAST64_TYPE__
+#undef __UINT_FAST8_TYPE__
+#undef __UINT_FAST16_TYPE__
+#undef __UINT_FAST32_TYPE__
+#undef __UINT_FAST64_TYPE__
+#undef __INTPTR_TYPE__
+#undef __UINTPTR_TYPE__
+#undef __INTMAX_TYPE__
+#undef __UINTMAX_TYPE__
+*/
 
-#ifndef __INT8_TYPE__
-#  define __INT8_TYPE__ signed char
+#undef __int_c_join
+#undef __int_c
+
+#define __int_c_join(a, b) a##b
+#define __int_c(x, suffix) __int_c_join (x, suffix)
+
+#ifndef __SIZEOF_POINTER__
+#  define __SIZEOF_POINTER__ @CMAKE_SIZEOF_VOID_P@
 #endif
 
-#ifndef __INT16_TYPE__
+#ifndef __POINTER_WIDTH__
+#  define __POINTER_WIDTH__ (__SIZEOF_POINTER__ * CHAR_BIT)
 #endif
 
-#ifndef __INT32_TYPE__
+#ifndef __INT_LEAST8_WIDTH__
+#  define __INT_LEAST8_WIDTH__ 8
 #endif
 
-#ifndef __INT64_TYPE__
+#ifndef __INT_LEAST16_WIDTH__
+#  define __INT_LEAST16_WIDTH__ 16
 #endif
 
-#ifndef __UINT8_TYPE__
-#  define __UINT8_TYPE__ unsigned char
+#ifndef __INT_LEAST32_WIDTH__
+#  define __INT_LEAST32_WIDTH__ 32
 #endif
 
-#ifndef __UINT16_TYPE__
+#ifndef __INT_LEAST64_WIDTH__
+#  define __INT_LEAST64_WIDTH__ 64
 #endif
 
-#ifndef __UINT32_TYPE__
+#ifndef __INT_FAST8_WIDTH__
+#  define __INT_FAST8_WIDTH__ 8
 #endif
 
-#ifndef __UINT64_TYPE__
+#ifndef __INT_FAST16_WIDTH__
+#  define __INT_FAST16_WIDTH__ __POINTER_WIDTH__
+#endif
+
+#ifndef __INT_FAST32_WIDTH__
+#  define __INT_FAST32_WIDTH__ __POINTER_WIDTH__
+#endif
+
+#ifndef __INT_FAST64_WIDTH__
+#  define __INT_FAST64_WIDTH__ 64
+#endif
+
+#ifndef __INTPTR_WIDTH__
+#  define __INTPTR_WIDTH__ __POINTER_WIDTH__
+#endif
+
+#ifndef __INTMAX_WIDTH__
+#  define __INTMAX_WIDTH__ 64
+#endif
+
+#ifndef __INT8_C_SUFFIX__
+#  if CHAR_WIDTH == 8
+#    define __INT8_C_SUFFIX__
+#  elif SHRT_WIDTH == 8
+#    define __INT8_C_SUFFIX__
+#  elif INT_WIDTH == 8
+#    define __INT8_C_SUFFIX__
+#  elif LONG_WIDTH == 8
+#    define __INT8_C_SUFFIX__ L
+#  elif LLONG_WIDTH == 8
+#    define __INT8_C_SUFFIX__ LL
+#  endif
+#endif
+
+#ifndef __INT16_C_SUFFIX__
+#  if CHAR_WIDTH == 16
+#    define __INT16_C_SUFFIX__
+#  elif SHRT_WIDTH == 16
+#    define __INT16_C_SUFFIX__
+#  elif INT_WIDTH == 16
+#    define __INT16_C_SUFFIX__
+#  elif LONG_WIDTH == 16
+#    define __INT16_C_SUFFIX__ L
+#  elif LLONG_WIDTH == 16
+#    define __INT16_C_SUFFIX__ LL
+#  endif
+#endif
+
+#ifndef __INT32_C_SUFFIX__
+#  if CHAR_WIDTH == 32
+#    define __INT32_C_SUFFIX__
+#  elif SHRT_WIDTH == 32
+#    define __INT32_C_SUFFIX__
+#  elif INT_WIDTH == 32
+#    define __INT32_C_SUFFIX__
+#  elif LONG_WIDTH == 32
+#    define __INT32_C_SUFFIX__ L
+#  elif LLONG_WIDTH == 32
+#    define __INT32_C_SUFFIX__ LL
+#  endif
+#endif
+
+#ifndef __INT64_C_SUFFIX__
+#  if CHAR_WIDTH == 64
+#    define __INT64_C_SUFFIX__
+#  elif SHRT_WIDTH == 64
+#    define __INT64_C_SUFFIX__
+#  elif INT_WIDTH == 64
+#    define __INT64_C_SUFFIX__
+#  elif LONG_WIDTH == 64
+#    define __INT64_C_SUFFIX__ L
+#  elif LLONG_WIDTH == 64
+#    define __INT64_C_SUFFIX__ LL
+#  endif
+#endif
+
+#ifndef __UINT8_C_SUFFIX__
+#  if CHAR_WIDTH == 8
+#    define __UINT8_C_SUFFIX__
+#  elif SHRT_WIDTH == 8
+#    define __UINT8_C_SUFFIX__
+#  elif INT_WIDTH == 8
+#    define __UINT8_C_SUFFIX__ U
+#  elif LONG_WIDTH == 8
+#    define __UINT8_C_SUFFIX__ UL
+#  elif LLONG_WIDTH == 8
+#    define __UINT8_C_SUFFIX__ ULL
+#  endif
+#endif
+
+#ifndef __UINT16_C_SUFFIX__
+#  if CHAR_WIDTH == 16
+#    define __UINT16_C_SUFFIX__
+#  elif SHRT_WIDTH == 16
+#    define __UINT16_C_SUFFIX__
+#  elif INT_WIDTH == 16
+#    define __UINT16_C_SUFFIX__ U
+#  elif LONG_WIDTH == 16
+#    define __UINT16_C_SUFFIX__ UL
+#  elif LLONG_WIDTH == 16
+#    define __UINT16_C_SUFFIX__ ULL
+#  endif
+#endif
+
+#ifndef __UINT32_C_SUFFIX__
+#  if CHAR_WIDTH == 32
+#    define __UINT32_C_SUFFIX__
+#  elif SHRT_WIDTH == 32
+#    define __UINT32_C_SUFFIX__
+#  elif INT_WIDTH == 32
+#    define __UINT32_C_SUFFIX__ U
+#  elif LONG_WIDTH == 32
+#    define __UINT32_C_SUFFIX__ UL
+#  elif LLONG_WIDTH == 32
+#    define __UINT32_C_SUFFIX__ ULL
+#  endif
+#endif
+
+#ifndef __UINT64_C_SUFFIX__
+#  if CHAR_WIDTH == 64
+#    define __UINT64_C_SUFFIX__
+#  elif SHRT_WIDTH == 64
+#    define __UINT64_C_SUFFIX__
+#  elif INT_WIDTH == 64
+#    define __UINT64_C_SUFFIX__ U
+#  elif LONG_WIDTH == 64
+#    define __UINT64_C_SUFFIX__ UL
+#  elif LLONG_WIDTH == 64
+#    define __UINT64_C_SUFFIX__ ULL
+#  endif
+#endif
+
+#ifndef __INTMAX_C_SUFFIX__
+#  if CHAR_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__
+#  elif SHRT_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__
+#  elif INT_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__
+#  elif LONG_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__ L
+#  elif LLONG_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__ LL
+#  endif
+#endif
+
+#ifndef __UINTMAX_C_SUFFIX__
+#  if CHAR_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__
+#  elif SHRT_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__
+#  elif INT_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__ U
+#  elif LONG_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__ UL
+#  elif LLONG_WIDTH == __INTMAX_WIDTH__
+#    define __INTMAX_C_SUFFIX__ ULL
+#  endif
 #endif
 
 #ifndef __INT8_C
+#  define __INT8_C(x) __int_c (x, __INT8_C_SUFFIX__)
 #endif
 
 #ifndef __INT16_C
+#  define __INT16_C(x) __int_c (x, __INT16_C_SUFFIX__)
 #endif
 
 #ifndef __INT32_C
+#  define __INT32_C(x) __int_c (x, __INT32_C_SUFFIX__)
 #endif
 
 #ifndef __INT64_C
+#  define __INT64_C(x) __int_c (x, __INT64_C_SUFFIX__)
 #endif
 
 #ifndef __UINT8_C
+#  define __UINT8_C(x) __int_c (x, __UINT8_C_SUFFIX__)
 #endif
 
 #ifndef __UINT16_C
+#  define __UINT16_C(x) __int_c (x, __UINT16_C_SUFFIX__)
 #endif
 
 #ifndef __UINT32_C
+#  define __UINT32_C(x) __int_c (x, __UINT32_C_SUFFIX__)
 #endif
 
 #ifndef __UINT64_C
+#  define __UINT64_C(x) __int_c (x, __UINT64_C_SUFFIX__)
+#endif
+
+#ifndef __INTMAX_C
+#  define __INTMAX_C(x) __int_c (x, __INTMAX_C_SUFFIX__)
+#endif
+
+#ifndef __UINTMAX_C
+#  define __UINTMAX_C(x) __int_c (x, __UINTMAX_C_SUFFIX__)
+#endif
+
+#ifndef __INT8_MAX__
+#  define __INT8_MAX__ __INT8_C (127)
+#endif
+
+#ifndef __INT16_MAX__
+#  define __INT16_MAX__ __INT16_C (32767)
+#endif
+
+#ifndef __INT32_MAX__
+#  define __INT32_MAX__ __INT32_C (2147483647)
+#endif
+
+#ifndef __INT64_MAX__
+#  define __INT64_MAX__ __INT64_C (9223372036854775807)
+#endif
+
+#ifndef __UINT8_MAX__
+#  define __UINT8_MAX__ __UINT8_C (255)
+#endif
+
+#ifndef __UINT16_MAX__
+#  define __UINT16_MAX__ __UINT16_C (65535)
+#endif
+
+#ifndef __UINT32_MAX__
+#  define __UINT32_MAX__ __UINT32_C (4294967295)
+#endif
+
+#ifndef __UINT64_MAX__
+#  define __UINT64_MAX__ __UINT64_C (18446744073709551615)
+#endif
+
+#ifndef __INT_LEAST8_MAX__
+#  define __INT_LEAST8_MAX__ __INT8_MAX__
+#endif
+
+#ifndef __INT_LEAST16_MAX__
+#  define __INT_LEAST16_MAX__ __INT16_MAX__
+#endif
+
+#ifndef __INT_LEAST32_MAX__
+#  define __INT_LEAST32_MAX__ __INT32_MAX__
+#endif
+
+#ifndef __INT_LEAST64_MAX__
+#  define __INT_LEAST64_MAX__ __INT64_MAX__
+#endif
+
+#ifndef __UINT_LEAST8_MAX__
+#  define __UINT_LEAST8_MAX__ __UINT8_MAX__
+#endif
+
+#ifndef __UINT_LEAST16_MAX__
+#  define __UINT_LEAST16_MAX__ __UINT16_MAX__
+#endif
+
+#ifndef __UINT_LEAST32_MAX__
+#  define __UINT_LEAST32_MAX__ __UINT32_MAX__
+#endif
+
+#ifndef __UINT_LEAST64_MAX__
+#  define __UINT_LEAST64_MAX__ __UINT64_MAX__
+#endif
+
+#ifndef __INT_FAST8_MAX__
+#  define __INT_FAST8_MAX__ __INT8_MAX__
+#endif
+
+#ifndef __INT_FAST16_MAX__
+#  if __INT_FAST16_WIDTH__ == 16
+#    define __INT_FAST16_MAX__ __INT16_MAX__
+#  elif __INT_FAST16_WIDTH__ == 32
+#    define __INT_FAST16_MAX__ __INT32_MAX__
+#  elif __INT_FAST16_WIDTH__ == 64
+#    define __INT_FAST16_MAX__ __INT64_MAX__
+#  endif
+#endif
+
+#ifndef __INT_FAST32_MAX__
+#  if __INT_FAST32_WIDTH__ == 32
+#    define __INT_FAST32_MAX__ __INT32_MAX__
+#  elif __INT_FAST32_WIDTH__ == 64
+#    define __INT_FAST32_MAX__ __INT64_MAX__
+#  endif
+#endif
+
+#ifndef __INT_FAST64_MAX__
+#  define __INT_FAST64_MAX__ __INT64_MAX__
+#endif
+
+#ifndef __UINT_FAST8_MAX__
+#  define __UINT_FAST8_MAX__ __UINT8_MAX__
+#endif
+
+#ifndef __UINT_FAST16_MAX__
+#  if __INT_FAST16_WIDTH__ == 16
+#    define __UINT_FAST16_MAX__ __UINT16_MAX__
+#  elif __INT_FAST16_WIDTH__ == 32
+#    define __UINT_FAST16_MAX__ __UINT32_MAX__
+#  elif __INT_FAST16_WIDTH__ == 64
+#    define __UINT_FAST16_MAX__ __UINT64_MAX__
+#  endif
+#endif
+
+#ifndef __UINT_FAST32_MAX__
+#  if __INT_FAST32_WIDTH__ == 32
+#    define __UINT_FAST32_MAX__ __UINT32_MAX__
+#  elif __INT_FAST32_WIDTH__ == 64
+#    define __UINT_FAST32_MAX__ __UINT64_MAX__
+#  endif
+#endif
+
+#ifndef __UINT_FAST64_MAX__
+#  define __UINT_FAST64_MAX__ __UINT64_MAX__
+#endif
+
+#ifndef __INTPTR_MAX__
+#  if __INTPTR_WIDTH__ == 8
+#    define __INTPTR_MAX__ __INT8_MAX__
+#  elif __INTPTR_WIDTH__ == 16
+#    define __INTPTR_MAX__ __INT16_MAX__
+#  elif __INTPTR_WIDTH__ == 32
+#    define __INTPTR_MAX__ __INT32_MAX__
+#  elif __INTPTR_WIDTH__ == 64
+#    define __INTPTR_MAX__ __INT64_MAX__
+#  endif
+#endif
+
+#ifndef __UINTPTR_MAX__
+#  if __INTPTR_WIDTH__ == 8
+#    define __UINTPTR_MAX__ __UINT8_MAX__
+#  elif __INTPTR_WIDTH__ == 16
+#    define __UINTPTR_MAX__ __UINT16_MAX__
+#  elif __INTPTR_WIDTH__ == 32
+#    define __UINTPTR_MAX__ __UINT32_MAX__
+#  elif __INTPTR_WIDTH__ == 64
+#    define __UINTPTR_MAX__ __UINT64_MAX__
+#  endif
+#endif
+
+#ifndef __INTMAX_MAX__
+#  define __INTMAX_MAX__ __INT64_MAX__
+#endif
+
+#ifndef __UINTMAX_MAX__
+#  define __UINTMAX_MAX__ __UINT64_MAX__
+#endif
+
+#ifndef __INT8_TYPE__
+#  if CHAR_WIDTH == 8
+#    define __INT8_TYPE__ signed char
+#  elif SHRT_WIDTH == 8
+#    define __INT8_TYPE__ signed short int
+#  elif INT_WIDTH == 8
+#    define __INT8_TYPE__ signed int
+#  elif LONG_WIDTH == 8
+#    define __INT8_TYPE__ signed long int
+#  elif LLONG_WIDTH == 8
+#    define __INT8_TYPE__ signed long long int
+#  endif
+#endif
+
+#ifndef __INT16_TYPE__
+#  if CHAR_WIDTH == 16
+#    define __INT16_TYPE__ signed char
+#  elif SHRT_WIDTH == 16
+#    define __INT16_TYPE__ signed short int
+#  elif INT_WIDTH == 16
+#    define __INT16_TYPE__ signed int
+#  elif LONG_WIDTH == 16
+#    define __INT16_TYPE__ signed long int
+#  elif LLONG_WIDTH == 16
+#    define __INT16_TYPE__ signed long long int
+#  endif
+#endif
+
+#ifndef __INT32_TYPE__
+#  if CHAR_WIDTH == 32
+#    define __INT32_TYPE__ signed char
+#  elif SHRT_WIDTH == 32
+#    define __INT32_TYPE__ signed short int
+#  elif INT_WIDTH == 32
+#    define __INT32_TYPE__ signed int
+#  elif LONG_WIDTH == 32
+#    define __INT32_TYPE__ signed long int
+#  elif LLONG_WIDTH == 32
+#    define __INT32_TYPE__ signed long long int
+#  endif
+#endif
+
+#ifndef __INT64_TYPE__
+#  if CHAR_WIDTH == 64
+#    define __INT64_TYPE__ signed char
+#  elif SHRT_WIDTH == 64
+#    define __INT64_TYPE__ signed short int
+#  elif INT_WIDTH == 64
+#    define __INT64_TYPE__ signed int
+#  elif LONG_WIDTH == 64
+#    define __INT64_TYPE__ signed long int
+#  elif LLONG_WIDTH == 64
+#    define __INT64_TYPE__ signed long long int
+#  endif
+#endif
+
+#ifndef __UINT8_TYPE__
+#  if CHAR_WIDTH == 8
+#    define __UINT8_TYPE__ unsigned char
+#  elif SHRT_WIDTH == 8
+#    define __UINT8_TYPE__ unsigned short int
+#  elif INT_WIDTH == 8
+#    define __UINT8_TYPE__ unsigned int
+#  elif LONG_WIDTH == 8
+#    define __UINT8_TYPE__ unsigned long int
+#  elif LLONG_WIDTH == 8
+#    define __UINT8_TYPE__ unsigned long long int
+#  endif
+#endif
+
+#ifndef __UINT16_TYPE__
+#  if CHAR_WIDTH == 16
+#    define __UINT16_TYPE__ unsigned char
+#  elif SHRT_WIDTH == 16
+#    define __UINT16_TYPE__ unsigned short int
+#  elif INT_WIDTH == 16
+#    define __UINT16_TYPE__ unsigned int
+#  elif LONG_WIDTH == 16
+#    define __UINT16_TYPE__ unsigned long int
+#  elif LLONG_WIDTH == 16
+#    define __UINT16_TYPE__ unsigned long long int
+#  endif
+#endif
+
+#ifndef __UINT32_TYPE__
+#  if CHAR_WIDTH == 32
+#    define __UINT32_TYPE__ unsigned char
+#  elif SHRT_WIDTH == 32
+#    define __UINT32_TYPE__ unsigned short int
+#  elif INT_WIDTH == 32
+#    define __UINT32_TYPE__ unsigned int
+#  elif LONG_WIDTH == 32
+#    define __UINT32_TYPE__ unsigned long int
+#  elif LLONG_WIDTH == 32
+#    define __UINT32_TYPE__ unsigned long long int
+#  endif
+#endif
+
+#ifndef __UINT64_TYPE__
+#  if CHAR_WIDTH == 64
+#    define __UINT64_TYPE__ unsigned char
+#  elif SHRT_WIDTH == 64
+#    define __UINT64_TYPE__ unsigned short int
+#  elif INT_WIDTH == 64
+#    define __UINT64_TYPE__ unsigned int
+#  elif LONG_WIDTH == 64
+#    define __UINT64_TYPE__ unsigned long int
+#  elif LLONG_WIDTH == 64
+#    define __UINT64_TYPE__ unsigned long long int
+#  endif
+#endif
+
+#ifndef __INT_LEAST8_TYPE__
+#  define __INT_LEAST8_TYPE__ __INT8_TYPE__
+#endif
+
+#ifndef __INT_LEAST16_TYPE__
+#  define __INT_LEAST16_TYPE__ __INT16_TYPE__
+#endif
+
+#ifndef __INT_LEAST32_TYPE__
+#  define __INT_LEAST32_TYPE__ __INT32_TYPE__
+#endif
+
+#ifndef __INT_LEAST64_TYPE__
+#  define __INT_LEAST64_TYPE__ __INT64_TYPE__
+#endif
+
+#ifndef __UINT_LEAST8_TYPE__
+#  define __UINT_LEAST8_TYPE__ __UINT8_TYPE__
+#endif
+
+#ifndef __UINT_LEAST16_TYPE__
+#  define __UINT_LEAST16_TYPE__ __UINT16_TYPE__
+#endif
+
+#ifndef __UINT_LEAST32_TYPE__
+#  define __UINT_LEAST32_TYPE__ __UINT32_TYPE__
+#endif
+
+#ifndef __UINT_LEAST64_TYPE__
+#  define __UINT_LEAST64_TYPE__ __UINT64_TYPE__
+#endif
+
+#ifndef __INT_FAST8_TYPE__
+#  define __INT_FAST8_TYPE__ __INT8_TYPE__
+#endif
+
+#ifndef __INT_FAST16_TYPE__
+#  if __INT_FAST16_WIDTH__ == 16
+#    define __INT_FAST16_TYPE__ __INT16_TYPE__
+#  elif __INT_FAST16_WIDTH__ == 32
+#    define __INT_FAST16_TYPE__ __INT32_TYPE__
+#  elif __INT_FAST16_WIDTH__ == 64
+#    define __INT_FAST16_TYPE__ __INT64_TYPE__
+#  endif
+#endif
+
+#ifndef __INT_FAST32_TYPE__
+#  if __INT_FAST32_WIDTH__ == 32
+#    define __INT_FAST32_TYPE__ __INT32_TYPE__
+#  elif __INT_FAST32_WIDTH__ == 64
+#    define __INT_FAST32_TYPE__ __INT64_TYPE__
+#  endif
+#endif
+
+#ifndef __INT_FAST64_TYPE__
+#  define __INT_FAST64_TYPE__ __INT64_TYPE__
+#endif
+
+#ifndef __UINT_FAST8_TYPE__
+#  define __UINT_FAST8_TYPE__ __UINT8_TYPE__
+#endif
+
+#ifndef __UINT_FAST16_TYPE__
+#  if __INT_FAST16_WIDTH__ == 16
+#    define __UINT_FAST16_TYPE__ __UINT16_TYPE__
+#  elif __INT_FAST16_WIDTH__ == 32
+#    define __UINT_FAST16_TYPE__ __UINT32_TYPE__
+#  elif __INT_FAST16_WIDTH__ == 64
+#    define __UINT_FAST16_TYPE__ __UINT64_TYPE__
+#  endif
+#endif
+
+#ifndef __UINT_FAST32_TYPE__
+#  if __INT_FAST32_WIDTH__ == 32
+#    define __UINT_FAST32_TYPE__ __UINT32_TYPE__
+#  elif __INT_FAST32_WIDTH__ == 64
+#    define __UINT_FAST32_TYPE__ __UINT64_TYPE__
+#  endif
+#endif
+
+#ifndef __UINT_FAST64_TYPE__
+#  define __UINT_FAST64_TYPE__ __UINT64_TYPE__
+#endif
+
+#ifndef __INTPTR_TYPE__
+#  if CHAR_WIDTH == __INTPTR_WIDTH__
+#    define __INTPTR_TYPE__ signed char
+#  elif SHRT_WIDTH == __INTPTR_WIDTH__
+#    define __INTPTR_TYPE__ signed short int
+#  elif INT_WIDTH == __INTPTR_WIDTH__
+#    define __INTPTR_TYPE__ signed int
+#  elif LONG_WIDTH == __INTPTR_WIDTH__
+#    define __INTPTR_TYPE__ signed long int
+#  elif LLONG_WIDTH == __INTPTR_WIDTH__
+#    define __INTPTR_TYPE__ signed long long int
+#  endif
+#endif
+
+#ifndef __UINTPTR_TYPE__
+#  if CHAR_WIDTH == __INTPTR_WIDTH__
+#    define __UINTPTR_TYPE__ unsigned char
+#  elif SHRT_WIDTH == __INTPTR_WIDTH__
+#    define __UINTPTR_TYPE__ unsigned short int
+#  elif INT_WIDTH == __INTPTR_WIDTH__
+#    define __UINTPTR_TYPE__ unsigned int
+#  elif LONG_WIDTH == __INTPTR_WIDTH__
+#    define __UINTPTR_TYPE__ unsigned long int
+#  elif LLONG_WIDTH == __INTPTR_WIDTH__
+#    define __UINTPTR_TYPE__ unsigned long long int
+#  endif
+#endif
+
+#ifndef __INTMAX_TYPE__
+#  define __INTMAX_TYPE__ __INT64_TYPE__
+#endif
+
+#ifndef __UINTMAX_TYPE__
+#  define __UINTMAX_TYPE__ __UINT64_TYPE__
+#endif
+
+#ifndef INT8_WIDTH
+#  define INT8_WIDTH 8
+#endif
+
+#ifndef INT16_WIDTH
+#  define INT16_WIDTH 16
+#endif
+
+#ifndef INT32_WIDTH
+#  define INT32_WIDTH 32
+#endif
+
+#ifndef INT64_WIDTH
+#  define INT64_WIDTH 64
+#endif
+
+#ifndef UINT8_WIDTH
+#  define UINT8_WIDTH 8
+#endif
+
+#ifndef UINT16_WIDTH
+#  define UINT16_WIDTH 16
+#endif
+
+#ifndef UINT32_WIDTH
+#  define UINT32_WIDTH 32
+#endif
+
+#ifndef UINT64_WIDTH
+#  define UINT64_WIDTH 64
+#endif
+
+#ifndef INT_LEAST8_WIDTH
+#  define INT_LEAST8_WIDTH __INT_LEAST8_WIDTH__
+#endif
+
+#ifndef INT_LEAST16_WIDTH
+#  define INT_LEAST16_WIDTH __INT_LEAST16_WIDTH__
+#endif
+
+#ifndef INT_LEAST32_WIDTH
+#  define INT_LEAST32_WIDTH __INT_LEAST32_WIDTH__
+#endif
+
+#ifndef INT_LEAST64_WIDTH
+#  define INT_LEAST64_WIDTH __INT_LEAST64_WIDTH__
+#endif
+
+#ifndef UINT_LEAST8_WIDTH
+#  define UINT_LEAST8_WIDTH __INT_LEAST8_WIDTH__
+#endif
+
+#ifndef UINT_LEAST16_WIDTH
+#  define UINT_LEAST16_WIDTH __INT_LEAST16_WIDTH__
+#endif
+
+#ifndef UINT_LEAST32_WIDTH
+#  define UINT_LEAST32_WIDTH __INT_LEAST32_WIDTH__
+#endif
+
+#ifndef UINT_LEAST64_WIDTH
+#  define UINT_LEAST64_WIDTH __INT_LEAST64_WIDTH__
+#endif
+
+#ifndef INT_FAST8_WIDTH
+#  define INT_FAST8_WIDTH __INT_FAST8_WIDTH__
+#endif
+
+#ifndef INT_FAST16_WIDTH
+#  define INT_FAST16_WIDTH __INT_FAST16_WIDTH__
+#endif
+
+#ifndef INT_FAST32_WIDTH
+#  define INT_FAST32_WIDTH __INT_FAST32_WIDTH__
+#endif
+
+#ifndef INT_FAST64_WIDTH
+#  define INT_FAST64_WIDTH __INT_FAST64_WIDTH__
+#endif
+
+#ifndef UINT_FAST8_WIDTH
+#  define UINT_FAST8_WIDTH __INT_FAST8_WIDTH__
+#endif
+
+#ifndef UINT_FAST16_WIDTH
+#  define UINT_FAST16_WIDTH __INT_FAST16_WIDTH__
+#endif
+
+#ifndef UINT_FAST32_WIDTH
+#  define UINT_FAST32_WIDTH __INT_FAST32_WIDTH__
+#endif
+
+#ifndef UINT_FAST64_WIDTH
+#  define UINT_FAST64_WIDTH __INT_FAST64_WIDTH__
+#endif
+
+#ifndef INTPTR_WIDTH
+#  define INTPTR_WIDTH __INTPTR_WIDTH__
+#endif
+
+#ifndef UINTPTR_WIDTH
+#  define UINTPTR_WIDTH __INTPTR_WIDTH__
+#endif
+
+#ifndef INTMAX_WIDTH
+#  define INTMAX_WIDTH __INTMAX_WIDTH__
+#endif
+
+#ifndef UINTMAX_WIDTH
+#  define UINTMAX_WIDTH __INTMAX_WIDTH__
+#endif
+
+#ifndef INT8_MAX
+#  define INT8_MAX __INT8_MAX__
+#endif
+
+#ifndef INT8_MIN
+#  define INT8_MIN (-INT8_MAX - 1)
+#endif
+
+#ifndef INT16_MAX
+#  define INT16_MAX __INT16_MAX__
+#endif
+
+#ifndef INT16_MIN
+#  define INT16_MIN (-INT16_MAX - 1)
+#endif
+
+#ifndef INT32_MAX
+#  define INT32_MAX __INT32_MAX__
+#endif
+
+#ifndef INT32_MIN
+#  define INT32_MIN (-INT32_MAX - 1)
+#endif
+
+#ifndef INT64_MAX
+#  define INT64_MAX __INT64_MAX__
+#endif
+
+#ifndef INT64_MIN
+#  define INT64_MIN (-INT64_MAX - 1)
+#endif
+
+#ifndef UINT8_MAX
+#  define UINT8_MAX __UINT8_MAX__
+#endif
+
+#ifndef UINT16_MAX
+#  define UINT16_MAX __UINT16_MAX__
+#endif
+
+#ifndef UINT32_MAX
+#  define UINT32_MAX __UINT32_MAX__
+#endif
+
+#ifndef UINT64_MAX
+#  define UINT64_MAX __UINT64_MAX__
+#endif
+
+#ifndef INT_LEAST8_MAX
+#  define INT_LEAST8_MAX __INT_LEAST8_MAX__
+#endif
+
+#ifndef INT_LEAST8_MIN
+#  define INT_LEAST8_MIN (-INT_LEAST8_MAX - 1)
+#endif
+
+#ifndef INT_LEAST16_MAX
+#  define INT_LEAST16_MAX __INT_LEAST16_MAX__
+#endif
+
+#ifndef INT_LEAST16_MIN
+#  define INT_LEAST16_MIN (-INT_LEAST16_MAX - 1)
+#endif
+
+#ifndef INT_LEAST32_MAX
+#  define INT_LEAST32_MAX __INT_LEAST32_MAX__
+#endif
+
+#ifndef INT_LEAST32_MIN
+#  define INT_LEAST32_MIN (-INT_LEAST32_MAX - 1)
+#endif
+
+#ifndef INT_LEAST64_MAX
+#  define INT_LEAST64_MAX __INT_LEAST64_MAX__
+#endif
+
+#ifndef INT_LEAST64_MIN
+#  define INT_LEAST64_MIN (-INT_LEAST64_MAX - 1)
+#endif
+
+#ifndef UINT_LEAST8_MAX
+#  define UINT_LEAST8_MAX __UINT_LEAST8_MAX__
+#endif
+
+#ifndef UINT_LEAST16_MAX
+#  define UINT_LEAST16_MAX __UINT_LEAST16_MAX__
+#endif
+
+#ifndef UINT_LEAST32_MAX
+#  define UINT_LEAST32_MAX __UINT_LEAST32_MAX__
+#endif
+
+#ifndef UINT_LEAST64_MAX
+#  define UINT_LEAST64_MAX __UINT_LEAST64_MAX__
+#endif
+
+#ifndef INT_FAST8_MAX
+#  define INT_FAST8_MAX __INT_FAST8_MAX__
+#endif
+
+#ifndef INT_FAST8_MIN
+#  define INT_FAST8_MIN (-INT_FAST8_MAX - 1)
+#endif
+
+#ifndef INT_FAST16_MAX
+#  define INT_FAST16_MAX __INT_FAST16_MAX__
+#endif
+
+#ifndef INT_FAST16_MIN
+#  define INT_FAST16_MIN (-INT_FAST16_MAX - 1)
+#endif
+
+#ifndef INT_FAST32_MAX
+#  define INT_FAST32_MAX __INT_FAST32_MAX__
+#endif
+
+#ifndef INT_FAST32_MIN
+#  define INT_FAST32_MIN (-INT_FAST32_MAX - 1)
+#endif
+
+#ifndef INT_FAST64_MAX
+#  define INT_FAST64_MAX __INT_FAST64_MAX__
+#endif
+
+#ifndef INT_FAST64_MIN
+#  define INT_FAST64_MIN (-INT_FAST64_MAX - 1)
+#endif
+
+#ifndef UINT_FAST8_MAX
+#  define UINT_FAST8_MAX __UINT_FAST8_MAX__
+#endif
+
+#ifndef UINT_FAST16_MAX
+#  define UINT_FAST16_MAX __UINT_FAST16_MAX__
+#endif
+
+#ifndef UINT_FAST32_MAX
+#  define UINT_FAST32_MAX __UINT_FAST32_MAX__
+#endif
+
+#ifndef UINT_FAST64_MAX
+#  define UINT_FAST64_MAX __UINT_FAST64_MAX__
+#endif
+
+#ifndef INTPTR_MAX
+#  define INTPTR_MAX __INTPTR_MAX__
+#endif
+
+#ifndef INTPTR_MIN
+#  define INTPTR_MIN (-INTPTR_MAX - 1)
+#endif
+
+#ifndef UINTPTR_MAX
+#  define UINTPTR_MAX __UINTPTR_MAX__
+#endif
+
+#ifndef INTMAX_MAX
+#  define INTMAX_MAX __INTMAX_MAX__
+#endif
+
+#ifndef INTMAX_MIN
+#  define INTMAX_MIN (-INTMAX_MAX - 1)
+#endif
+
+#ifndef UINTMAX_MAX
+#  define UINTMAX_MAX __UINTMAX_MAX__
+#endif
+
+#if !@HAVE_INT8_T@
+typedef __INT8_TYPE__ int8_t;
+#endif
+
+#if !@HAVE_INT16_T@
+typedef __INT16_TYPE__ int16_t;
+#endif
+
+#if !@HAVE_INT32_T@
+typedef __INT32_TYPE__ int32_t;
+#endif
+
+#if !@HAVE_INT64_T@
+typedef __INT64_TYPE__ int64_t;
+#endif
+
+#if !@HAVE_UINT8_T@
+typedef __UINT8_TYPE__ uint8_t;
+#endif
+
+#if !@HAVE_UINT16_T@
+typedef __UINT16_TYPE__ uint16_t;
+#endif
+
+#if !@HAVE_UINT32_T@
+typedef __UINT32_TYPE__ uint32_t;
+#endif
+
+#if !@HAVE_UINT64_T@
+typedef __UINT64_TYPE__ uint64_t;
+#endif
+
+#if !@HAVE_INT_LEAST8_T@
+typedef __INT_LEAST8_TYPE__ int_least8_t;
+#endif
+
+#if !@HAVE_INT_LEAST16_T@
+typedef __INT_LEAST16_TYPE__ int_least16_t;
+#endif
+
+#if !@HAVE_INT_LEAST32_T@
+typedef __INT_LEAST32_TYPE__ int_least32_t;
+#endif
+
+#if !@HAVE_INT_LEAST64_T@
+typedef __INT_LEAST64_TYPE__ int_least64_t;
+#endif
+
+#if !@HAVE_UINT_LEAST8_T@
+typedef __UINT_LEAST8_TYPE__ uint_least8_t;
+#endif
+
+#if !@HAVE_UINT_LEAST16_T@
+typedef __UINT_LEAST16_TYPE__ uint_least16_t;
+#endif
+
+#if !@HAVE_UINT_LEAST32_T@
+typedef __UINT_LEAST32_TYPE__ uint_least32_t;
+#endif
+
+#if !@HAVE_UINT_LEAST64_T@
+typedef __UINT_LEAST64_TYPE__ uint_least64_t;
+#endif
+
+#if !@HAVE_INT_FAST8_T@
+typedef __INT_FAST8_TYPE__ int_fast8_t;
+#endif
+
+#if !@HAVE_INT_FAST16_T@
+typedef __INT_FAST16_TYPE__ int_fast16_t;
+#endif
+
+#if !@HAVE_INT_FAST32_T@
+typedef __INT_FAST32_TYPE__ int_fast32_t;
+#endif
+
+#if !@HAVE_INT_FAST64_T@
+typedef __INT_FAST64_TYPE__ int_fast64_t;
+#endif
+
+#if !@HAVE_UINT_FAST8_T@
+typedef __UINT_FAST8_TYPE__ uint_fast8_t;
+#endif
+
+#if !@HAVE_UINT_FAST16_T@
+typedef __UINT_FAST16_TYPE__ uint_fast16_t;
+#endif
+
+#if !@HAVE_UINT_FAST32_T@
+typedef __UINT_FAST32_TYPE__ uint_fast32_t;
+#endif
+
+#if !@HAVE_UINT_FAST64_T@
+typedef __UINT_FAST64_TYPE__ uint_fast64_t;
+#endif
+
+#if !@HAVE_INTPTR_T@
+typedef __INTPTR_TYPE__ intptr_t;
+#endif
+
+#if !@HAVE_UINTPTR_T@
+typedef __UINTPTR_TYPE__ uintptr_t;
+#endif
+
+#if !@HAVE_INTMAX_T@
+typedef __INTMAX_TYPE__ intmax_t;
+#endif
+
+#if !@HAVE_UINTMAX_T@
+typedef __UINTMAX_TYPE__ uintmax_t;
 #endif
 
 #endif /* COMPAT_STDINT_H */
