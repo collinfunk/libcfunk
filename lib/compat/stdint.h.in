@@ -309,15 +309,15 @@
 
 #ifndef __UINTMAX_C_SUFFIX__
 #  if CHAR_WIDTH == __INTMAX_WIDTH__
-#    define __INTMAX_C_SUFFIX__
+#    define __UINTMAX_C_SUFFIX__
 #  elif SHRT_WIDTH == __INTMAX_WIDTH__
-#    define __INTMAX_C_SUFFIX__
+#    define __UINTMAX_C_SUFFIX__
 #  elif INT_WIDTH == __INTMAX_WIDTH__
-#    define __INTMAX_C_SUFFIX__ U
+#    define __UINTMAX_C_SUFFIX__ U
 #  elif LONG_WIDTH == __INTMAX_WIDTH__
-#    define __INTMAX_C_SUFFIX__ UL
+#    define __UINTMAX_C_SUFFIX__ UL
 #  elif LLONG_WIDTH == __INTMAX_WIDTH__
-#    define __INTMAX_C_SUFFIX__ ULL
+#    define __UINTMAX_C_SUFFIX__ ULL
 #  endif
 #endif
 

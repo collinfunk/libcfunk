@@ -121,16 +121,19 @@ int
 main(void)
 {
 #if -1 & 3 == 1
-  10000001 & 00000011 == 1
-  sign-magnitude is unsupported.
+  /* 10000001 & 00000011 == 1 */
+  /* sign-magnitude is unsupported. */
+  int array[-1];
 #elif -1 & 3 == 2
-  11111110 & 00000011 == 2
-  one's complement is unsupported.
+  /* 11111110 & 00000011 == 2 */
+  /* one's complement is unsupported. */
+  int array[-1];
 #elif -1 & 3 == 3
   /* 01111111 & 00000011 == 3 */
   return 0;
 #else
-  Unknown signed number representation.
+  /* Unknown signed number representation. */
+  int array[-1];
 #endif
 }" IS_TWOS_COMPLEMENT)
 

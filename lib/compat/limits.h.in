@@ -234,7 +234,7 @@
 #  define LLONG_MIN (-LLONG_MAX - 1LL)
 #endif
 
-#ifndef UCHAR_MIN
+#ifndef UCHAR_MAX
 #  if SCHAR_MAX == INT_MAX
 #    define UCHAR_MAX (SCHAR_MAX * 2U + 1U)
 #  else
