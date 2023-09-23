@@ -28,17 +28,8 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 
-#include <termios.h>
+#include "attributes.h"
 
-#include "__has_attribute.h"
-
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
-#endif
-
-/* Make sure that struct winsize is declared on systems without it. */
 int
 main (void)
 {

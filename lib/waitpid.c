@@ -28,7 +28,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "__has_attribute.h"
+#include "attributes.h"
 
 #if HAVE_WINDOWS_H
 #  include <process.h>
@@ -39,12 +39,6 @@
 
 #if !defined(WAIT_CHILD) && defined(_WAIT_CHILD)
 #  define WAIT_CHILD _WAIT_CHILD
-#endif
-
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
 #endif
 
 pid_t

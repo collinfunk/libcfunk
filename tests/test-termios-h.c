@@ -29,13 +29,7 @@
 
 #include <termios.h>
 
-#include "__has_attribute.h"
-
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#endif
+#include "attributes.h"
 
 /* Make sure that struct termios is declared on systems without it. */
 int
