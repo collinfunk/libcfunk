@@ -188,3 +188,22 @@ if ("${SIZEOF_LONG_LONG}" STREQUAL "" OR "${SIZEOF_LONG_LONG}" LESS "8")
 wider. On your system `long long' is ${BITWIDTH_LONG_LONG} bits.")
   unset(BITWIDTH_LONG_LONG)
 endif ()
+
+check_c_source_compiles("
+
+#include_next <stdlib.h>
+
+int
+main (void)
+{
+  return 0;
+}
+" HAVE_INCLUDE_NEXT)
+
+# FIXME: If include_next isn't supported, it should be possible to use
+# find_file and #include the absolute path to the system header.
+if (NOT HAVE_INCLUDE_NEXT)
+  message(FATAL_ERROR "Substitution headers required support for the \
+`#include_next' C preprocessor directive. This is supported by most compilers \
+other than MSVC.")
+endif ()
