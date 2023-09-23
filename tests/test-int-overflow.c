@@ -23,8 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <inttypes.h>
 #include <limits.h>
-#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -41,6 +41,8 @@ static void test_type_max_unsigned (void);
 static void test_type_min_unsigned (void);
 static void test_type_max_signed (void);
 static void test_type_min_signed (void);
+static void test_type_is_signed (void);
+static void test_type_is_unsigned (void);
 static void test_int_add_range_overflow (void);
 static void test_int_sub_range_overflow (void);
 static void test_int_mul_range_overflow (void);
@@ -53,6 +55,8 @@ main (void)
   test_type_min_unsigned ();
   test_type_max_signed ();
   test_type_min_signed ();
+  test_type_is_signed ();
+  test_type_is_unsigned ();
   test_int_add_range_overflow ();
   test_int_sub_range_overflow ();
   test_int_mul_range_overflow ();
@@ -64,7 +68,7 @@ static void
 test_type_max_unsigned (void)
 {
   ASSERT (TYPE_MAX_UNSIGNED (unsigned char) == UCHAR_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (unsigned short) == USHRT_MAX);
+  ASSERT (TYPE_MAX_UNSIGNED (unsigned short int) == USHRT_MAX);
   ASSERT (TYPE_MAX_UNSIGNED (unsigned int) == UINT_MAX);
   ASSERT (TYPE_MAX_UNSIGNED (unsigned long int) == ULONG_MAX);
   ASSERT (TYPE_MAX_UNSIGNED (unsigned long long int) == ULLONG_MAX);
@@ -74,7 +78,7 @@ static void
 test_type_min_unsigned (void)
 {
   ASSERT (TYPE_MIN_UNSIGNED (unsigned char) == 0);
-  ASSERT (TYPE_MIN_UNSIGNED (unsigned short) == 0);
+  ASSERT (TYPE_MIN_UNSIGNED (unsigned short int) == 0);
   ASSERT (TYPE_MIN_UNSIGNED (unsigned int) == 0);
   ASSERT (TYPE_MIN_UNSIGNED (unsigned long int) == 0);
   ASSERT (TYPE_MIN_UNSIGNED (unsigned long long int) == 0);
@@ -84,20 +88,50 @@ static void
 test_type_max_signed (void)
 {
   ASSERT (TYPE_MAX_SIGNED (signed char) == CHAR_MAX);
-  ASSERT (TYPE_MAX_SIGNED (signed short) == SHRT_MAX);
-  ASSERT (TYPE_MAX_SIGNED (signed int) == INT_MAX);
-  ASSERT (TYPE_MAX_SIGNED (signed long int) == LONG_MAX);
-  ASSERT (TYPE_MAX_SIGNED (signed long long int) == LLONG_MAX);
+  ASSERT (TYPE_MAX_SIGNED (short int) == SHRT_MAX);
+  ASSERT (TYPE_MAX_SIGNED (int) == INT_MAX);
+  ASSERT (TYPE_MAX_SIGNED (long int) == LONG_MAX);
+  ASSERT (TYPE_MAX_SIGNED (long long int) == LLONG_MAX);
 }
 
 static void
 test_type_min_signed (void)
 {
   ASSERT (TYPE_MIN_SIGNED (signed char) == CHAR_MIN);
-  ASSERT (TYPE_MIN_SIGNED (signed short) == SHRT_MIN);
-  ASSERT (TYPE_MIN_SIGNED (signed int) == INT_MIN);
-  ASSERT (TYPE_MIN_SIGNED (signed long int) == LONG_MIN);
-  ASSERT (TYPE_MIN_SIGNED (signed long long int) == LLONG_MIN);
+  ASSERT (TYPE_MIN_SIGNED (short int) == SHRT_MIN);
+  ASSERT (TYPE_MIN_SIGNED (int) == INT_MIN);
+  ASSERT (TYPE_MIN_SIGNED (long int) == LONG_MIN);
+  ASSERT (TYPE_MIN_SIGNED (long long int) == LLONG_MIN);
+}
+
+static void
+test_type_is_signed (void)
+{
+  ASSERT (TYPE_IS_SIGNED (signed char));
+  ASSERT (TYPE_IS_SIGNED (short int));
+  ASSERT (TYPE_IS_SIGNED (int));
+  ASSERT (TYPE_IS_SIGNED (long int));
+  ASSERT (TYPE_IS_SIGNED (long long int));
+  ASSERT (!TYPE_IS_SIGNED (unsigned char));
+  ASSERT (!TYPE_IS_SIGNED (unsigned short int));
+  ASSERT (!TYPE_IS_SIGNED (unsigned int));
+  ASSERT (!TYPE_IS_SIGNED (unsigned long int));
+  ASSERT (!TYPE_IS_SIGNED (unsigned long long int));
+}
+
+static void
+test_type_is_unsigned (void)
+{
+  ASSERT (!TYPE_IS_UNSIGNED (signed char));
+  ASSERT (!TYPE_IS_UNSIGNED (short int));
+  ASSERT (!TYPE_IS_UNSIGNED (int));
+  ASSERT (!TYPE_IS_UNSIGNED (long int));
+  ASSERT (!TYPE_IS_UNSIGNED (long long int));
+  ASSERT (TYPE_IS_UNSIGNED (unsigned char));
+  ASSERT (TYPE_IS_UNSIGNED (unsigned short int));
+  ASSERT (TYPE_IS_UNSIGNED (unsigned int));
+  ASSERT (TYPE_IS_UNSIGNED (unsigned long int));
+  ASSERT (TYPE_IS_UNSIGNED (unsigned long long int));
 }
 
 static void

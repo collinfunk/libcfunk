@@ -29,6 +29,8 @@
 #include <limits.h>
 #include <stdint.h>
 
+#undef TYPE_IS_SIGNED
+#undef TYPE_IS_UNSIGNED
 #undef TYPE_MAX_UNSIGNED
 #undef TYPE_MIN_UNSIGNED
 #undef TYPE_MAX_SIGNED
@@ -38,9 +40,17 @@
 #undef INT_MUL_RANGE_OVERFLOW
 #undef INT_DIV_RANGE_OVERFLOW
 
-/* type TYPE_MAX_UNSIGNED(type) */
+/* bool TYPE_IS_SIGNED(type) */
+#define TYPE_IS_SIGNED(type) (((type) -1) < 0)
+
+/* bool TYPE_IS_UNSIGNED(type) */
+#define TYPE_IS_UNSIGNED(type) (((type) -1) > 0)
+
+/* type TYPE_MAX_UNSIGNED(type)
 #define TYPE_MAX_UNSIGNED(type)                                               \
   ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 1)) - 1) * 2) + 1)
+*/
+#define TYPE_MAX_UNSIGNED(type) ((type) -1)
 
 /* type TYPE_MIN_UNSIGNED(type) */
 #define TYPE_MIN_UNSIGNED(type) ((type) 0)
