@@ -38,12 +38,21 @@
    bool FILENAME_IS_DIRSEP(ch)
      Returns true if CH is a character that joins pathname components.
    bool FILENAME_IS_LISTSEP(ch)
-     Returns true if CH is a character used to seperate a list of files such
+     Returns true if CH is a character used to separate a list of files such
      as $PATH.
    bool FILENAME_HAS_DRIVE_PREFIX(str)
      Returns true if STR has a DOS style volume prefix. Valid volume prefixes
      are A: to Z: case insensitive. It is possible on some versions of
      DOS/Windows to use other prefixes but it is not supported.
+   bool FILENAME_IS_ABSOLUTE(str)
+     Returns true if STR is an absolute file path. For Windows, this returns
+     true if STR is an absolute path (c:/folder/file.txt) or if it is a path
+     relative to the current drive letter (/folder/file.txt).
+   bool FILENAME_IS_RELATIVE(str)
+     Returns true if STR is a relative file path. For Windows, this returns
+     true if STR is a path relative to the current working directory
+     (folder/file.txt) or if it is a relative path to the current directory
+     of a drive letter (c:folder/file.txt).
  */
 #if defined(_WIN32)
 #  define FILENAME_IS_DIRSEP(ch) ((ch) == '/' || (ch) == '\\')
@@ -52,10 +61,16 @@
     ((((str)[0] >= 'A' && (str)[0] <= 'Z')                                    \
       || ((str)[0] >= 'a' && (str)[0] <= 'z'))                                \
      && ((str)[1] == ':'))
+#  define FILENAME_IS_ABSOLUTE(str)                                           \
+    FILENAME_IS_DIRSEP ((str)[FILENAME_HAS_DRIVE_PREFIX (str) ? 2 : 0])
+#  define FILENAME_IS_RELATIVE(str)                                           \
+    ((!FILENAME_HAS_DRIVE_PREFIX (str)) && (!FILENAME_IS_DIRSEP ((str)[0])))
 #else
 #  define FILENAME_IS_DIRSEP(ch) ((ch) == '/')
 #  define FILENAME_IS_LISTSEP(ch) ((ch) == ':')
 #  define FILENAME_HAS_DRIVE_PREFIX(str) (0)
+#  define FILENAME_IS_ABSOLUTE(str) FILENAME_IS_DIRSEP ((str)[0])
+#  define FILENAME_IS_RELATIVE(str) (!FILENAME_IS_DIRSEP ((str)[0]))
 #endif
 
 /* Truncates filename at the last '.' character which is not part of a directory

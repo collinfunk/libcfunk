@@ -26,12 +26,15 @@
 #include <config.h>
 
 #include <limits.h>
+#include <strings.h>
 #include <unistd.h>
-
-#include "cpu-count.h"
 
 #if HAVE_SYS_SYSCTL_H
 #  include <sys/sysctl.h>
+#endif
+
+#if HAVE_SCHED_H
+#  include <sched.h>
 #endif
 
 #ifdef _WIN32
@@ -43,16 +46,40 @@
 #  endif
 #endif
 
+#include "cpu-count.h"
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getprocessaffinitymask */
+/* https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess */
+
 long int
 cpu_count_available (void)
 {
 #ifdef _WIN32
-  SYSTEM_INFO system_info;
+  DWORD_PTR proc_mask, sys_mask;
 
-  /* FIXME: Same as total. */
-  GetSystemInfo (&system_info);
-  return system_info.dwNumberOfProcessors;
-#elif HAVE_SYS_SYSCTL_H && defined(HW_NCPU)
+  if (GetProcessAffinityMask (GetCurrentProcess (), &proc_mask, &sys_mask))
+    return (long int) popcountl ((unsigned long) proc_mask);
+#endif
+
+#if HAVE_SCHED_H && HAVE_SCHED_GETAFFINITY
+  cpu_set_t set;
+
+  if (sched_getaffinity (getpid (), sizeof (set), &set) >= 0)
+    {
+      size_t i;
+      long int count;
+
+      for (i = count = 0; i < CPU_SETSIZE; ++i)
+        {
+          if (CPU_ISSET (i, &set))
+            ++count;
+        }
+
+      return count;
+    }
+#endif
+
+#if HAVE_SYS_SYSCTL_H && defined(HW_NCPU)
   int mib[2] = { CTL_HW, HW_NCPU };
   int cpu_count;
   size_t len;
@@ -62,7 +89,9 @@ cpu_count_available (void)
     return 1;
 
   return cpu_count > 0 ? cpu_count : 1;
-#else
+#endif
+
+#if defined(_SC_NPROCESSORS_ONLN)
   long int cpu_count = sysconf (_SC_NPROCESSORS_ONLN);
 
   return cpu_count < 0 ? 1 : cpu_count;

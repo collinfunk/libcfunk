@@ -32,6 +32,8 @@
 static void test_filename_is_dirsep (void);
 static void test_filename_is_listsep (void);
 static void test_filename_has_drive_prefix (void);
+static void test_filename_is_absolute (void);
+static void test_filename_is_relative (void);
 
 int
 main (void)
@@ -39,6 +41,8 @@ main (void)
   test_filename_is_dirsep ();
   test_filename_is_listsep ();
   test_filename_has_drive_prefix ();
+  test_filename_is_absolute ();
+  test_filename_is_relative ();
   return 0;
 }
 
@@ -87,5 +91,151 @@ test_filename_has_drive_prefix (void)
   ASSERT (!FILENAME_HAS_DRIVE_PREFIX ("C/dir1/dir2/"));
   ASSERT (!FILENAME_HAS_DRIVE_PREFIX ("c\\dir1\\dir2\\"));
   ASSERT (!FILENAME_HAS_DRIVE_PREFIX ("C\\dir1\\dir2\\"));
+#endif
+}
+
+static void
+test_filename_is_absolute (void)
+{
+#if defined(_WIN32)
+  ASSERT (FILENAME_IS_ABSOLUTE ("/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a/b"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a/b/c"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("\\"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("\\a"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("\\a/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("\\a/b"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("\\a/b/c"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("d:/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("d:/a"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("d:/a/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("d:/a/b"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("d:/a/b/c"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("c:\\"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("c:\\a"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("C:\\a/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("C:\\a/b"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("C:\\a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE (""));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("c:a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("c:a/b/c"));
+#else
+  ASSERT (FILENAME_IS_ABSOLUTE ("/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a/"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a/b"));
+  ASSERT (FILENAME_IS_ABSOLUTE ("/a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("\\"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("\\a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("\\a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("\\a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("\\a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:/a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:/a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:/a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:/a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("c:\\"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("c:\\a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("C:\\a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("C:\\a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("C:\\a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE (""));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("a/b/c"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:a"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("d:a/"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("c:a/b"));
+  ASSERT (!FILENAME_IS_ABSOLUTE ("c:a/b/c"));
+#endif
+}
+
+static void
+test_filename_is_relative (void)
+{
+#if defined(_WIN32)
+  ASSERT (!FILENAME_IS_RELATIVE ("/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a/b/c"));
+  ASSERT (!FILENAME_IS_RELATIVE ("\\"));
+  ASSERT (!FILENAME_IS_RELATIVE ("\\a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("\\a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("\\a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("\\a/b/c"));
+  ASSERT (!FILENAME_IS_RELATIVE ("c:/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("c:/a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("c:/a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("C:/a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("C:/a/b/c"));
+  ASSERT (!FILENAME_IS_RELATIVE ("C:\\"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:\\a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:\\a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:\\a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:\\a/b/c"));
+  ASSERT (!FILENAME_IS_RELATIVE ("c:"));
+  ASSERT (!FILENAME_IS_RELATIVE ("c:a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("c:a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("C:a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("C:a/b/c"));
+  ASSERT (!FILENAME_IS_RELATIVE ("C:"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("d:a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE (""));
+  ASSERT (FILENAME_IS_RELATIVE ("a"));
+  ASSERT (FILENAME_IS_RELATIVE ("a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("a/b/c"));
+#else
+  ASSERT (!FILENAME_IS_RELATIVE ("/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a/"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a/b"));
+  ASSERT (!FILENAME_IS_RELATIVE ("/a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE ("\\"));
+  ASSERT (FILENAME_IS_RELATIVE ("\\a"));
+  ASSERT (FILENAME_IS_RELATIVE ("\\a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("\\a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("\\a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE ("c:/"));
+  ASSERT (FILENAME_IS_RELATIVE ("c:/a"));
+  ASSERT (FILENAME_IS_RELATIVE ("c:/a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("C:/a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("C:/a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE ("C:\\"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:\\a"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:\\a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:\\a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:\\a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE ("c:"));
+  ASSERT (FILENAME_IS_RELATIVE ("c:a"));
+  ASSERT (FILENAME_IS_RELATIVE ("c:a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("C:a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("C:a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE ("C:"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:a"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("d:a/b/c"));
+  ASSERT (FILENAME_IS_RELATIVE (""));
+  ASSERT (FILENAME_IS_RELATIVE ("a"));
+  ASSERT (FILENAME_IS_RELATIVE ("a/"));
+  ASSERT (FILENAME_IS_RELATIVE ("a/b"));
+  ASSERT (FILENAME_IS_RELATIVE ("a/b/c"));
 #endif
 }

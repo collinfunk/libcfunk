@@ -35,17 +35,19 @@
 #endif
 
 /*
+#undef __SCHAR_WIDTH__
+#undef __SHRT_WIDTH__
+#undef __INT_WIDTH__
+#undef __LONG_WIDTH__
+#undef __LONG_LONG_WIDTH__
+#undef __SIZE_WIDTH__
 #undef __CHAR_BIT__
 #undef __SCHAR_MAX__
 #undef __SHRT_MAX__
 #undef __INT_MAX__
 #undef __LONG_MAX__
 #undef __LONG_LONG_MAX__
-#undef __SCHAR_WIDTH__
-#undef __SHRT_WIDTH__
-#undef __INT_WIDTH__
-#undef __LONG_WIDTH__
-#undef __LONG_LONG_WIDTH__
+#undef __SIZE_MAX__
 */
 
 #ifndef __CHAR_UNSIGNED__
@@ -76,6 +78,15 @@
 
 #ifndef __LONG_LONG_WIDTH__
 #  define __LONG_LONG_WIDTH__ @LONG_LONG_WIDTH@
+#endif
+
+#ifndef __SIZE_WIDTH__
+#  define __SIZE_WIDTH__ @SIZE_WIDTH@
+#endif
+
+/* Not a builtin definition */
+#ifndef __SSIZE_WIDTH__
+#  define __SSIZE_WIDTH__ @SSIZE_WIDTH@
 #endif
 
 #ifndef __SCHAR_MAX__
@@ -135,6 +146,35 @@
 #    define __LONG_LONG_MAX__ 2147483647LL
 #  elif __LONG_LONG_WIDTH__ == 64
 #    define __LONG_LONG_MAX__ 9223372036854775807LL
+#  endif
+#endif
+
+#ifndef __SIZE_MAX__
+#  if __SIZE_WIDTH__ == __SCHAR_WIDTH__
+#    define __SIZE_MAX__ UCHAR_MAX
+#  elif __SIZE_WIDTH__ == __SHRT_WIDTH__
+#    define __SIZE_MAX__ USHRT_MAX
+#  elif __SIZE_WIDTH__ == __INT_WIDTH__
+#    define __SIZE_MAX__ UINT_MAX
+#  elif __SIZE_WIDTH__ == __LONG_WIDTH__
+#    define __SIZE_MAX__ ULONG_MAX
+#  elif __SIZE_WIDTH__ == __LONG_LONG_WIDTH__
+#    define __SIZE_MAX__ ULLONG_MAX
+#  endif
+#endif
+
+/* Not a builtin definition */
+#ifndef __SSIZE_MAX__
+#  if __SSIZE_WIDTH__ == __SCHAR_WIDTH__
+#    define __SSIZE_MAX__ SCHAR_MAX
+#  elif __SSIZE_WIDTH__ == __SHRT_WIDTH__
+#    define __SSIZE_MAX__ SHRT_MAX
+#  elif __SSIZE_WIDTH__ == __INT_WIDTH__
+#    define __SSIZE_MAX__ INT_MAX
+#  elif __SSIZE_WIDTH__ == __LONG_WIDTH__
+#    define __SSIZE_MAX__ LONG_MAX
+#  elif __SSIZE_WIDTH__ == __LONG_LONG_WIDTH__
+#    define __SSIZE_MAX__ LLONG_MAX
 #  endif
 #endif
 
@@ -292,6 +332,14 @@
 
 #ifndef ULONG_LONG_MAX
 #  define ULONG_LONG_MAX ULLONG_MAX
+#endif
+
+#ifndef SIZE_MAX
+#  define SIZE_MAX __SIZE_MAX__
+#endif
+
+#ifndef SSIZE_MAX
+#  define SSIZE_MAX __SSIZE_MAX__
 #endif
 
 #ifndef BOOL_WIDTH

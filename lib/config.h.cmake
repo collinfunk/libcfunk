@@ -47,6 +47,7 @@
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
+#cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRT_EXTERNS_H
@@ -98,6 +99,7 @@
 #cmakedefine01 HAVE_GETUSERSHELL
 #cmakedefine01 HAVE_GID_T
 #cmakedefine01 HAVE_IMAXABS
+#cmakedefine01 HAVE_INCLUDE_NEXT
 #cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_INTTYPES_H
 #cmakedefine01 HAVE_ISALNUM
@@ -115,6 +117,7 @@
 #cmakedefine01 HAVE_ISUPPER
 #cmakedefine01 HAVE_ISXDIGIT
 #cmakedefine01 HAVE_LABS
+#cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE__LOCK_FILE
 #cmakedefine01 HAVE_MALLOC_H
@@ -143,6 +146,8 @@
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_RINDEX
+#cmakedefine01 HAVE_SCHED_GETAFFINITY
+#cmakedefine01 HAVE_SCHED_H
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SETPROGNAME
