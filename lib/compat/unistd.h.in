@@ -122,4 +122,16 @@ extern int getlogin_r (char *name, size_t namesize);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GROUP_MEMBER@
+#  if !@HAVE_GROUP_MEMBER@
+extern int group_member (gid_t gid);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETGROUPS@
+#  if !@HAVE_GETGROUPS@
+extern int getgroups (int gidsetsize, gid_t grouplist[]);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
