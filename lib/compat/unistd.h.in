@@ -146,4 +146,10 @@ extern int eaccess (const char *pathname, int mode);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_DAEMON@
+#  if !@HAVE_DAEMON@
+extern int daemon (int nochdir, int noclose);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */

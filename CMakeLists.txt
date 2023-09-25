@@ -48,6 +48,7 @@ include(cmake/err-h.cmake)
 include(cmake/error.cmake)
 include(cmake/error-h.cmake)
 include(cmake/euidaccess.cmake)
+include(cmake/_Exit.cmake)
 include(cmake/explicit-bzero.cmake)
 include(cmake/fcntl-h.cmake)
 include(cmake/ffs.cmake)
@@ -181,6 +182,11 @@ include(cmake/wmemset.cmake)
 include(cmake/write-full.cmake)
 include(cmake/write-nointr.cmake)
 include(cmake/xmalloc.cmake)
+
+# These are not compatible with Windows.
+if (UNIX)
+  include(cmake/daemon.cmake)
+endif ()
 
 # Don't leave enabled, have portability problems.
 # include(cmake/getppidof.cmake)

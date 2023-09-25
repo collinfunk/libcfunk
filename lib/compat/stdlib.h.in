@@ -147,4 +147,10 @@ extern void *bsearch (const void *key, const void *base, size_t nel,
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_C99__EXIT@
+#  if !@HAVE_C99__EXIT@
+extern void _Exit (int status);
+#  endif
+#endif
+
 #endif /* COMPAT_STDLIB_H */

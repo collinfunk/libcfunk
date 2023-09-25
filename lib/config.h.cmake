@@ -44,6 +44,7 @@
 #cmakedefine01 HAVE_C23_NULLPTR
 #cmakedefine01 HAVE_C23_STATIC_ASSERT
 #cmakedefine01 HAVE_C99_BOOL
+#cmakedefine01 HAVE_C99__EXIT
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
@@ -52,7 +53,9 @@
 #cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRT_EXTERNS_H
 #cmakedefine01 HAVE_CTYPE_H
+#cmakedefine01 HAVE_DAEMON
 #cmakedefine01 HAVE_DIRENT_H
+#cmakedefine01 HAVE_DUP2
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_EACCESS
 #cmakedefine01 HAVE_ENDIAN_H
@@ -69,6 +72,7 @@
 #cmakedefine01 HAVE_ERROR_PRINT_PROGNAME
 #cmakedefine01 HAVE_ERRX
 #cmakedefine01 HAVE_EUIDACCESS
+#cmakedefine01 HAVE__EXIT
 #cmakedefine01 HAVE_EXPLICIT_BZERO
 #cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE_FCNTL_H
@@ -79,6 +83,7 @@
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
+#cmakedefine01 HAVE_FORK
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE__GETCHAR_NOLOCK
 #cmakedefine01 HAVE_GETCHAR_UNLOCKED
@@ -171,6 +176,7 @@
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SETPROGNAME
+#cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
