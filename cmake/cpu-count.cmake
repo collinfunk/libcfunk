@@ -9,10 +9,7 @@ check_include_file("windows.h" HAVE_WINDOWS_H)
 check_include_files("windows.h;sysinfoapi.h" HAVE_SYSINFOAPI_H)
 
 if (HAVE_WINDOWS_H)
-  if (HAVE_SYSINFOAPI_H)
-    message(WARNING "cpu_count_avaliable () is inaccurate and will return more \
-than are actually avaliable.")
-  else ()
+  if (NOT HAVE_SYSINFOAPI_H)
     message(FATAL_ERROR "Could not find <sysinfoapi.h> on your machine.")
   endif ()
 endif ()

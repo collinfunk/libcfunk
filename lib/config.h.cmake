@@ -54,6 +54,7 @@
 #cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DYSIZE
+#cmakedefine01 HAVE_EACCESS
 #cmakedefine01 HAVE_ENDIAN_H
 #cmakedefine01 HAVE_ENDUSERSHELL
 #cmakedefine01 HAVE_ENVIRON
@@ -67,7 +68,9 @@
 #cmakedefine01 HAVE_ERROR_ONE_PER_LINE
 #cmakedefine01 HAVE_ERROR_PRINT_PROGNAME
 #cmakedefine01 HAVE_ERRX
+#cmakedefine01 HAVE_EUIDACCESS
 #cmakedefine01 HAVE_EXPLICIT_BZERO
+#cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE_FCNTL_H
 #cmakedefine01 HAVE_FFS
 #cmakedefine01 HAVE_FFSL

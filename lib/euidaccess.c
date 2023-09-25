@@ -28,49 +28,27 @@
 #include <sys/types.h>
 
 #include <errno.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
 
+/* This function can be built as euidaccess which is the glibc name or
+   eaccess which is the FreeBSD name. */
+#ifndef EUIDACCESS_FUNCTION_NAME
+#  define EUIDACCESS_FUNCTION_NAME euidaccess
+#endif
+
 int
-main (void)
+EUIDACCESS_FUNCTION_NAME (const char *pathname, int mode)
 {
-  gid_t *group_list;
-  int group_count, i;
-
-  group_count = getgroups (0, NULL);
-
-  /* Expect failure with ENOSYS on Windows. */
-  if (group_count < 0)
-    {
-      if (errno == ENOSYS)
-        return 0;
-      else
-        abort ();
-    }
-
-  /* Make sure size_t doesn't wrap. */
-  if ((size_t) group_count > SIZE_MAX / sizeof (gid_t))
-    abort ();
-
-  group_list = (gid_t *) malloc (group_count * sizeof (gid_t));
-  if (group_list == NULL)
-    abort ();
-
-  /* Make sure we get the same number of groups. */
-  if (group_count != getgroups (group_count, group_list))
-    {
-      fprintf (stderr, "getgroups (): %s.\n", strerror (errno));
-      free (group_list);
-      abort ();
-    }
-
-  printf ("Supplementary group IDs:\n");
-  for (i = 0; i < group_count; ++i)
-    printf ("%2d. %d\n", i, (int) group_list[i]);
-
-  free (group_list);
-  return 0;
+#if HAVE_WINDOWS_H
+  return _access (pathname, mode);
+#elif HAVE_FACCESSAT
+  return faccessat (AT_FDCWD, pathname, mode, AT_EACCESS);
+#elif HAVE_EACCESS
+  return eaccess (pathname, mode);
+#else
+#  error "euidacces/eaccess does not have an implementation for your system."
+  errno = ENOSYS;
+  return -1;
+#endif
 }

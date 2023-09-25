@@ -134,4 +134,16 @@ extern int getgroups (int gidsetsize, gid_t grouplist[]);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_EUIDACCESS@
+#  if !@HAVE_EUIDACCESS@
+extern int euidaccess (const char *pathname, int mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EACCESS@
+#  if !@HAVE_EACCESS@
+extern int eaccess (const char *pathname, int mode);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */

@@ -23,54 +23,5 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
-
-#include <sys/types.h>
-
-#include <errno.h>
-#include <limits.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-int
-main (void)
-{
-  gid_t *group_list;
-  int group_count, i;
-
-  group_count = getgroups (0, NULL);
-
-  /* Expect failure with ENOSYS on Windows. */
-  if (group_count < 0)
-    {
-      if (errno == ENOSYS)
-        return 0;
-      else
-        abort ();
-    }
-
-  /* Make sure size_t doesn't wrap. */
-  if ((size_t) group_count > SIZE_MAX / sizeof (gid_t))
-    abort ();
-
-  group_list = (gid_t *) malloc (group_count * sizeof (gid_t));
-  if (group_list == NULL)
-    abort ();
-
-  /* Make sure we get the same number of groups. */
-  if (group_count != getgroups (group_count, group_list))
-    {
-      fprintf (stderr, "getgroups (): %s.\n", strerror (errno));
-      free (group_list);
-      abort ();
-    }
-
-  printf ("Supplementary group IDs:\n");
-  for (i = 0; i < group_count; ++i)
-    printf ("%2d. %d\n", i, (int) group_list[i]);
-
-  free (group_list);
-  return 0;
-}
+#define EUIDACCESS_FUNCTION_NAME eaccess
+#include "euidaccess.c"
