@@ -23,12 +23,58 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COPY_FILE_H
-#define COPY_FILE_H
+#include <config.h>
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-/* Copies the data from SRC to DEST. */
-extern bool copy_file (const char *src, const char *dest);
+#include "filename.h"
+#include "test-help.h"
 
-#endif /* COPY_FILE_H */
+struct test_case
+{
+  const char *file_name; /* The filename to use. */
+  const char *extension; /* The extension to add. */
+  const char *expect;    /* The expected result. */
+};
+
+static const struct test_case test_cases[]
+    = { { "strdup", NULL, "strdup" },  { "strdup", "", "strdup" },
+        { "a", "t", "a.t" },           { "file", "c", "file.c" },
+        { "/file/", "c", "/file/.c" }, { "dir/file", "txt", "dir/file.txt" } };
+
+static void do_test (const struct test_case *test);
+
+int
+main (void)
+{
+  size_t i;
+
+  for (i = 0; i < ARRAY_SIZE (test_cases); ++i)
+    do_test (&test_cases[i]);
+
+  return 0;
+}
+
+static void
+do_test (const struct test_case *test)
+{
+  const char *file_name = test->file_name;
+  const char *extension = test->extension;
+  const char *expect = test->expect;
+  char *result = filename_join_extension (file_name, extension);
+
+  /* Out of memory. */
+  if (result == NULL)
+    {
+      fprintf (stderr, "filename_join_extension (): Out of memory.\n");
+      abort ();
+    }
+
+  printf ("%s\n", result);
+  ASSERT (strcmp (result, expect) == 0);
+
+  free (result);
+}

@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unlocked-stdio.cmake)
 

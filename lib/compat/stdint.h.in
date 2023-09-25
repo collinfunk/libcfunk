@@ -26,8 +26,6 @@
 #ifndef COMPAT_STDINT_H
 #define COMPAT_STDINT_H
 
-#include <limits.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -35,6 +33,8 @@
 #if @HAVE_STDINT_H@
 #  include_next <stdint.h>
 #endif
+
+#include <limits.h>
 
 /*
 #undef __SIZEOF_POINTER__

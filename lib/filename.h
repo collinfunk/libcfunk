@@ -35,6 +35,10 @@
 #include <stdbool.h>
 
 /* Macros:
+   int FILENAME_NATIVE_DIRSEP
+     This is the most natural directory separator for the current platform.
+     For Windows this means '\' instead of '/' which everything else uses.
+     This macro should not be used for comparison. See FILENAME_IS_DIRSEP.
    bool FILENAME_IS_DIRSEP(ch)
      Returns true if CH is a character that joins pathname components.
    bool FILENAME_IS_LISTSEP(ch)
@@ -55,6 +59,7 @@
      of a drive letter (c:folder/file.txt).
  */
 #if defined(_WIN32)
+#  define FILENAME_NATIVE_DIRSEP '\\'
 #  define FILENAME_IS_DIRSEP(ch) ((ch) == '/' || (ch) == '\\')
 #  define FILENAME_IS_LISTSEP(ch) ((ch) == ';')
 #  define FILENAME_HAS_DRIVE_PREFIX(str)                                      \
@@ -66,6 +71,7 @@
 #  define FILENAME_IS_RELATIVE(str)                                           \
     ((!FILENAME_HAS_DRIVE_PREFIX (str)) && (!FILENAME_IS_DIRSEP ((str)[0])))
 #else
+#  define FILENAME_NATIVE_DIRSEP '/'
 #  define FILENAME_IS_DIRSEP(ch) ((ch) == '/')
 #  define FILENAME_IS_LISTSEP(ch) ((ch) == ':')
 #  define FILENAME_HAS_DRIVE_PREFIX(str) (0)
@@ -83,5 +89,34 @@ extern int filename_strip_slashes (char *file_name);
 /* Returns a pointer to the last directory component of FILE_NAME. The input
    string is not modified. */
 extern const char *filename_last_component (const char *file_name);
+
+/* Allocate a string containing the FILE_NAME with extension added to
+   the end. If EXTENSION is a NULL pointer or an empty string, this function
+   has the same behavior as strdup (FILE_NAME). */
+extern char *filename_join_extension (const char *file_name,
+                                      const char *extension);
+
+/* Allocate a string containing the FILE_NAME with the DIRECTORY added as a
+   prefix. If DIRECTORY is a NULL pointer, empty string, or "." this function
+   has the same behavior as strdup (FILE_NAME). If the given directory does
+   not have a trailing slash then one is added. In other words, these two
+   calls are equivalent:
+
+     filename_join_directory ("/bin/", "sh") -> "/bin/sh"
+     filename_join_directory ("/bin", "sh") -> "/bin/sh"
+
+   The exception to this rule is Windows drive prefixes. On Windows, the
+   file name "C:dir\file" is a relative path from the current working
+   directory of the C drive. However, the file name "C:\dir\file" is
+   an absolute path from the root of the C drive. This function respects
+   this difference as shown in these calls:
+
+     filename_join_directory ("C:", "dir")        -> "C:dir"
+     filename_join_directory ("C:\\", "dir")      -> "C:\dir"
+     filename_join_directory ("C:\\dir", "file"   -> "C:\dir\file"
+     filename_join_directory ("C:\\dir\\", "file" -> "C:\dir\file"
+ */
+extern char *filename_join_directory (const char *directory,
+                                      const char *file_name);
 
 #endif /* FILENAME_H */

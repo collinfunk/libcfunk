@@ -25,9 +25,8 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
-
-#include <stdio.h>
 
 #include "filename.h"
 
@@ -101,4 +100,87 @@ filename_last_component (const char *file_name)
     }
 
   return p;
+}
+
+char *
+filename_join_extension (const char *file_name, const char *extension)
+{
+  char *copy;
+  size_t file_name_len = strlen (file_name);
+
+  if (extension == NULL || *extension == '\0')
+    {
+      copy = (char *) malloc (file_name_len + 1);
+      if (copy == NULL)
+        return NULL;
+      else
+        memcpy (copy, file_name, file_name_len + 1);
+    }
+  else
+    {
+      size_t extension_len = strlen (extension);
+      copy = (char *) malloc (file_name_len + extension_len + 2);
+      if (copy == NULL)
+        return NULL;
+      else
+        {
+          memcpy (copy, file_name, file_name_len);
+          copy[file_name_len] = '.';
+          memcpy (copy + file_name_len + 1, extension, extension_len + 1);
+        }
+    }
+
+  return copy;
+}
+
+char *
+filename_join_directory (const char *directory, const char *file_name)
+{
+  char *copy;
+  size_t file_name_len = strlen (file_name);
+
+  /* Check if directory is NULL, empty, or a pointless CWD. */
+  if (directory == NULL
+      || (directory[0] == '\0'
+          || (directory[0] == '.' && directory[1] == '\0')))
+    {
+      copy = (char *) malloc (file_name_len + 1);
+      if (copy == NULL)
+        return NULL;
+      else
+        memcpy (copy, file_name, file_name_len + 1);
+    }
+  else
+    {
+      size_t directory_len = strlen (directory);
+      int need_dirsep;
+
+      /* On Windows, C: and C:/ have a different meaing. Make sure we don't
+         mess up the requested filename. See header for more defails. */
+      if (!FILENAME_HAS_DRIVE_PREFIX (directory))
+        need_dirsep = !FILENAME_IS_DIRSEP (directory[directory_len - 1]);
+      else
+        {
+          if (directory_len <= 2)
+            need_dirsep = 0;
+          else
+            need_dirsep = !FILENAME_IS_DIRSEP (directory[directory_len - 1]);
+        }
+      copy = (char *) malloc (file_name_len + directory_len + need_dirsep + 1);
+      if (copy == NULL)
+        return NULL;
+      else
+        {
+          memcpy (copy, directory, directory_len);
+          if (!need_dirsep)
+            memcpy (copy + directory_len, file_name, file_name_len + 1);
+          else
+            {
+              copy[directory_len] = FILENAME_NATIVE_DIRSEP;
+              memcpy (copy + directory_len + 1, file_name, file_name_len + 1);
+            }
+        }
+    }
+
+  return copy;
 }

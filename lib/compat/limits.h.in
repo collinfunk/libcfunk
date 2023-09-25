@@ -34,6 +34,8 @@
 #  include_next <limits.h>
 #endif
 
+#include <stdint.h>
+
 /*
 #undef __SCHAR_WIDTH__
 #undef __SHRT_WIDTH__
