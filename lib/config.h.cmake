@@ -26,6 +26,7 @@
 #cmakedefine01 HAVE___ARGC
 #cmakedefine01 HAVE___ARGV
 #cmakedefine01 HAVE_ASSERT_H
+#cmakedefine01 HAVE_ATEXIT
 #cmakedefine01 HAVE_ATOI
 #cmakedefine01 HAVE_ATOL
 #cmakedefine01 HAVE_ATOLL
@@ -72,6 +73,13 @@
 #cmakedefine01 HAVE_ERROR_PRINT_PROGNAME
 #cmakedefine01 HAVE_ERRX
 #cmakedefine01 HAVE_EUIDACCESS
+#cmakedefine01 HAVE_EXECL
+#cmakedefine01 HAVE_EXECLE
+#cmakedefine01 HAVE_EXECLP
+#cmakedefine01 HAVE_EXECV
+#cmakedefine01 HAVE_EXECVE
+#cmakedefine01 HAVE_EXECVP
+#cmakedefine01 HAVE_EXECVPE
 #cmakedefine01 HAVE__EXIT
 #cmakedefine01 HAVE_EXPLICIT_BZERO
 #cmakedefine01 HAVE_FACCESSAT
@@ -157,6 +165,7 @@
 #cmakedefine01 HAVE_MKDTEMP
 #cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE__NSGETENVIRON
+#cmakedefine01 HAVE_ON_EXIT
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL

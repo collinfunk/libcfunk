@@ -26,11 +26,6 @@
 #ifndef COMPAT_UNISTD_H
 #define COMPAT_UNISTD_H
 
-#include <sys/types.h>
-
-#include <stddef.h>
-#include <stdlib.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -38,6 +33,12 @@
 #if @HAVE_UNISTD_H@
 #  include_next <unistd.h>
 #endif
+
+#include <sys/types.h>
+
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
 #ifndef STDIN_FILENO
 #  define STDIN_FILENO 0
@@ -149,6 +150,42 @@ extern int eaccess (const char *pathname, int mode);
 #if @LIBCFUNK_DECLARE_DAEMON@
 #  if !@HAVE_DAEMON@
 extern int daemon (int nochdir, int noclose);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EXECL@
+#  if !@HAVE_EXECL@
+extern int execl (const char *path, const char *arg0, ...);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EXECLE@
+#  if !@HAVE_EXECLE@
+extern int execle (const char *path, const char *arg0, ...);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EXECLP@
+#  if !@HAVE_EXECLP@
+extern int execlp (const char *file, const char *arg0, ...);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EXECV@
+#  if !@HAVE_EXECV@
+extern int execv (const char *path, char *const argv[]);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EXECVP@
+#  if !@HAVE_EXECVP@
+extern int execvp (const char *file, char *const argv[]);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EXECVPE@
+#  if !@HAVE_EXECVPE@
+extern int execvpe (const char *file, char *const argv[], char *const envp[]);
 #  endif
 #endif
 
