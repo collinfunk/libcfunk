@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(cmake/libcfunk-init.cmake)
 
+include(cmake/atexit.cmake)
 include(cmake/abs.cmake)
 include(cmake/alignas.cmake)
 include(cmake/_Alignas.cmake)

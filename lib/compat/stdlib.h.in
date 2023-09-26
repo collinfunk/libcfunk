@@ -153,4 +153,10 @@ extern void _Exit (int status);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_ATEXIT@
+#  if !@HAVE_ATEXIT@
+extern int atexit (void (*function) (void));
+#  endif
+#endif
+
 #endif /* COMPAT_STDLIB_H */
