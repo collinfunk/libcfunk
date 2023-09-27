@@ -29,88 +29,108 @@
 #include <string.h>
 
 /* The pointer to the option argument. */
-char *optarg;
-
-/* Index of the next element in ARGV to be processed. Must be initialized
-   to 1. */
-int optind = 1;
+char *optarg = NULL;
 
 /* If the application does not set OPTERR to 0 and the first character of the
    option string is not a colon, getopt(3) should print diagnostic messages to
    stderr. */
 int opterr = 1;
 
+/* Index of the next element in ARGV to be processed. Must be initialized
+   to 1. */
+int optind = 1;
+
 /* The option character that caused the error. */
-int optopt = 0;
+int optopt = '?';
+
+/* Our current position in ARGV. */
+static char *position = NULL;
 
 int
-getopt (int argc, char *const argv[], const char *optstring)
+getopt (int argc, char *const argv[], const char *short_options)
 {
-  const char *curr_arg;
+  char ch;
   const char *curr_opt;
 
-  if (optind >= argc)
+  optarg = NULL;
+
+  if (argc < 1)
     return -1;
 
-  curr_arg = argv[optind];
+  if (*short_options == ':')
+    opterr = 0;
 
-  /* argv[optind] is a NULL pointer. */
-  if (curr_arg == NULL)
-    return -1;
-  /* *argv[optind] is not the character '-'. */
-  if (curr_arg[0] != '-')
-    return -1;
-  /* argv[optind] points to the string "--". */
-  if (curr_arg[1] == '-' && curr_arg[2] == '\0')
+  if (position == NULL || *position == '\0')
     {
-      optind++;
-      optopt = curr_arg[1];
-      return -1;
+      if (optind >= argc)
+        return -1;
+      if (argv[optind][0] == '-' && argv[optind][1] != '\0'
+          && argv[optind][1] != '-')
+        position = &argv[optind][1];
+      else
+        return -1;
     }
-  /* argv[optind] points to the string "-". */
-  if (curr_arg[1] == '\0')
-    return -1;
 
-  curr_opt = strchr (optstring, curr_arg[1]);
+  ch = *position++;
+  curr_opt = strchr (short_options, ch);
 
-  /* Invalid argument. */
+  /* Goto the next element in ARGV. */
+  if (*position == '\0')
+    ++optind;
+
+  /* Invalid option. */
   if (curr_opt == NULL)
     {
-      optind++;
-      optopt = curr_arg[1];
-      if (opterr && optstring[0] != ':')
-        fprintf (stderr, "%s: illegal option -- %c\n", argv[0], curr_arg[1]);
+      if (opterr)
+        fprintf (stderr, "%s: illegal option -- %c\n", argv[0], ch);
+      optopt = ch;
       return '?';
     }
 
-  /* No extra argument. */
-  if (curr_opt[1] != ':')
+  if (curr_opt[1] == ':')
     {
-      optarg = NULL;
-      optind++;
-    }
-  else /* Argument expected. */
-    {
-      if (argc > optind + 1 && argv[optind + 1] != NULL)
+      /* Optional argument. */
+      if (curr_opt[2] == ':')
         {
-          optarg = argv[optind + 1];
-          optopt = curr_arg[1];
-          optind++;
+          if (*position != '\0')
+            {
+              optarg = position++;
+              ++optind;
+            }
+          else
+            {
+              if (optind < argc && argv[optind][0] != '-')
+                optarg = argv[optind++];
+              else
+                optarg = NULL;
+            }
+          position = NULL;
         }
-      else /* No argument given. */
+      else /* Required argument. */
         {
-          optopt = curr_arg[1];
-          if (*optstring == ':')
-            return ':';
-          if (opterr)
-            fprintf (stderr, "%s: option requires an argument -- %c\n",
-                     argv[0], curr_arg[1]);
-          return '?';
+          if (*position != '\0')
+            {
+              optarg = position++;
+              ++optind;
+            }
+          else
+            {
+              if (optind < argc)
+                optarg = argv[optind++];
+              else
+                {
+                  if (opterr)
+                    fprintf (stderr, "%s: option requires an argument -- %c\n",
+                             argv[0], ch);
+                  optopt = ch;
+                  ch = short_options[0] == ':' ? ':' : '?';
+                }
+              position = NULL;
+            }
         }
-      optind += 2;
     }
 
-  return curr_arg[1];
+  return ch;
 }
 
 #if 0
@@ -120,7 +140,7 @@ main (int argc, char **argv)
   int count = 0;
   int ch;
 
-  while ((ch = getopt (argc, argv, ":abc:")) != -1)
+  while ((ch = getopt (argc, argv, "abc::d:")) != -1)
     {
       switch (ch)
         {
@@ -131,12 +151,14 @@ main (int argc, char **argv)
           printf ("ARG %d: b\n", count);
           break;
         case 'c':
-          printf ("ARG %d: c, \"%s\"\n", count, optarg);
+          printf ("ARG %d: c, \"%s\"\n", count, optarg ? optarg : "[none]");
+          break;
+        case 'd':
+          printf ("ARG %d: d, \"%s\"\n", count, optarg);
           break;
         case '?':
         default:
-          printf ("Invalid option: %c\n", optopt);
-          break;
+          exit (1);
         }
       count++;
     }
