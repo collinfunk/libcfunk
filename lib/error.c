@@ -1,3 +1,4 @@
+
 /*-
  * Copyright (c) 2023, Collin Funk
  *
@@ -83,16 +84,15 @@ void (*error_print_progname) (void) = NULL;
 #endif
 
 #if !HAVE_ERROR || !HAVE_ERROR_AT_LINE
-/* POSIX requires that the result for strerror(3) is not NULL. Double check it
-   for some bugged implementations. */
 static void
 print_errno_string (int code)
 {
-  const char *error_string = strerror (code);
-  if (error_string != NULL && *error_string != '\0')
-    fprintf (stderr, ": %s", error_string);
-  else
-    fprintf (stderr, "Unknown error %d", code);
+  char error_buffer[2048];
+  int result = strerror_r (code, error_buffer, sizeof (error_buffer));
+  if (result == 0)
+    fprintf (stderr, ": %s", error_buffer);
+  else /* Print a generic message. */
+    fprintf (stderr, ": Unknown error %d", code);
 }
 
 /* Prefer the name that is manually set by the user with set_program_name ().

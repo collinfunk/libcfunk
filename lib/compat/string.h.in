@@ -224,4 +224,11 @@ extern int strverscmp (const char *s1, const char *s2);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRERROR_R@
+#  if !@HAVE_STRERROR_R@ || @HAVE___XPG_STRERROR_R@
+#    define strerror_r _libcfunk_strerror_r
+extern int _libcfunk_strerror_r (int errnum, char *buffer, size_t buffer_len);
+#  endif
+#endif
+
 #endif /* COMPAT_STRING_H */

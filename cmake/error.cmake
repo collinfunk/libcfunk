@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/error-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/program-name.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/strerror-r.cmake)
 
 if (HAVE_ERROR_H)
   check_symbol_exists("error_message_count" "error.h" HAVE_ERROR_MESSAGE_COUNT)

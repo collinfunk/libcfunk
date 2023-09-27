@@ -201,6 +201,8 @@
 #cmakedefine01 HAVE_STRCSPN
 #cmakedefine01 HAVE_STRDUP
 #cmakedefine01 HAVE_STRERRORNAME_NP
+#cmakedefine01 HAVE_STRERROR_R
+#cmakedefine01 HAVE_STRERROR_S
 #cmakedefine01 HAVE_STRING_H
 #cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_STRLEN
@@ -301,5 +303,6 @@
 #cmakedefine01 HAVE_WMEMCPY
 #cmakedefine01 HAVE_WMEMMOVE
 #cmakedefine01 HAVE_WMEMSET
+#cmakedefine01 HAVE___XPG_STRERROR_R
 
 #endif /* CONFIG_H */
