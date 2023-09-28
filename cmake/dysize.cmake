@@ -6,7 +6,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("dysize" "time.h" HAVE_DYSIZE)
 else ()
   set(HAVE_DYSIZE "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_DYSIZE "1" CACHE INTERNAL "")
 

@@ -7,7 +7,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("getgroups" "unistd.h" HAVE_GETGROUPS)
 else ()
   set(HAVE_GETGROUPS "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_GETGROUPS "1" CACHE INTERNAL "")
 

@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strrchr" "string.h" HAVE_STRRCHR)
 else ()
   set(HAVE_STRRCHR "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRRCHR "1" CACHE INTERNAL "")
 

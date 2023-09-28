@@ -8,7 +8,7 @@ if (HAVE_STDIO_H)
   check_symbol_exists("getline" "stdio.h" HAVE_GETLINE)
 else ()
   set(HAVE_GETLINE "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_GETLINE "1" CACHE INTERNAL "")
 

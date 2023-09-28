@@ -92,6 +92,12 @@
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
 #cmakedefine01 HAVE_FORK
+#cmakedefine01 HAVE_FSEEK
+#cmakedefine01 HAVE__FSEEKI64
+#cmakedefine01 HAVE_FSEEKO
+#cmakedefine01 HAVE_FTELL
+#cmakedefine01 HAVE__FTELLI64
+#cmakedefine01 HAVE_FTELLO
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE__GETCHAR_NOLOCK
 #cmakedefine01 HAVE_GETCHAR_UNLOCKED
@@ -122,6 +128,7 @@
 #cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_INT16_T
 #cmakedefine01 HAVE_INT32_T
+#cmakedefine01 HAVE___INT64_T
 #cmakedefine01 HAVE_INT64_T
 #cmakedefine01 HAVE_INT8_T
 #cmakedefine01 HAVE_INT_FAST16_T
@@ -165,6 +172,7 @@
 #cmakedefine01 HAVE_MKDTEMP
 #cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE__NSGETENVIRON
+#cmakedefine01 HAVE_OFF_T
 #cmakedefine01 HAVE_ON_EXIT
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL

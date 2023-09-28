@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("stpcpy" "string.h" HAVE_STPCPY)
 else ()
   set(HAVE_STPCPY "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STPCPY "1" CACHE INTERNAL "")
 

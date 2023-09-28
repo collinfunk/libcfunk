@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("atol" "stdlib.h" HAVE_ATOL)
 else ()
   set(HAVE_ATOL "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_ATOL "1" CACHE INTERNAL "")
 

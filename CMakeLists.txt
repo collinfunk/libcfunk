@@ -7,6 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(cmake/libcfunk-init.cmake)
 
+
 include(cmake/abs.cmake)
 include(cmake/alignas.cmake)
 include(cmake/_Alignas.cmake)
@@ -61,6 +62,8 @@ include(cmake/fcntl-h.cmake)
 include(cmake/ffs.cmake)
 include(cmake/filename.cmake)
 include(cmake/fls.cmake)
+include(cmake/fseeko.cmake)
+include(cmake/ftello.cmake)
 include(cmake/gcd.cmake)
 include(cmake/getdelim.cmake)
 include(cmake/getentropy.cmake)

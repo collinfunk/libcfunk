@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("memmove" "string.h" HAVE_MEMMOVE)
 else ()
   set(HAVE_MEMMOVE "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_MEMMOVE "1" CACHE INTERNAL "")
 

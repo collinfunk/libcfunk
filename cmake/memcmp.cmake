@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("memcmp" "string.h" HAVE_MEMCMP)
 else ()
   set(HAVE_MEMCMP "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_MEMCMP "1" CACHE INTERNAL "")
 

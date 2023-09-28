@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strncmp" "string.h" HAVE_STRNCMP)
 else ()
   set(HAVE_STRNCMP "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRNCMP "1" CACHE INTERNAL "")
 

@@ -23,31 +23,27 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdio.h>
+#include <stdlib.h>
 
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
-#endif
+/* Only tests declaration. */
+int
+main (int argc, char **argv)
+{
+  FILE *fp = fopen (argc > 0 ? argv[0] : "", "r");
+  off_t offset = 128;
 
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
+  if (fp == NULL)
+    abort ();
 
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
+  if (fseeko (fp, offset, SEEK_SET) != 0)
+    {
+      fclose (fp);
+      abort ();
+    }
 
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */
+  fclose (fp);
+  return 0;
+}

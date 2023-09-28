@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
 else ()
   set(HAVE_TTYNAME_R "" CACHE INTERNAL "")
   set(HAVE_TTYNAME "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_TTYNAME_R "1" CACHE INTERNAL "")
 

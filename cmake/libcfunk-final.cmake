@@ -188,7 +188,7 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
   )
 endif ()
 
-if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
+if ($CACHE{LIBCFUNK_GENERATE_SYS_TYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/types.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/types.h

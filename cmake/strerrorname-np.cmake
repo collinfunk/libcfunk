@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strerrorname_np" "string.h" HAVE_STRERRORNAME_NP)
 else ()
   set(HAVE_STRERRORNAME_NP "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRERRORNAME_NP "1" CACHE INTERNAL "")
 

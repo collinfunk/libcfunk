@@ -26,8 +26,6 @@
 #ifndef COMPAT_STDIO_H
 #define COMPAT_STDIO_H
 
-#include <sys/types.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -35,6 +33,8 @@
 #if @HAVE_STDIO_H@
 #  include_next <stdio.h>
 #endif
+
+#include <sys/types.h>
 
 #if @LIBCFUNK_UNLOCKED_STDIO@
 #  if !@HAVE_FLOCKFILE@
@@ -106,6 +106,18 @@ extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter,
 #if @LIBCFUNK_DECLARE_GETLINE@
 #  if !@HAVE_GETLINE@
 extern ssize_t getline (char **lineptr, size_t *n, FILE *stream);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FSEEKO@
+#  if !@HAVE_FSEEKO@
+extern int fseeko (FILE *stream, off_t offset, int whence);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FTELLO@
+#  if !@HAVE_FTELLO@
+extern off_t ftello (FILE *stream);
 #  endif
 #endif
 

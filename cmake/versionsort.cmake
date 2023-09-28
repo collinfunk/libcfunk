@@ -7,7 +7,7 @@ if (HAVE_DIRENT_H)
   check_symbol_exists("versionsort" "dirent.h" HAVE_VERSIONSORT)
 else ()
   set(HAVE_VERSIONSORT "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_VERSIONSORT "1" CACHE INTERNAL "")
 

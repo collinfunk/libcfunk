@@ -8,7 +8,7 @@ if (HAVE_SYS_WAIT_H)
   check_symbol_exists("waitpid" "sys/wait.h" HAVE_WAITPID)
 else ()
   set(HAVE_WAITPID "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_WAITPID "1" CACHE INTERNAL "")
 

@@ -9,7 +9,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strstr" "string.h" HAVE_STRSTR)
 else ()
   set(HAVE_STRSTR "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRSTR "1" CACHE INTERNAL "")
 

@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strcat" "string.h" HAVE_STRCAT)
 else ()
   set(HAVE_STRCAT "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRCAT "1" CACHE INTERNAL "")
 

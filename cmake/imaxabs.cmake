@@ -7,7 +7,7 @@ if (HAVE_INTTYPES_H)
   check_symbol_exists("imaxabs" "inttypes.h" HAVE_IMAXABS)
 else ()
   set(HAVE_IMAXABS "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_IMAXABS "1" CACHE INTERNAL "")
 

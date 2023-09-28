@@ -6,7 +6,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("timespec_get" "time.h" HAVE_TIMESPEC_GET)
 else ()
   set(HAVE_TIMESPEC_GET "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_TIMESPEC_GET "1" CACHE INTERNAL "")
 

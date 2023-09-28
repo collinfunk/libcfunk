@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("atoi" "stdlib.h" HAVE_ATOI)
 else ()
   set(HAVE_ATOI "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_ATOI "1" CACHE INTERNAL "")
 

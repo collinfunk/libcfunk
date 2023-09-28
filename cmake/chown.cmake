@@ -7,7 +7,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("chown" "unistd.h" HAVE_CHOWN)
 else ()
   set(HAVE_CHOWN "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_CHOWN "1" CACHE INTERNAL "")
 

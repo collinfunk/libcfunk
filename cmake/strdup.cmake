@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strdup" "string.h" HAVE_STRDUP)
 else ()
   set(HAVE_STRDUP "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRDUP "1" CACHE INTERNAL "")
 

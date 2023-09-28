@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strmode" "string.h" HAVE_STRMODE)
 else ()
   set(HAVE_STRMODE "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRMODE "1" CACHE INTERNAL "")
 

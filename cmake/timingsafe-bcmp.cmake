@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("timingsafe_bcmp" "string.h" HAVE_TIMINGSAFE_BCMP)
 else ()
   set(HAVE_TIMINGSAFE_BCMP "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_TIMINGSAFE_BCMP "1" CACHE INTERNAL "")
 

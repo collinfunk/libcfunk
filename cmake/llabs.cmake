@@ -7,7 +7,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("llabs" "stdlib.h" HAVE_LLABS)
 else ()
   set(HAVE_LLABS "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_LLABS "1" CACHE INTERNAL "")
 

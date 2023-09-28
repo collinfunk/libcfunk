@@ -6,7 +6,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("getpagesize" "unistd.h" HAVE_GETPAGESIZE)
 else ()
   set(HAVE_GETPAGESIZE "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_GETPAGESIZE "1" CACHE INTERNAL "")
 

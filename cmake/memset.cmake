@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("memset" "string.h" HAVE_MEMSET)
 else ()
   set(HAVE_MEMSET "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_MEMSET "1" CACHE INTERNAL "")
 

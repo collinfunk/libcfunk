@@ -23,31 +23,21 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <sys/types.h>
+
+#include <stdio.h>
+
+int
+fseeko (FILE *stream, off_t offset, int whence)
+{
+#if HAVE__FSEEKI64
+  return _fseeki64 (stream, offset, whence);
+#elif HAVE_FSEEK
+  return fseek (stream, (long int) offset, whence);
+#else
+#  error "Don't have an implementation of fseeko for your system."
+  return -1;
 #endif
-
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
-#endif
-
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
-
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
-
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */
+}

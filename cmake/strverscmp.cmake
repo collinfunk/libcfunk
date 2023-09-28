@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strverscmp" "string.h" HAVE_STRVERSCMP)
 else ()
   set(HAVE_STRVERSCMP "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRVERSCMP "1" CACHE INTERNAL "")
 

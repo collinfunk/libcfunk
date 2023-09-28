@@ -6,7 +6,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strchrnul" "string.h" HAVE_STRCHRNUL)
 else ()
   set(HAVE_STRCHRNUL "" CACHE INTERNAL "")
-endif()
+endif ()
 
 set(LIBCFUNK_DECLARE_STRCHRNUL "1" CACHE INTERNAL "")
 
