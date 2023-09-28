@@ -25,43 +25,18 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <string.h>
-#include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "attributes.h"
 
-#if HAVE_WINDOWS_H
+/* Don't call ourselves. */
+#undef mkdir
+
+/* On Windows mkdir doesn't take a mode argument. */
+/* https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/mkdir-wmkdir?view=msvc-170 */
 int
-ttyname_r (int fd ATTRIBUTE_UNUSED, char *buffer ATTRIBUTE_UNUSED,
-           size_t buffer_len ATTRIBUTE_UNUSED)
+_libcfunk_mkdir (const char *path, mode_t mode ATTRIBUTE_UNUSED)
 {
-  /* I don't think Windows has tty's. Python's os.ttyname() isn't aviable on
-     Windows for example. */
-  return ENOTTY;
+  return _mkdir (path);
 }
-
-#else /* Not Windows. */
-
-/* Substite function for ttyname_r for systems that don't have it.
-   Note that this uses ttyname(3) so it is not reentrant or thread-safe. */
-int
-ttyname_r (int fd, char *buffer, size_t buffer_len)
-{
-#  if HAVE_TTYNAME
-  char *name;
-  size_t name_len;
-
-  name = ttyname (fd);
-  if (name == NULL)
-    return errno;
-  name_len = strlen (name) + 1;
-  if (buffer_len < name_len)
-    return ERANGE;
-  memcpy (buffer, name, name_len);
-  return 0;
-#  else
-#    error "ttyname_r not implemented for your system."
-#  endif
-}
-#endif

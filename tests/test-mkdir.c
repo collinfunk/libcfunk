@@ -25,43 +25,30 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-#include "attributes.h"
-
-#if HAVE_WINDOWS_H
 int
-ttyname_r (int fd ATTRIBUTE_UNUSED, char *buffer ATTRIBUTE_UNUSED,
-           size_t buffer_len ATTRIBUTE_UNUSED)
+main (void)
 {
-  /* I don't think Windows has tty's. Python's os.ttyname() isn't aviable on
-     Windows for example. */
-  return ENOTTY;
-}
+  /* Make sure this directory doesn't exist. */
+  rmdir (".__mkdir-test-dir.o");
 
-#else /* Not Windows. */
+  if (mkdir (".__mkdir-test-dir.o", 0600) != 0)
+    {
+      fprintf (stderr, "failed to make test directory.\n");
+      abort ();
+    }
 
-/* Substite function for ttyname_r for systems that don't have it.
-   Note that this uses ttyname(3) so it is not reentrant or thread-safe. */
-int
-ttyname_r (int fd, char *buffer, size_t buffer_len)
-{
-#  if HAVE_TTYNAME
-  char *name;
-  size_t name_len;
+  if (rmdir (".__mkdir-test-dir.o") != 0)
+    {
+      fprintf (stderr, "failed to remove test directory.\n");
+      abort ();
+    }
 
-  name = ttyname (fd);
-  if (name == NULL)
-    return errno;
-  name_len = strlen (name) + 1;
-  if (buffer_len < name_len)
-    return ERANGE;
-  memcpy (buffer, name, name_len);
   return 0;
-#  else
-#    error "ttyname_r not implemented for your system."
-#  endif
 }
-#endif

@@ -37,12 +37,6 @@
 
 #define ARRAY_SIZE(array) (sizeof (array) / sizeof (array[0]))
 
-/* https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/mkdir-wmkdir?view=msvc-170 */
-#ifdef _WIN32
-#  include <direct.h>
-#  define mkdir(name, mode) _mkdir ((name))
-#endif
-
 /* Characters that are valid for a filename. These are placed randomly at the
    end of a temporary filename. Copy pasted from the Base64 alphabet - "+/". */
 static const char tempname_chars[62]

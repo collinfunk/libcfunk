@@ -26,14 +26,20 @@
 #ifndef COMPAT_SYS_STAT_H
 #define COMPAT_SYS_STAT_H
 
-#include <sys/types.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
 #if @HAVE_SYS_STAT_H@
 #  include_next <sys/stat.h>
+#endif
+
+#include <sys/types.h>
+
+/* Lots of Windows functions are declared here instead of sys/stat.h */
+#if _WIN32
+#  include <direct.h>
+#  include <io.h>
 #endif
 
 #ifndef S_IXOTH
@@ -101,9 +107,29 @@
 #  define S_IFMT 0170000
 #endif
 
-/* Whiteout. */
-#ifndef S_ISWHT
-#  define S_ISWHT(x) 0
+/* Block special. */
+#ifndef S_ISBLK
+#  define S_ISBLK(x) 0
+#endif
+
+/* Character special. */
+#ifndef S_ISCHR
+#  define S_ISCHR(x) 0
+#endif
+
+/* Directory. */
+#ifndef S_ISDIR
+#  define S_ISDIR(x) 0
+#endif
+
+/* Pipe or FIFO. */
+#ifndef S_ISFIFO
+#  define S_ISFIFO(x) 0
+#endif
+
+/* Regular file. */
+#ifndef S_ISREG
+#  define S_ISREG(x) 0
 #endif
 
 /* Symbolic link. */
@@ -116,9 +142,42 @@
 #  define S_ISSOCK(x) 0
 #endif
 
+/* Message queue. */
+#ifndef S_TYPEISMQ
+#  define S_TYPEISMQ(x) 0
+#endif
+
+/* Semaphore. */
+#ifndef S_TYPEISSEM
+#  define S_TYPEISSEM(x) 0
+#endif
+
+/* Shared memory object. */
+#ifndef S_TYPEISSHM
+#  define S_TYPEISSHM(x) 0
+#endif
+
+/* Typed memory object. */
+#ifndef S_TYPEISTMO(x)
+#  define S_TYPEISTMO(x) 0
+#endif
+
+/* Whiteout. */
+#ifndef S_ISWHT
+#  define S_ISWHT(x) 0
+#endif
+
 #if @LIBCFUNK_DECLARE_CHMOD@
 #  if !@HAVE_CHMOD@
 extern int chmod (const char *path, mode_t mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MKDIR@
+#  if !@HAVE_MKDIR@
+#    undef mkdir
+#    define mkdir _libcfunk_mkdir
+extern int _libcfunk_mkdir (const char *path, mode_t mode);
 #  endif
 #endif
 

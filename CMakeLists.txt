@@ -7,7 +7,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(cmake/libcfunk-init.cmake)
 
-
 include(cmake/abs.cmake)
 include(cmake/alignas.cmake)
 include(cmake/_Alignas.cmake)
@@ -97,6 +96,7 @@ include(cmake/memset.cmake)
 include(cmake/memset-explicit.cmake)
 include(cmake/memxor.cmake)
 include(cmake/min.cmake)
+include(cmake/mkdir.cmake)
 include(cmake/mkdtemp.cmake)
 include(cmake/mkstemp.cmake)
 include(cmake/_Noreturn.cmake)

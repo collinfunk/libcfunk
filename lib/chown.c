@@ -31,16 +31,10 @@
 #include <errno.h>
 #include <unistd.h>
 
-#include "__has_attribute.h"
+#include "attributes.h"
 
 #if !HAVE_WINDOWS_H
 #  error "This file should only be built on Windows."
-#endif
-
-#if __has_attribute(__unused__)
-#  define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
-#else
-#  define ATTRIBUTE_UNUSED
 #endif
 
 /* chown(2) which always fails on Windows. */

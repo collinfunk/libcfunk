@@ -169,6 +169,8 @@
 #cmakedefine01 HAVE_MEMSET
 #cmakedefine01 HAVE_MEMSET_EXPLICIT
 #cmakedefine01 HAVE_MEMSET_S
+#cmakedefine01 HAVE__MKDIR
+#cmakedefine01 HAVE_MKDIR
 #cmakedefine01 HAVE_MKDTEMP
 #cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE__NSGETENVIRON

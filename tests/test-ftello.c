@@ -33,7 +33,6 @@ int
 main (int argc, char **argv)
 {
   FILE *fp = fopen (argc > 0 ? argv[0] : "", "r");
-  off_t offset = 128;
   char buffer[128];
 
   if (fp == NULL)
