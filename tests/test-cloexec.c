@@ -39,6 +39,8 @@ main (int argc, char **argv)
   char *file_name = argc > 1 ? argv[1] : argv[0];
   int cloexec_fd;
   int no_cloexec_fd;
+  int duped_fd1;
+  int duped_fd2;
 
   cloexec_fd = open (file_name, O_RDONLY | O_CLOEXEC);
   if (cloexec_fd < 0)
@@ -101,9 +103,19 @@ main (int argc, char **argv)
   ASSERT (cloexec_is_set (cloexec_fd) == 1);
   ASSERT (cloexec_is_set (no_cloexec_fd) == 0);
 
+  /* Check that dup_cloexec works correctly. */
+  duped_fd1 = dup_cloexec (cloexec_fd);
+  duped_fd2 = dup_cloexec (no_cloexec_fd);
+
+  /* Check. */
+  ASSERT (cloexec_is_set (duped_fd1) == 1);
+  ASSERT (cloexec_is_set (duped_fd2) == 1);
+
   /* Cleanup. */
-  close (cloexec_fd);
-  close (no_cloexec_fd);
+  ASSERT (close (duped_fd1) == 0);
+  ASSERT (close (duped_fd2) == 0);
+  ASSERT (close (cloexec_fd) == 0);
+  ASSERT (close (no_cloexec_fd) == 0);
 
   return 0;
 }

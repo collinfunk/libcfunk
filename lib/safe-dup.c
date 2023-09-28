@@ -35,3 +35,10 @@ safe_dup (int fd)
 {
   return fcntl (fd, F_DUPFD, STDERR_FILENO + 1);
 }
+
+/* FIXME: Add support for systems without F_DUPFD_CLOEXEC. */
+int
+safe_dup_cloexec (int fd)
+{
+  return fcntl (fd, F_DUPFD_CLOEXEC, STDERR_FILENO + 1);
+}

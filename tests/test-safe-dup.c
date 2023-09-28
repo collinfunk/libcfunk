@@ -71,6 +71,15 @@ main (void)
       /* Clean up the file descriptor. */
       if (close (fd) < 0)
         abort ();
+
+      /* Test safe_dup_cloexec. */
+      fd = safe_dup_cloexec (trash_file);
+      if (fd <= STDERR_FILENO)
+        abort ();
+
+      /* Cleanup. */
+      if (close (fd) < 0)
+        abort ();
     }
 
   /* Close the file descriptor we used for safe_dup. */

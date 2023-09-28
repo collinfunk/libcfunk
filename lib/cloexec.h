@@ -51,4 +51,8 @@ extern int set_cloexec (int fd);
    is set. */
 extern int unset_cloexec (int fd);
 
+/* Duplicates a file descriptor and sets the FD_CLOEXEC flag. This avoids the
+   race conditions caused by calling fcntl after calling dup. */
+extern int dup_cloexec (int fd);
+
 #endif /* CLOEXEC_H */

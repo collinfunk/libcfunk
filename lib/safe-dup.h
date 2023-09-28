@@ -35,4 +35,7 @@
    For more details see the POSIX page for fcntl(2). */
 extern int safe_dup (int fd);
 
+/* Same as above but sets the FD_CLOEXEC flag. */
+extern int safe_dup_cloexec (int fd);
+
 #endif /* SAFE_DUP_H */

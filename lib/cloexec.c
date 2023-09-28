@@ -77,3 +77,10 @@ unset_cloexec (int fd)
   else
     return fcntl (fd, F_SETFD, new_flags);
 }
+
+/* FIXME: Add support for systems without F_DUPFD_CLOEXEC. */
+int
+dup_cloexec (int fd)
+{
+  return fcntl (fd, F_DUPFD_CLOEXEC, 0);
+}
