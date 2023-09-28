@@ -197,6 +197,7 @@ include(cmake/xmalloc.cmake)
 # These are not compatible with Windows.
 if (UNIX)
   include(cmake/daemon.cmake)
+  include(cmake/cloexec.cmake)
 
   # These two rely on minimal functionality of fcntl which can probably
   # be easily emulated on Windows.
