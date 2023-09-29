@@ -4,15 +4,9 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 
-if (HAVE_STDIO_H)
-  check_symbol_exists("ftello" "stdio.h" HAVE_FTELLO)
-  check_symbol_exists("ftell" "stdio.h" HAVE_FTELL)
-  check_symbol_exists("_ftelli64" "stdio.h" HAVE__FTELLI64)
-else ()
-  set(HAVE_FTELLO "" CACHE INTERNAL "")
-  set(HAVE_FTELL "" CACHE INTERNAL "")
-  set(HAVE__FTELLI64 "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("ftello" "stdio.h")
+check_c_symbol("ftell" "stdio.h")
+check_c_symbol("_ftelli64" "stdio.h")
 
 set(LIBCFUNK_DECLARE_FTELLO "1" CACHE INTERNAL "")
 

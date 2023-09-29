@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-if (HAVE_STDLIB_H)
-  check_symbol_exists("strtoull" "stdlib.h" HAVE_STRTOULL)
-else ()
-  set (HAVE_STRTOULL "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("strtoull" "stdlib.h")
 
 set(LIBCFUNK_DECLARE_STRTOULL "1" CACHE INTERNAL "")
 

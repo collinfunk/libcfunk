@@ -3,13 +3,8 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-if (HAVE_STDLIB_H)
-  check_symbol_exists("atexit" "stdlib.h" HAVE_ATEXIT)
-  check_symbol_exists("on_exit" "stdlib.h" HAVE_ON_EXIT)
-else ()
-  set(HAVE_ATEXIT "" CACHE INTERNAL "")
-  set(HAVE_ON_EXIT "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("atexit" "stdlib.h")
+check_c_symbol("on_exit" "stdlib.h")
 
 set(LIBCFUNK_DECLARE_ATEXIT "1" CACHE INTERNAL "")
 

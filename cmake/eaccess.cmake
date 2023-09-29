@@ -4,11 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/euidaccess.cmake)
 
-if (HAVE_UNISTD_H)
-  check_symbol_exists("eaccess" "unistd.h" HAVE_EACCESS)
-else ()
-  set(HAVE_EACCESS "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("eaccess" "unistd.h")
 
 set(LIBCFUNK_DECLARE_EACCESS "1" CACHE INTERNAL "")
 

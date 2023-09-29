@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
-if (HAVE_STRINGS_H)
-  check_symbol_exists("bcopy" "strings.h" HAVE_BCOPY)
-else ()
-  set (HAVE_BCOPY "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("bcopy" "strings.h")
 
 set(LIBCFUNK_DECLARE_BCOPY "1" CACHE INTERNAL "")
 

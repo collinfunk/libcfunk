@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-check_c_source_compiles("
+check_c_compiles("
 int
 main (void)
 {
@@ -10,7 +10,7 @@ main (void)
 }
 " HAVE_TYPEOF)
 
-check_c_source_compiles("
+check_c_compiles("
 int
 main (void)
 {

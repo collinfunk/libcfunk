@@ -46,6 +46,29 @@ endif ()
 # Make sure the configuration directory exists before we try anything.
 file(MAKE_DIRECTORY $CACHE{LIBCFUNK_CONFIG_DIR})
 
+file(APPEND $CACHE{LIBCFUNK_CONFIG_DIR}/config.h.cmake "
+#ifndef CONFIG_H
+#define CONFIG_H
+
+/* TODO: Move these. */
+#ifndef _ALL_SOURCE
+#  define _ALL_SOURCE 1
+#endif
+
+#ifndef _GNU_SOURCE
+#  define _GNU_SOURCE 1
+#endif
+
+#ifndef __STDC_WANT_LIB_EXT2__
+#  define __STDC_WANT_LIB_EXT2__ 1
+#endif
+
+#ifndef __STDC_WANT_IEC_60559_BFP_EXT__
+#  define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+#endif
+
+")
+
 # Build shared library if requested.
 if ($CACHE{LIBCFUNK_BUILD_SHARED})
   add_library("$CACHE{LIBCFUNK_LIBRARY_NAME}" SHARED)
@@ -115,8 +138,169 @@ set(LIBCFUNK_GENERATE_TERMIOS_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_TIME_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_UNISTD_H "0" CACHE INTERNAL "")
 
+# check_c_compiles SOURCE_STRING VARIABLE
+function (check_c_compiles source_code variable)
+  if (NOT DEFINED ${variable})
+    check_c_source_compiles("${source_code}" ${variable})
+    if (${variable})
+      set(${variable} "1" CACHE STRING "" FORCE)
+    else ()
+      set(${variable} "0" CACHE STRING "" FORCE)
+    endif ()
+    mark_as_advanced(FORCE ${variable})
+    file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+                "#cmakedefine ${variable} @${variable}@\n\n")
+  endif ()
+endfunction ()
+
+# check_c_type_exists TYPE_NAME [VAR_NAME]
+# Sets HAVE_TYPE_NAME to 1 if the type exists else 0.
+# Sets SIZEOF_TYPE_NAME to sizeof (TYPE_NAME) if type exists else 0.
+# Sets TYPE_NAME_WIDTH to sizeof (TYPE_NAME) * 8 if type exists else 0.
+# If the optional VAR_NAME argument is passed it takes the place of
+# TYPE_NAME for definitions.
+function (check_c_type_exists type_name)
+  if (ARGC GREATER "1")
+    set(UPPER_NAME "${ARGV1}")
+  else ()
+    string(TOUPPER "${type_name}" UPPER_NAME)
+    string(REPLACE " " "_" UPPER_NAME "${UPPER_NAME}")
+  endif ()
+  string(REPLACE "HAVE_" "" UPPER_NAME "${UPPER_NAME}")
+  set(HAVE_VAR "HAVE_${UPPER_NAME}")
+  set(SIZEOF_VAR "SIZEOF_${UPPER_NAME}")
+  set(WIDTH_VAR "${UPPER_NAME}_WIDTH")
+  if (NOT DEFINED ${HAVE_VAR})
+    check_type_size("${type_name}" ${UPPER_NAME})
+    if (${HAVE_VAR})
+      set(${HAVE_VAR} "1" CACHE STRING "" FORCE)
+      set(${SIZEOF_VAR} "${${UPPER_NAME}}" CACHE STRING "" FORCE)
+      math(EXPR ${WIDTH_VAR} "8 * ${${SIZEOF_VAR}}" OUTPUT_FORMAT DECIMAL)
+      set(${WIDTH_VAR} "${${WIDTH_VAR}}" CACHE STRING "" FORCE)
+    else ()
+      set(${HAVE_VAR} "0" CACHE STRING "" FORCE)
+      set(${SIZEOF_VAR} "0" CACHE STRING "" FORCE)
+      set(${WIDTH_VAR} "0" CACHE STRING "" FORCE)
+    endif ()
+    mark_as_advanced(FORCE "${HAVE_VAR}")
+    mark_as_advanced(FORCE "${SIZEOF_VAR}")
+    mark_as_advanced(FORCE "${WIDTH_VAR}")
+    file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+                "#cmakedefine ${HAVE_VAR} @${HAVE_VAR}@\n\n")
+    file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+      "#cmakedefine ${SIZEOF_VAR} @${SIZEOF_VAR}@\n\n")
+    # Redefinition
+    #file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+    #            "#cmakedefine ${WIDTH_VAR} @${WIDTH_VAR}@\n\n")
+  endif ()
+endfunction ()
+
+# check_c_system_headers HEADER_NAME_LIST
+# The header names should be put in the same order they should be #included.
+# Sets HAVE_HEADER_NAME_H in the cache and only includes found headers.
+function (check_c_system_headers header_names)
+  set(FOUND_HEADERS "")
+  list(REMOVE_DUPLICATES header_names)
+  foreach (header IN LISTS header_names)
+    string(STRIP "${header}" header)
+    string(REGEX REPLACE "[\\/.]" "_" UPPER_NAME "${header}")
+    string(TOUPPER "${UPPER_NAME}" UPPER_NAME)
+    set(HAVE_VAR "HAVE_${UPPER_NAME}")
+    set(PATH_VAR "${UPPER_NAME}_PATH")
+    if (DEFINED CACHE{${HAVE_VAR}})
+      if (${HAVE_VAR})
+        list(APPEND FOUND_HEADERS "${header}")
+      endif ()
+    else ()
+      check_include_files("${FOUND_HEADERS};${header}" ${HAVE_VAR})
+      if (${HAVE_VAR})
+        list(APPEND FOUND_HEADERS "${header}")
+        set(${HAVE_VAR} "1" CACHE STRING "" FORCE)
+        find_file(${PATH_VAR} "${header}")
+        if (${PATH_VAR})
+          set(${PATH_VAR} "${${PATH_VAR}}" CACHE STRING "" FORCE)
+        else ()
+          set(${PATH_VAR} "" CACHE STRING "" FORCE)
+        endif ()
+      else ()
+        set(${HAVE_VAR} "0" CACHE STRING "" FORCE)
+        set(${PATH_VAR} "" CACHE STRING "" FORCE)
+      endif ()
+      mark_as_advanced(FORCE ${HAVE_VAR})
+      mark_as_advanced(FORCE ${PATH_VAR})
+      file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+                   "#cmakedefine ${HAVE_VAR} @${HAVE_VAR}@\n\n")
+    endif ()
+  endforeach ()
+endfunction ()
+
+function (check_c_symbol symbol_name header_names)
+  if (ARGC GREATER "2")
+    set(SYMBOL_HAVE_VAR "${ARGV2}")
+  else ()
+    string(TOUPPER "HAVE_${symbol_name}" SYMBOL_HAVE_VAR)
+  endif ()
+  if (NOT DEFINED CACHE{${SYMBOL_HAVE_VAR}})
+    set(FOUND_HEADERS "")
+    list(REMOVE_DUPLICATES header_names)
+    foreach (header IN LISTS header_names)
+      string(STRIP "${header}" header)
+      string(REGEX REPLACE "[\\/.]" "_" UPPER_NAME "${header}")
+      string(TOUPPER "${UPPER_NAME}" UPPER_NAME)
+      set(HEADER_HAVE_VAR "HAVE_${UPPER_NAME}")
+      if (DEFINED CACHE{${HEADER_HAVE_VAR}})
+        if (${HEADER_HAVE_VAR})
+          list(APPEND FOUND_HEADERS "${header}")
+        endif ()
+      endif ()
+    endforeach ()
+    check_symbol_exists("${symbol_name}" "${FOUND_HEADERS}" ${SYMBOL_HAVE_VAR})
+    if (${SYMBOL_HAVE_VAR})
+      set(${SYMBOL_HAVE_VAR} "1" CACHE STRING "" FORCE)
+    else ()
+      set(${SYMBOL_HAVE_VAR} "0" CACHE STRING "" FORCE)
+    endif ()
+    mark_as_advanced(FORCE ${SYMBOL_HAVE_VAR})
+    file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+                "#cmakedefine ${SYMBOL_HAVE_VAR} @${SYMBOL_HAVE_VAR}@\n\n")
+  endif ()
+endfunction ()
+
+function (check_c_function_links function_name)
+  if (ARGC GREATER "2")
+    set(FUNCTION_HAVE_VAR "${ARGV2}")
+  else ()
+    string(TOUPPER "HAVE_${function_name}" FUNCTION_HAVE_VAR)
+  endif ()
+  if (NOT DEFINED CACHE{${FUNCTION_HAVE_VAR}})
+    check_function_exists("${function_name}" ${FUNCTION_HAVE_VAR})
+    if (${FUNCTION_HAVE_VAR})
+      set(${FUNCTION_HAVE_VAR} "1" CACHE STRING "" FORCE) 
+    else ()
+      set(${FUNCTION_HAVE_VAR} "0" CACHE STRING "" FORCE)
+    endif ()
+    mark_as_advanced(FORCE ${FUNCTION_HAVE_VAR})
+    file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+                "#cmakedefine ${FUNCTION_HAVE_VAR} @${FUNCTION_HAVE_VAR}@\n\n")
+  endif ()
+endfunction ()
+
+function (check_c_struct_has_member struct member headers variable)
+  if (NOT DEFINED CACHE{${variable}})
+    check_struct_has_member("${struct}" "${member}" "${headers}" "${variable}")
+    if (${variable})
+      set(${variable} "1" CACHE STRING "" FORCE)
+    else ()
+      set(${variable} "0" CACHE STRING "" FORCE)
+    endif ()
+    mark_as_advanced(FORCE ${variable})
+    file(APPEND "${LIBCFUNK_CONFIG_DIR}/config.h.cmake"
+                "#cmakedefine ${variable} @${variable}@\n\n")
+  endif ()
+endfunction ()
+
 # Make sure the host is two's complement.
-check_c_source_compiles("
+check_c_compiles("
 int
 main(void)
 {
@@ -144,7 +328,7 @@ representation. This is required by the POSIX standard.")
 endif ()
 
 # Make sure sizeof (TYPE) * 8 equals the number of bits in TYPE.
-check_c_source_compiles("
+check_c_compiles("
 int
 main (void)
 {
@@ -165,31 +349,21 @@ endif ()
 # a language standard requirement on the target.
 # This check is only valid if char is 8-bits and if signed integers use
 # two's complement representation.
-check_type_size("int" SIZEOF_INT)
-check_type_size("long long" SIZEOF_LONG_LONG)
+check_c_type_exists("int")
+check_c_type_exists("long long")
 
 # Check int is 32-bits.
 if ("${SIZEOF_INT}" STREQUAL "" OR "${SIZEOF_INT}" LESS "4")
-  if ("${SIZEOF_INT}" STREQUAL "")
-    set(SIZEOF_INT "0")
-  endif ()
-  math(EXPR BITWIDTH_INT "8 * ${SIZEOF_INT}" OUTPUT_FORMAT DECIMAL)
   message(FATAL_ERROR "This library assumes that `int' is 32-bits or wider. \
-On your system `int' is ${BITWIDTH_INT} bits.")
-  unset(BITWIDTH_INT)
+On your system `int' is ${INT_WIDTH} bits.")
 endif ()
 
 if ("${SIZEOF_LONG_LONG}" STREQUAL "" OR "${SIZEOF_LONG_LONG}" LESS "8")
-  if ("${SIZEOF_LONG_LONG}" STREQUAL "")
-    set(SIZEOF_LONG_LONG "0")
-  endif ()
-  math(EXPR BITWIDTH_LONG_LONG "8 * ${SIZEOF_LONG_LONG}" OUTPUT_FORMAT DECIMAL)
   message(FATAL_ERROR "This library assumes that `long long' is 64-bits or \
-wider. On your system `long long' is ${BITWIDTH_LONG_LONG} bits.")
-  unset(BITWIDTH_LONG_LONG)
+wider. On your system `long long' is ${LONG_LONG_WIDTH} bits.")
 endif ()
 
-check_c_source_compiles("
+check_c_compiles("
 
 #include_next <stdlib.h>
 

@@ -4,11 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/getdelim.cmake)
 
-if (HAVE_STDIO_H)
-  check_symbol_exists("getline" "stdio.h" HAVE_GETLINE)
-else ()
-  set(HAVE_GETLINE "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("getline" "stdio.h")
 
 set(LIBCFUNK_DECLARE_GETLINE "1" CACHE INTERNAL "")
 

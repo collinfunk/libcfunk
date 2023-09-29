@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 # Generate <stdio.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STDIO_H "1" CACHE INTERNAL "")
 
-check_include_file("stdio.h" HAVE_STDIO_H)
+check_c_system_headers("stdio.h")
 
 # Don't declare functions we don't check.
 set(LIBCFUNK_DECLARE_GETDELIM "0" CACHE INTERNAL "")

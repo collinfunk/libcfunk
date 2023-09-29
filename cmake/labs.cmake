@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-if (HAVE_STDLIB_H)
-  check_symbol_exists("labs" "stdlib.h" HAVE_LABS)
-else ()
-  set(HAVE_LABS "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("labs" "stdlib.h")
 
 set(LIBCFUNK_DECLARE_LABS "1" CACHE INTERNAL "")
 

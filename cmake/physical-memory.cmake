@@ -3,8 +3,8 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/filename.cmake)
 
-check_include_file("sys/sysctl.h" HAVE_SYS_SYSCTL_H)
-check_include_file("windows.h" HAVE_WINDOWS_H)
+check_c_system_headers("sys/sysctl.h")
+check_c_system_headers("windows.h")
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/physical-memory.c

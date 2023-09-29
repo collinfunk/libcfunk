@@ -5,11 +5,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unlocked-stdio.cmake)
 
-if (HAVE_STDIO_H)
-  check_symbol_exists("getdelim" "stdio.h" HAVE_GETDELIM)
-else ()
-  set(HAVE_GETDELIM "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("getdelim" "stdio.h")
 
 set(LIBCFUNK_DECLARE_GETDELIM "1" CACHE INTERNAL "")
 

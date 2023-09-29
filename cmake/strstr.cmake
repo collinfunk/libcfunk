@@ -5,11 +5,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/strlen.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/strncmp.cmake)
 
-if (HAVE_STRING_H)
-  check_symbol_exists("strstr" "string.h" HAVE_STRSTR)
-else ()
-  set(HAVE_STRSTR "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("strstr" "string.h")
 
 set(LIBCFUNK_DECLARE_STRSTR "1" CACHE INTERNAL "")
 

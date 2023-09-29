@@ -7,7 +7,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/termios-h.cmake)
 # Generate <sys/ioctl.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_SYS_IOCTL_H "1" CACHE INTERNAL "")
 
-check_include_file("sys/ioctl.h" HAVE_SYS_IOCTL_H)
+check_c_system_headers("sys/ioctl.h")
 
 # Check for struct winsize in sys/types.h, termios.h, and sys/ioctl.h.
 set(WINSIZE_CHECK "#include <sys/types.h>\n")
@@ -27,7 +27,7 @@ main (void)
   return 0;
 }")
 
-check_c_source_compiles("${WINSIZE_CHECK}" HAVE_STRUCT_WINSIZE)
+check_c_compiles("${WINSIZE_CHECK}" HAVE_STRUCT_WINSIZE)
 
 unset(WINSIZE_CHECK)
 

@@ -4,11 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/getgroups.cmake)
 
-if (HAVE_UNISTD_H)
-  check_symbol_exists("group_member" "unistd.h" HAVE_GROUP_MEMBER)
-else ()
-  set(HAVE_GROUP_MEMBER "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("group_member" "unistd.h")
 
 set(LIBCFUNK_DECLARE_GROUP_MEMBER "1" CACHE INTERNAL "")
 

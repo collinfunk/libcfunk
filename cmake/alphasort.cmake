@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/dirent-h.cmake)
 
-if (HAVE_DIRENT_H)
-  check_symbol_exists("alphasort" "dirent.h" HAVE_ALPHASORT)
-else ()
-  set(HAVE_ALPHASORT "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("alphasort" "dirent.h")
 
 set(LIBCFUNK_DECLARE_ALPHASORT "1" CACHE INTERNAL "")
 

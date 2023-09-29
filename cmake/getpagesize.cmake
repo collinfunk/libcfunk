@@ -2,16 +2,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
-if (HAVE_UNISTD_H)
-  check_symbol_exists("getpagesize" "unistd.h" HAVE_GETPAGESIZE)
-else ()
-  set(HAVE_GETPAGESIZE "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("getpagesize" "unistd.h")
 
 set(LIBCFUNK_DECLARE_GETPAGESIZE "1" CACHE INTERNAL "")
 
 if (NOT HAVE_GETPAGESIZE)
-  check_include_file("windows.h" HAVE_WINDOWS_H)
   if (NOT HAVE_WINDOWS_H)
     message(FATAL_ERROR "Unsupported operating system")
   endif ()

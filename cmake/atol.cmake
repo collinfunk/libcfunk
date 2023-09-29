@@ -4,11 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/strtol.cmake)
 
-if (HAVE_STDLIB_H)
-  check_symbol_exists("atol" "stdlib.h" HAVE_ATOL)
-else ()
-  set(HAVE_ATOL "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("atol" "stdlib.h")
 
 set(LIBCFUNK_DECLARE_ATOL "1" CACHE INTERNAL "")
 

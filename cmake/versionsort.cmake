@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/dirent-h.cmake)
 
-if (HAVE_DIRENT_H)
-  check_symbol_exists("versionsort" "dirent.h" HAVE_VERSIONSORT)
-else ()
-  set(HAVE_VERSIONSORT "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("versionsort" "dirent.h")
 
 set(LIBCFUNK_DECLARE_VERSIONSORT "1" CACHE INTERNAL "")
 

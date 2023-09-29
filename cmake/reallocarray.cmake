@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-if (HAVE_STDLIB_H)
-  check_symbol_exists("reallocarray" "stdlib.h" HAVE_REALLOCARRAY)
-else ()
-  set (HAVE_REALLOCARRAY "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("reallocarray" "stdlib.h")
 
 set(LIBCFUNK_DECLARE_REALLOCARRAY "1" CACHE INTERNAL "")
 

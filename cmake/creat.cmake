@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
 
-if (HAVE_FCNTL_H)
-  check_symbol_exists("creat" "fcntl.h" HAVE_CREAT)
-else ()
-  set(HAVE_CREAT "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("creat" "fcntl.h")
 
 set(LIBCFUNK_DECLARE_CREAT "1" CACHE INTERNAL "")
 

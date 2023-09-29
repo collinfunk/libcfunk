@@ -2,11 +2,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
-if (HAVE_UNISTD_H)
-  check_symbol_exists("swab" "unistd.h" HAVE_SWAB)
-else ()
-  set(HAVE_SWAB "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("swab" "unistd.h")
 
 set(LIBCFUNK_DECLARE_SWAB "1" CACHE INTERNAL "")
 

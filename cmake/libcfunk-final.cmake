@@ -26,7 +26,6 @@ function (substitute_header template_file output_file)
   )
 endfunction ()
 
-
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
@@ -34,7 +33,7 @@ if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   )
 endif ()
 
-if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
+if ($CACHE{LIBCFUNK_GENERATE_ASSERT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/assert.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/assert.h
@@ -230,8 +229,11 @@ if ($CACHE{LIBCFUNK_GENERATE_WCHAR_H})
   )
 endif ()
 
+file(APPEND $CACHE{LIBCFUNK_CONFIG_DIR}/config.h.cmake
+  "\n#endif /* CONFIG_H */\n")
+
 configure_file(
-  $CACHE{LIBCFUNK_SOURCE_DIR}/config.h.cmake
+  $CACHE{LIBCFUNK_CONFIG_DIR}/config.h.cmake
   $CACHE{LIBCFUNK_CONFIG_DIR}/config.h
 )
 

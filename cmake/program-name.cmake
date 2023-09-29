@@ -1,25 +1,28 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/filename.cmake)
 
+check_c_system_headers("errno.h")
+
 # GNU glibc and musl.
-check_symbol_exists("program_invocation_name" "errno.h" HAVE_PROGRAM_INVOCATION_NAME)
-check_symbol_exists("program_invocation_short_name" "errno.h" HAVE_PROGRAM_INVOCATION_SHORT_NAME)
+check_c_symbol("program_invocation_name" "errno.h")
+check_c_symbol("program_invocation_short_name" "errno.h")
 
 # 4.4BSD
-check_symbol_exists("__progname" "stdlib.h" HAVE___PROGNAME)
+check_c_symbol("__progname" "stdlib.h")
 
 # NetBSD, FreeBSD, DragonFly, OpenBSD
-check_symbol_exists("getprogname" "stdlib.h" HAVE_GETPROGNAME)
-check_symbol_exists("setprogname" "stdlib.h" HAVE_SETPROGNAME)
+check_c_symbol("getprogname" "stdlib.h")
+check_c_symbol("setprogname" "stdlib.h")
 
 # Solaris
-check_symbol_exists("getexecname" "stdlib.h" HAVE_GETEXECNAME)
+check_c_symbol("getexecname" "stdlib.h")
 
 # Windows
-check_symbol_exists("__argc" "stdlib.h" HAVE___ARGC)
-check_symbol_exists("__argv" "stdlib.h" HAVE___ARGV)
+check_c_symbol("__argc" "stdlib.h")
+check_c_symbol("__argv" "stdlib.h")
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/program-name.c

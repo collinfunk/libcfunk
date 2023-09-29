@@ -6,7 +6,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
 # Generate <inttypes.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_INTTYPES_H "1" CACHE INTERNAL "")
 
-check_include_file("inttypes.h" HAVE_INTTYPES_H)
+check_c_system_headers("inttypes.h")
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_IMAXABS "0" CACHE INTERNAL "")

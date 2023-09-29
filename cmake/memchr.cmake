@@ -2,11 +2,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
-if (HAVE_STRING_H)
-  check_symbol_exists("memchr" "string.h" HAVE_MEMCHR)
-else ()
-  set(HAVE_MEMCHR "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("memchr" "string.h")
 
 set(LIBCFUNK_DECLARE_MEMCHR "1" CACHE INTERNAL "")
 

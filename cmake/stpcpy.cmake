@@ -2,11 +2,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
-if (HAVE_STRING_H)
-  check_symbol_exists("stpcpy" "string.h" HAVE_STPCPY)
-else ()
-  set(HAVE_STPCPY "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("stpcpy" "string.h")
 
 set(LIBCFUNK_DECLARE_STPCPY "1" CACHE INTERNAL "")
 

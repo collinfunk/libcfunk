@@ -3,15 +3,9 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
-if (HAVE_STRINGS_H)
-  check_symbol_exists("popcount" "strings.h" HAVE_POPCOUNT)
-  check_symbol_exists("popcountl" "strings.h" HAVE_POPCOUNTL)
-  check_symbol_exists("popcountll" "strings.h" HAVE_POPCOUNTLL)
-else ()
-  set (HAVE_POPCOUNT "" CACHE INTERNAL "")
-  set (HAVE_POPCOUNTL "" CACHE INTERNAL "")
-  set (HAVE_POPCOUNTLL "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("popcount" "strings.h")
+check_c_symbol("popcountl" "strings.h")
+check_c_symbol("popcountll" "strings.h")
 
 set(LIBCFUNK_DECLARE_POPCOUNT "1" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_POPCOUNTL "1" CACHE INTERNAL "")

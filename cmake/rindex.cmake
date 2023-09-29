@@ -3,11 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
-if (HAVE_STRINGS_H)
-  check_symbol_exists("rindex" "strings.h" HAVE_RINDEX)
-else ()
-  set (HAVE_RINDEX "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("rindex" "strings.h")
 
 set(LIBCFUNK_DECLARE_RINDEX "1" CACHE INTERNAL "")
 

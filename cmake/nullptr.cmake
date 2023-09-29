@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Check if the compiler supports the C23 nullptr constant.
-check_c_source_compiles("
+check_c_compiles("
 
 int
 main (void)

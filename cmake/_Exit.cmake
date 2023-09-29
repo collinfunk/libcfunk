@@ -1,10 +1,11 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-check_symbol_exists("_Exit" "stdlib.h" HAVE_C99__EXIT)
-check_symbol_exists("_exit" "unistd.h" HAVE__EXIT)
+check_c_symbol("_Exit" "stdlib.h" HAVE_C99__EXIT)
+check_c_symbol("_exit" "unistd.h" HAVE__EXIT)
 
 set(LIBCFUNK_DECLARE_C99__EXIT "1" CACHE INTERNAL "")
 

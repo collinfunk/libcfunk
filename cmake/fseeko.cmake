@@ -4,15 +4,9 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 
-if (HAVE_STDIO_H)
-  check_symbol_exists("fseeko" "stdio.h" HAVE_FSEEKO)
-  check_symbol_exists("fseek" "stdio.h" HAVE_FSEEK)
-  check_symbol_exists("_fseeki64" "stdio.h" HAVE__FSEEKI64)
-else ()
-  set(HAVE_FSEEKO "" CACHE INTERNAL "")
-  set(HAVE_FSEEK "" CACHE INTERNAL "")
-  set(HAVE__FSEEKI64 "" CACHE INTERNAL "")
-endif ()
+check_c_symbol("fseeko" "stdio.h")
+check_c_symbol("fseek" "stdio.h")
+check_c_symbol("_fseeki64" "stdio.h")
 
 set(LIBCFUNK_DECLARE_FSEEKO "1" CACHE INTERNAL "")
 
