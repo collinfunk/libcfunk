@@ -23,11 +23,6 @@
  * SUCH DAMAGE.
  */
 
-#include <ctype.h>
-#include <errno.h>
-#include <limits.h>
-#include <stdlib.h>
-
 #define STRTOL_FUNC_NAME strtoll
 #define STRTOL_INT_TYPE long long int
 #define STRTOL_SIGNED_INT_TYPE signed long long int

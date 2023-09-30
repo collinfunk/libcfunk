@@ -23,12 +23,6 @@
  * SUCH DAMAGE.
  */
 
-#include <ctype.h>
-#include <errno.h>
-#include <inttypes.h>
-#include <limits.h>
-#include <stdlib.h>
-
 #define STRTOL_FUNC_NAME strtoimax
 #define STRTOL_INT_TYPE intmax_t
 #define STRTOL_SIGNED_INT_TYPE intmax_t
