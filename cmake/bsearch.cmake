@@ -3,7 +3,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-check_c_symbol("bsearch" "stdlib.h")
+if (HAVE_STDLIB_H)
+  check_symbol_exists("bsearch" "stdlib.h" HAVE_BSEARCH)
+else ()
+  set (HAVE_BSEARCH "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_BSEARCH "1" CACHE INTERNAL "")
 

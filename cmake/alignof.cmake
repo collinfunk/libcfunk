@@ -5,7 +5,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/_Alignof.cmake)
 
 # Check for C23 alignof.
-check_c_compiles("
+check_c_source_compiles("
 
 int
 main (void)

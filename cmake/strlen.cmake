@@ -2,7 +2,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
-check_c_symbol("strlen" "string.h")
+if (HAVE_STRING_H)
+  check_symbol_exists("strlen" "string.h" HAVE_STRLEN)
+else ()
+  set(HAVE_STRLEN "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_STRLEN "1" CACHE INTERNAL "")
 

@@ -6,7 +6,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 # Generate <unistd.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_UNISTD_H "1" CACHE INTERNAL "")
 
-check_c_system_headers("unistd.h")
+check_include_file("unistd.h" HAVE_UNISTD_H)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_CHOWN "0" CACHE INTERNAL "")

@@ -4,8 +4,13 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/alloca-h.cmake)
 
-check_c_symbol("execle" "unistd.h")
-check_c_symbol("execve" "unistd.h")
+if (HAVE_UNISTD_H)
+  check_symbol_exists("execle" "unistd.h" HAVE_EXECLE)
+  check_symbol_exists("execve" "unistd.h" HAVE_EXECVE)
+else ()
+  set(HAVE_EXECLE "" CACHE INTERAL "")
+  set(HAVE_EXECVE "" CACHE INTERAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_EXECLE "1" CACHE INTERNAL "")
 

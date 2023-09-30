@@ -3,7 +3,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/inttypes-h.cmake)
 
-check_c_symbol("strtoimax" "inttypes.h")
+if (HAVE_INTTYPES_H)
+  check_symbol_exists("strtoimax" "inttypes.h" HAVE_STRTOIMAX)
+else ()
+  set(HAVE_STRTOIMAX "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_STRTOIMAX "1" CACHE INTERNAL "")
 

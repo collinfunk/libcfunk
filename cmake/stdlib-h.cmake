@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 # Generate <stdlib.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STDLIB_H "1" CACHE INTERNAL "")
 
-check_c_system_headers("stdlib.h")
+check_include_file("stdlib.h" HAVE_STDLIB_H)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_ABS "0" CACHE INTERNAL "")

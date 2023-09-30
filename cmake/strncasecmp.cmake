@@ -3,7 +3,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
-check_c_symbol("strncasecmp" "strings.h")
+if (HAVE_STRINGS_H)
+  check_symbol_exists("strncasecmp" "strings.h" HAVE_STRNCASECMP)
+else ()
+  set (HAVE_STRNCASECMP "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_STRNCASECMP "1" CACHE INTERNAL "")
 

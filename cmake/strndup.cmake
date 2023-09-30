@@ -2,7 +2,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
-check_c_symbol("strndup" "string.h")
+if (HAVE_STRING_H)
+  check_symbol_exists("strndup" "string.h" HAVE_STRNDUP)
+else ()
+  set(HAVE_STRNDUP "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_STRNDUP "1" CACHE INTERNAL "")
 

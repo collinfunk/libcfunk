@@ -2,7 +2,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
 
-check_c_symbol("dysize" "time.h")
+if (HAVE_TIME_H)
+  check_symbol_exists("dysize" "time.h" HAVE_DYSIZE)
+else ()
+  set(HAVE_DYSIZE "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_DYSIZE "1" CACHE INTERNAL "")
 

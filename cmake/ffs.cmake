@@ -3,9 +3,15 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
-check_c_symbol("ffs" "strings.h")
-check_c_symbol("ffsl" "strings.h")
-check_c_symbol("ffsll" "strings.h")
+if (HAVE_STRINGS_H)
+  check_symbol_exists("ffs" "strings.h" HAVE_FFS)
+  check_symbol_exists("ffsl" "strings.h" HAVE_FFSL)
+  check_symbol_exists("ffsll" "strings.h" HAVE_FFSLL)
+else ()
+  set (HAVE_FFS "" CACHE INTERNAL "")
+  set (HAVE_FFSL "" CACHE INTERNAL "")
+  set (HAVE_FFSLL "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_FFS "1" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_FFSL "1" CACHE INTERNAL "")

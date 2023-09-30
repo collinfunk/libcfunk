@@ -4,16 +4,21 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-stat-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 
-check_c_symbol("mkdir" "sys/stat.h")
-check_c_compiles("
-#include <sys/stat.h>
+if (HAVE_SYS_STAT_H)
+  check_symbol_exists("mkdir" "sys/stat.h" HAVE_MKDIR)
+  check_c_source_compiles("
+  #include <sys/stat.h>
 
-int
-main (void)
-{
-  int return_value = _mkdir (\"missing_mode_parameter\");
-  return 0;
-}" HAVE__MKDIR)
+  int
+  main (void)
+  {
+    int return_value = _mkdir (\"missing_mode_parameter\");
+    return 0;
+  }" HAVE__MKDIR)
+else ()
+  set(HAVE_MKDIR "" CACHE INTERNAL "")
+  set(HAVE__MKDIR "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_MKDIR "1" CACHE INTERNAL "")
 

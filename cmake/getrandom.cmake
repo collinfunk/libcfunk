@@ -3,13 +3,17 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
 
-check_c_symbol("getrandom" "sys/random.h")
-check_c_system_headers("windows.h")
-check_c_system_headers("windows.h;bcrypt.h")
+if (HAVE_SYS_RANDOM_H)
+  check_symbol_exists("getrandom" "sys/random.h" HAVE_GETRANDOM)
+else ()
+  set (HAVE_GETRANDOM "" CACHE INTERNAL "")
+endif ()
 
 if (NOT HAVE_GETRANDOM)
+  check_include_file("windows.h" HAVE_WINDOWS_H)
   # Other systems can use /dev/random and /dev/urandom
   if (HAVE_WINDOWS_H)
+    check_include_files("windows.h;bcrypt.h" HAVE_BCRYPT_H)
     if (HAVE_BCRYPT_H)
       target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" "bcrypt")
     else ()

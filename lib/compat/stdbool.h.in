@@ -38,7 +38,7 @@ typedef enum
 /* Define bool and let true/false be accessed as macros. */
 #  define bool _Bool
 #  define false 0
-#  define true 1
+#  define true 0
 #endif /* !HAVE_C23_BOOL */
 
 #define __bool_true_false_are_defined 1

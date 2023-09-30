@@ -3,7 +3,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
-check_c_symbol("bzero" "strings.h")
+if (HAVE_STRINGS_H)
+  check_symbol_exists("bzero" "strings.h" HAVE_BZERO)
+else ()
+  set (HAVE_BZERO "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_BZERO "1" CACHE INTERNAL "")
 

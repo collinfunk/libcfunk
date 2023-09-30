@@ -63,11 +63,11 @@
 #endif
 
 #ifndef __SCHAR_WIDTH__
-#  define __SCHAR_WIDTH__ @SIGNED_CHAR_WIDTH@
+#  define __SCHAR_WIDTH__ @SCHAR_WIDTH@
 #endif
 
 #ifndef __SHRT_WIDTH__
-#  define __SHRT_WIDTH__ @SHORT_WIDTH@
+#  define __SHRT_WIDTH__ @SHRT_WIDTH@
 #endif
 
 #ifndef __INT_WIDTH__
@@ -83,12 +83,12 @@
 #endif
 
 #ifndef __SIZE_WIDTH__
-#  define __SIZE_WIDTH__ @SIZE_T_WIDTH@
+#  define __SIZE_WIDTH__ @SIZE_WIDTH@
 #endif
 
 /* Not a builtin definition */
 #ifndef __SSIZE_WIDTH__
-#  define __SSIZE_WIDTH__ @SSIZE_T_WIDTH@
+#  define __SSIZE_WIDTH__ @SSIZE_WIDTH@
 #endif
 
 #ifndef __SCHAR_MAX__

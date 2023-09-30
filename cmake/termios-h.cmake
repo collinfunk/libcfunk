@@ -7,11 +7,11 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-ioctl-h.cmake)
 # Generate <termios.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_TERMIOS_H "1" CACHE INTERNAL "")
 
-check_c_system_headers("termios.h")
+check_include_file("termios.h" HAVE_TERMIOS_H)
 
-# check_c_type_exists won't work for this.
+# check_type_size won't work for this.
 if (HAVE_TERMIOS_H)
-  check_c_compiles("
+  check_c_source_compiles("
   #include <sys/types.h>
   #include <termios.h>
 

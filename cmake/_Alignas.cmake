@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/offsetof.cmake)
 
 # Check for C11 _Alignas.
-check_c_compiles("
+check_c_source_compiles("
 
 int
 main (void)

@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 # Generate <wchar.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_WCHAR_H "1" CACHE INTERNAL "")
 
-check_c_system_headers("wchar.h")
+check_include_file("wchar.h" HAVE_WCHAR_H)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_WCPCPY "0" CACHE INTERNAL "")

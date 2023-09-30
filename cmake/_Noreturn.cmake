@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Check for C11 _Noreturn.
-check_c_compiles("
+check_c_source_compiles("
 
 #include <stdlib.h>
 

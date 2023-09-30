@@ -3,7 +3,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/wchar-h.cmake)
 
-check_c_symbol(wmemchr "wchar.h")
+if (HAVE_WCHAR_H)
+  check_symbol_exists(wmemchr "wchar.h" HAVE_WMEMCHR)
+else ()
+  set(HAVE_WMEMCHR "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_WMEMCHR "1" CACHE INTERNAL "")
 

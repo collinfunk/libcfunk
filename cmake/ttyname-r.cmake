@@ -3,8 +3,13 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
-check_c_symbol("ttyname_r" "unistd.h")
-check_c_symbol("ttyname" "unistd.h")
+if (HAVE_UNISTD_H)
+  check_symbol_exists("ttyname_r" "unistd.h" HAVE_TTYNAME_R)
+  check_symbol_exists("ttyname" "unistd.h" HAVE_TTYNAME)
+else ()
+  set(HAVE_TTYNAME_R "" CACHE INTERNAL "")
+  set(HAVE_TTYNAME "" CACHE INTERNAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_TTYNAME_R "1" CACHE INTERNAL "")
 

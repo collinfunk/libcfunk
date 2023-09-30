@@ -4,10 +4,10 @@ include_guard(GLOBAL)
 # Generate <assert.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_ASSERT_H "1" CACHE INTERNAL "")
 
-check_c_system_headers("assert.h")
+check_include_file("assert.h" HAVE_ASSERT_H)
 
 # Check for C23 static_assert or macro in assert.h
-check_c_compiles("
+check_c_source_compiles("
 
 #include <assert.h>
 
@@ -21,7 +21,7 @@ main (void)
 " HAVE_C23_STATIC_ASSERT)
 
 # Check for C11 _Static_assert.
-check_c_compiles("
+check_c_source_compiles("
 
 int
 main (void)

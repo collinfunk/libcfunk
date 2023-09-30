@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 # Generate <strings.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STRINGS_H "1" CACHE INTERNAL "")
 
-check_c_system_headers("strings.h")
+check_include_file("strings.h" HAVE_STRINGS_H)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_BCMP "0" CACHE INTERNAL "")

@@ -4,7 +4,11 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/execvpe.cmake)
 
-check_c_symbol("execvp" "unistd.h")
+if (HAVE_UNISTD_H)
+  check_symbol_exists("execvp" "unistd.h" HAVE_EXECVP)
+else ()
+  set(HAVE_EXECVP "" CACHE INTERAL "")
+endif ()
 
 set(LIBCFUNK_DECLARE_EXECVP "1" CACHE INTERNAL "")
 

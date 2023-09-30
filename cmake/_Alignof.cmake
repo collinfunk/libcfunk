@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Check for C11 _Alignof.
-check_c_compiles("
+check_c_source_compiles("
 
 int
 main (void)
