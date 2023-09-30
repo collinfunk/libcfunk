@@ -34,7 +34,7 @@ if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   )
 endif ()
 
-if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
+if ($CACHE{LIBCFUNK_GENERATE_ASSERT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/assert.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/assert.h

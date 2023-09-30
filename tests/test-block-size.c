@@ -23,24 +23,47 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDBOOL_H
-#define COMPAT_STDBOOL_H
+#include <config.h>
 
-#if !@HAVE_C23_BOOL@
-#  if !@HAVE_C99_BOOL@
-/* _Bool must promote to int or unsigned int. */
-typedef enum
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "block-size.h"
+#include "test-help.h"
+
+int
+main (int argc, char **argv)
 {
-  false = 0,
-  true = 1
-} _Bool;
-#  endif /* !HAVE_C99_BOOL */
-/* Define bool and let true/false be accessed as macros. */
-#  define bool _Bool
-#  define false 0
-#  define true 1
-#endif /* !HAVE_C23_BOOL */
+  char *file_name = argc > 1 ? argv[1] : argv[0];
+  struct stat st;
 
-#define __bool_true_false_are_defined 1
+  /* Take a file or directory to stat, use the current file as a backup. */
+  if (stat (file_name, &st) < 0
+      || !(S_ISREG (st.st_mode) || S_ISDIR (st.st_mode)))
+    {
+      file_name = argv[0];
+      if (stat (file_name, &st) < 0)
+        {
+          fprintf (stderr, "stat () failed.\n");
+          abort ();
+        }
+    }
 
-#endif /* COMPAT_STDBOOL_H */
+  /* Check DEV_BSIZE is defined and is positive. */
+  ASSERT (DEV_BSIZE > 0);
+
+  /* Check that 'ST_BLKSIZE' returns a positive block size. */
+  ASSERT (ST_BLKSIZE (st) > 0);
+
+  /* Check that 'ST_BLOCKS' is positive number of blocks. */
+  ASSERT (ST_BLOCKS (st) > 0);
+
+  printf ("DEV_BSIZE: %lld\n", (long long int) DEV_BSIZE);
+  printf ("ST_BLKSIZE (st): %lld\n", (long long int) ST_BLKSIZE (st));
+  printf ("DEV_BLOCKS (st): %lld\n", (long long int) ST_BLOCKS (st));
+
+  return 0;
+}

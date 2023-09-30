@@ -158,7 +158,7 @@
 #endif
 
 /* Typed memory object. */
-#ifndef S_TYPEISTMO(x)
+#ifndef S_TYPEISTMO
 #  define S_TYPEISTMO(x) 0
 #endif
 

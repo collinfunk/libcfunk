@@ -8,8 +8,16 @@
 #  define _ALL_SOURCE 1
 #endif
 
+#ifndef _DARWIN_C_SOURCE
+#  define _DARWIN_C_SOURCE 1
+#endif
+
 #ifndef _GNU_SOURCE
 #  define _GNU_SOURCE 1
+#endif
+
+#ifndef _NETBSD_SOURCE
+#  define _NETBSD_SOURCE 1
 #endif
 
 #ifndef __STDC_WANT_LIB_EXT2__
@@ -238,6 +246,8 @@
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_STRUCT_STAT_ST_BLKSIZE
+#cmakedefine01 HAVE_STRUCT_STAT_ST_BLOCKS
 #cmakedefine01 HAVE_STRUCT_STAT_ST_CTIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_CTIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_CTIM_TIMESPEC_TV_NSEC
@@ -252,6 +262,7 @@
 #cmakedefine01 HAVE_SYS_ENDIAN_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
+#cmakedefine01 HAVE_SYS_PARAM_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
