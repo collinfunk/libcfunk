@@ -113,6 +113,8 @@ include(cmake/read-full.cmake)
 include(cmake/read-nointr.cmake)
 include(cmake/reallocarray.cmake)
 include(cmake/rindex.cmake)
+include(cmake/root-gid.cmake)
+include(cmake/root-uid.cmake)
 include(cmake/same-file.cmake)
 include(cmake/same-inode.cmake)
 include(cmake/secure-getenv.cmake)
@@ -199,6 +201,7 @@ include(cmake/xmalloc.cmake)
 if (UNIX)
   include(cmake/daemon.cmake)
   include(cmake/cloexec.cmake)
+  include(cmake/posix-openpt.cmake)
 
   # These two rely on minimal functionality of fcntl which can probably
   # be easily emulated on Windows.

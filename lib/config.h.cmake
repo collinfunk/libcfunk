@@ -63,6 +63,9 @@
 #cmakedefine01 HAVE_CRT_EXTERNS_H
 #cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_DAEMON
+#cmakedefine01 HAVE_DEV_PTC
+#cmakedefine01 HAVE_DEV_PTM
+#cmakedefine01 HAVE_DEV_PTMX
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DUP2
 #cmakedefine01 HAVE_DYSIZE
@@ -150,6 +153,7 @@
 #cmakedefine01 HAVE_INTMAX_T
 #cmakedefine01 HAVE_INTPTR_T
 #cmakedefine01 HAVE_INTTYPES_H
+#cmakedefine01 HAVE_IOCTL
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
 #cmakedefine01 HAVE_ISASCII
@@ -187,6 +191,7 @@
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
+#cmakedefine01 HAVE_POSIX_OPENPT
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
@@ -243,6 +248,7 @@
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
+#cmakedefine01 HAVE_STRUCT_PTMGET
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC
@@ -267,6 +273,7 @@
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H
+#cmakedefine01 HAVE_SYS_TTY_H
 #cmakedefine01 HAVE_SYS_TYPES_H
 #cmakedefine01 HAVE_SYS_WAIT_H
 #cmakedefine01 HAVE_TERMIOS_H

@@ -159,4 +159,10 @@ extern int atexit (void (*function) (void));
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_POSIX_OPENPT@
+#  if !@HAVE_POSIX_OPENPT@
+extern int posix_openpt (int flags);
+#  endif
+#endif
+
 #endif /* COMPAT_STDLIB_H */
