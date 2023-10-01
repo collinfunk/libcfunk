@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #define STRTOL_FUNC_NAME strtoul
 #define STRTOL_INT_TYPE unsigned long int
 #define STRTOL_SIGNED_INT_TYPE signed long int

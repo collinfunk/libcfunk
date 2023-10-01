@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <sys/endian.h>
 
 #include <stdio.h>

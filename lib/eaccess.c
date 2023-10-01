@@ -23,5 +23,7 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #define EUIDACCESS_FUNCTION_NAME eaccess
 #include "euidaccess.c"

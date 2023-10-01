@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <sys/random.h>
 #include <sys/types.h>
 

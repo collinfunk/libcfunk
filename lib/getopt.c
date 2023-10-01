@@ -23,10 +23,15 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/* TODO: Implement the mode GNU getopt defaults to. Permute ARGV so that
+   nonoption elements are put at the end. */
 
 struct option
 {

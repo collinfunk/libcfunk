@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <strings.h>
 
 #include "__has_builtin.h"

@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #define EUIDACCESS_FUNCTION_NAME eaccess
 #define EUIDACCESS_FUNCTION_STRING "eaccess"
 

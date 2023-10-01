@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <alloca.h>
 #include <stddef.h>
 #include <stdio.h>

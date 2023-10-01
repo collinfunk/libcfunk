@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #define STRTOL_FUNC_NAME strtoumax
 #define STRTOL_INT_TYPE uintmax_t
 #define STRTOL_SIGNED_INT_TYPE intmax_t

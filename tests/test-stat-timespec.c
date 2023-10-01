@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <errno.h>
 #include <inttypes.h>
 #include <stddef.h>

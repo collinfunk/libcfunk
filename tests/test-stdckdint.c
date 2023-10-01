@@ -23,6 +23,8 @@
  * SUCH DAMAGE.
  */
 
+#include <config.h>
+
 #include <limits.h>
 #include <stdbool.h>
 #include <stdckdint.h>
