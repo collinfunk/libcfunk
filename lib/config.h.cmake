@@ -98,6 +98,8 @@
 #cmakedefine01 HAVE_FFS
 #cmakedefine01 HAVE_FFSL
 #cmakedefine01 HAVE_FFSLL
+#cmakedefine01 HAVE__FILENO
+#cmakedefine01 HAVE_FILENO
 #cmakedefine01 HAVE_FLOCKFILE
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
@@ -154,6 +156,7 @@
 #cmakedefine01 HAVE_INTPTR_T
 #cmakedefine01 HAVE_INTTYPES_H
 #cmakedefine01 HAVE_IOCTL
+#cmakedefine01 HAVE_IO_H
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
 #cmakedefine01 HAVE_ISASCII
@@ -207,6 +210,8 @@
 #cmakedefine01 HAVE_SCHED_H
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SECUREZEROMEMORY
+#cmakedefine01 HAVE__SETMODE
+#cmakedefine01 HAVE_SETMODE
 #cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL

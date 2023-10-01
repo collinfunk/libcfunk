@@ -36,6 +36,169 @@
 #  include_next <fcntl.h>
 #endif
 
+/* Windows. */
+#if @HAVE_IO_H@
+#  include <io.h>
+#endif
+
+/* Open with the close-on-exec flag. */
+#ifndef O_CLOEXEC
+#  if defined(O_NOINHERIT)
+#    define O_CLOEXEC O_NOINHERIT
+#  elif defined(_O_NOINHERIT)
+#    define O_CLOEXEC _O_NOINHERIT
+#  else
+#    define O_CLOEXEC 0
+#  endif
+#endif
+
+/* Create file if it does not exist. */
+#ifndef O_CREAT
+#  if defined(_O_CREAT)
+#    define O_CREAT _O_CREAT
+#  else
+#    define O_CREAT 0
+#  endif
+#endif
+
+/* Fail if file is not a directory. */
+#ifndef O_DIRECTORY
+#  define O_DIRECTORY 0
+#endif
+
+/* Exclusive use flag. */
+#ifndef O_EXCL
+#  if defined(_O_EXCL)
+#    define O_EXCL _O_EXCL
+#  else
+#    define O_EXCL 0
+#  endif
+#endif
+
+/* Do not assign controlling terminal. */
+#ifndef O_NOCTTY
+#  define O_NOCTTY 0
+#endif
+
+/* Do not follow symbolic links. */
+#ifndef O_NOFOLLOW
+#  define O_NOFOLLOW 0
+#endif
+
+/* Truncate flag. */
+#ifndef O_TRUNC
+#  if defined(_O_TRUNC)
+#    define O_TRUNC _O_TRUNC
+#  else
+#    define O_TRUNC 0
+#  endif
+#endif
+
+/* Set the termios structure parameters to a state that provides conforming
+   behavior. */
+#ifndef O_TTY_INIT
+#  define O_TTY_INIT 0
+#endif
+
+/* Set append mode. */
+#ifndef O_APPEND
+#  if defined(_O_APPEND)
+#    define O_APPEND _O_APPEND
+#  else
+#    define O_APPEND 0
+#  endif
+#endif
+
+/* Write according to synchronized I/O integrity completion. */
+#ifndef O_DSYNC
+#  define O_DSYNC 0
+#endif
+
+/* Non-blocking mode. */
+#ifndef O_NONBLOCK
+#  define O_NONBLOCK 0
+#endif
+
+/* Synchronized read I/O operations. */
+#ifndef O_RSYNC
+#  define O_RSYNC 0
+#endif
+
+/* Write according to synchronized I/O file integrity completion. */
+#ifndef O_SYNC
+#  define O_SYNC 0
+#endif
+
+/* Mask for file access modes. */
+#ifndef O_ACCMODE
+#  if defined(_O_ACCMODE)
+#    define O_ACCMODE _O_ACCMODE
+#  else
+#    define O_ACCMODE 0
+#  endif
+#endif
+
+/* Open for execute only. */
+#ifndef O_EXEC
+#  define O_EXEC 0
+#endif
+
+/* Open for reading only. */
+#ifndef O_RDONLY
+#  if defined(_O_RDONLY)
+#    define O_RDONLY _O_RDONLY
+#  else
+#    define O_RDONLY 0
+#  endif
+#endif
+
+/* Open for reading and writing. */
+#ifndef O_RDWR
+#  if defined(_O_RDWR)
+#    define O_RDWR _O_RDWR
+#  else
+#    define O_RDWR 0
+#  endif
+#endif
+
+/* Open directory for search only. */
+#ifndef O_SEARCH
+#  define O_SEARCH 0
+#endif
+
+/* Open for writing only. */
+#ifndef O_WRONLY
+#  if defined(_O_WRONLY)
+#    define O_WRONLY _O_WRONLY
+#  else
+#    define O_WRONLY 0
+#  endif
+#endif
+
+/* Define O_BINARY to 0 if it is not nessecary. On Windows this mode
+   suppresses translations involving carriage return and line feed
+   characters. */
+#ifndef O_BINARY
+#  if defined(_O_BINARY)
+#    define O_BINARY _O_BINARY
+#  else
+#    define O_BINARY 0
+#  endif
+#endif
+
+/* Define O_TEXT to 0 if it is not nessecary. On Windows this affects
+   translation between carriate return line feed (CRLF) and line feeds (LF).
+     Input: CRLF -> LF
+     Output: LF -> CRLF
+   On input CTRL + Z is also interpreted as an EOF character. */
+#ifndef O_TEXT
+#  if defined(_O_TEXT)
+#    define O_TEXT _O_TEXT
+#  else
+#    define O_TEXT 0
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_CREAT@
 #  if !@HAVE_CREAT@
 extern int creat (const char *path, mode_t mode);
