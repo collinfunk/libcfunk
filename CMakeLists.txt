@@ -207,7 +207,9 @@ if (UNIX)
   # These two rely on minimal functionality of fcntl which can probably
   # be easily emulated on Windows.
   include(cmake/open-standard-streams.cmake)
+  include(cmake/safe-creat.cmake)
   include(cmake/safe-dup.cmake)
+  include(cmake/safe-open.cmake)
 endif ()
 
 # Don't leave enabled, have portability problems.

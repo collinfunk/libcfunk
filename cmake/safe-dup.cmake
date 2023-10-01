@@ -3,6 +3,8 @@ include_guard(GLOBAL)
 
 # For _FILENO macros.
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/cloexec.cmake)
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/safe-dup.c
