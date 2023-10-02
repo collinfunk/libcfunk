@@ -25,63 +25,20 @@
 
 #include <config.h>
 
-#include <errno.h>
+#include <stddef.h>
 #include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
-/* Don't call ourselves. */
-#undef getcwd
+/* Make sure we don't call ourselves. */
+#undef malloc
 
-/* The original system declaration. */
-static char *
-_system_getcwd (char *buffer, size_t size)
+/* Replacement function for malloc for systems where malloc (0) returns
+   a NULL pointer. */
+void *
+_libcfunk_malloc (size_t size)
 {
-#if HAVE__GETCWD
-  return _getcwd (buffer, size);
-#else
-  return getcwd (buffer, size);
-#endif
-}
+  /* Make sure malloc returns a value. */
+  if (size == 0)
+    size = 1;
 
-char *
-_libcfunk_getcwd (char *buffer, size_t size)
-{
-  char *return_value;
-  char *ptr;
-  char stack_buffer[2048];
-
-  /* If BUFFER isn't NULL assume it points to a valid block of SIZE bytes. */
-  if (buffer != NULL)
-    {
-      if (size > 0)
-        return _system_getcwd (buffer, size);
-      else /* Buffer is not NULL and size is 0. */
-        {
-          errno = EINVAL;
-          return NULL;
-        }
-    }
-
-  /* If BUFFER is NULL and SIZE isn't 0, assume that is the number of bytes the
-     caller wants allocated. */
-  if (size > 0)
-    {
-      buffer = malloc (size);
-      if (buffer == NULL)
-        return NULL;
-      return_value = _system_getcwd (buffer, size);
-      if (return_value == NULL)
-        {
-          free (buffer);
-          buffer = NULL;
-        }
-      return return_value;
-    }
-
-  /* TODO: Fails on directory names over 2048 bytes long... */
-  ptr = _system_getcwd (stack_buffer, sizeof (stack_buffer));
-  if (ptr == NULL)
-    return NULL;
-  return strdup (ptr);
+  return malloc (size);
 }

@@ -54,6 +54,7 @@
 #cmakedefine01 HAVE_C23_STATIC_ASSERT
 #cmakedefine01 HAVE_C99_BOOL
 #cmakedefine01 HAVE_C99__EXIT
+#cmakedefine01 HAVE_CALLOC
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
@@ -66,6 +67,7 @@
 #cmakedefine01 HAVE_DEV_PTC
 #cmakedefine01 HAVE_DEV_PTM
 #cmakedefine01 HAVE_DEV_PTMX
+#cmakedefine01 HAVE_DIRECT_H
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DUP2
 #cmakedefine01 HAVE_DYSIZE
@@ -105,6 +107,7 @@
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
 #cmakedefine01 HAVE_FORK
+#cmakedefine01 HAVE_FREE
 #cmakedefine01 HAVE_FSEEK
 #cmakedefine01 HAVE__FSEEKI64
 #cmakedefine01 HAVE_FSEEKO
@@ -116,6 +119,7 @@
 #cmakedefine01 HAVE_GETCHAR_UNLOCKED
 #cmakedefine01 HAVE__GETC_NOLOCK
 #cmakedefine01 HAVE_GETC_UNLOCKED
+#cmakedefine01 HAVE__GETCWD
 #cmakedefine01 HAVE_GETCWD
 #cmakedefine01 HAVE_GETDELIM
 #cmakedefine01 HAVE_GETEGID
@@ -175,6 +179,7 @@
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE__LOCK_FILE
+#cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
@@ -204,6 +209,7 @@
 #cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_RAWMEMCHR
+#cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
@@ -217,6 +223,7 @@
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
+#cmakedefine01 HAVE_STDDEF_H
 #cmakedefine01 HAVE_STDINT_H
 #cmakedefine01 HAVE_STDIO_H
 #cmakedefine01 HAVE_STDLIB_H
@@ -337,5 +344,17 @@
 #cmakedefine01 HAVE_WMEMMOVE
 #cmakedefine01 HAVE_WMEMSET
 #cmakedefine01 HAVE___XPG_STRERROR_R
+
+#cmakedefine01 CALLOC_0_0_RETURNS_NONNULL
+#cmakedefine01 FREE_NULL_IS_NOP
+#cmakedefine01 GETCWD_NULL_0_ALLOCATES_MEMORY
+#cmakedefine01 MALLOC_0_RETURNS_NONNULL
+#cmakedefine01 REALLOC_NULL_0_RETURNS_NONNULL
+
+#cmakedefine01 LIBCFUNK_REPLACE_CALLOC
+#cmakedefine01 LIBCFUNK_REPLACE_FREE
+#cmakedefine01 LIBCFUNK_REPLACE_GETCWD
+#cmakedefine01 LIBCFUNK_REPLACE_MALLOC
+#cmakedefine01 LIBCFUNK_REPLACE_REALLOC
 
 #endif /* CONFIG_H */

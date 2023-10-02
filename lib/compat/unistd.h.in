@@ -40,6 +40,15 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+/* Windows. */
+#if @HAVE_IO_H@
+#  include <io.h>
+#endif
+
+#if @HAVE_DIRECT_H@
+#  include <direct.h>
+#endif
+
 #ifndef STDIN_FILENO
 #  define STDIN_FILENO 0
 #endif
@@ -94,8 +103,10 @@ extern void endusershell (void);
 #endif
 
 #if @LIBCFUNK_DECLARE_GETCWD@
-#  if !@HAVE_GETCWD@
-extern char *getcwd (char *buffer, size_t size);
+#  if @LIBCFUNK_REPLACE_GETCWD@
+#    undef getcwd
+#    define getcwd _libcfunk_getcwd
+extern char *_libcfunk_getcwd (char *buffer, size_t size);
 #  endif
 #endif
 

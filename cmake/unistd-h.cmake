@@ -7,6 +7,8 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 set(LIBCFUNK_GENERATE_UNISTD_H "1" CACHE INTERNAL "")
 
 check_include_file("unistd.h" HAVE_UNISTD_H)
+check_include_file("io.h" HAVE_IO_H)
+check_include_file("direct.h" HAVE_DIRECT_H)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_CHOWN "0" CACHE INTERNAL "")
@@ -31,3 +33,5 @@ set(LIBCFUNK_DECLARE_EXECLP "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_EXECV "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_EXECVP "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_EXECVPE "0" CACHE INTERNAL "")
+
+set(LIBCFUNK_REPLACE_GETCWD "0" CACHE INTERNAL "")

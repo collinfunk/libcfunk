@@ -25,63 +25,44 @@
 
 #include <config.h>
 
-#include <errno.h>
+#include <stddef.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <string.h>
 
-/* Don't call ourselves. */
-#undef getcwd
+#include "test-help.h"
 
-/* The original system declaration. */
-static char *
-_system_getcwd (char *buffer, size_t size)
+static char buffer[2048];
+
+/* Length of the current directory. */
+static size_t cwd_len;
+
+int
+main (void)
 {
-#if HAVE__GETCWD
-  return _getcwd (buffer, size);
-#else
-  return getcwd (buffer, size);
-#endif
-}
+  char *ptr = NULL;
 
-char *
-_libcfunk_getcwd (char *buffer, size_t size)
-{
-  char *return_value;
-  char *ptr;
-  char stack_buffer[2048];
+  /* Make sure that passing a non-NULL pointer doesn't allocate memory. */
+  ASSERT (getcwd (buffer, sizeof (buffer)) != NULL);
+  cwd_len = strlen (buffer);
 
-  /* If BUFFER isn't NULL assume it points to a valid block of SIZE bytes. */
-  if (buffer != NULL)
-    {
-      if (size > 0)
-        return _system_getcwd (buffer, size);
-      else /* Buffer is not NULL and size is 0. */
-        {
-          errno = EINVAL;
-          return NULL;
-        }
-    }
+  /* Allocate enough bytes for the CWD + NUL byte. */
+  ptr = getcwd (NULL, cwd_len + 1);
+  ASSERT (ptr != NULL);
+  ASSERT (strcmp (ptr, buffer) == 0);
 
-  /* If BUFFER is NULL and SIZE isn't 0, assume that is the number of bytes the
-     caller wants allocated. */
-  if (size > 0)
-    {
-      buffer = malloc (size);
-      if (buffer == NULL)
-        return NULL;
-      return_value = _system_getcwd (buffer, size);
-      if (return_value == NULL)
-        {
-          free (buffer);
-          buffer = NULL;
-        }
-      return return_value;
-    }
+  /* Cleanup the memory. */
+  free (ptr);
+  ptr = NULL;
 
-  /* TODO: Fails on directory names over 2048 bytes long... */
-  ptr = _system_getcwd (stack_buffer, sizeof (stack_buffer));
-  if (ptr == NULL)
-    return NULL;
-  return strdup (ptr);
+  /* Test that memory is allocated when passing a NULL pointer and 0 size. */
+  ptr = getcwd (NULL, 0);
+  ASSERT (ptr != NULL);
+  ASSERT (strcmp (ptr, buffer) == 0);
+
+  /* Cleanup the memory. */
+  free (ptr);
+
+  return 0;
 }

@@ -165,4 +165,37 @@ extern int posix_openpt (int flags);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_MALLOC@
+#  if @LIBCFUNK_REPLACE_MALLOC@
+#    undef malloc
+#    define malloc _libcfunk_malloc
+extern void *_libcfunk_malloc (size_t size);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CALLOC@
+#  if @LIBCFUNK_REPLACE_CALLOC@
+#    undef calloc
+#    define calloc _libcfunk_calloc
+extern void *_libcfunk_calloc (size_t nelem, size_t elsize);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_REALLOC@
+#  if @LIBCFUNK_REPLACE_REALLOC@
+#    undef realloc
+#    define realloc _libcfunk_realloc
+extern void *_libcfunk_realloc (void *ptr, size_t size);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FREE@
+#  if @LIBCFUNK_REPLACE_FREE@
+#    undef free
+#    define free _libcfunk_free
+extern void _libcfunk_free (void *ptr);
+#  endif
+#endif
+
+
 #endif /* COMPAT_STDLIB_H */
