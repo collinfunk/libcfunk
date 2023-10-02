@@ -5,6 +5,15 @@ project(libcfunk LANGUAGES C)
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Cache variables required before libcfunk-init.cmake
+set(LIBCFUNK_LIBRARY_NAME "cfunk" CACHE STRING "")
+set(LIBCFUNK_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/lib" CACHE STRING "")
+set(LIBCFUNK_TEST_SOURCE_DIR "${CMAKE_CURRENT_LIST_DIR}/tests" CACHE STRING "")
+set(LIBCFUNK_BUILD_DIR "${CMAKE_BINARY_DIR}/lib" CACHE STRING "")
+set(LIBCFUNK_TEST_BUILD_DIR "${CMAKE_BINARY_DIR}/tests" CACHE STRING "")
+set(LIBCFUNK_MODULE_DIR "${CMAKE_CURRENT_LIST_DIR}/cmake" CACHE STRING "")
+set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
+
 include(cmake/libcfunk-init.cmake)
 
 include(cmake/abs.cmake)

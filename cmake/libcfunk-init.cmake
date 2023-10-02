@@ -10,37 +10,60 @@ include(CheckIncludeFiles)
 include(CheckCSourceCompiles)
 include(CheckCSourceRuns)
 
-# Cache variables for directories
-set(LIBCFUNK_LIBRARY_NAME "cfunk" CACHE STRING
-  "The name of the library to build.")
-set(LIBCFUNK_SOURCE_DIR "${CMAKE_SOURCE_DIR}/lib" CACHE STRING
-  "The directory containing all library sources.")
-set(LIBCFUNK_TEST_SOURCE_DIR "${CMAKE_SOURCE_DIR}/tests" CACHE STRING
-  "The directory containing all test sources.")
-set(LIBCFUNK_BUILD_DIR "${CMAKE_BINARY_DIR}" CACHE STRING
-  "The path where all compiled objects and libraries are built.")
-set(LIBCFUNK_TEST_BUILD_DIR "${CMAKE_BINARY_DIR}/tests" CACHE STRING
-  "The path where all test executables go.")
-set(LIBCFUNK_MODULE_DIR "${CMAKE_SOURCE_DIR}/cmake" CACHE STRING
-  "The directory containing all *.cmake files which are used for including
-dependent modules.")
-set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING
-  "The directory containing all generated files and headers used for building
-the library.")
-set(LIBCFUNK_SCRIPT_DIR "${CMAKE_SOURCE_DIR}/scripts" CACHE STRING
-  "The directory containing all helper scripts.")
-set(LIBCFUNK_BUILD_SHARED OFF CACHE BOOL
-  "This library should typically be built as a static library where you
-include what your program needs. Setting this to true will build a shared
-library anyways.")
+# These variables should be set before including this file. They can be
+# defined in a CMakeLists.txt or as a command line option.
+set(LIBCFUNK_LIBRARY_NAME "" CACHE STRING "")
+set(LIBCFUNK_SOURCE_DIR "" CACHE STRING "")
+set(LIBCFUNK_TEST_SOURCE_DIR "" CACHE STRING "")
+set(LIBCFUNK_BUILD_DIR "" CACHE STRING "")
+set(LIBCFUNK_TEST_BUILD_DIR "" CACHE STRING "")
+set(LIBCFUNK_MODULE_DIR "" CACHE STRING "")
+set(LIBCFUNK_CONFIG_DIR "" CACHE STRING "")
 
-# Enable testing by default.
-set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "Build test executables.")
+set(LIBCFUNK_BUILD_SHARED OFF CACHE BOOL "")
+set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "")
 
-# Try to give a useful warning if LIBCFUNK_MODULE_DIR is set incorrectly.
-if (NOT EXISTS $CACHE{LIBCFUNK_MODULE_DIR}/libcfunk-init.cmake)
-  message(FATAL_ERROR "Could not find `libcfunk-init.cmake' in \
-LIBCFUNK_MODULE_DIR. Make sure you set the paths correctly.")
+if ("$CACHE{LIBCFUNK_LIBRARY_NAME}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_LIBRARY_NAME as a cache variable before "
+    "including libcfunk-init.cmake. This is the name that the library is "
+    "linked as without the 'lib' prefix and file extension.")
+endif ()
+
+if ("$CACHE{LIBCFUNK_SOURCE_DIR}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_SOURCE_DIR as a cache variable before "
+    "include libcfunk-init.cmake. This is the directory containing all "
+    "library sources used.")
+endif ()
+
+if ("$CACHE{LIBCFUNK_TEST_SOURCE_DIR}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_TEST_SOURCE_DIR as a cache variable "
+    "before including libcfunk-init.cmake. This is the directory with all "
+    "sources for test executables.")
+endif ()
+
+if ("$CACHE{LIBCFUNK_BUILD_DIR}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_BUILD_DIR as a cache variable before "
+    "including libcfunk-init.cmake. This is the directory where all library "
+    "objects are compiled and linked.")
+endif ()
+
+if ("$CACHE{LIBCFUNK_TEST_BUILD_DIR}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_TEST_BUILD_DIR as a cache variable before "
+    "including libcfunk-init.cmake. This is the directory where all test "
+    "executables are placed.")
+endif ()
+
+if ("$CACHE{LIBCFUNK_MODULE_DIR}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_MODULE_DIR as a cache variable before "
+    "including libcfunk-init.cmake. This directory is where all *.cmake files "
+    "are located. This variable is used internally to include dependent "
+    "modules.")
+endif ()
+
+if ("$CACHE{LIBCFUNK_CONFIG_DIR}" STREQUAL "")
+  message(FATAL_ERROR "Set LIBCFUNK_CONFIG_DIR as a cache variable before "
+    "including libcfunk-init.cmake. This directory is where all generated "
+    "headers are placed.")
 endif ()
 
 # Make sure the configuration directory exists before we try anything.
