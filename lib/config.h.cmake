@@ -122,6 +122,7 @@
 #cmakedefine01 HAVE__GETCWD
 #cmakedefine01 HAVE_GETCWD
 #cmakedefine01 HAVE_GETDELIM
+#cmakedefine01 HAVE_GETDTABLESIZE
 #cmakedefine01 HAVE_GETEGID
 #cmakedefine01 HAVE_GETENTROPY
 #cmakedefine01 HAVE_GETEUID
@@ -131,9 +132,11 @@
 #cmakedefine01 HAVE_GETLINE
 #cmakedefine01 HAVE_GETLOGIN
 #cmakedefine01 HAVE_GETLOGIN_R
+#cmakedefine01 HAVE__GETMAXSTDIO
 #cmakedefine01 HAVE_GETPAGESIZE
 #cmakedefine01 HAVE_GETPROGNAME
 #cmakedefine01 HAVE_GETRANDOM
+#cmakedefine01 HAVE_GETRLIMIT
 #cmakedefine01 HAVE_GETTIMEOFDAY
 #cmakedefine01 HAVE_GETUID
 #cmakedefine01 HAVE_GETUSERHSELL
@@ -277,11 +280,13 @@
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
 #cmakedefine01 HAVE_SWAB
+#cmakedefine01 HAVE_SYSCONF
 #cmakedefine01 HAVE_SYS_ENDIAN_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_PARAM_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
+#cmakedefine01 HAVE_SYS_RESOURCE_H
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H

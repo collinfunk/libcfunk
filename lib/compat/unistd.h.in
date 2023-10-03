@@ -200,4 +200,10 @@ extern int execvpe (const char *file, char *const argv[], char *const envp[]);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GETDTABLESIZE@
+#  if !@HAVE_GETDTABLESIZE@
+extern int getdtablesize (void);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
