@@ -26,42 +26,39 @@
 #include <config.h>
 
 #include <fcntl.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "null-device.h"
-#include "open-standard-streams.h"
+#include "test-help.h"
 
-/* FIXME: Not sure if Windows has an equivalent to /dev/null. */
 int
-open_standard_streams (void)
+main (void)
 {
-  int stdin_fd, stdout_fd, stderr_fd, fd;
+  int fd;
+  char buffer[2048];
+  size_t i;
 
-  stdin_fd = fcntl (STDIN_FILENO, F_GETFD);
-  if (stdin_fd < 0)
-    {
-      fd = open (NULL_DEVICE, O_WRONLY);
-      if (fd != STDIN_FILENO)
-        return -1;
-    }
+  fd = open (NULL_DEVICE, O_RDONLY);
 
-  stdout_fd = fcntl (STDOUT_FILENO, F_GETFD);
-  if (stdout_fd < 0)
-    {
-      fd = open (NULL_DEVICE, O_RDONLY);
-      if (fd != STDOUT_FILENO)
-        return -1;
-    }
+  /* If the NULL_DEVICE macro is set correctly. All reads should return 0. */
+  ASSERT (fd >= 0);
+  ASSERT (read (fd, buffer, sizeof (buffer)) == 0);
+  ASSERT (close (fd) == 0);
 
-  stderr_fd = fcntl (STDERR_FILENO, F_GETFD);
-  if (stderr_fd < 0)
-    {
-      fd = open (NULL_DEVICE, O_RDONLY);
-      if (fd != STDERR_FILENO)
-        return -1;
-    }
+  /* Silence any warnings about uninitialized memory. */
+  for (i = 0; i < sizeof (buffer); ++i)
+    buffer[i] = (char) i;
+
+  fd = open (NULL_DEVICE, O_WRONLY);
+
+  /* If the NULL_DEVICE macro is set correctly, it should accept whatever we
+     attempt to write to it. */
+  ASSERT (fd >= 0);
+  ASSERT ((size_t) write (fd, buffer, sizeof (buffer)) == sizeof (buffer));
+  ASSERT (close (fd) == 0);
 
   return 0;
 }

@@ -23,45 +23,18 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef NULL_DEVICE_H
+#define NULL_DEVICE_H
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+/* This file defines the macro 'NULL_DEVICE' to a file path which can be used
+   to open the systems null device. */
 
-#include "null-device.h"
-#include "open-standard-streams.h"
+#undef NULL_DEVICE
 
-/* FIXME: Not sure if Windows has an equivalent to /dev/null. */
-int
-open_standard_streams (void)
-{
-  int stdin_fd, stdout_fd, stderr_fd, fd;
+#ifdef _WIN32
+#  define NULL_DEVICE "nul"
+#else
+#  define NULL_DEVICE "/dev/null"
+#endif
 
-  stdin_fd = fcntl (STDIN_FILENO, F_GETFD);
-  if (stdin_fd < 0)
-    {
-      fd = open (NULL_DEVICE, O_WRONLY);
-      if (fd != STDIN_FILENO)
-        return -1;
-    }
-
-  stdout_fd = fcntl (STDOUT_FILENO, F_GETFD);
-  if (stdout_fd < 0)
-    {
-      fd = open (NULL_DEVICE, O_RDONLY);
-      if (fd != STDOUT_FILENO)
-        return -1;
-    }
-
-  stderr_fd = fcntl (STDERR_FILENO, F_GETFD);
-  if (stderr_fd < 0)
-    {
-      fd = open (NULL_DEVICE, O_RDONLY);
-      if (fd != STDERR_FILENO)
-        return -1;
-    }
-
-  return 0;
-}
+#endif /* NULL_DEVICE_H */

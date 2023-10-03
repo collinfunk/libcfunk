@@ -29,6 +29,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "null-device.h"
+
 /* 4.4BSD-like daemon(3) function. */
 
 int
@@ -60,7 +62,7 @@ daemon (int nochdir, int noclose)
      NOCLOSE is set. */
   if (!noclose)
     {
-      fd = open ("/dev/null", O_RDWR);
+      fd = open (NULL_DEVICE, O_RDWR);
       if (fd < 0)
         return -1;
       else

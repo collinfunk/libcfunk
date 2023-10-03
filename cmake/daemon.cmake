@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/_Exit.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/null-device.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("daemon" "unistd.h" HAVE_DAEMON)
