@@ -23,61 +23,25 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_TIME_H
-#define COMPAT_TIME_H
+#include <config.h>
 
-#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-/* Show dysize if the system has it. */
-#ifdef __GLIBC__
-#  define  __DEFAULT_SOURCE
-#endif
+#include "test-help.h"
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+/* Check that localtime_r is declared in time.h. */
+int
+main (void)
+{
+  time_t current_time;
+  struct tm tm;
 
-#if @HAVE_TIME_H@
-#  include_next <time.h>
-#endif
+  current_time = time (NULL);
+  ASSERT (current_time != (time_t) -1);
+  ASSERT (localtime_r (&current_time, &tm) != NULL);
+  printf ("localtime_r (): %s\n", asctime (&tm));
 
-/* HAVE_STRUCT_TIMESPEC */
-/* HAVE_STRUCT_ITIMERSPEC */
-
-/* I think this is implementation defined, but it is defined as 1 everywhere I
-   have seen. */
-#ifndef TIME_UTC
-#  define TIME_UTC 1
-#endif
-
-#if @LIBCFUNK_DECLARE_DYSIZE@
-#  if !@HAVE_DYSIZE@
-extern int dysize (int year);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_TIMESPEC_GET@
-#  if !@HAVE_TIMESPEC_GET@
-extern int timespec_get (struct timespec *ts, int base);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_TIMESPEC_GETRES@
-#  if !@HAVE_TIMESPEC_GETRES@
-extern int timespec_getres (struct timespec *ts, int base);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GMTIME_R@
-#  if !@HAVE_GMTIME_R@
-extern struct tm *gmtime_r (const time_t *timer, struct tm *result);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_LOCALTIME_R@
-#  if !@HAVE_LOCALTIME_R@
-extern struct tm *localtime_r (const time_t *timer, struct tm *result);
-#  endif
-#endif
-
-#endif /* COMPAT_TIME_H */
+  return 0;
+}

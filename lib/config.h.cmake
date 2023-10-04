@@ -142,6 +142,7 @@
 #cmakedefine01 HAVE_GETUSERHSELL
 #cmakedefine01 HAVE_GETUSERSHELL
 #cmakedefine01 HAVE_GID_T
+#cmakedefine01 HAVE_GMTIME_R
 #cmakedefine01 HAVE_GROUP_MEMBER
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_INCLUDE_NEXT
@@ -181,6 +182,7 @@
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
+#cmakedefine01 HAVE_LOCALTIME_R
 #cmakedefine01 HAVE__LOCK_FILE
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
