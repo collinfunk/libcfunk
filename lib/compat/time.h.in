@@ -41,8 +41,21 @@
 #  include_next <time.h>
 #endif
 
-/* HAVE_STRUCT_TIMESPEC */
-/* HAVE_STRUCT_ITIMERSPEC */
+#if !@HAVE_STRUCT_TIMESPEC@
+struct timespec
+{
+  time_t tv_sec;
+  long tv_nsec;
+};
+#endif
+
+#if !@HAVE_STRUCT_ITIMERSPEC@
+struct itimerspec
+{
+  struct timespec it_interval;
+  struct timespec it_value;
+};
+#endif
 
 /* I think this is implementation defined, but it is defined as 1 everywhere I
    have seen. */

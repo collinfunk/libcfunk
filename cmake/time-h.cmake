@@ -6,6 +6,16 @@ set(LIBCFUNK_GENERATE_TIME_H "1" CACHE INTERNAL "")
 
 check_include_file("time.h" HAVE_TIME_H)
 
+if (HAVE_TIME_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "time.h")
+  check_type_size("struct timespec" STRUCT_TIMESPEC)
+  check_type_size("struct itimerspec" STRUCT_ITIMERSPEC)
+  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "time.h")
+else ()
+  set(HAVE_STRUCT_TIMESPEC "" CACHE INTERNAL "")
+  set(HAVE_STRUCT_ITIMERSPEC "" CACHE INTERNAL "")
+endif ()
+
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_DYSIZE "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_TIMESPEC_GET "0" CACHE INTERNAL "")
