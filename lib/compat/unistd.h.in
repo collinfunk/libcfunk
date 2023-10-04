@@ -61,6 +61,22 @@
 #  define STDERR_FILENO 2
 #endif
 
+#ifndef F_OK
+#  define F_OK 0
+#endif
+
+#ifndef R_OK
+#  define R_OK 1
+#endif
+
+#ifndef W_OK
+#  define W_OK 2
+#endif
+
+#ifndef X_OK
+#  define X_OK 4
+#endif
+
 #if @LIBCFUNK_DECLARE_ENVIRON@
 #  if !@HAVE_ENVIRON@
 #    if @HAVE_CRT_EXTERNS_H@ && @HAVE__NSGETENVIRON@
@@ -203,6 +219,12 @@ extern int execvpe (const char *file, char *const argv[], char *const envp[]);
 #if @LIBCFUNK_DECLARE_GETDTABLESIZE@
 #  if !@HAVE_GETDTABLESIZE@
 extern int getdtablesize (void);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_PIPE@
+#  if !@HAVE_PIPE@
+extern int pipe (int fd[2]);
 #  endif
 #endif
 

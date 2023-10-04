@@ -108,6 +108,8 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
   list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_GNU_SOURCE")
 endif ()
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
+
 # Internal cache values to signal libcfunk-final needs to create headers.
 set(LIBCFUNK_GENERATE_ALLOCA_H "0" CACHE INTERNAL "")
 set(LIBCFUNK_GENERATE_ASSERT_H "0" CACHE INTERNAL "")

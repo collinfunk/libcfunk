@@ -201,6 +201,8 @@
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
 #cmakedefine01 HAVE_ON_EXIT
+#cmakedefine01 HAVE__PIPE
+#cmakedefine01 HAVE_PIPE
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
