@@ -23,43 +23,27 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_TERMIOS_H
-#define COMPAT_TERMIOS_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
-
-#if @HAVE_TERMIOS_H@
-#  include_next <termios.h>
-#endif
+#include <config.h>
 
 #include <sys/types.h>
-#include <sys/ioctl.h>
 
-#ifndef NCCS
-#  define NCCS 20
+#include <errno.h>
+#include <termios.h>
+
+#if HAVE_SYS_IOCTL_H
+#  include <sys/ioctl.h>
 #endif
 
-#if !@HAVE_STRUCT_TERMIOS@
-/* Termios struct defined for systems without it. Don't bother defining
-   tcflag_t, cc_t, and speed_t. */
-struct termios
+pid_t
+tcgetsid (int fd)
 {
-  unsigned int c_iflag;
-  unsigned int c_oflag;
-  unsigned int c_cflag;
-  unsigned int c_lflag;
-  unsigned char c_cc[NCCS];
-  unsigned int c_ispeed;
-  unsigned int c_ospeed;
-};
+#ifdef TIOCGSID
+  pid_t session_id;
+  if (ioctl (fd, TIOCGSID, &session_id) < 0)
+    return -1;
+  return session_id;
+#else
+  errno = ENOSYS;
+  return -1;
 #endif
-
-#if @LIBCFUNK_DECLARE_TCGETSID@
-#  if !@HAVE_TCGETSID@
-extern pid_t tcgetsid (int fd);
-#  endif
-#endif
-
-#endif /* COMPAT_TERMIOS_H */
+}

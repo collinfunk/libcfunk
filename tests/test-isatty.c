@@ -23,43 +23,18 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_TERMIOS_H
-#define COMPAT_TERMIOS_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <unistd.h>
+#include <stdio.h>
 
-#if @HAVE_TERMIOS_H@
-#  include_next <termios.h>
-#endif
-
-#include <sys/types.h>
-#include <sys/ioctl.h>
-
-#ifndef NCCS
-#  define NCCS 20
-#endif
-
-#if !@HAVE_STRUCT_TERMIOS@
-/* Termios struct defined for systems without it. Don't bother defining
-   tcflag_t, cc_t, and speed_t. */
-struct termios
+int
+main (void)
 {
-  unsigned int c_iflag;
-  unsigned int c_oflag;
-  unsigned int c_cflag;
-  unsigned int c_lflag;
-  unsigned char c_cc[NCCS];
-  unsigned int c_ispeed;
-  unsigned int c_ospeed;
-};
-#endif
-
-#if @LIBCFUNK_DECLARE_TCGETSID@
-#  if !@HAVE_TCGETSID@
-extern pid_t tcgetsid (int fd);
-#  endif
-#endif
-
-#endif /* COMPAT_TERMIOS_H */
+  int value = isatty (STDOUT_FILENO);
+  if (value)
+    printf ("STDOUT is a tty.\n");
+  else
+    printf ("STDOUT is not a tty.\n");
+  return 0;
+}

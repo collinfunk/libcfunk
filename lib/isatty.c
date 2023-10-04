@@ -23,43 +23,37 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_TERMIOS_H
-#define COMPAT_TERMIOS_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <errno.h>
+#include <unistd.h>
+
+#if HAVE_IO_H
+#  include <io.h>
 #endif
 
-#if @HAVE_TERMIOS_H@
-#  include_next <termios.h>
+#if HAVE_WINDOWS_H
+#  include <windows.h>
 #endif
 
-#include <sys/types.h>
-#include <sys/ioctl.h>
-
-#ifndef NCCS
-#  define NCCS 20
-#endif
-
-#if !@HAVE_STRUCT_TERMIOS@
-/* Termios struct defined for systems without it. Don't bother defining
-   tcflag_t, cc_t, and speed_t. */
-struct termios
+/* https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/get-osfhandle?view=msvc-170 */
+/* https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/isatty?view=msvc-170 */
+/* https://learn.microsoft.com/en-us/windows/console/getconsolemode */
+int
+isatty (int fd)
 {
-  unsigned int c_iflag;
-  unsigned int c_oflag;
-  unsigned int c_cflag;
-  unsigned int c_lflag;
-  unsigned char c_cc[NCCS];
-  unsigned int c_ispeed;
-  unsigned int c_ospeed;
-};
-#endif
-
-#if @LIBCFUNK_DECLARE_TCGETSID@
-#  if !@HAVE_TCGETSID@
-extern pid_t tcgetsid (int fd);
-#  endif
-#endif
-
-#endif /* COMPAT_TERMIOS_H */
+  HANDLE handle = (HANDLE) _get_osfhandle (fd);
+  if (handle == INVALID_HANDLE_VALUE)
+    {
+      errno = EBADF;
+      return 0;
+    }
+  if (_isatty (fd))
+    {
+      DWORD mode;
+      if (GetConsoleMode (handle, &mode))
+        return 1;
+    }
+  errno = ENOTTY;
+  return 0;
+}

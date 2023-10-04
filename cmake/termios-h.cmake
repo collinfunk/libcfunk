@@ -31,6 +31,8 @@ else ()
   set(HAVE_STRUCT_TERMIOS "" CACHE INTERNAL "")
 endif ()
 
+set(LIBCFUNK_DECLARE_TCGETSID "0" CACHE INTERNAL "")
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-termios-h.cmake)
 endif ()

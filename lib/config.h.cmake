@@ -168,6 +168,8 @@
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
 #cmakedefine01 HAVE_ISASCII
+#cmakedefine01 HAVE__ISATTY
+#cmakedefine01 HAVE_ISATTY
 #cmakedefine01 HAVE_ISBLANK
 #cmakedefine01 HAVE_ISCNTRL
 #cmakedefine01 HAVE_ISDIGIT
@@ -297,6 +299,7 @@
 #cmakedefine01 HAVE_SYS_TTY_H
 #cmakedefine01 HAVE_SYS_TYPES_H
 #cmakedefine01 HAVE_SYS_WAIT_H
+#cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_TIMESPEC_GET

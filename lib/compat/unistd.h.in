@@ -228,4 +228,11 @@ extern int pipe (int fd[2]);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_ISATTY@
+#  if !@HAVE_ISATTY@ || @HAVE__ISATTY@
+#    undef isatty
+extern int isatty (int fd);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
