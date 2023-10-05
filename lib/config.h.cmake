@@ -212,6 +212,7 @@
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
+#cmakedefine01 HAVE_PTSNAME
 #cmakedefine01 HAVE_PTY_H
 #cmakedefine01 HAVE__PUTCHAR_NOLOCK
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
@@ -220,6 +221,7 @@
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
+#cmakedefine01 HAVE_REVOKE
 #cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
 #cmakedefine01 HAVE_SCHED_H
@@ -329,6 +331,7 @@
 #cmakedefine01 HAVE_UINTPTR_T
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE__UNLOCK_FILE
+#cmakedefine01 HAVE_UNLOCKPT
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
 #cmakedefine01 HAVE_VERRX

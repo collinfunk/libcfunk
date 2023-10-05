@@ -25,16 +25,28 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
+
+#include "test-help.h"
 
 int
 main (void)
 {
-  int value = isatty (STDOUT_FILENO);
-  if (value)
-    printf ("STDOUT is a tty.\n");
+  ASSERT (unlockpt (-1) == -1);
+  if (errno == ENOSYS)
+    {
+      fprintf (stderr, "unlockpt not supported on your system.\n");
+      return 1;
+    }
   else
-    printf ("STDOUT is not a tty.\n");
+    {
+      if (errno != EINVAL && errno != EBADF)
+        {
+          fprintf (stderr, "unlockpt returned a bad value for errno.\n");
+          return 1;
+        }
+    }
   return 0;
 }

@@ -25,16 +25,35 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <sys/ioctl.h>
 
 int
-main (void)
+unlockpt (int fd)
 {
-  int value = isatty (STDOUT_FILENO);
-  if (value)
-    printf ("STDOUT is a tty.\n");
-  else
-    printf ("STDOUT is not a tty.\n");
-  return 0;
+#ifdef TIOCSPTLCK
+  int unlock = 0;
+  int result = ioctl (fd, TIOCSPTLCK, &unlock);
+  /* ioctl sets errno to ENOTTY if FD is invalid. POSIX requires unlockpt to
+     set errrno to EINVAL in this case. */
+  if (result != 0)
+    {
+      if (errno == ENOTTY)
+        errno = EINVAL;
+    }
+  return result;
+#elif HAVE_PTSNAME && HAVE_REVOKE
+  char *name = ptsname (fd);
+  if (name == NULL)
+    {
+      if (errno == ENOTTY)
+        errno = EINVAL;
+      return -1;
+    }
+  return revoke (name);
+#else /* Just fail and assume TTY's aren't supported. */
+  errno = ENOSYS;
+  return -1;
+#endif
 }

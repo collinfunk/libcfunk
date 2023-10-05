@@ -197,5 +197,10 @@ extern void _libcfunk_free (void *ptr);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_UNLOCKPT@
+#  if !@HAVE_UNLOCKPT@
+extern int unlockpt (int fd);
+#  endif
+#endif
 
 #endif /* COMPAT_STDLIB_H */
