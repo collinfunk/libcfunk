@@ -203,4 +203,10 @@ extern int unlockpt (int fd);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_REALLOCF@
+#  if !@HAVE_REALLOCF@
+extern void *reallocf (void *ptr, size_t size);
+#  endif
+#endif
+
 #endif /* COMPAT_STDLIB_H */
