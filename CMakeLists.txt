@@ -184,6 +184,7 @@ include(cmake/strtoumax.cmake)
 include(cmake/strverscmp.cmake)
 include(cmake/swab.cmake)
 include(cmake/sys-endian-h.cmake)
+include(cmake/sys-file-h.cmake)
 include(cmake/sys-ioctl-h.cmake)
 include(cmake/sys-random-h.cmake)
 include(cmake/sys-stat-h.cmake)
@@ -226,6 +227,9 @@ if (UNIX)
   include(cmake/cloexec.cmake)
   include(cmake/daemon.cmake)
   include(cmake/posix-openpt.cmake)
+
+  # FIXME: Add implementation using Windows fileapi.h
+  include(cmake/flock.cmake)
 
   # These two rely on minimal functionality of fcntl which can probably
   # be easily emulated on Windows.

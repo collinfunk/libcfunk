@@ -102,6 +102,7 @@
 #cmakedefine01 HAVE_FFSLL
 #cmakedefine01 HAVE__FILENO
 #cmakedefine01 HAVE_FILENO
+#cmakedefine01 HAVE_FLOCK
 #cmakedefine01 HAVE_FLOCKFILE
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
@@ -221,6 +222,7 @@
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
+#cmakedefine01 HAVE_REALLOCF
 #cmakedefine01 HAVE_REVOKE
 #cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
@@ -270,6 +272,12 @@
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
+#cmakedefine01 HAVE_STRUCT_FLOCK
+#cmakedefine01 HAVE_STRUCT_FLOCK_L_LEN
+#cmakedefine01 HAVE_STRUCT_FLOCK_L_PID
+#cmakedefine01 HAVE_STRUCT_FLOCK_L_START
+#cmakedefine01 HAVE_STRUCT_FLOCK_L_TYPE
+#cmakedefine01 HAVE_STRUCT_FLOCK_L_WHENCE
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_PTMGET
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
@@ -290,6 +298,7 @@
 #cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_SYSCONF
 #cmakedefine01 HAVE_SYS_ENDIAN_H
+#cmakedefine01 HAVE_SYS_FILE_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_PARAM_H

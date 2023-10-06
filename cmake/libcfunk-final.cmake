@@ -160,6 +160,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_ENDIAN_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_FILE_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/file.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/file.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_IOCTL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/ioctl.h.in
