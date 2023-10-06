@@ -26,7 +26,6 @@ function (substitute_header template_file output_file)
   )
 endfunction ()
 
-
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
@@ -202,6 +201,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_TYPES_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_UTSNAME_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/utsname.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/utsname.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_WAIT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/wait.h.in
@@ -209,17 +215,17 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_WAIT_H})
   )
 endif ()
 
-if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
-  substitute_header(
-    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/time.h.in
-    $CACHE{LIBCFUNK_CONFIG_DIR}/time.h
-  )
-endif ()
-
 if ($CACHE{LIBCFUNK_GENERATE_TERMIOS_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/termios.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/termios.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/time.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/time.h
   )
 endif ()
 

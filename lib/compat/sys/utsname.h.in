@@ -23,67 +23,34 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef COMPAT_SYS_UTSNAME_H
+#define COMPAT_SYS_UTSNAME_H
 
-#include <sys/file.h>
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#if @HAVE_SYS_UTSNAME_H@
+#  include_next <sys/utsname.h>
+#endif
 
-#include "test-help.h"
-
-#undef TEST_FILE_NAME
-
-#define TEST_FILE_NAME "test-flock.tmp"
-
-static void test_shared_lock (void);
-static void test_exclusive_lock (void);
-
-/* Basic tests for flock. */
-int
-main (void)
+/* POSIX doesn't define the size of each member in 'struct utsname'.
+   4.4BSD uses 256 bytes for each and I assume that should always be enough. */
+#if !@HAVE_STRUCT_UTSNAME@
+struct utsname
 {
-  test_shared_lock ();
-  test_exclusive_lock ();
-  remove (TEST_FILE_NAME);
-  return 0;
-}
+  char sysname[256];
+  char nodename[256];
+  char release[256];
+  char version[256];
+  char machine[256];
+};
+#endif
 
-static void
-test_shared_lock (void)
-{
-  int fd1, fd2;
+#if @LIBCFUNK_DECLARE_UNAME@
+#  if !@HAVE_UNAME@
+extern int uname (struct utsname *name);
+#  endif
+#endif
 
-  fd1 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd1 >= 0);
-  ASSERT (flock (fd1, LOCK_SH) == 0);
-
-  fd2 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd2 >= 0);
-  ASSERT (flock (fd2, LOCK_SH | LOCK_NB) == 0);
-
-  ASSERT (flock (fd1, LOCK_UN) == 0);
-  ASSERT (flock (fd2, LOCK_UN) == 0);
-  ASSERT (close (fd1) == 0);
-  ASSERT (close (fd2) == 0);
-}
-
-static void
-test_exclusive_lock (void)
-{
-  int fd1, fd2;
-
-  fd1 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd1 >= 0);
-  ASSERT (flock (fd1, LOCK_EX) == 0);
-
-  fd2 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd2 >= 0);
-  ASSERT (flock (fd2, LOCK_EX | LOCK_UN) == -1);
-
-  ASSERT (flock (fd1, LOCK_UN) == 0);
-  ASSERT (close (fd1) == 0);
-  ASSERT (close (fd2) == 0);
-}
+#endif /* COMPAT_SYS_UTSNAME_H */

@@ -25,65 +25,28 @@
 
 #include <config.h>
 
-#include <sys/file.h>
+#include <sys/utsname.h>
 
-#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 #include "test-help.h"
 
-#undef TEST_FILE_NAME
-
-#define TEST_FILE_NAME "test-flock.tmp"
-
-static void test_shared_lock (void);
-static void test_exclusive_lock (void);
-
-/* Basic tests for flock. */
+/* Check that the uname function works as expected. */
 int
 main (void)
 {
-  test_shared_lock ();
-  test_exclusive_lock ();
-  remove (TEST_FILE_NAME);
+  struct utsname name;
+
+  /* Should never fail. */
+  ASSERT (uname (&name) != -1);
+
+  /* Check that each member is terminated by a NUL byte. */
+  printf ("sysname:  %s\n", name.sysname);
+  printf ("nodename: %s\n", name.nodename);
+  printf ("release:  %s\n", name.release);
+  printf ("version:  %s\n", name.version);
+  printf ("machine:  %s\n", name.machine);
+
   return 0;
-}
-
-static void
-test_shared_lock (void)
-{
-  int fd1, fd2;
-
-  fd1 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd1 >= 0);
-  ASSERT (flock (fd1, LOCK_SH) == 0);
-
-  fd2 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd2 >= 0);
-  ASSERT (flock (fd2, LOCK_SH | LOCK_NB) == 0);
-
-  ASSERT (flock (fd1, LOCK_UN) == 0);
-  ASSERT (flock (fd2, LOCK_UN) == 0);
-  ASSERT (close (fd1) == 0);
-  ASSERT (close (fd2) == 0);
-}
-
-static void
-test_exclusive_lock (void)
-{
-  int fd1, fd2;
-
-  fd1 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd1 >= 0);
-  ASSERT (flock (fd1, LOCK_EX) == 0);
-
-  fd2 = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd2 >= 0);
-  ASSERT (flock (fd2, LOCK_EX | LOCK_UN) == -1);
-
-  ASSERT (flock (fd1, LOCK_UN) == 0);
-  ASSERT (close (fd1) == 0);
-  ASSERT (close (fd2) == 0);
 }
