@@ -43,15 +43,96 @@ int
 uname (struct utsname *name)
 {
   SYSTEM_INFO system_info;
+  OSVERSIONINFOEX extended_version_info;
+
+  memset (&extended_version_info, 0, sizeof (OSVERSIONINFOEX));
+  extended_version_info.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
+
+  if (!GetVersionEx ((OSVERSIONINFO *) &extended_version_info))
+    return -1;
+
+  GetSystemInfo (&system_info);
 
   /* FIXME */
-  strcpy (name->sysname, "Windows");
+  strcpy (name->sysname, "WindowsNT");
 
   /* Don't care about casting to int since name->nodename is small. */
   if (gethostname (name->nodename, (int) sizeof (name->nodename)) < 0)
     name->nodename[0] = '\0';
 
-  GetSystemInfo (&system_info);
+  *name->release = '\0';
+  switch (extended_version_info.dwMajorVersion)
+    {
+    case 5:
+      switch (extended_version_info.dwMinorVersion)
+        {
+        case 0:
+          strcpy (name->release, "Windows 2000");
+          break;
+        case 1:
+          strcpy (name->release, "Windows XP");
+          break;
+        case 2:
+          if (extended_version_info.wProductType == VER_NT_WORKSTATION
+              && system_info.wProcessorArchitecture
+                     == PROCESSOR_ARCHITECTURE_AMD64)
+            strcpy (name->release, "Windows XP Professional x64 Edition");
+          else if (extended_version_info.wSuiteMask & VER_SUITE_WH_SERVER)
+            strcpy (name->release, "Windows Home Server");
+          else if (GetSystemMetrics (SM_SERVERR2) == 0)
+            strcpy (name->release, "Windows Server 2003");
+          else
+            strcpy (name->release, "Windows Server 2003 R2");
+          break;
+        default:
+          *name->release = '\0';
+          break;
+        }
+      break;
+    case 6:
+      switch (extended_version_info.dwMinorVersion)
+        {
+        case 0:
+          if (extended_version_info.wProductType == VER_NT_WORKSTATION)
+            strcpy (name->release, "Windows Vista");
+          else
+            strcpy (name->release, "Windows Server 2008");
+          break;
+        case 1:
+          if (extended_version_info.wProductType == VER_NT_WORKSTATION)
+            strcpy (name->release, "Windows 7");
+          else
+            strcpy (name->release, "Windows Server 2008 R2");
+          break;
+        case 2:
+          if (extended_version_info.wProductType == VER_NT_WORKSTATION)
+            strcpy (name->release, "Windows 8");
+          else
+            strcpy (name->release, "Windows Server 2012");
+          break;
+        case 3:
+          if (extended_version_info.wProductType == VER_NT_WORKSTATION)
+            strcpy (name->release, "Windows 8.1");
+          else
+            strcpy (name->release, "Windows Server 2012 R2");
+          break;
+        default:
+          *name->release = '\0';
+          break;
+        }
+      break;
+    case 10:
+      if (extended_version_info.wProductType == VER_NT_WORKSTATION)
+        strcpy (name->release, "Windows 10");
+      else
+        strcpy (name->release, "Windows Server 2016");
+      break;
+    default:
+      *name->release = '\0';
+      break;
+    }
+
+  strcpy (name->version, extended_version_info.szCSDVersion);
 
   switch (system_info.wProcessorArchitecture)
     {
@@ -82,13 +163,9 @@ uname (struct utsname *name)
       strcpy (name->machine, "aarch64");
       break;
     default:
-      *name->machine = '\0';
+      strcpy (name->machine, "unknown");
       break;
     }
-
-  /* FIXME */
-  *name->release = '\0';
-  *name->version = '\0';
 
   return 0;
 }
