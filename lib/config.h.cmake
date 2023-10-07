@@ -168,6 +168,7 @@
 #cmakedefine01 HAVE_IO_H
 #cmakedefine01 HAVE_ISALNUM
 #cmakedefine01 HAVE_ISALPHA
+#cmakedefine01 HAVE_ISAPIPE
 #cmakedefine01 HAVE_ISASCII
 #cmakedefine01 HAVE__ISATTY
 #cmakedefine01 HAVE_ISATTY
@@ -342,6 +343,7 @@
 #cmakedefine01 HAVE_UINTPTR_T
 #cmakedefine01 HAVE_UNAME
 #cmakedefine01 HAVE_UNISTD_H
+#cmakedefine01 HAVE_UNIXIO_H
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_UNLOCKPT
 #cmakedefine01 HAVE_VERR
