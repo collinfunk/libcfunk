@@ -231,6 +231,7 @@
 #cmakedefine01 HAVE_RINDEX
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
 #cmakedefine01 HAVE_SCHED_H
+#cmakedefine01 HAVE_SCHED_YIELD
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE__SETMODE
@@ -238,6 +239,7 @@
 #cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL
+#cmakedefine01 HAVE_SLEEP
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
 #cmakedefine01 HAVE_STDDEF_H
@@ -297,6 +299,7 @@
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
 #cmakedefine01 HAVE_STRUCT_TERMIOS
 #cmakedefine01 HAVE_STRUCT_TIMESPEC
+#cmakedefine01 HAVE_STRUCT_TMS
 #cmakedefine01 HAVE_STRUCT_UTSNAME
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
@@ -312,6 +315,7 @@
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H
+#cmakedefine01 HAVE_SYS_TIMES_H
 #cmakedefine01 HAVE_SYS_TTY_H
 #cmakedefine01 HAVE_SYS_TYPES_H
 #cmakedefine01 HAVE_SYS_UTSNAME_H
@@ -319,6 +323,7 @@
 #cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TIME_H
+#cmakedefine01 HAVE_TIMES
 #cmakedefine01 HAVE_TIMESPEC_GET
 #cmakedefine01 HAVE_TIMESPEC_GETRES
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP

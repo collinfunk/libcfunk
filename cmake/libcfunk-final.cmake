@@ -201,6 +201,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_TIMES_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/times.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/times.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_TYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/types.h.in
