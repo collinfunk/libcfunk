@@ -103,6 +103,13 @@ if ($CACHE{LIBCFUNK_GENERATE_PTY_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SCHED_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sched.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sched.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDBOOL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdbool.h.in
