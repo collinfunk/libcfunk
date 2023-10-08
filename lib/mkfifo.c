@@ -23,35 +23,23 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <sys/stat.h>
+
+#include <errno.h>
+
+#include "attributes.h"
+
+#if HAVE_WINDOWS_H
+
+int
+mkfifo (const char *path ATTRIBUTE_UNUSED, mode_t mode ATTRIBUTE_UNUSED)
+{
+  errno = ENOSYS;
+  return -1;
+}
+
+#else /* !HAVE_WINDOWS_H */
+#  error "No implementation of mkfifo for your system."
 #endif
-
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
-#endif
-
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
-
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
-
-#if !@HAVE_DEV_T@
-typedef unsigned long int dev_t;
-#endif
-
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */

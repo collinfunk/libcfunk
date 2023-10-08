@@ -181,4 +181,16 @@ extern int _libcfunk_mkdir (const char *path, mode_t mode);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_MKFIFO@
+#  if !@HAVE_MKFIFO@
+extern int mkfifo (const char *path, mode_t mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MKNOD@
+#  if !@HAVE_MKNOD@
+extern int mknod (const char *path, mode_t mode, dev_t dev);
+#  endif
+#endif
+
 #endif /* COMPAT_SYS_STAT_H */

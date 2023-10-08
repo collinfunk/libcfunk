@@ -16,7 +16,6 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 
 include(cmake/libcfunk-init.cmake)
 
-
 include(cmake/abs.cmake)
 include(cmake/alignas.cmake)
 include(cmake/_Alignas.cmake)
@@ -119,6 +118,8 @@ include(cmake/memxor.cmake)
 include(cmake/min.cmake)
 include(cmake/mkdir.cmake)
 include(cmake/mkdtemp.cmake)
+include(cmake/mkfifo.cmake)
+include(cmake/mknod.cmake)
 include(cmake/mkstemp.cmake)
 include(cmake/_Noreturn.cmake)
 include(cmake/null-device.cmake)

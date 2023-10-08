@@ -67,6 +67,7 @@
 #cmakedefine01 HAVE_DEV_PTC
 #cmakedefine01 HAVE_DEV_PTM
 #cmakedefine01 HAVE_DEV_PTMX
+#cmakedefine01 HAVE_DEV_T
 #cmakedefine01 HAVE_DIRECT_H
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DUP2
@@ -201,6 +202,8 @@
 #cmakedefine01 HAVE__MKDIR
 #cmakedefine01 HAVE_MKDIR
 #cmakedefine01 HAVE_MKDTEMP
+#cmakedefine01 HAVE_MKFIFO
+#cmakedefine01 HAVE_MKNOD
 #cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T

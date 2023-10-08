@@ -23,35 +23,54 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <sys/stat.h>
 
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
-#endif
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
+#include "test-help.h"
 
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
+#undef TEST_FILE_NAME
 
-#if !@HAVE_DEV_T@
-typedef unsigned long int dev_t;
-#endif
+#define TEST_FILE_NAME "test-mkfifo.tmp"
 
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
+/* Test that 'mkfifo' works on systems that support it. On Windows, make sure
+   that it fails with errno == ENOSYS. */
+int
+main (void)
+{
+  int fd;
+  struct stat st;
 
-#endif /* COMPAT_SYS_TYPES_H */
+  /* Remove the file existing because of a failed test. */
+  remove (TEST_FILE_NAME);
+
+  fd = mkfifo (TEST_FILE_NAME, 0600);
+  if (fd < 0)
+    {
+      if (errno == ENOSYS)
+        {
+          fprintf (stderr, "mkfifo is unsupported by your system.\n");
+          exit (1);
+        }
+      else
+        {
+          fprintf (stderr, "mkfifo failed: %s\n", strerror (errno));
+          abort ();
+        }
+    }
+
+  /* Check S_ISFIFO. */
+  ASSERT (stat (TEST_FILE_NAME, &st) == 0);
+  ASSERT (S_ISFIFO (st.st_mode));
+
+  /* Cleanup the file. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+
+  return 0;
+}
