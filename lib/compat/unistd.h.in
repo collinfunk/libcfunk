@@ -40,6 +40,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+/* Windows gethostname declaration. */
+#if @HAVE_WINSOCK2_H@
+#  include <winsock2.h>
+#  include <windows.h>
+#endif
+
 /* Windows. */
 #if @HAVE_IO_H@
 #  include <io.h>
@@ -238,6 +244,24 @@ extern int isatty (int fd);
 #if @LIBCFUNK_DECLARE_SLEEP@
 #  if !@HAVE_SLEEP@
 extern unsigned int sleep (unsigned int seconds);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETHOSTNAME@
+#  if @LIBCFUNK_REPLACE_GETHOSTNAME@
+#    undef gethostname
+#    define gethostname _libcfunk_gethostname
+extern int _libcfunk_gethostname (char *name, size_t name_len);
+#  elif !@HAVE_GETHOSTNAME@
+extern int gethostname (char *name, size_t name_len);
+#  endif
+#endif
+
+/* Some systems, such as 4.4BSD and its derivatives, use 'int' instead of
+   'size_t' for the name_len parameter. */
+#if @LIBCFUNK_DECLARE_SETHOSTNAME@
+#  if @HAVE_SETHOSTNAME@
+extern int sethostname (const char *name, size_t name_len);
 #  endif
 #endif
 

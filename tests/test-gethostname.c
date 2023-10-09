@@ -25,53 +25,19 @@
 
 #include <config.h>
 
-#include <sys/types.h>
-
-#include <stddef.h>
+#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "test-help.h"
 
-static void usage (void);
-
+/* Test that 'gethostname' is defined and working. */
 int
-main (int argc, char **argv)
+main (void)
 {
-  const char *filename;
-  FILE *fp;
-  char *buffer = NULL;
-  size_t buffer_size = 0;
+  char buffer[256];
 
-  if (argc != 2)
-    usage ();
+  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
+  printf ("Hostname: %s\n", buffer);
 
-  filename = argv[1];
-
-  fp = fopen (filename, "r");
-  if (fp == NULL)
-    {
-      fprintf (stderr, "%s: Failed to open file.\n", filename);
-      exit (1);
-    }
-
-  for (;;)
-    {
-      ssize_t current_read = getline (&buffer, &buffer_size, fp);
-      if (current_read < 0)
-        break;
-      ASSERT ((size_t) current_read < buffer_size);
-      ASSERT (buffer[current_read] == '\0');
-      printf ("%s", buffer);
-    }
-
-  free (buffer);
   return 0;
-}
-
-static void
-usage (void)
-{
-  fprintf (stderr, "usage: test-getline filename\n");
-  exit (1);
 }

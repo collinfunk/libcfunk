@@ -187,6 +187,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_RANDOM_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_SOCKET_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/socket.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/socket.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_STAT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/stat.h.in

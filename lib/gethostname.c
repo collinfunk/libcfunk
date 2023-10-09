@@ -25,53 +25,69 @@
 
 #include <config.h>
 
-#include <sys/types.h>
+#include <limits.h>
+#include <string.h>
+#include <unistd.h>
 
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
+#if HAVE_SYS_UTSNAME_H
+#  include <sys/utsname.h>
+#endif
 
-#include "test-help.h"
+#if LIBCFUNK_REPLACE_GETHOSTNAME
 
-static void usage (void);
+/* Don't call ourselves. */
+#  undef gethostname
 
 int
-main (int argc, char **argv)
+_libcfunk_gethostname (char *name, size_t name_len)
 {
-  const char *filename;
-  FILE *fp;
-  char *buffer = NULL;
-  size_t buffer_size = 0;
-
-  if (argc != 2)
-    usage ();
-
-  filename = argv[1];
-
-  fp = fopen (filename, "r");
-  if (fp == NULL)
+  /* Windows uses int and not size_t. */
+  if (name_len > INT_MAX)
     {
-      fprintf (stderr, "%s: Failed to open file.\n", filename);
-      exit (1);
+      errno = EINVAL;
+      return -1;
     }
 
-  for (;;)
+  return gethostname (name, (int) name_len);
+}
+
+#elif HAVE_UNAME
+
+int
+gethostname (char *name, size_t name_len)
+{
+  struct utsname buffer;
+
+  if (name_len < 0 || uname (&buffer) < 0)
+    return -1;
+
+  if (name_len > sizeof (buffer.nodename))
+    strcpy (name, buffer.nodename);
+  else
     {
-      ssize_t current_read = getline (&buffer, &buffer_size, fp);
-      if (current_read < 0)
-        break;
-      ASSERT ((size_t) current_read < buffer_size);
-      ASSERT (buffer[current_read] == '\0');
-      printf ("%s", buffer);
+      size_t nodename_len = strlen (buffer.nodename);
+      if (nodename_len + 1 <= name_len)
+        memcpy (name, buffer.nodename, nodename_len + 1);
+      else
+        {
+          memcpy (name, buffer.nodename, name_len);
+          name[name_len - 1] = '\0';
+          return -1;
+        }
     }
 
-  free (buffer);
   return 0;
 }
 
-static void
-usage (void)
+#else /* Unlucky */
+
+int
+gethostname (char *name, size_t name_len)
 {
-  fprintf (stderr, "usage: test-getline filename\n");
-  exit (1);
+  if (name != NULL)
+    *name = '\0';
+  errno = ENOSYS;
+  return -1;
 }
+
+#endif

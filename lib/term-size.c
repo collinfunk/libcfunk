@@ -25,10 +25,6 @@
 
 #include <config.h>
 
-#ifdef _WIN32
-#  include <windows.h>
-#endif
-
 #include <errno.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -41,6 +37,10 @@
 
 #if HAVE_TERMIOS_H
 #  include <termios.h>
+#endif
+
+#if HAVE_WINDOWS_H
+#  include <windows.h>
 #endif
 
 #include "term-size.h"

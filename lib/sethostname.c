@@ -25,53 +25,20 @@
 
 #include <config.h>
 
-#include <sys/types.h>
+#include <errno.h>
+#include <unistd.h>
 
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
+#if HAVE_WINDOWS_H
+#  include <windows.h>
+#else
+#  error "No implementation of 'sethostname' for your system."
+#endif
 
-#include "test-help.h"
-
-static void usage (void);
-
+/* FIXME: Implement for Windows. This is mandated by POSIX so we can assume
+   it is available everywhere else. */
 int
-main (int argc, char **argv)
+sethostname (const char *name, size_t name_len)
 {
-  const char *filename;
-  FILE *fp;
-  char *buffer = NULL;
-  size_t buffer_size = 0;
-
-  if (argc != 2)
-    usage ();
-
-  filename = argv[1];
-
-  fp = fopen (filename, "r");
-  if (fp == NULL)
-    {
-      fprintf (stderr, "%s: Failed to open file.\n", filename);
-      exit (1);
-    }
-
-  for (;;)
-    {
-      ssize_t current_read = getline (&buffer, &buffer_size, fp);
-      if (current_read < 0)
-        break;
-      ASSERT ((size_t) current_read < buffer_size);
-      ASSERT (buffer[current_read] == '\0');
-      printf ("%s", buffer);
-    }
-
-  free (buffer);
-  return 0;
-}
-
-static void
-usage (void)
-{
-  fprintf (stderr, "usage: test-getline filename\n");
-  exit (1);
+  errno = ENOSYS;
+  return -1;
 }

@@ -131,6 +131,7 @@
 #cmakedefine01 HAVE_GETEXECNAME
 #cmakedefine01 HAVE_GETGID
 #cmakedefine01 HAVE_GETGROUPS
+#cmakedefine01 HAVE_GETHOSTNAME
 #cmakedefine01 HAVE_GETLINE
 #cmakedefine01 HAVE_GETLOGIN
 #cmakedefine01 HAVE_GETLOGIN_R
@@ -205,6 +206,7 @@
 #cmakedefine01 HAVE_MKFIFO
 #cmakedefine01 HAVE_MKNOD
 #cmakedefine01 HAVE_MKSTEMP
+#cmakedefine01 HAVE_NANOSLEEP
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
 #cmakedefine01 HAVE_ON_EXIT
@@ -234,6 +236,7 @@
 #cmakedefine01 HAVE_SCHED_YIELD
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SECUREZEROMEMORY
+#cmakedefine01 HAVE_SETHOSTNAME
 #cmakedefine01 HAVE__SETMODE
 #cmakedefine01 HAVE_SETMODE
 #cmakedefine01 HAVE_SETPROGNAME
@@ -312,6 +315,7 @@
 #cmakedefine01 HAVE_SYS_PARAM_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
 #cmakedefine01 HAVE_SYS_RESOURCE_H
+#cmakedefine01 HAVE_SYS_SOCKET_H
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H
@@ -375,11 +379,13 @@
 #cmakedefine01 HAVE_WCSLEN
 #cmakedefine01 HAVE_WCSNLEN
 #cmakedefine01 HAVE_WINDOWS_H
+#cmakedefine01 HAVE_WINSOCK2_H
 #cmakedefine01 HAVE_WMEMCHR
 #cmakedefine01 HAVE_WMEMCMP
 #cmakedefine01 HAVE_WMEMCPY
 #cmakedefine01 HAVE_WMEMMOVE
 #cmakedefine01 HAVE_WMEMSET
+#cmakedefine01 HAVE_WS2TCPIP_H
 #cmakedefine01 HAVE___XPG_STRERROR_R
 
 #cmakedefine01 CALLOC_0_0_RETURNS_NONNULL
@@ -393,5 +399,6 @@
 #cmakedefine01 LIBCFUNK_REPLACE_GETCWD
 #cmakedefine01 LIBCFUNK_REPLACE_MALLOC
 #cmakedefine01 LIBCFUNK_REPLACE_REALLOC
+#cmakedefine01 LIBCFUNK_REPLACE_GETHOSTNAME
 
 #endif /* CONFIG_H */

@@ -28,13 +28,10 @@
 #include <sys/utsname.h>
 
 #include <string.h>
+#include <unistd.h>
 
 #if HAVE_WINDOWS_H
 #  include <windows.h>
-#endif
-
-#if HAVE_SYSINFOAPI_H
-#  include <sysinfoapi.h>
 #endif
 
 #if HAVE_WINDOWS_H
@@ -56,8 +53,7 @@ uname (struct utsname *name)
   /* FIXME */
   strcpy (name->sysname, "WindowsNT");
 
-  /* Don't care about casting to int since name->nodename is small. */
-  if (gethostname (name->nodename, (int) sizeof (name->nodename)) < 0)
+  if (gethostname (name->nodename, sizeof (name->nodename)) < 0)
     name->nodename[0] = '\0';
 
   *name->release = '\0';

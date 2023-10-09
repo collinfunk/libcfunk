@@ -9,18 +9,10 @@ else ()
   set(HAVE_UNAME "" CACHE INTERNAL "")
 endif ()
 
-check_include_file("windows.h" HAVE_WINDOWS_H)
-
-if (HAVE_WINDOWS_H)
-  check_include_files("windows.h;sysinfoapi.h" HAVE_SYSINFOAPI_H)
-  target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC "ws2_32")
-else ()
-  set(HAVE_SYSINFOAPI_H "" CACHE INTERNAL "")
-endif ()
-
 set(LIBCFUNK_DECLARE_UNAME "1" CACHE INTERNAL "")
 
 if (NOT HAVE_UNAME)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/gethostname.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/uname.c
   )
