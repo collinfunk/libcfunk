@@ -37,6 +37,95 @@
 #include <sys/types.h>
 #include <stddef.h>
 
-/* TODO: Windows :( */
+#if @HAVE_WINSOCK2_H@
+#  include <winsock2.h>
+#endif
+
+#if @HAVE_WS2TCPIP_H@
+#  include <ws2tcpip.h>
+#endif
+
+#if @HAVE_IO_H@
+#  include <io.h>
+#endif
+
+#if @LIBCFUNK_DECLARE_SOCKET@
+#  if @LIBCFUNK_REPLACE_SOCKET@
+#    undef socket
+#    define socket _libcfunk_socket
+int _libcfunk_socket (int domain, int type, int protocol);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ACCEPT@
+#  if @LIBCFUNK_REPLACE_ACCEPT@
+#    undef accept
+#    define accept _libcfunk_accept
+extern int _libcfunk_accept (int socket, struct sockaddr *address,
+                             socklen_t *address_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_BIND@
+#  if @LIBCFUNK_REPLACE_BIND@
+#    undef bind
+#    define bind _libcfunk_bind
+extern int _libcfunk_bind (int socket, const struct sockaddr *address,
+                           socklen_t address_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CONNECT@
+#  if @LIBCFUNK_REPLACE_CONNECT@
+#    undef connect
+#    define connect _libcfunk_connect
+extern int _libcfunk_connect (int socket, const struct sockaddr *address,
+                              socklen_t address_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SEND@
+#  if @LIBCFUNK_REPLACE_SEND@
+#    undef send
+#    define send _libcfunk_send
+extern ssize_t _libcfunk_send (int socket, const void *buffer, size_t length,
+                               int flags);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RECV@
+#  if @LIBCFUNK_REPLACE_RECV@
+#    undef recv
+#    define recv _libcfunk_recv
+extern ssize_t _libcfunk_recv (int socket, void *buffer, size_t length,
+                               int flags);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LISTEN@
+#  if @LIBCFUNK_REPLACE_LISTEN@
+#    undef listen
+#    define listen _libcfunk_listen
+extern int _libcfunk_listen (int socket, int back_log);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETPEERNAME@
+#  if @LIBCFUNK_REPLACE_GETPEERNAME@
+#    undef getpeername
+#    define getpeername _libcfunk_getpeername
+extern int _libcfunk_getpeername (int socket, struct sockaddr *address,
+                                  socklen_t *address_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETSOCKNAME@
+#  if @LIBCFUNK_REPLACE_GETSOCKNAME@
+#    undef getsockname
+#    define getsockname _libcfunk_getsockname
+extern int _libcfunk_getsockname (int socket, struct sockaddr *address,
+                                  socklen_t *address_len);
+#  endif
+#endif
 
 #endif /* COMPAT_SYS_SOCKET_H */

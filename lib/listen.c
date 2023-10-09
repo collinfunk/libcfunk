@@ -25,19 +25,19 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/socket.h>
 
-#include "test-help.h"
+/* Don't call ourselves. */
+#undef listen
 
-/* Test that 'gethostname' is defined and working. */
 int
-main (void)
+_libcfunk_listen (int socket, int back_log)
 {
-  char buffer[256];
+  SOCKET socket_descriptor;
 
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
-
-  return 0;
+  socket_descriptor = (SOCKET) _get_osfhandle (socket);
+  if (socket_descriptor == INVALID_SOCKET)
+    return -1;
+  else
+    return listen (socket_descriptor, back_log);
 }

@@ -25,19 +25,20 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/socket.h>
 
-#include "test-help.h"
+/* Don't call ourselves. */
+#undef bind
 
-/* Test that 'gethostname' is defined and working. */
 int
-main (void)
+_libcfunk_bind (int socket, const struct sockaddr *address,
+                socklen_t address_len)
 {
-  char buffer[256];
+  SOCKET socket_descriptor;
 
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
-
-  return 0;
+  socket_descriptor = (SOCKET) _get_osfhandle (socket);
+  if (socket_descriptor == INVALID_SOCKET)
+    return -1;
+  else
+    return bind (socket_descriptor, address, address_len);
 }

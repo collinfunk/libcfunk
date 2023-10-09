@@ -25,19 +25,21 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/socket.h>
 
-#include "test-help.h"
+#include <fcntl.h>
 
-/* Test that 'gethostname' is defined and working. */
+/* Don't call ourselves. */
+#undef socket
+
 int
-main (void)
+_libcfunk_socket (int domain, int type, int protocol)
 {
-  char buffer[256];
+  SOCKET socket_descriptor;
 
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
-
-  return 0;
+  socket_descriptor = WSASocket (domain, type, protocol, NULL, 0, 0);
+  if (socket_descriptor == INVALID_SOCKET)
+    return -1;
+  else
+    return _open_osfhandle ((intptr_t) socket_descriptor, O_RDWR | O_BINARY);
 }

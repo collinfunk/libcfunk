@@ -25,19 +25,22 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/socket.h>
 
+#include <netinet/in.h>
+#include <string.h>
+
+#include "sockets.h"
 #include "test-help.h"
 
-/* Test that 'gethostname' is defined and working. */
+/* Test that 'bind' is declared. */
 int
 main (void)
 {
-  char buffer[256];
-
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
-
+  struct sockaddr_in addr;
+  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
+  memset (&addr, 0, sizeof (addr));
+  ASSERT (bind (-1, (struct sockaddr *) &addr, sizeof (addr)) == -1);
+  ASSERT (socket_cleanup () == 0);
   return 0;
 }

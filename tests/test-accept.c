@@ -25,19 +25,14 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/socket.h>
 
+#include "sockets.h"
 #include "test-help.h"
 
-/* Test that 'gethostname' is defined and working. */
+/* Test that 'connect' is declared. */
 int
 main (void)
 {
-  char buffer[256];
-
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
-
   return 0;
 }

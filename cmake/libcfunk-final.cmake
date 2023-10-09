@@ -96,6 +96,13 @@ if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_NETINET_IN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/netinet/in.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/netinet/in.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_PTY_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pty.h.in

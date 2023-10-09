@@ -25,19 +25,56 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <unistd.h>
+#include <sys/socket.h>
 
-#include "test-help.h"
+#include "attributes.h"
+#include "sockets.h"
 
-/* Test that 'gethostname' is defined and working. */
+#if HAVE_WINDOWS_H
+
 int
-main (void)
+socket_startup (int required_version)
 {
-  char buffer[256];
+  WSADATA data;
+  int result;
 
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
+  result = WSAStartup (required_version, &data);
+  if (result != 0)
+    return -1;
+
+  if (data.wVersion != required_version)
+    {
+      WSACleanup ();
+      return -1;
+    }
 
   return 0;
 }
+
+int
+socket_cleanup (void)
+{
+  int result;
+
+  result = WSACleanup ();
+  if (result != 0)
+    return -1;
+  else
+    return 0;
+}
+
+#else /* !HAVE_WINDOWS_H */
+
+int
+socket_startup (int required_version ATTRIBUTE_UNUSED)
+{
+  return 0;
+}
+
+int
+socket_cleanup (void)
+{
+  return 0;
+}
+
+#endif

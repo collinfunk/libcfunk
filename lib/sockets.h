@@ -23,21 +23,24 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef SOCKETS_H
+#define SOCKETS_H
 
-#include <stdio.h>
-#include <unistd.h>
+#undef SOCKET_VERSION
 
-#include "test-help.h"
+/* Create an integer representing the requested socket version in the form
+   'major.minor'. */
+#define SOCKET_VERSION(major, minor)                                          \
+  ((int) ((((unsigned int) (minor) & 0xff) << 8)                              \
+          | (((unsigned int) (major) & 0xff))))
 
-/* Test that 'gethostname' is defined and working. */
-int
-main (void)
-{
-  char buffer[256];
+/* This function must be called before using sockets on Windows or else
+   functions will fail. On other systems this performs nothing.
+   Returns -1 on errors, and 0 on success. */
+extern int socket_startup (int required_version);
 
-  ASSERT (gethostname (buffer, sizeof (buffer)) == 0);
-  printf ("Hostname: %s\n", buffer);
+/* This function should be called every time that 'socket_startup' is
+   called. It is required for Windows. On other systems it performs nothing. */
+extern int socket_cleanup (void);
 
-  return 0;
-}
+#endif /* SOCKETS_H */
