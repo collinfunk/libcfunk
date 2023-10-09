@@ -93,4 +93,10 @@ extern struct tm *localtime_r (const time_t *timer, struct tm *result);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_NANOSLEEP@
+#  if !@HAVE_NANOSLEEP@
+extern int nanosleep (const struct timespec *rqtp, struct timespec *rmtp);
+#  endif
+#endif
+
 #endif /* COMPAT_TIME_H */
