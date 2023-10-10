@@ -23,27 +23,22 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_NETDB_H
-#define COMPAT_NETDB_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
-
-#if @HAVE_NETDB_H@
-#  include_next <netdb.h>
-#endif
+#include <config.h>
 
 #include <sys/socket.h>
 
-#if @LIBCFUNK_DECLARE_GAI_STRERROR@
-#  if @LIBCFUNK_REPLACE_GAI_STRERROR@
-#    undef gai_strerror
-#    define gai_strerror _libcfunk_gai_strerror
-extern const char *_libcfunk_gai_strerror (int error_code);
-#  elif !@HAVE_GAI_STRERROR@
-extern const char *gai_strerror (int error_code);
-#  endif
-#endif
+#include <netdb.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#endif /* COMPAT_NETDB_H */
+#include "test-help.h"
+
+/* Test that 'gai_strerror' is declared. */
+int
+main (void)
+{
+  const char *ptr = gai_strerror (0);
+  ASSERT (ptr != NULL);
+  printf ("%s\n", ptr);
+  return 0;
+}

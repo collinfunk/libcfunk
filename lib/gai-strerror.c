@@ -23,27 +23,35 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_NETDB_H
-#define COMPAT_NETDB_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
-
-#if @HAVE_NETDB_H@
-#  include_next <netdb.h>
-#endif
+#include <config.h>
 
 #include <sys/socket.h>
 
-#if @LIBCFUNK_DECLARE_GAI_STRERROR@
-#  if @LIBCFUNK_REPLACE_GAI_STRERROR@
-#    undef gai_strerror
-#    define gai_strerror _libcfunk_gai_strerror
-extern const char *_libcfunk_gai_strerror (int error_code);
-#  elif !@HAVE_GAI_STRERROR@
-extern const char *gai_strerror (int error_code);
-#  endif
-#endif
+#include <netdb.h>
 
-#endif /* COMPAT_NETDB_H */
+#if LIBCFUNK_REPLACE_GAI_STRERROR
+
+/* Don't call ourselves. */
+#  undef gai_strerror
+
+/* Redefine it to an actual symbol on Windows. */
+#  if HAVE_GAI_STRERRORA
+#    define gai_strerror gai_strerrorA
+#  endif
+
+const char *
+_libcfunk_gai_strerror (int error_code)
+{
+  return (const char *) gai_strerror (error_code);
+}
+
+#elif !HAVE_GAI_STRERROR
+
+/* TODO: Add some common values atleast. */
+const char *
+gai_strerror (int error_code)
+{
+  return "Unknown error code";
+}
+
+#endif
