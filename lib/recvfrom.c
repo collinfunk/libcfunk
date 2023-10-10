@@ -25,36 +25,21 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <time.h>
+#include <sys/socket.h>
 
-#if HAVE_WINDOWS_H
-#  include <windows.h>
-#else
-#  error "No implementation of nanosleep for your system."
-#endif
+/* Don't call ourselves. */
+#undef recvfrom
 
-/* FIXME: Support high resolution timers and check for overflows.
-   SetWaitableTimerEx, QueryPerformanceFrequency, or some other function
-   might work. */
-int
-nanosleep (const struct timespec *rqtp, struct timespec *rmtp)
+ssize_t
+_libcfunk_recvfrom (int socket, void *buffer, size_t length, int flags,
+                    struct sockaddr *address, socklen_t *address_len)
 {
-  /* If requested nanoseconds is less than 0 or greater than or equal to
-     1000 million nanoseconds. */
-  if (rqtp->tv_nsec < 0 || rqtp->tv_nsec >= 1000000000)
-    {
-      errno = EINVAL;
-      return -1;
-    }
+  SOCKET socket_descriptor;
 
-  /* Convert to milliseconds. */
-  Sleep (rqtp->tv_sec * 1000 + rqtp->tv_nsec / 1000000);
-
-  if (rmtp != NULL)
-    {
-      rmtp->tv_sec = 0;
-      rmtp->tv_nsec = 0;
-    }
-  return 0;
+  socket_descriptor = (SOCKET) _get_osfhandle (socket);
+  if (socket_descriptor == INVALID_SOCKET)
+    return -1;
+  else
+    return recvfrom (socket_descriptor, buffer, length, flags, address,
+                     address_len);
 }

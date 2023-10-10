@@ -37,5 +37,5 @@ main (void)
   buffer.tms_stime = 0;
   buffer.tms_cutime = 0;
   buffer.tms_cstime = 0;
-  return 0;
+  return (int) buffer.tms_utime;
 }

@@ -33,6 +33,13 @@ if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_ARPA_INET_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/arpa/inet.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/arpa/inet.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_ASSERT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/assert.h.in
@@ -96,6 +103,13 @@ if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_NETDB_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/netdb.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/netdb.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_NETINET_IN_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/netinet/in.h.in
@@ -114,6 +128,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SCHED_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sched.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sched.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SIGNAL_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/signal.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/signal.h
   )
 endif ()
 

@@ -33,6 +33,7 @@
 #cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
 #cmakedefine01 HAVE___ARGV
+#cmakedefine01 HAVE_ARPA_INET_H
 #cmakedefine01 HAVE_ASSERT_H
 #cmakedefine01 HAVE_ATEXIT
 #cmakedefine01 HAVE_ATOI
@@ -207,6 +208,7 @@
 #cmakedefine01 HAVE_MKNOD
 #cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE_NANOSLEEP
+#cmakedefine01 HAVE_NETDB_H
 #cmakedefine01 HAVE_NETINET_IN_H
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
@@ -408,7 +410,10 @@
 #cmakedefine01 LIBCFUNK_REPLACE_MALLOC
 #cmakedefine01 LIBCFUNK_REPLACE_REALLOC
 #cmakedefine01 LIBCFUNK_REPLACE_RECV
+#cmakedefine01 LIBCFUNK_REPLACE_RECVFROM
 #cmakedefine01 LIBCFUNK_REPLACE_SEND
+#cmakedefine01 LIBCFUNK_REPLACE_SENDTO
+#cmakedefine01 LIBCFUNK_REPLACE_SETSOCKOPT
 #cmakedefine01 LIBCFUNK_REPLACE_SOCKET
 
 #endif /* CONFIG_H */

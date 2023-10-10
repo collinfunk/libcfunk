@@ -128,4 +128,34 @@ extern int _libcfunk_getsockname (int socket, struct sockaddr *address,
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_SETSOCKOPT@
+#  if @LIBCFUNK_REPLACE_SETSOCKOPT@
+#    undef setsockopt
+#    define setsockopt _libcfunk_setsockopt
+extern int _libcfunk_setsockopt (int socket, int level, int option_name,
+                                 const void *option_value,
+                                 socklen_t option_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SENDTO@
+#  if @LIBCFUNK_REPLACE_SENDTO@
+#    undef sendto
+#    define sendto _libcfunk_sendto
+extern ssize_t _libcfunk_sendto (int socket, const void *message, size_t length,
+                                 int flags, const struct sockaddr *dest_addr,
+                                 socklen_t dest_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RECVFROM@
+#  if @LIBCFUNK_REPLACE_RECVFROM@
+#    undef recvfrom
+#    define recvfrom _libcfunk_recvfrom
+extern ssize_t _libcfunk_recvfrom (int socket, void *buffer, size_t length,
+                                   int flags, struct sockaddr *address,
+                                   socklen_t *address_len);
+#  endif
+#endif
+
 #endif /* COMPAT_SYS_SOCKET_H */

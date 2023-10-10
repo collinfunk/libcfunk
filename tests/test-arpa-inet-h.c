@@ -25,36 +25,11 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <time.h>
+#include <arpa/inet.h>
 
-#if HAVE_WINDOWS_H
-#  include <windows.h>
-#else
-#  error "No implementation of nanosleep for your system."
-#endif
-
-/* FIXME: Support high resolution timers and check for overflows.
-   SetWaitableTimerEx, QueryPerformanceFrequency, or some other function
-   might work. */
+/* Test that arpa/inet.h can be included. */
 int
-nanosleep (const struct timespec *rqtp, struct timespec *rmtp)
+main (void)
 {
-  /* If requested nanoseconds is less than 0 or greater than or equal to
-     1000 million nanoseconds. */
-  if (rqtp->tv_nsec < 0 || rqtp->tv_nsec >= 1000000000)
-    {
-      errno = EINVAL;
-      return -1;
-    }
-
-  /* Convert to milliseconds. */
-  Sleep (rqtp->tv_sec * 1000 + rqtp->tv_nsec / 1000000);
-
-  if (rmtp != NULL)
-    {
-      rmtp->tv_sec = 0;
-      rmtp->tv_nsec = 0;
-    }
   return 0;
 }
