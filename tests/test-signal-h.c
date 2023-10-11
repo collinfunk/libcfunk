@@ -27,9 +27,14 @@
 
 #include <signal.h>
 
+#include "attributes.h"
+
 /* Test that <signal.h> is generated and included correctly. */
 int
 main (void)
 {
+  sigset_t set ATTRIBUTE_UNUSED;
+  union sigval sig_val ATTRIBUTE_UNUSED;
+  struct sigaction sig_action ATTRIBUTE_UNUSED;
   return 0;
 }

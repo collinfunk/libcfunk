@@ -262,8 +262,14 @@
 #cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL
+#cmakedefine01 HAVE_SIGABBREV_NP
+#cmakedefine01 HAVE_SIG_ATOMIC_T
+#cmakedefine01 HAVE_SIGDESCR_NP
+#cmakedefine01 HAVE_SIGINFO_T
 #cmakedefine01 HAVE_SIGNAL_H
+#cmakedefine01 HAVE_SIGSET_T
 #cmakedefine01 HAVE_SLEEP
+#cmakedefine01 HAVE_STACK_T
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
 #cmakedefine01 HAVE_STDDEF_H
@@ -278,6 +284,7 @@
 #cmakedefine01 HAVE_STRCMP
 #cmakedefine01 HAVE_STRCSPN
 #cmakedefine01 HAVE_STRDUP
+#cmakedefine01 HAVE_STRERRORDESC_NP
 #cmakedefine01 HAVE_STRERRORNAME_NP
 #cmakedefine01 HAVE_STRERROR_R
 #cmakedefine01 HAVE_STRERROR_S
@@ -311,6 +318,8 @@
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_LCONV
 #cmakedefine01 HAVE_STRUCT_PTMGET
+#cmakedefine01 HAVE_STRUCT_SIGACTION
+#cmakedefine01 HAVE_STRUCT_SIGEVENT
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC
@@ -377,6 +386,7 @@
 #cmakedefine01 HAVE_UINTMAX_T
 #cmakedefine01 HAVE_UINTPTR_T
 #cmakedefine01 HAVE_UNAME
+#cmakedefine01 HAVE_UNION_SIGVAL
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE_UNIXIO_H
 #cmakedefine01 HAVE__UNLOCK_FILE

@@ -34,4 +34,58 @@
 #  include_next <signal.h>
 #endif
 
+#include <sys/types.h>
+
+#include <stddef.h>
+
+#if @HAVE_PTHREAD_H@
+#  include <pthread.h>
+#endif
+
+#if !@HAVE_SIGSET_T@
+typedef unsigned int sigset_t;
+#endif
+
+#if !@HAVE_UNION_SIGVAL@
+union sigval
+{
+  int sival_int;
+  void *sival_ptr;
+};
+#endif
+
+#if !@HAVE_SIGINFO_T@
+typedef struct
+{
+  int si_signo;
+  int si_code;
+  int si_errno;
+  pid_t si_pid;
+  uid_t si_uid;
+  void *si_addr;
+  int si_status;
+  long si_band;
+  union sigval si_value;
+} siginfo_t;
+#endif
+
+#if !@HAVE_STACK_T@
+typedef struct
+{
+  void *ss_sp;
+  size_t ss_size;
+  int ss_flags;
+} stack_t;
+#endif
+
+#if !@HAVE_STRUCT_SIGACTION@
+struct sigaction
+{
+  void (*sa_handler) (int);
+  sigset_t sa_mask;
+  int sa_flags;
+  void (*sa_sigaction) (int, siginfo_t *, void *);
+};
+#endif
+
 #endif /* COMPAT_SIGNAL_H */

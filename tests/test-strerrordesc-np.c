@@ -36,14 +36,14 @@ int
 main (void)
 {
   /* Test that the error numbers required by C99 don't return NULL. */
-  ASSERT (strerrorname_np (EDOM) != NULL);
-  ASSERT (strerrorname_np (EILSEQ) != NULL);
-  ASSERT (strerrorname_np (ERANGE) != NULL);
+  ASSERT (strerrordesc_np (EDOM) != NULL);
+  ASSERT (strerrordesc_np (EILSEQ) != NULL);
+  ASSERT (strerrordesc_np (ERANGE) != NULL);
 
   /* Print errors. */
-  printf ("%s\n", strerrorname_np (EDOM));
-  printf ("%s\n", strerrorname_np (EILSEQ));
-  printf ("%s\n", strerrorname_np (ERANGE));
+  printf ("%s\n", strerrordesc_np (EDOM));
+  printf ("%s\n", strerrordesc_np (EILSEQ));
+  printf ("%s\n", strerrordesc_np (ERANGE));
 
   return 0;
 }

@@ -25,9 +25,8 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <stddef.h>
-#include <stdio.h>
+#include <signal.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "test-help.h"
@@ -35,15 +34,21 @@
 int
 main (void)
 {
-  /* Test that the error numbers required by C99 don't return NULL. */
-  ASSERT (strerrorname_np (EDOM) != NULL);
-  ASSERT (strerrorname_np (EILSEQ) != NULL);
-  ASSERT (strerrorname_np (ERANGE) != NULL);
+  /* Check that C99 signals don't return NULL. */
+  ASSERT (sigabbrev_np (SIGABRT) != NULL);
+  ASSERT (sigabbrev_np (SIGFPE) != NULL);
+  ASSERT (sigabbrev_np (SIGILL) != NULL);
+  ASSERT (sigabbrev_np (SIGINT) != NULL);
+  ASSERT (sigabbrev_np (SIGSEGV) != NULL);
+  ASSERT (sigabbrev_np (SIGTERM) != NULL);
 
-  /* Print errors. */
-  printf ("%s\n", strerrorname_np (EDOM));
-  printf ("%s\n", strerrorname_np (EILSEQ));
-  printf ("%s\n", strerrorname_np (ERANGE));
+  /* Print signals. */
+  printf ("%s\n", sigabbrev_np (SIGABRT));
+  printf ("%s\n", sigabbrev_np (SIGFPE));
+  printf ("%s\n", sigabbrev_np (SIGILL));
+  printf ("%s\n", sigabbrev_np (SIGINT));
+  printf ("%s\n", sigabbrev_np (SIGSEGV));
+  printf ("%s\n", sigabbrev_np (SIGTERM));
 
   return 0;
 }

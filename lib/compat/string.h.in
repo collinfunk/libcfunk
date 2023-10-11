@@ -26,10 +26,6 @@
 #ifndef COMPAT_STRING_H
 #define COMPAT_STRING_H
 
-#include <sys/types.h>
-
-#include <stddef.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -37,6 +33,10 @@
 #if @HAVE_STRING_H@
 #  include_next <string.h>
 #endif
+
+#include <sys/types.h>
+
+#include <stddef.h>
 
 #if @LIBCFUNK_DECLARE_STRSTR@
 #  if !@HAVE_STRSTR@
@@ -218,6 +218,12 @@ extern const char *strerrorname_np (int errnum);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STRERRORDESC_NP@
+#  if !@HAVE_STRERRORDESC_NP@
+extern const char *strerrordesc_np (int errnum);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STRVERSCMP@
 #  if !@HAVE_STRVERSCMP@
 extern int strverscmp (const char *s1, const char *s2);
@@ -228,6 +234,18 @@ extern int strverscmp (const char *s1, const char *s2);
 #  if !@HAVE_STRERROR_R@ || @HAVE___XPG_STRERROR_R@
 #    define strerror_r _libcfunk_strerror_r
 extern int _libcfunk_strerror_r (int errnum, char *buffer, size_t buffer_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGDESCR_NP@
+#  if !@HAVE_SIGDESCR_NP@
+extern const char *sigdescr_np (int signal_number);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGABBREV_NP@
+#  if !@HAVE_SIGABBREV_NP@
+extern const char *sigabbrev_np (int signal_number);
 #  endif
 #endif
 
