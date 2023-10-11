@@ -96,6 +96,13 @@ if ($CACHE{LIBCFUNK_GENERATE_LIMITS_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_LOCALE_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/locale.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/locale.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
@@ -198,6 +205,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_ENDIAN_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/endian.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/endian.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYSEXITS_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sysexits.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sysexits.h
   )
 endif ()
 

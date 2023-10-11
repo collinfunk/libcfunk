@@ -191,6 +191,7 @@
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
+#cmakedefine01 HAVE_LOCALE_H
 #cmakedefine01 HAVE_LOCALTIME_R
 #cmakedefine01 HAVE__LOCK_FILE
 #cmakedefine01 HAVE_MALLOC
@@ -308,6 +309,7 @@
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_TYPE
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_WHENCE
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
+#cmakedefine01 HAVE_STRUCT_LCONV
 #cmakedefine01 HAVE_STRUCT_PTMGET
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
@@ -329,6 +331,7 @@
 #cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_SYSCONF
 #cmakedefine01 HAVE_SYS_ENDIAN_H
+#cmakedefine01 HAVE_SYSEXITS_H
 #cmakedefine01 HAVE_SYS_FILE_H
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
