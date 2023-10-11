@@ -117,6 +117,13 @@ if ($CACHE{LIBCFUNK_GENERATE_NETINET_IN_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_PTHREAD_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pthread.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/pthread.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_PTY_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pty.h.in
