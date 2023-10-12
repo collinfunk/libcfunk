@@ -23,73 +23,18 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDIO_EXT_H
-#define COMPAT_STDIO_EXT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdio.h>
+#include <stdio_ext.h>
+#include <stdlib.h>
 
-#if @HAVE_STDIO_EXT_H@
-#  include_next <stdio_ext.h>
-#endif
+#include "test-help.h"
 
-#if @HAVE_STDIO_H@
-#  include <stdio.h>
-#endif
-
-#if @LIBCFUNK_DECLARE___FBUFSIZE@
-#  if !@HAVE___FBUFSIZE@
-extern size_t __fbufsize (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FPURGE@
-#  if !@HAVE___FPURGE@
-extern void __fpurge (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FSETERR@
-#  if !@HAVE___FSETERR@
-extern void __fseterr (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FLBF@
-#  if !@HAVE___FLBF@
-extern int __flbf (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FPENDING@
-#  if !@HAVE___FPENDING@
-extern size_t __fpending (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FREADABLE@
-#  if !@HAVE___FREADABLE@
-extern int __freadable (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FWRITABLE@
-#  if !@HAVE___FWRITABLE@
-extern int __fwritable (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FREADING@
-#  if !@HAVE___FREADING@
-extern int __freading (FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE___FWRITING@
-#  if !@HAVE___FWRITING@
-extern int __fwriting (FILE *stream);
-#  endif
-#endif
-
-#endif /* COMPAT_STDIO_EXT_H */
+int
+main (void)
+{
+  ASSERT (!__freadable (stdout));
+  ASSERT (__freadable (stdin));
+  return 0;
+}

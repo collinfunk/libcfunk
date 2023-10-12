@@ -111,13 +111,17 @@
 #cmakedefine01 HAVE__FILENO
 #cmakedefine01 HAVE_FILENO
 #cmakedefine01 HAVE_FILE__PTR
+#cmakedefine01 HAVE___FLBF
 #cmakedefine01 HAVE_FLOCK
 #cmakedefine01 HAVE_FLOCKFILE
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
 #cmakedefine01 HAVE_FORK
+#cmakedefine01 HAVE___FPENDING
 #cmakedefine01 HAVE___FPURGE
+#cmakedefine01 HAVE___FREADABLE
+#cmakedefine01 HAVE___FREADING
 #cmakedefine01 HAVE_FREE
 #cmakedefine01 HAVE_FSEEK
 #cmakedefine01 HAVE__FSEEKI64
@@ -127,6 +131,8 @@
 #cmakedefine01 HAVE__FTELLI64
 #cmakedefine01 HAVE_FTELLO
 #cmakedefine01 HAVE_FUNLOCKFILE
+#cmakedefine01 HAVE___FWRITABLE
+#cmakedefine01 HAVE___FWRITING
 #cmakedefine01 HAVE_GAI_STRERROR
 #cmakedefine01 HAVE_GAI_STRERRORA
 #cmakedefine01 HAVE__GETCHAR_NOLOCK
