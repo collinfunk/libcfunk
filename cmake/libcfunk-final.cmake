@@ -173,6 +173,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDINT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDIO_EXT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdio_ext.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdio_ext.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDIO_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdio.h.in

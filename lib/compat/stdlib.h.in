@@ -26,14 +26,21 @@
 #ifndef COMPAT_STDLIB_H
 #define COMPAT_STDLIB_H
 
-#include <sys/types.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
 #if @HAVE_STDLIB_H@
 #  include_next <stdlib.h>
+#endif
+
+#include <sys/types.h>
+
+#include <stddef.h>
+
+/* Solaris. */
+#if @HAVE_SYS_LOADAVG_H@
+#  include <sys/loadavg.h>
 #endif
 
 #ifndef EXIT_FAILURE
@@ -206,6 +213,12 @@ extern int unlockpt (int fd);
 #if @LIBCFUNK_DECLARE_REALLOCF@
 #  if !@HAVE_REALLOCF@
 extern void *reallocf (void *ptr, size_t size);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETLOADAVG@
+#  if !@HAVE_GETLOADAVG@
+extern int getloadavg (double loadavg[], int nelem);
 #  endif
 #endif
 
