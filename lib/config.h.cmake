@@ -61,6 +61,7 @@
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_COPY_FILE_RANGE
 #cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRT_EXTERNS_H
 #cmakedefine01 HAVE_CTYPE_H
@@ -288,6 +289,7 @@
 #cmakedefine01 HAVE_SETPROGNAME
 #cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL
+#cmakedefine01 HAVE_SIG2STR
 #cmakedefine01 HAVE_SIGABBREV_NP
 #cmakedefine01 HAVE_SIG_ATOMIC_T
 #cmakedefine01 HAVE_SIGDESCR_NP
@@ -304,6 +306,7 @@
 #cmakedefine01 HAVE_STDIO_H
 #cmakedefine01 HAVE_STDLIB_H
 #cmakedefine01 HAVE_STPCPY
+#cmakedefine01 HAVE_STR2SIG
 #cmakedefine01 HAVE_STRCASECMP
 #cmakedefine01 HAVE_STRCAT
 #cmakedefine01 HAVE_STRCHR

@@ -23,81 +23,13 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SIGNAL_H
-#define COMPAT_SIGNAL_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
-
-#if @HAVE_SIGNAL_H@
-#  include_next <signal.h>
-#endif
-
-#include <sys/types.h>
-
+#include <signal.h>
 #include <stddef.h>
+#include <string.h>
 
-#if @HAVE_PTHREAD_H@
-#  include <pthread.h>
-#endif
-
-#if !@HAVE_SIGSET_T@
-typedef unsigned int sigset_t;
-#endif
-
-#if !@HAVE_UNION_SIGVAL@
-union sigval
-{
-  int sival_int;
-  void *sival_ptr;
-};
-#endif
-
-#if !@HAVE_SIGINFO_T@
-typedef struct
-{
-  int si_signo;
-  int si_code;
-  int si_errno;
-  pid_t si_pid;
-  uid_t si_uid;
-  void *si_addr;
-  int si_status;
-  long si_band;
-  union sigval si_value;
-} siginfo_t;
-#endif
-
-#if !@HAVE_STACK_T@
-typedef struct
-{
-  void *ss_sp;
-  size_t ss_size;
-  int ss_flags;
-} stack_t;
-#endif
-
-#if !@HAVE_STRUCT_SIGACTION@
-struct sigaction
-{
-  void (*sa_handler) (int);
-  sigset_t sa_mask;
-  int sa_flags;
-  void (*sa_sigaction) (int, siginfo_t *, void *);
-};
-#endif
-
-#if @LIBCFUNK_DECLARE_STR2SIG@
-#  if !@HAVE_STR2SIG@
+/* TODO */
+/* https://docs.oracle.com/cd/E86824_01/html/E54766/sig2str-3c.html */
 extern int str2sig (const char *str, int *signum);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SIG2STR@
-#  if !@HAVE_SIG2STR@
 extern int sig2str (int signum, char *str);
-#  endif
-#endif
-
-#endif /* COMPAT_SIGNAL_H */

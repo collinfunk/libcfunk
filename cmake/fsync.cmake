@@ -3,6 +3,8 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
+check_include_files("windows.h" HAVE_WINDOWS_H)
+
 if (HAVE_UNISTD_H)
   check_symbol_exists("fsync" "unistd.h" HAVE_FSYNC)
 else ()
@@ -16,3 +18,8 @@ if (NOT HAVE_FSYNC)
     $CACHE{LIBCFUNK_SOURCE_DIR}/fsync.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-fsync.cmake)
+endif ()
+

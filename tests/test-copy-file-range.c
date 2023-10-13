@@ -26,28 +26,67 @@
 #include <config.h>
 
 #include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-#if HAVE_WINDOWS_H
-#  include <windows.h>
-#else
-#  error "fsync not implemented for your system."
-#endif
+#include "test-help.h"
+
+#undef DEST_FILE_NAME
+
+#define DEST_FILE_NAME "test-copy-file-range.tmp"
 
 int
-fsync (int fd)
+main (int argc, char **argv)
 {
-  HANDLE file_handle;
+  int src_fd;
+  int dest_fd;
 
-  file_handle = (HANDLE) _get_osfhandle (fd);
-  if (file_handle == INVALID_HANDLE_VALUE)
-    return -1;
+  remove (DEST_FILE_NAME);
 
-  if (!FlushFileBuffers (file_handle))
+  if (argc < 2)
     {
-      errno = EIO;
-      return -1;
+      src_fd = open (argv[0], O_RDONLY);
+      if (src_fd < 0)
+        {
+          fprintf (stderr, "open () failed.\n");
+          abort ();
+        }
     }
+  else
+    {
+      src_fd = open (argv[1], O_RDONLY);
+      if (src_fd < 0)
+        {
+          fprintf (stderr, "open () failed.\n");
+          abort ();
+        }
+    }
+
+  dest_fd = open (DEST_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+  if (dest_fd < 0)
+    {
+      fprintf (stderr, "open () failed.\n");
+      close (src_fd);
+      abort ();
+    }
+
+  if (copy_file_range (src_fd, NULL, dest_fd, NULL, 512, 0) < 0)
+    {
+      if (errno == ENOSYS)
+        fprintf (stderr, "copy_file_range not supported on your system.\n");
+      else
+        fprintf (stderr, "copy_file_range failed.\n");
+      ASSERT (close (src_fd) == 0);
+      ASSERT (close (dest_fd) == 0);
+      ASSERT (remove (DEST_FILE_NAME) == 0);
+      abort ();
+    }
+
+  ASSERT (close (src_fd) == 0);
+  ASSERT (close (dest_fd) == 0);
+  ASSERT (remove (DEST_FILE_NAME) == 0);
 
   return 0;
 }

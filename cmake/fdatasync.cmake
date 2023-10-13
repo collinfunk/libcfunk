@@ -17,3 +17,8 @@ if (NOT HAVE_FDATASYNC)
     $CACHE{LIBCFUNK_SOURCE_DIR}/fdatasync.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-fdatasync.cmake)
+endif ()
+

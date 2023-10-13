@@ -277,4 +277,12 @@ extern int fdatasync (int fd);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_COPY_FILE_RANGE@
+#  if !@HAVE_COPY_FILE_RANGE@
+extern ssize_t copy_file_range (int fd_in, off_t *off_in, int fd_out,
+                                off_t *off_out, size_t len,
+                                unsigned int flags);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
