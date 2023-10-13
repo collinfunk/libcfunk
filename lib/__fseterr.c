@@ -32,7 +32,11 @@
 void
 __fseterr (FILE *stream)
 {
-#if HAVE_FILE__FLAG && defined(_IOERR)
+#if HAVE_FILE__FLAGS && defined(_IO_ERR_SEEN)
+  stream->_flags |= _IO_ERR_SEEN;
+#elif HAVE_FILE__FLAGS && defined(__SERR)
+  stream->_flags |= __SERR;
+#elif HAVE_FILE__FLAG && defined(_IOERR)
   stream->_flag |= _IOERR;
 #else
 #  error "__fseterr not implemented on your system."

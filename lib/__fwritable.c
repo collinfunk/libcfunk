@@ -28,21 +28,16 @@
 #include <stdio.h>
 #include <stdio_ext.h>
 
-/* TODO */
+/* Return 1 if STREAM allows writing. If not return 0. */
 int
 __fwritable (FILE *stream)
 {
-#if HAVE_FILE__FLAG
-#  if _IOWRT
-  if (stream->_flag & _IOWRT)
-    return 1;
-#  endif
-#  if _IORW
-  if (stream->_flag & _IORW)
-    return 1;
-#  endif
-  return 0;
+#if HAVE_FILE__FLAGS && __SWR && __SRW
+  return (stream->_flags & (__SWR | __SRW)) != 0;
+#elif HAVE_FILE__FLAG && _IOWRT && _IORW
+  return (stream->_flag & (_IOWRT | _IORW)) != 0;
 #else
 #  error "__fwritable not implemented for your system."
+  return 0;
 #endif
 }

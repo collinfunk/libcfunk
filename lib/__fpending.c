@@ -25,19 +25,30 @@
 
 #include <config.h>
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdio_ext.h>
 
-/* TODO */
+/* Return the total number of bytes in the output buffer. */
 size_t
 __fpending (FILE *stream)
 {
-#if HAVE_FILE__BASE && HAVE_FILE__PTR
+#if HAVE_FILE__IO_WRITE_PTR && HAVE_FILE__IO_WRITE_BASE
+  if (stream->_IO_write_ptr == NULL)
+    return 0;
+  else
+    stream->_IO_write_ptr - stream->_IO_write_base;
+#elif HAVE_FILE__P && HAVE_FILE__BF__BASE
+  if (stream->_p == NULL)
+    return 0;
+  return stream->_p - stream->_bf._base;
+#elif HAVE_FILE__BASE && HAVE_FILE__PTR
   if (stream->_ptr == NULL)
     return 0;
   else
     return stream->_ptr - stream->_base;
 #else
 #  error "__fpending not implemented on your system."
+  return 0;
 #endif
 }

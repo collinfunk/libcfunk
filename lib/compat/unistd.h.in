@@ -260,8 +260,20 @@ extern int gethostname (char *name, size_t name_len);
 /* Some systems, such as 4.4BSD and its derivatives, use 'int' instead of
    'size_t' for the name_len parameter. */
 #if @LIBCFUNK_DECLARE_SETHOSTNAME@
-#  if @HAVE_SETHOSTNAME@
+#  if !@HAVE_SETHOSTNAME@
 extern int sethostname (const char *name, size_t name_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FSYNC@
+#  if !@HAVE_FSYNC@
+extern int fsync (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FDATASYNC@
+#  if !@HAVE_FDATASYNC@
+extern int fdatasync (int fd);
 #  endif
 #endif
 

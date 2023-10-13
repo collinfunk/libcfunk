@@ -31,7 +31,9 @@
 size_t
 __fbufsize (FILE *stream)
 {
-#if HAVE_FILE__BUFSIZ && HAVE_WINDOWS_H
+#if HAVE_FILE__BF__SIZE
+  return stream->_bf._size;
+#elif HAVE_FILE__BUFSIZ && HAVE_WINDOWS_H
   /* Windows defaults to a buffer size of 4096. */
   return stream->_bufsiz > 0 ? stream->_bufsiz : 4096;
 #else

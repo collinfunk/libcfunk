@@ -38,6 +38,12 @@
 #  include <stdio.h>
 #endif
 
+/* These functions are used to access information from 'FILE' types. There
+   is not way to do this portably so these functions must be implemented for
+   each specific implementation of libc. To port these functions to new systems
+   you should open 'stdio.h' and find  the definition of 'FILE'. Then add
+   proper CMake checks and implement each function. */
+
 #if @LIBCFUNK_DECLARE___FBUFSIZE@
 #  if !@HAVE___FBUFSIZE@
 extern size_t __fbufsize (FILE *stream);

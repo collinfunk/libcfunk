@@ -28,21 +28,16 @@
 #include <stdio.h>
 #include <stdio_ext.h>
 
-/* TODO */
+/* Return 1 if STREAM allows reading. If not return 0. */
 int
 __freadable (FILE *stream)
 {
-#if HAVE_FILE__FLAG
-#  if _IOREAD
-  if (stream->_flag & _IOREAD)
-    return 1;
-#  endif
-#  if _IORW
-  if (stream->_flag & _IORW)
-    return 1;
-#  endif
-  return 0;
+#if HAVE_FILE__FLAGS && __SRD && __SRW
+  return (stream->_flags & (__SRD | __SRW)) != 0;
+#elif HAVE_FILE__FLAG && _IOREAD && _IORW
+  return (stream->_flag & (_IOREAD | _IORW)) != 0;
 #else
 #  error "__freadable not implemented for your system."
+  return 0;
 #endif
 }

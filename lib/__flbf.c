@@ -28,9 +28,14 @@
 #include <stdio.h>
 #include <stdio_ext.h>
 
-/* TODO */
+/* Return 1 if STREAM is line-buffered. If not return 0. */
 int
 __flbf (FILE *stream)
 {
-#error "__flbf not implemented on your system."
+#if HAVE_FILE__FLAGS && __SLBF
+  return (stream->_flags & __SLBF) != 0;
+#else
+#  error "__flbf not implemented on your system."
+  return 0;
+#endif
 }

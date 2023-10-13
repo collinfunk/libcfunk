@@ -25,17 +25,12 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdio_ext.h>
-#include <stdlib.h>
+#include <errno.h>
+#include <unistd.h>
 
-#include "test-help.h"
-
+/* TODO: Windows. */
 int
-main (void)
+fdatasync (int fd)
 {
-  ASSERT (!ferror (stdout));
-  __fseterr (stdout);
-  ASSERT (ferror (stdout));
-  return 0;
+  return fsync (fd);
 }
