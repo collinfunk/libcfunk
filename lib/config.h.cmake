@@ -74,6 +74,9 @@
 #cmakedefine01 HAVE_DEV_T
 #cmakedefine01 HAVE_DIRECT_H
 #cmakedefine01 HAVE_DIRENT_H
+#cmakedefine01 HAVE__DUP
+#cmakedefine01 HAVE_DUP
+#cmakedefine01 HAVE__DUP2
 #cmakedefine01 HAVE_DUP2
 #cmakedefine01 HAVE_DYSIZE
 #cmakedefine01 HAVE_EACCESS
@@ -102,6 +105,7 @@
 #cmakedefine01 HAVE_EXPLICIT_BZERO
 #cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE___FBUFSIZE
+#cmakedefine01 HAVE_FCNTL
 #cmakedefine01 HAVE_FCNTL_H
 #cmakedefine01 HAVE_FDATASYNC
 #cmakedefine01 HAVE_FFS

@@ -285,4 +285,16 @@ extern ssize_t copy_file_range (int fd_in, off_t *off_in, int fd_out,
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_DUP@
+#  if !@HAVE_DUP@
+extern int dup (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_DUP2@
+#  if !@HAVE_DUP2@
+extern int dup2 (int fd1, int fd2);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
