@@ -364,6 +364,8 @@
 #cmakedefine01 HAVE_STRUCT_TERMIOS
 #cmakedefine01 HAVE_STRUCT_TIMESPEC
 #cmakedefine01 HAVE_STRUCT_TMS
+#cmakedefine01 HAVE_STRUCT__UTIMBUF
+#cmakedefine01 HAVE_STRUCT_UTIMBUF
 #cmakedefine01 HAVE_STRUCT_UTSNAME
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
@@ -385,6 +387,7 @@
 #cmakedefine01 HAVE_SYS_TIMES_H
 #cmakedefine01 HAVE_SYS_TTY_H
 #cmakedefine01 HAVE_SYS_TYPES_H
+#cmakedefine01 HAVE_SYS_UTIME_H
 #cmakedefine01 HAVE_SYS_UTSNAME_H
 #cmakedefine01 HAVE_SYS_WAIT_H
 #cmakedefine01 HAVE_TCGETSID
@@ -422,6 +425,7 @@
 #cmakedefine01 HAVE_UNIXIO_H
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_UNLOCKPT
+#cmakedefine01 HAVE_UTIME_H
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
 #cmakedefine01 HAVE_VERRX
