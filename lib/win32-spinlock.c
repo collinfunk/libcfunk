@@ -25,19 +25,50 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdio_ext.h>
+#include <errno.h>
+#include <windows.h>
 
-/* Return 1 if STREAM is line-buffered. If not return 0. */
+#include "attributes.h"
+#include "win32-spinlock.h"
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-memorybarrier */
 int
-__flbf (FILE *stream)
+win32_spin_init (struct win32_spinlock *lock, int pshared ATTRIBUTE_UNUSED)
 {
-#if HAVE_FILE__FLAGS && __SLBF
-  return (stream->_flags & __SLBF) != 0;
-#elif HAVE_FILE__FLAG && _IOLBF && !_IOFBF
-  return (stream->_flag & _IOLBF) != 0;
-#else
-#  error "__flbf not implemented on your system."
+  lock->value = 0;
+  MemoryBarrier ();
   return 0;
-#endif
+}
+
+int
+win32_spin_destroy (struct win32_spinlock *lock ATTRIBUTE_UNUSED)
+{
+  return 0;
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-interlockedcompareexchange */
+int
+win32_spin_lock (struct win32_spinlock *lock)
+{
+  while (InterlockedCompareExchange (&lock->value, 1, 0))
+    ;
+  return 0;
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-interlockedcompareexchange */
+int
+win32_spin_trylock (struct win32_spinlock *lock)
+{
+  if (InterlockedCompareExchange (&lock->value, 1, 0))
+    return EBUSY;
+  return 0;
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-interlockedcompareexchange */
+int
+win32_spin_unlock (struct win32_spinlock *lock)
+{
+  if (!InterlockedCompareExchange (&lock->value, 0, 1))
+    return EINVAL;
+  return 0;
 }

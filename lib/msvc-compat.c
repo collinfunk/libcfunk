@@ -25,19 +25,25 @@
 
 #include <config.h>
 
-#include <stdio.h>
-#include <stdio_ext.h>
+#include <stdlib.h>
 
-/* Return 1 if STREAM is line-buffered. If not return 0. */
-int
-__flbf (FILE *stream)
-{
-#if HAVE_FILE__FLAGS && __SLBF
-  return (stream->_flags & __SLBF) != 0;
-#elif HAVE_FILE__FLAG && _IOLBF && !_IOFBF
-  return (stream->_flag & _IOLBF) != 0;
-#else
-#  error "__flbf not implemented on your system."
-  return 0;
+#if HAVE_WINDOWS_H
+#  include <windows.h>
 #endif
+
+#include "attributes.h"
+
+static void
+_empty_invalid_parameter_handle (const wchar_t *expression ATTRIBUTE_UNUSED,
+                                 const wchar_t *function ATTRIBUTE_UNUSED,
+                                 const wchar_t *file ATTRIBUTE_UNUSED,
+                                 unsigned int line ATTRIBUTE_UNUSED,
+                                 uintptr_t reserved ATTRIBUTE_UNUSED)
+{
+}
+
+void
+set_empty_invalid_parameter_handle (void)
+{
+  _set_invalid_parameter_handler (_empty_invalid_parameter_handle);
 }

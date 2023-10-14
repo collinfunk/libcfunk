@@ -26,6 +26,15 @@
 #ifndef WIN32_SPINLOCK_H
 #define WIN32_SPINLOCK_H
 
-/* TODO */
+struct win32_spinlock
+{
+  LONG volatile value;
+};
+
+extern int win32_spin_init (struct win32_spinlock *lock, int pshared);
+extern int win32_spin_destroy (struct win32_spinlock *lock);
+extern int win32_spin_lock (struct win32_spinlock *lock);
+extern int win32_spin_trylock (struct win32_spinlock *lock);
+extern int win32_spin_unlock (struct win32_spinlock *lock);
 
 #endif /* WIN32_SPINLOCK_H */

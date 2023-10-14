@@ -63,7 +63,9 @@
 #cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_COPY_FILE_RANGE
 #cmakedefine01 HAVE_CREAT
+#cmakedefine01 HAVE_CRTDBG_H
 #cmakedefine01 HAVE_CRT_EXTERNS_H
+#cmakedefine01 HAVE__CRTSETREPORTMODE
 #cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_DAEMON
 #cmakedefine01 HAVE_DEV_PTC
@@ -284,6 +286,7 @@
 #cmakedefine01 HAVE_SECURE_GETENV
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SETHOSTNAME
+#cmakedefine01 HAVE__SET_INVALID_PARAMETER_HANDLER
 #cmakedefine01 HAVE__SETMODE
 #cmakedefine01 HAVE_SETMODE
 #cmakedefine01 HAVE_SETPROGNAME

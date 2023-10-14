@@ -25,19 +25,21 @@
 
 #include <config.h>
 
+#include <fcntl.h>
 #include <stdio.h>
-#include <stdio_ext.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-/* Return 1 if STREAM is line-buffered. If not return 0. */
+#include "msvc-compat.h"
+
 int
-__flbf (FILE *stream)
+main (void)
 {
-#if HAVE_FILE__FLAGS && __SLBF
-  return (stream->_flags & __SLBF) != 0;
-#elif HAVE_FILE__FLAG && _IOLBF && !_IOFBF
-  return (stream->_flag & _IOLBF) != 0;
+#if !HAVE__SET_INVALID_PARAMETER_HANDLER
+  return 0;
 #else
-#  error "__flbf not implemented on your system."
+  set_empty_invalid_parameter_handle ();
+  close (-1);
   return 0;
 #endif
 }

@@ -23,21 +23,14 @@
  * SUCH DAMAGE.
  */
 
+#ifndef MSVC_COMPAT_H
+#define MSVC_COMPAT_H
+
 #include <config.h>
 
-#include <stdio.h>
-#include <stdio_ext.h>
-
-/* Return 1 if STREAM is line-buffered. If not return 0. */
-int
-__flbf (FILE *stream)
-{
-#if HAVE_FILE__FLAGS && __SLBF
-  return (stream->_flags & __SLBF) != 0;
-#elif HAVE_FILE__FLAG && _IOLBF && !_IOFBF
-  return (stream->_flag & _IOLBF) != 0;
-#else
-#  error "__flbf not implemented on your system."
-  return 0;
+/* TODO: Better handling for MSVC C runtime. */
+#if HAVE__SET_INVALID_PARAMETER_HANDLER
+extern void set_empty_invalid_parameter_handle (void);
 #endif
-}
+
+#endif /* MSVC_COMPAT_H */

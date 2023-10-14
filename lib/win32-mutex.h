@@ -26,6 +26,15 @@
 #ifndef WIN32_MUTEX_H
 #define WIN32_MUTEX_H
 
-/* TODO */
+struct win32_mutex
+{
+  CRITICAL_SECTION lock;
+};
+
+extern int win32_mutex_init (struct win32_mutex *mutex);
+extern int win32_mutex_destroy (struct win32_mutex *mutex);
+extern int win32_mutex_lock (struct win32_mutex *mutex);
+extern int win32_mutex_trylock (struct win32_mutex *mutex);
+extern int win32_mutex_unlock (struct win32_mutex *mutex);
 
 #endif /* WIN32_MUTEX_H */

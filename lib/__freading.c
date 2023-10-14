@@ -28,9 +28,15 @@
 #include <stdio.h>
 #include <stdio_ext.h>
 
-/* TODO */
+/* Return 1 if STREAM is read-only else 0. */
 int
 __freading (FILE *stream)
 {
-#error "__freading not implemented on your system."
+#if HAVE_FILE__FLAGS && __SRD
+  return (stream->_flags & __SRD) != 0;
+#elif HAVE_FILE__FLAG && _IOREAD
+  return (stream->_flag & _IOREAD) != 0;
+#else
+#  error "__freading not implemented on your system."
+#endif
 }

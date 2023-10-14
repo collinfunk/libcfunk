@@ -31,8 +31,32 @@
 
 #include "test-help.h"
 
+#undef TEST_FILE_NAME
+
+#define TEST_FILE_NAME "test-freading.tmp"
+
 int
 main (void)
 {
+  FILE *fp;
+
+  remove (TEST_FILE_NAME);
+
+  fp = fopen (TEST_FILE_NAME, "w");
+  ASSERT (fp != NULL);
+
+  ASSERT (!__freading (fp));
+  ASSERT (fwrite ("test", 1, 4, fp) == 4);
+  ASSERT (!__freading (fp));
+  ASSERT (fclose (fp) == 0);
+
+  fp = fopen (TEST_FILE_NAME, "r");
+  ASSERT (fp != NULL);
+  ASSERT (__freading (fp));
+  ASSERT (fgetc (fp) == 't');
+  ASSERT (__freading (fp));
+  ASSERT (fclose (fp) == 0);
+
+  ASSERT (remove (TEST_FILE_NAME) == 0);
   return 0;
 }

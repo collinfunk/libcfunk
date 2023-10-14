@@ -23,21 +23,48 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#include <errno.h>
+#include <windows.h>
 
-#include <stdio.h>
-#include <stdio_ext.h>
+#include "win32-mutex.h"
 
-/* Return 1 if STREAM is line-buffered. If not return 0. */
+/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-initializecriticalsection */
 int
-__flbf (FILE *stream)
+win32_mutex_init (struct win32_mutex *mutex)
 {
-#if HAVE_FILE__FLAGS && __SLBF
-  return (stream->_flags & __SLBF) != 0;
-#elif HAVE_FILE__FLAG && _IOLBF && !_IOFBF
-  return (stream->_flag & _IOLBF) != 0;
-#else
-#  error "__flbf not implemented on your system."
+  InitializeCriticalSection (&mutex->lock);
   return 0;
-#endif
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-deletecriticalsection */
+int
+win32_mutex_destroy (struct win32_mutex *mutex)
+{
+  DeleteCriticalSection (&mutex->lock);
+  return 0;
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-entercriticalsection */
+int
+win32_mutex_lock (struct win32_mutex *mutex)
+{
+  EnterCriticalSection (&mutex->lock);
+  return 0;
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-tryentercriticalsection */
+int
+win32_mutex_trylock (struct win32_mutex *mutex)
+{
+  if (!TryEnterCriticalSection (&mutex->lock))
+    return EBUSY;
+  return 0;
+}
+
+/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-tryentercriticalsection */
+int
+win32_mutex_unlock (struct win32_mutex *mutex)
+{
+  LeaveCriticalSection (&mutex->lock);
+  return 0;
 }

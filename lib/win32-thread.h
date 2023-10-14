@@ -27,5 +27,9 @@
 #define WIN32_THREAD_H
 
 /* TODO */
+struct win32_thread
+{
+  HANDLE handle;
+};
 
 #endif /* WIN32_THREAD_H */
