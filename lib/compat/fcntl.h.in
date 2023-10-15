@@ -129,18 +129,9 @@
 #  define O_SYNC 0
 #endif
 
-/* Mask for file access modes. */
-#ifndef O_ACCMODE
-#  if defined(_O_ACCMODE)
-#    define O_ACCMODE _O_ACCMODE
-#  else
-#    define O_ACCMODE 0
-#  endif
-#endif
-
 /* Open for execute only. */
 #ifndef O_EXEC
-#  define O_EXEC 0
+#  define O_EXEC O_RDONLY
 #endif
 
 /* Open for reading only. */
@@ -163,7 +154,7 @@
 
 /* Open directory for search only. */
 #ifndef O_SEARCH
-#  define O_SEARCH 0
+#  define O_SEARCH O_RDONLY
 #endif
 
 /* Open for writing only. */
@@ -196,6 +187,15 @@
 #    define O_TEXT _O_TEXT
 #  else
 #    define O_TEXT 0
+#  endif
+#endif
+
+/* Mask for file access modes. */
+#ifndef O_ACCMODE
+#  if defined(_O_ACCMODE)
+#    define O_ACCMODE _O_ACCMODE
+#  else
+#    define O_ACCMODE (O_RDONLY | O_WRONLY | O_RDWR)
 #  endif
 #endif
 

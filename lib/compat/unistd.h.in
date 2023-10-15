@@ -297,4 +297,22 @@ extern int dup2 (int fd1, int fd2);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_SYMLINK@
+#  if !@HAVE_SYMLINK@
+extern int symlink (const char *path1, const char *path2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_UNLINK@
+#  if !@HAVE_UNLINK@
+extern int unlink (const char *path);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RMDIR@
+#  if !@HAVE_RMDIR@
+extern int rmdir (const char *path);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */

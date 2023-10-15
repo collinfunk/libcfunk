@@ -35,6 +35,12 @@
 #endif
 
 #include <sys/types.h>
+#include <stddef.h>
+#include <stdarg.h>
+
+#if @HAVE_IO_H@
+#  include <io.h>
+#endif
 
 #if @LIBCFUNK_UNLOCKED_STDIO@
 #  if !@HAVE_FLOCKFILE@
@@ -118,6 +124,18 @@ extern int fseeko (FILE *stream, off_t offset, int whence);
 #if @LIBCFUNK_DECLARE_FTELLO@
 #  if !@HAVE_FTELLO@
 extern off_t ftello (FILE *stream);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FILENO@
+#  if !@HAVE_FILENO@
+extern int fileno (FILE *stream);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_REMOVE@
+#  if !@HAVE_REMOVE@
+extern int remove (const char *path);
 #  endif
 #endif
 

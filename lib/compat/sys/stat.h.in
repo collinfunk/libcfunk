@@ -102,6 +102,18 @@
 #  define S_ISUID 0004000
 #endif
 
+#ifndef S_IRWXO
+#  define S_IRWXO (S_IROTH | S_IWOTH | S_IXOTH)
+#endif
+
+#ifndef S_IRWXG
+#  define S_IRWXG (S_IRGRP | S_IWGRP | S_IXGRP)
+#endif
+
+#ifndef S_IRWXU
+#  define S_IRWXU (S_IRUSR | S_IWUSR | S_IXUSR)
+#endif
+
 /* Filetype mask. */
 #ifndef S_IFMT
 #  define S_IFMT 0170000

@@ -89,6 +89,13 @@ if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_LANGINFO_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/langinfo.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/langinfo.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_LIMITS_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/limits.h.in

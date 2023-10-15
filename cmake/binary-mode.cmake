@@ -5,14 +5,18 @@ include_guard(GLOBAL)
 # On other systems these are defined to 0.
 include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fileno.cmake)
 
-# These functions are required to change the mode of a file.
-# If they are unavaliable we assume O_TEXT and O_BINARY have no special
-# meaning.
-check_symbol_exists("setmode" "io.h" HAVE_SETMODE)
-check_symbol_exists("_setmode" "io.h" HAVE__SETMODE)
-check_symbol_exists("fileno" "stdio.h" HAVE_FILENO)
-check_symbol_exists("_fileno" "stdio.h" HAVE__FILENO)
+check_include_file("windows.h" HAVE_WINDOWS_H)
+check_include_file("io.h" HAVE_IO_H)
+
+if (HAVE_IO_H)
+  check_symbol_exists("setmode" "io.h" HAVE_SETMODE)
+  check_symbol_exists("_setmode" "io.h" HAVE__SETMODE)
+else ()
+  set(HAVE_SETMODE "" CACHE INTERNAL "")
+  set(HAVE__SETMODE "" CACHE INTERNAL "")
+endif ()
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/binary-mode.h

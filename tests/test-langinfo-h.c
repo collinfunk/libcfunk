@@ -25,90 +25,13 @@
 
 #include <config.h>
 
-#include <fcntl.h>
-#include <stdio.h>
+#include <langinfo.h>
 
 #include "attributes.h"
-#include "binary-mode.h"
-
-#if !defined(O_BINARY) || O_BINARY == 0
 
 int
-set_binary_mode (int fd ATTRIBUTE_UNUSED)
+main (void)
 {
+  nl_item item ATTRIBUTE_UNUSED;
   return 0;
 }
-
-int
-fset_binary_mode (FILE *fp ATTRIBUTE_UNUSED)
-{
-  return 0;
-}
-
-#else
-
-int
-set_binary_mode (int fd)
-{
-#  if HAVE__SETMODE
-  return _setmode (fd, O_BINARY);
-#  elif HAVE_SETMODE
-  return setmode (fd, O_BINARY);
-#  else /* Assume O_BINARY does nothing. */
-  return 0;
-#  endif
-}
-
-int
-fset_binary_mode (FILE *fp)
-{
-  int fd = fileno (fp);
-
-  if (fd < 0)
-    return -1;
-
-  return set_binary_mode (fd);
-}
-
-#endif
-
-#if !defined(O_TEXT) || O_TEXT == 0
-
-int
-set_text_mode (int fd ATTRIBUTE_UNUSED)
-{
-  return 0;
-}
-
-int
-fset_text_mode (FILE *fp ATTRIBUTE_UNUSED)
-{
-  return 0;
-}
-
-#else
-
-int
-set_text_mode (int fd)
-{
-#  if HAVE__SETMODE
-  return _setmode (fd, O_TEXT);
-#  elif HAVE_SETMODE
-  return setmode (fd, O_TEXT);
-#  else /* Assume O_TEXT does nothing. */
-  return 0;
-#  endif
-}
-
-int
-fset_text_mode (FILE *fp)
-{
-  int fd = fileno (fp);
-
-  if (fd < 0)
-    return -1;
-
-  return set_text_mode (fd);
-}
-
-#endif

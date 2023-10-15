@@ -25,90 +25,49 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include "attributes.h"
-#include "binary-mode.h"
+#include "test-help.h"
 
-#if !defined(O_BINARY) || O_BINARY == 0
+#undef TEST_FILE_NAME
+#undef TEST_LINK_NAME
+
+#define TEST_FILE_NAME "test-symlink.tmp"
+#define TEST_LINK_NAME "test-symlink.link.tmp"
 
 int
-set_binary_mode (int fd ATTRIBUTE_UNUSED)
+main (void)
 {
+  int fd;
+
+  /* Remove any leftovers from previous tests. */
+  remove (TEST_FILE_NAME);
+  remove (TEST_LINK_NAME);
+
+  /* Check if symlink is avaliable. */
+  ASSERT (symlink ("", TEST_LINK_NAME) == -1);
+  if (errno != ENOSYS)
+    ASSERT (errno == ENOENT);
+  else
+    {
+      fprintf (stderr, "symlink () not supported on your system.\n");
+      exit (1);
+    }
+
+  /* Create a file. */
+  fd = open (TEST_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+  ASSERT (fd >= 0);
+  ASSERT (close (fd) == 0);
+
+  ASSERT (symlink (TEST_FILE_NAME, TEST_LINK_NAME) == 0);
+
+  /* Cleanup test files and links. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+  ASSERT (remove (TEST_LINK_NAME) == 0);
+
   return 0;
 }
-
-int
-fset_binary_mode (FILE *fp ATTRIBUTE_UNUSED)
-{
-  return 0;
-}
-
-#else
-
-int
-set_binary_mode (int fd)
-{
-#  if HAVE__SETMODE
-  return _setmode (fd, O_BINARY);
-#  elif HAVE_SETMODE
-  return setmode (fd, O_BINARY);
-#  else /* Assume O_BINARY does nothing. */
-  return 0;
-#  endif
-}
-
-int
-fset_binary_mode (FILE *fp)
-{
-  int fd = fileno (fp);
-
-  if (fd < 0)
-    return -1;
-
-  return set_binary_mode (fd);
-}
-
-#endif
-
-#if !defined(O_TEXT) || O_TEXT == 0
-
-int
-set_text_mode (int fd ATTRIBUTE_UNUSED)
-{
-  return 0;
-}
-
-int
-fset_text_mode (FILE *fp ATTRIBUTE_UNUSED)
-{
-  return 0;
-}
-
-#else
-
-int
-set_text_mode (int fd)
-{
-#  if HAVE__SETMODE
-  return _setmode (fd, O_TEXT);
-#  elif HAVE_SETMODE
-  return setmode (fd, O_TEXT);
-#  else /* Assume O_TEXT does nothing. */
-  return 0;
-#  endif
-}
-
-int
-fset_text_mode (FILE *fp)
-{
-  int fd = fileno (fp);
-
-  if (fd < 0)
-    return -1;
-
-  return set_text_mode (fd);
-}
-
-#endif

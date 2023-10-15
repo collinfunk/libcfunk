@@ -183,6 +183,7 @@
 #cmakedefine01 HAVE_GID_T
 #cmakedefine01 HAVE_GMTIME_R
 #cmakedefine01 HAVE_GROUP_MEMBER
+#cmakedefine01 HAVE_HAVE_DIRECT_H
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_INCLUDE_NEXT
 #cmakedefine01 HAVE_INDEX
@@ -222,6 +223,7 @@
 #cmakedefine01 HAVE_ISUPPER
 #cmakedefine01 HAVE_ISXDIGIT
 #cmakedefine01 HAVE_LABS
+#cmakedefine01 HAVE_LANGINFO_H
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE_LOCALECONV
@@ -247,6 +249,8 @@
 #cmakedefine01 HAVE_NANOSLEEP
 #cmakedefine01 HAVE_NETDB_H
 #cmakedefine01 HAVE_NETINET_IN_H
+#cmakedefine01 HAVE_NL_ITEM
+#cmakedefine01 HAVE_NL_TYPES_H
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
 #cmakedefine01 HAVE_ON_EXIT
@@ -283,8 +287,12 @@
 #cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_REALLOCF
+#cmakedefine01 HAVE__REMOVE
+#cmakedefine01 HAVE_REMOVE
 #cmakedefine01 HAVE_REVOKE
 #cmakedefine01 HAVE_RINDEX
+#cmakedefine01 HAVE__RMDIR
+#cmakedefine01 HAVE_RMDIR
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
 #cmakedefine01 HAVE_SCHED_H
 #cmakedefine01 HAVE_SCHED_YIELD
@@ -378,6 +386,7 @@
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
 #cmakedefine01 HAVE_SWAB
+#cmakedefine01 HAVE_SYMLINK
 #cmakedefine01 HAVE_SYSCONF
 #cmakedefine01 HAVE_SYS_ENDIAN_H
 #cmakedefine01 HAVE_SYSEXITS_H
@@ -431,6 +440,8 @@
 #cmakedefine01 HAVE_UNION_SIGVAL
 #cmakedefine01 HAVE_UNISTD_H
 #cmakedefine01 HAVE_UNIXIO_H
+#cmakedefine01 HAVE__UNLINK
+#cmakedefine01 HAVE_UNLINK
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_UNLOCKPT
 #cmakedefine01 HAVE_UTIME_H
