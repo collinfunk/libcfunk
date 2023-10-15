@@ -46,4 +46,228 @@
 typedef int nl_item;
 #endif
 
+#ifndef CODESET
+#  define CODESET 0
+#endif
+
+#ifndef D_T_FMT
+#  define D_T_FMT 1
+#endif
+
+#ifndef D_FMT
+#  define D_FMT 2
+#endif
+
+#ifndef T_FMT
+#  define T_FMT 3
+#endif
+
+#ifndef T_FMT_AMPM
+#  define T_FMT_AMPM 4
+#endif
+
+#ifndef AM_STR
+#  define AM_STR 5
+#endif
+
+#ifndef PM_STR
+#  define PM_STR 6
+#endif
+
+/* FIXME */
+#ifndef DAY_1
+#  define DAY_1 7
+#endif
+
+#ifndef DAY_2
+#  define DAY_2 (DAY_1 + 1)
+#endif
+
+#ifndef DAY_3
+#  define DAY_3 (DAY_1 + 2)
+#endif
+
+#ifndef DAY_4
+#  define DAY_4 (DAY_1 + 3)
+#endif
+
+#ifndef DAY_5
+#  define DAY_5 (DAY_1 + 4)
+#endif
+
+#ifndef DAY_6
+#  define DAY_6 (DAY_1 + 5)
+#endif
+
+#ifndef DAY_7
+#  define DAY_7 (DAY_1 + 6)
+#endif
+
+/* FIXME */
+#ifndef ABDAY_1
+#  define ABDAY_1 14
+#endif
+
+#ifndef ABDAY_2
+#  define ABDAY_2 (ABDAY_1 + 1)
+#endif
+
+#ifndef ABDAY_3
+#  define ABDAY_3 (ABDAY_1 + 2)
+#endif
+
+#ifndef ABDAY_4
+#  define ABDAY_4 (ABDAY_1 + 3)
+#endif
+
+#ifndef ABDAY_5
+#  define ABDAY_5 (ABDAY_1 + 4)
+#endif
+
+#ifndef ABDAY_6
+#  define ABDAY_6 (ABDAY_1 + 5)
+#endif
+
+#ifndef ABDAY_7
+#  define ABDAY_7 (ABDAY_1 + 6)
+#endif
+
+/* FIXME */
+#ifndef MON_1
+#  define MON_1 21
+#endif
+
+#ifndef MON_2
+#  define MON_2 (MON_1 + 1)
+#endif
+
+#ifndef MON_3
+#  define MON_3 (MON_1 + 2)
+#endif
+
+#ifndef MON_4
+#  define MON_4 (MON_1 + 3)
+#endif
+
+#ifndef MON_5
+#  define MON_5 (MON_1 + 4)
+#endif
+
+#ifndef MON_6
+#  define MON_6 (MON_1 + 5)
+#endif
+
+#ifndef MON_7
+#  define MON_7 (MON_1 + 6)
+#endif
+
+#ifndef MON_8
+#  define MON_8 (MON_1 + 7)
+#endif
+
+#ifndef MON_9
+#  define MON_9 (MON_1 + 8)
+#endif
+
+#ifndef MON_10
+#  define MON_10 (MON_1 + 9)
+#endif
+
+#ifndef MON_11
+#  define MON_11 (MON_1 + 10)
+#endif
+
+#ifndef MON_12
+#  define MON_12 (MON_1 + 11)
+#endif
+
+/* FIXME */
+#ifndef ABMON_1
+#  define ABMON_1 33
+#endif
+
+#ifndef ABMON_2
+#  define ABMON_2 (ABMON_1 + 1)
+#endif
+
+#ifndef ABMON_3
+#  define ABMON_3 (ABMON_1 + 2)
+#endif
+
+#ifndef ABMON_4
+#  define ABMON_4 (ABMON_1 + 3)
+#endif
+
+#ifndef ABMON_5
+#  define ABMON_5 (ABMON_1 + 4)
+#endif
+
+#ifndef ABMON_6
+#  define ABMON_6 (ABMON_1 + 5)
+#endif
+
+#ifndef ABMON_7
+#  define ABMON_7 (ABMON_1 + 6)
+#endif
+
+#ifndef ABMON_8
+#  define ABMON_8 (ABMON_1 + 7)
+#endif
+
+#ifndef ABMON_9
+#  define ABMON_9 (ABMON_1 + 8)
+#endif
+
+#ifndef ABMON_10
+#  define ABMON_10 (ABMON_1 + 9)
+#endif
+
+#ifndef ABMON_11
+#  define ABMON_11 (ABMON_1 + 10)
+#endif
+
+#ifndef ABMON_12
+#  define ABMON_12 (ABMON_1 + 11)
+#endif
+
+#ifndef ERA
+#  define ERA 45
+#endif
+
+#ifndef ERA_D_FMT
+#  define ERA_D_FMT 46
+#endif
+
+#ifndef ERA_D_T_FMT
+#  define ERA_D_T_FMT 47
+#endif
+
+#ifndef ERA_T_FMT
+#  define ERA_T_FMT 48
+#endif
+
+#ifndef ALT_DIGITS
+#  define ALT_DIGITS 49
+#endif
+
+#ifndef RADIXCHAR
+#  define RADIXCHAR 50
+#endif
+
+#ifndef THOUSEP
+#  define THOUSEP 51
+#endif
+
+#ifndef YESEXPR
+#  define YESEXPR 52
+#endif
+
+#ifndef NOEXPR
+#  define NOEXPR 53
+#endif
+
+#ifndef CRNCYSTR
+#  define CRNCYSTR 54
+#endif
+
 #endif /* COMPAT_LANGINFO_H */
