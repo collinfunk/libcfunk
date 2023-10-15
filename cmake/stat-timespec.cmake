@@ -1,63 +1,49 @@
 
 include_guard(GLOBAL)
 
-check_struct_has_member("struct stat" "st_atim" "sys/types.h;sys/time.h;sys/stat.h;time.h" HAVE_STRUCT_STAT_ST_ATIM)
-check_struct_has_member("struct stat" "st_ctim" "sys/types.h;sys/time.h;sys/stat.h;time.h" HAVE_STRUCT_STAT_ST_CTIM)
-check_struct_has_member("struct stat" "st_mtim" "sys/types.h;sys/time.h;sys/stat.h;time.h" HAVE_STRUCT_STAT_ST_MTIM)
-check_struct_has_member("struct stat" "st_atimespec" "sys/types.h;sys/time.h;sys/stat.h;time.h" HAVE_STRUCT_STAT_ST_ATIMESPEC)
-check_struct_has_member("struct stat" "st_ctimespec" "sys/types.h;sys/time.h;sys/stat.h;time.h" HAVE_STRUCT_STAT_ST_CTIMESPEC)
-check_struct_has_member("struct stat" "st_mtimespec" "sys/types.h;sys/time.h;sys/stat.h;time.h" HAVE_STRUCT_STAT_ST_MTIMESPEC)
+check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
+check_include_file("sys/time.h" HAVE_SYS_TIME_H)
+check_include_file("sys/stat.h" HAVE_SYS_STAT_H)
+check_include_file("time.h" HAVE_TIME_H)
 
-check_c_source_compiles("
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <time.h>
+set(STAT_TIMESPEC_INCLUDES "")
 
-int
-main (int argc, char **argv)
-{
-  struct stat st;
-  struct timespec tspec;
-  long int nanoseconds;
-  st.st_atim = tspec;
-  st.st_atim.tv_nsec = nanoseconds;
-  return 0;
-}" HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC)
+if (HAVE_SYS_TYPES_H)
+  list(APPEND STAT_TIMESPEC_INCLUDES "sys/types.h")
+endif ()
 
-check_c_source_compiles("
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <time.h>
+if (HAVE_SYS_TIME_H)
+  list(APPEND STAT_TIMESPEC_INCLUDES "sys/time.h")
+endif ()
 
-int
-main (int argc, char **argv)
-{
-  struct stat st;
-  struct timespec tspec;
-  long int nanoseconds;
-  st.st_ctim = tspec;
-  st.st_ctim.tv_nsec = nanoseconds;
-  return 0;
-}" HAVE_STRUCT_STAT_ST_CTIM_TIMESPEC_TV_NSEC)
+if (HAVE_SYS_STAT_H)
+  list(APPEND STAT_TIMESPEC_INCLUDES "sys/stat.h")
+endif ()
 
-check_c_source_compiles("
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <time.h>
+if (HAVE_TIME_H)
+  list(APPEND STAT_TIMESPEC_INCLUDES "time.h")
+endif ()
 
-int
-main (int argc, char **argv)
-{
-  struct stat st;
-  struct timespec tspec;
-  long int nanoseconds;
-  st.st_mtim = tspec;
-  st.st_mtim.tv_nsec = nanoseconds;
-  return 0;
-}" HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC)
+check_struct_has_member("struct stat" "st_atim" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_ATIM)
+check_struct_has_member("struct stat" "st_ctim" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_CTIM)
+check_struct_has_member("struct stat" "st_mtim" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_MTIM)
+check_struct_has_member("struct stat" "st_atimespec" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_ATIMESPEC)
+check_struct_has_member("struct stat" "st_ctimespec" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_CTIMESPEC)
+check_struct_has_member("struct stat" "st_mtimespec" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_MTIMESPEC)
+
+if (HAVE_STRUCT_STAT_ST_ATIM)
+  check_struct_has_member("struct stat" "st_atim.tv_nsec" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC)
+endif ()
+
+if (HAVE_STRUCT_STAT_ST_CTIM)
+  check_struct_has_member("struct stat" "st_ctim.tv_nsec" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_CTIM_TIMESPEC_TV_NSEC)
+endif ()
+
+if (HAVE_STRUCT_STAT_ST_MTIM)
+  check_struct_has_member("struct stat" "st_mtim.tv_nsec" "${STAT_TIMESPEC_INCLUDES}" HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC)
+endif ()
+
+unset(STAT_TIMESPEC_INCLUDES)
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/stat-timespec.c

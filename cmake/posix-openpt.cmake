@@ -37,17 +37,9 @@ endif ()
 # OpenBSD.
 check_include_file("sys/tty.h" HAVE_SYS_TTY_H)
 if (HAVE_SYS_TTY_H)
-  check_c_source_compiles("
-  #include <sys/tty.h>
-
-  int
-  main (void)
-  {
-    struct ptmget ptm;
-    ptm.cfd = 1;
-    ptm.sfd = 1;
-    return 0;
-  }" HAVE_STRUCT_PTMGET)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/tty.h")
+  check_type_size("struct ptmget" STRUCT_PTMGET)
+  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "sys/tty.h")
 else ()
   set(HAVE_STRUCT_PTMGET "" CACHE INTERNAL "")
 endif ()
