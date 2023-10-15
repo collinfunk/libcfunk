@@ -224,6 +224,7 @@
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
+#cmakedefine01 HAVE_LOCALECONV
 #cmakedefine01 HAVE_LOCALE_H
 #cmakedefine01 HAVE_LOCALTIME_R
 #cmakedefine01 HAVE__LOCK_FILE
@@ -461,6 +462,7 @@
 #cmakedefine01 HAVE_WMEMMOVE
 #cmakedefine01 HAVE_WMEMSET
 #cmakedefine01 HAVE_WS2TCPIP_H
+#cmakedefine01 HAVE_XLOCALE_H
 #cmakedefine01 HAVE___XPG_STRERROR_R
 
 #cmakedefine01 CALLOC_0_0_RETURNS_NONNULL

@@ -23,56 +23,45 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_LOCALE_H
-#define COMPAT_LOCALE_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <limits.h>
+#include <locale.h>
 
-#if @HAVE_LOCALE_H@
-#  include_next <locale.h>
-#endif
-
-/* FreeBSD. */
-#if @HAVE_XLOCALE_H@
-#  include <xlocale.h>
-#endif
-
-#if !@HAVE_STRUCT_LCONV@
-struct lconv
+/* Function stub for systems without 'localeconv'. POSIX states that all
+   'char *' members of 'struct lconv' except 'decimal_point' can be set to ""
+   to indicate they available in the current locale. All 'char' members can
+   be set to CHAR_MAX to indicate that the value is not available in the
+   current locale. */
+struct lconv *
+localeconv (void)
 {
-  char *decimal_point;
-  char *thousands_sep;
-  char *grouping;
-  char *int_curr_symbol;
-  char *currency_symbol;
-  char *mon_decimal_point;
-  char *mon_thousands_sep;
-  char *mon_grouping;
-  char *positive_sign;
-  char *negative_sign;
-  char int_frac_digits;
-  char frac_digits;
-  char p_cs_precedes;
-  char p_sep_by_space;
-  char n_cs_precedes;
-  char n_sep_by_space;
-  char p_sign_posn;
-  char n_sign_posn;
-  char int_p_cs_precedes;
-  char int_p_sep_by_space;
-  char int_n_cs_precedes;
-  char int_n_sep_by_space;
-  char int_p_sign_posn;
-  char int_n_sign_posn;
-};
-#endif
+  static struct lconv return_value = {
+    .decimal_point = ".",
+    .thousands_sep = "",
+    .grouping = "",
+    .int_curr_symbol = "",
+    .currency_symbol = "",
+    .mon_decimal_point = "",
+    .mon_thousands_sep = "",
+    .mon_grouping = "",
+    .positive_sign = "",
+    .negative_sign = "",
+    .int_frac_digits = CHAR_MAX,
+    .frac_digits = CHAR_MAX,
+    .p_cs_precedes = CHAR_MAX,
+    .p_sep_by_space = CHAR_MAX,
+    .n_cs_precedes = CHAR_MAX,
+    .n_sep_by_space = CHAR_MAX,
+    .p_sign_posn = CHAR_MAX,
+    .n_sign_posn = CHAR_MAX,
+    .int_p_cs_precedes = CHAR_MAX,
+    .int_p_sep_by_space = CHAR_MAX,
+    .int_n_cs_precedes = CHAR_MAX,
+    .int_n_sep_by_space = CHAR_MAX,
+    .int_p_sign_posn = CHAR_MAX,
+    .int_n_sign_posn = CHAR_MAX,
+  };
 
-#if @LIBCFUNK_DECLARE_LOCALECONV@
-#  if !@HAVE_LOCALECONV@
-extern struct lconv *localeconv (void);
-#  endif
-#endif
-
-#endif /* COMPAT_LOCALE_H */
+  return &return_value;
+}
