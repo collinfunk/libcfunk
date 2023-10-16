@@ -270,4 +270,11 @@ typedef int nl_item;
 #  define CRNCYSTR 54
 #endif
 
+
+#if @LIBCFUNK_DECLARE_NL_LANGINFO@
+#  if !@HAVE_NL_LANGINFO@
+extern char *nl_langinfo (nl_item item);
+#  endif
+#endif
+
 #endif /* COMPAT_LANGINFO_H */

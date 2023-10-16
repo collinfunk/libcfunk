@@ -29,6 +29,8 @@ else ()
   set(HAVE_NL_ITEM "" CACHE INTERNAL "")
 endif ()
 
+set(LIBCFUNK_DECLARE_NL_LANGINFO "0" CACHE INTERNAL "")
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-langinfo-h.cmake)
 endif ()

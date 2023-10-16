@@ -250,6 +250,7 @@
 #cmakedefine01 HAVE_NETDB_H
 #cmakedefine01 HAVE_NETINET_IN_H
 #cmakedefine01 HAVE_NL_ITEM
+#cmakedefine01 HAVE_NL_LANGINFO
 #cmakedefine01 HAVE_NL_TYPES_H
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
