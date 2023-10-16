@@ -56,6 +56,9 @@
 #cmakedefine01 HAVE_C99_BOOL
 #cmakedefine01 HAVE_C99__EXIT
 #cmakedefine01 HAVE_CALLOC
+#cmakedefine01 HAVE_CHAR16_T
+#cmakedefine01 HAVE_CHAR32_T
+#cmakedefine01 HAVE_CHAR8_T
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
@@ -292,6 +295,8 @@
 #cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_RAWMEMCHR
+#cmakedefine01 HAVE__READ
+#cmakedefine01 HAVE_READ
 #cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_REALLOCF
@@ -431,6 +436,7 @@
 #cmakedefine01 HAVE_TTYNAME_R
 #cmakedefine01 HAVE___TYPEOF__
 #cmakedefine01 HAVE_TYPEOF
+#cmakedefine01 HAVE_UCHAR_H
 #cmakedefine01 HAVE_UID_T
 #cmakedefine01 HAVE_UINT16_T
 #cmakedefine01 HAVE_UINT32_T
@@ -482,6 +488,8 @@
 #cmakedefine01 HAVE_WMEMCPY
 #cmakedefine01 HAVE_WMEMMOVE
 #cmakedefine01 HAVE_WMEMSET
+#cmakedefine01 HAVE__WRITE
+#cmakedefine01 HAVE_WRITE
 #cmakedefine01 HAVE_WS2TCPIP_H
 #cmakedefine01 HAVE_XLOCALE_H
 #cmakedefine01 HAVE___XPG_STRERROR_R

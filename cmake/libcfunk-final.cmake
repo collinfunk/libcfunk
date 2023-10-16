@@ -313,6 +313,13 @@ if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_UCHAR_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/uchar.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/uchar.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_UNISTD_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/unistd.h.in

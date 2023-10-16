@@ -327,4 +327,16 @@ extern off_t lseek (int fd, off_t offset, int whence);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_READ@
+#  if !@HAVE_READ@
+extern ssize_t read (int fd, void *buffer, size_t nbytes);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WRITE@
+#  if !@HAVE_WRITE@
+extern ssize_t write (int fd, const void *buffer, size_t nbytes);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
