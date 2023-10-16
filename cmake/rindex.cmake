@@ -17,3 +17,7 @@ if (NOT HAVE_RINDEX)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-rindex.cmake)
+endif ()
+

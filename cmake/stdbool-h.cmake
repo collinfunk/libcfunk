@@ -32,4 +32,7 @@ main (void)
 }
 " HAVE_C99_BOOL)
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-stdbool-h.cmake)
+endif ()
 

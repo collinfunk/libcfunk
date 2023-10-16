@@ -15,3 +15,8 @@ if (NOT HAVE_STRRCHR)
     $CACHE{LIBCFUNK_SOURCE_DIR}/strrchr.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strrchr.cmake)
+endif ()
+
