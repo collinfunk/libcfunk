@@ -61,6 +61,8 @@
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE__CLOSE
+#cmakedefine01 HAVE_CLOSE
 #cmakedefine01 HAVE_COPY_FILE_RANGE
 #cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRTDBG_H
@@ -143,6 +145,8 @@
 #cmakedefine01 HAVE__FSEEKI64
 #cmakedefine01 HAVE_FSEEKO
 #cmakedefine01 HAVE___FSETERR
+#cmakedefine01 HAVE__FSTAT
+#cmakedefine01 HAVE_FSTAT
 #cmakedefine01 HAVE_FSYNC
 #cmakedefine01 HAVE_FTELL
 #cmakedefine01 HAVE__FTELLI64
@@ -230,6 +234,9 @@
 #cmakedefine01 HAVE_LOCALE_H
 #cmakedefine01 HAVE_LOCALTIME_R
 #cmakedefine01 HAVE__LOCK_FILE
+#cmakedefine01 HAVE_LSEEK
+#cmakedefine01 HAVE__LSEEKI64
+#cmakedefine01 HAVE_LSTAT
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MEMCHR
@@ -315,6 +322,8 @@
 #cmakedefine01 HAVE_SIGSET_T
 #cmakedefine01 HAVE_SLEEP
 #cmakedefine01 HAVE_STACK_T
+#cmakedefine01 HAVE__STAT
+#cmakedefine01 HAVE_STAT
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
 #cmakedefine01 HAVE_STDDEF_H

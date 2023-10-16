@@ -205,4 +205,22 @@ extern int mknod (const char *path, mode_t mode, dev_t dev);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_STAT@
+#  if !@HAVE_STAT@
+extern int stat (const char *path, struct stat *buffer);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LSTAT@
+#  if !@HAVE_LSTAT@
+extern int lstat (const char *path, struct stat *buffer);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FSTAT@
+#  if !@HAVE_FSTAT@
+extern int fstat (int fd, struct stat *buffer);
+#  endif
+#endif
+
 #endif /* COMPAT_SYS_STAT_H */

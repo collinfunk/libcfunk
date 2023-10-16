@@ -315,4 +315,16 @@ extern int rmdir (const char *path);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_CLOSE@
+#  if !@HAVE_CLOSE@
+extern int close (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LSEEK@
+#  if !@HAVE_LSEEK@
+extern off_t lseek (int fd, off_t offset, int whence);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
