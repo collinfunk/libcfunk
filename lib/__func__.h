@@ -29,7 +29,7 @@
 #include <config.h>
 
 /* Define '__func__' to an empty string if not supported. */
-#ifndef HAVE_C99__FUNC__
+#if !HAVE_C99__FUNC__
 #  define __func__ ""
 #endif
 
