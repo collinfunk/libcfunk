@@ -26,8 +26,6 @@
 #ifndef COMPAT_FCNTL_H
 #define COMPAT_FCNTL_H
 
-#include <sys/types.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -35,6 +33,9 @@
 #if @HAVE_FCNTL_H@
 #  include_next <fcntl.h>
 #endif
+
+#include <sys/types.h>
+#include <stdarg.h>
 
 /* Windows. */
 #if @HAVE_IO_H@
@@ -196,6 +197,12 @@
 #    define O_ACCMODE _O_ACCMODE
 #  else
 #    define O_ACCMODE (O_RDONLY | O_WRONLY | O_RDWR)
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FCNTL@
+#  if !@HAVE_FCNTL@
+extern int fcntl(int fildes, int cmd, ...);
 #  endif
 #endif
 

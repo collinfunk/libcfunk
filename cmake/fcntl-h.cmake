@@ -9,3 +9,4 @@ check_include_file("io.h" HAVE_IO_H)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_CREAT "0" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FCNTL "0" CACHE INTERNAL "")
