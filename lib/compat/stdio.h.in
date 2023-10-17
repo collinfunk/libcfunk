@@ -139,4 +139,16 @@ extern int remove (const char *path);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_POPEN@
+#  if !@HAVE_POPEN@
+extern FILE *popen (const char *command, const char *mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_PCLOSE@
+#  if !@HAVE_PCLOSE@
+extern int pclose (FILE *stream);
+#  endif
+#endif
+
 #endif /* COMPAT_STDIO_H */

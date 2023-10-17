@@ -43,6 +43,8 @@
 #cmakedefine01 HAVE_BCOPY
 #cmakedefine01 HAVE_BCRYPT_H
 #cmakedefine01 HAVE_BSEARCH
+#cmakedefine01 HAVE___BUILTIN_EXPECT
+#cmakedefine01 HAVE_BUILTINS_H
 #cmakedefine01 HAVE_BZERO
 #cmakedefine01 HAVE_C11__ALIGNAS
 #cmakedefine01 HAVE_C11__ALIGNOF
@@ -55,6 +57,7 @@
 #cmakedefine01 HAVE_C23_STATIC_ASSERT
 #cmakedefine01 HAVE_C99_BOOL
 #cmakedefine01 HAVE_C99__EXIT
+#cmakedefine01 HAVE_C99__FUNC__
 #cmakedefine01 HAVE_CALLOC
 #cmakedefine01 HAVE_CHAR16_T
 #cmakedefine01 HAVE_CHAR32_T
@@ -265,11 +268,15 @@
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
 #cmakedefine01 HAVE_ON_EXIT
+#cmakedefine01 HAVE__PCLOSE
+#cmakedefine01 HAVE_PCLOSE
 #cmakedefine01 HAVE__PIPE
 #cmakedefine01 HAVE_PIPE
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
+#cmakedefine01 HAVE__POPEN
+#cmakedefine01 HAVE_POPEN
 #cmakedefine01 HAVE_POSIX_OPENPT
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
@@ -436,6 +443,8 @@
 #cmakedefine01 HAVE_TTYNAME_R
 #cmakedefine01 HAVE___TYPEOF__
 #cmakedefine01 HAVE_TYPEOF
+#cmakedefine01 HAVE__TZSET
+#cmakedefine01 HAVE_TZSET
 #cmakedefine01 HAVE_UCHAR_H
 #cmakedefine01 HAVE_UID_T
 #cmakedefine01 HAVE_UINT16_T
@@ -483,6 +492,7 @@
 #cmakedefine01 HAVE_WCSNLEN
 #cmakedefine01 HAVE_WINDOWS_H
 #cmakedefine01 HAVE_WINSOCK2_H
+#cmakedefine01 HAVE_WINT_T
 #cmakedefine01 HAVE_WMEMCHR
 #cmakedefine01 HAVE_WMEMCMP
 #cmakedefine01 HAVE_WMEMCPY

@@ -6,6 +6,15 @@ set(LIBCFUNK_GENERATE_WCHAR_H "1" CACHE INTERNAL "")
 
 check_include_file("wchar.h" HAVE_WCHAR_H)
 
+# Check for types.
+if (HAVE_WCHAR_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "wchar.h")
+  check_type_size("wint_t" WINT_T)
+  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "wchar.h")
+else ()
+  set(HAVE_WINT_T "" CACHE INTERNAL "")
+endif ()
+
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_WCPCPY "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_WCSCAT "0" CACHE INTERNAL "")

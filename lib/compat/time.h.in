@@ -99,4 +99,10 @@ extern int nanosleep (const struct timespec *rqtp, struct timespec *rmtp);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_TZSET@
+#  if !@HAVE_TZSET@
+extern void tzset (void);
+#  endif
+#endif
+
 #endif /* COMPAT_TIME_H */

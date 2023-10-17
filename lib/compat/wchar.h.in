@@ -38,6 +38,10 @@
 #  include_next <wchar.h>
 #endif
 
+#if !@HAVE_WINT_T@
+typedef unsigned int wint_t;
+#endif
+
 #if @LIBCFUNK_DECLARE_WCPCPY@
 #  if !@HAVE_WCPCPY@
 extern wchar_t *wcpcpy (wchar_t *ws1, const wchar_t *ws2);
