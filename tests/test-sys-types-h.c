@@ -23,59 +23,21 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <sys/types.h>
 
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#if !@HAVE_BLKCNT_T@
-#endif
+#include "test-help.h"
 
-#if !@HAVE_BLKSIZE_T@
-#endif
-
-#if !@HAVE_DEV_T@
-typedef unsigned long int dev_t;
-#endif
-
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
-
-#if !@HAVE_INO_T@
-typedef unsigned long long int ino_t;
-#endif
-
-#if !@HAVE_MODE_T@
-typedef unsigned int mode_t;
-#endif
-
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#if !@HAVE_PID_T@
-typedef int pid_t;
-#endif
-
-#if !@HAVE_SIZE_T@
-#endif
-
-#if !@HAVE_SSIZE_T@
-#endif
-
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */
+int
+main (void)
+{
+  /* Make sure macros in config.h cause these to be greater than 32-bits. */
+  ASSERT (sizeof (off_t) >= 8);
+  ASSERT (sizeof (time_t) >= 8);
+  return 0;
+}

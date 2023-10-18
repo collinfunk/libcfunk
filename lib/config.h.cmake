@@ -28,6 +28,30 @@
 #  define __STDC_WANT_IEC_60559_BFP_EXT__ 1
 #endif
 
+#ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
+#  define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+#endif
+
+#ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
+#  define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+#endif
+
+#ifndef _FILE_OFFSET_BITS
+#  define _FILE_OFFSET_BITS 64
+#endif
+
+#ifndef _LARGE_FILES
+#  define _LARGE_FILES 1
+#endif
+
+#ifndef _LARGEFILE_SOURCE
+#  define _LARGEFILE_SOURCE 1
+#endif
+
+#ifndef _TIME_BITS
+#  define _TIME_BITS 64
+#endif
+
 #cmakedefine01 HAVE_ABS
 #cmakedefine01 HAVE_ALLOCA_H
 #cmakedefine01 HAVE_ALPHASORT
@@ -42,6 +66,8 @@
 #cmakedefine01 HAVE_BCMP
 #cmakedefine01 HAVE_BCOPY
 #cmakedefine01 HAVE_BCRYPT_H
+#cmakedefine01 HAVE_BLKCNT_T
+#cmakedefine01 HAVE_BLKSIZE_T
 #cmakedefine01 HAVE_BSEARCH
 #cmakedefine01 HAVE___BUILTIN_EXPECT
 #cmakedefine01 HAVE_BUILTINS_H
@@ -198,6 +224,7 @@
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_INCLUDE_NEXT
 #cmakedefine01 HAVE_INDEX
+#cmakedefine01 HAVE_INO_T
 #cmakedefine01 HAVE_INT16_T
 #cmakedefine01 HAVE_INT32_T
 #cmakedefine01 HAVE___INT64_T
@@ -261,6 +288,7 @@
 #cmakedefine01 HAVE_MKFIFO
 #cmakedefine01 HAVE_MKNOD
 #cmakedefine01 HAVE_MKSTEMP
+#cmakedefine01 HAVE_MODE_T
 #cmakedefine01 HAVE_NANOSLEEP
 #cmakedefine01 HAVE_NETDB_H
 #cmakedefine01 HAVE_NETINET_IN_H
@@ -272,6 +300,7 @@
 #cmakedefine01 HAVE_ON_EXIT
 #cmakedefine01 HAVE__PCLOSE
 #cmakedefine01 HAVE_PCLOSE
+#cmakedefine01 HAVE_PID_T
 #cmakedefine01 HAVE__PIPE
 #cmakedefine01 HAVE_PIPE
 #cmakedefine01 HAVE_POPCOUNT
@@ -335,7 +364,9 @@
 #cmakedefine01 HAVE_SIGINFO_T
 #cmakedefine01 HAVE_SIGNAL_H
 #cmakedefine01 HAVE_SIGSET_T
+#cmakedefine01 HAVE_SIZE_T
 #cmakedefine01 HAVE_SLEEP
+#cmakedefine01 HAVE_SSIZE_T
 #cmakedefine01 HAVE_STACK_T
 #cmakedefine01 HAVE__STAT
 #cmakedefine01 HAVE_STAT
