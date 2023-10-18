@@ -53,6 +53,8 @@
 #endif
 
 #cmakedefine01 HAVE_ABS
+#cmakedefine01 HAVE__ACCESS
+#cmakedefine01 HAVE_ACCESS
 #cmakedefine01 HAVE_ALLOCA_H
 #cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
@@ -88,12 +90,15 @@
 #cmakedefine01 HAVE_CHAR16_T
 #cmakedefine01 HAVE_CHAR32_T
 #cmakedefine01 HAVE_CHAR8_T
+#cmakedefine01 HAVE__CHDIR
+#cmakedefine01 HAVE_CHDIR
 #cmakedefine01 HAVE__CHMOD
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
+#cmakedefine01 HAVE_CLOCKID_T
 #cmakedefine01 HAVE__CLOSE
 #cmakedefine01 HAVE_CLOSE
 #cmakedefine01 HAVE_COPY_FILE_RANGE
@@ -140,6 +145,7 @@
 #cmakedefine01 HAVE_EXPLICIT_BZERO
 #cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE___FBUFSIZE
+#cmakedefine01 HAVE_FCHDIR
 #cmakedefine01 HAVE_FCNTL
 #cmakedefine01 HAVE_FCNTL_H
 #cmakedefine01 HAVE_FDATASYNC

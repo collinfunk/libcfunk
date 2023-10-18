@@ -71,16 +71,16 @@
 #  define F_OK 0
 #endif
 
-#ifndef R_OK
-#  define R_OK 1
+#ifndef X_OK
+#  define X_OK 1
 #endif
 
 #ifndef W_OK
 #  define W_OK 2
 #endif
 
-#ifndef X_OK
-#  define X_OK 4
+#ifndef R_OK
+#  define R_OK 4
 #endif
 
 #if @LIBCFUNK_DECLARE_ENVIRON@
@@ -348,6 +348,24 @@ extern int lchown (const char *path, uid_t owner, gid_t group);
 #if @LIBCFUNK_DECLARE_READLINK@
 #  if !@HAVE_READLINK@
 extern ssize_t readlink (const char *path, char *buffer, size_t bufsize);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ACCESS@
+#  if !@HAVE_ACCESS@
+extern int access (const char *path, int mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CHDIR@
+#  if !@HAVE_CHDIR@
+extern int chdir (const char *path);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FCHDIR@
+#  if !@HAVE_FCHDIR@
+extern int fchdir (int fd);
 #  endif
 #endif
 

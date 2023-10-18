@@ -23,63 +23,43 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "test-help.h"
+
+#undef TEST_FILE_NAME
+#define TEST_FILE_NAME "test-access.tmp"
+
+int
+main (void)
+{
+  int fd;
+
+  /* Clear any files from previous tests. */
+  unlink (TEST_FILE_NAME);
+
+  /* Create a file. */
+  fd = creat (TEST_FILE_NAME, 0600);
+  ASSERT (fd >= 0);
+  ASSERT (close (fd) == 0);
+
+  /* rw- for current user. Windows 'X_OK' is equivalent to 'F_OK' or 'R_OK'. */
+  ASSERT (access (TEST_FILE_NAME, F_OK) == 0);
+  ASSERT (access (TEST_FILE_NAME, R_OK) == 0);
+  ASSERT (access (TEST_FILE_NAME, W_OK) == 0);
+#if HAVE_WINDOWS_H
+  ASSERT (access (TEST_FILE_NAME, X_OK) == 0);
+#else
+  ASSERT (access (TEST_FILE_NAME, X_OK) == -1);
 #endif
 
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
-#endif
+  /* Delete the file. */
+  ASSERT (unlink (TEST_FILE_NAME) == 0);
 
-#if !@HAVE_BLKCNT_T@
-#endif
-
-#if !@HAVE_BLKSIZE_T@
-#endif
-
-#if !@HAVE_CLOCKID_T@
-typedef int clockid_t;
-#endif
-
-#if !@HAVE_DEV_T@
-typedef unsigned long int dev_t;
-#endif
-
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
-
-#if !@HAVE_INO_T@
-typedef unsigned long long int ino_t;
-#endif
-
-#if !@HAVE_MODE_T@
-typedef unsigned int mode_t;
-#endif
-
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#if !@HAVE_PID_T@
-typedef int pid_t;
-#endif
-
-#if !@HAVE_SIZE_T@
-#endif
-
-#if !@HAVE_SSIZE_T@
-#endif
-
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */
+  return 0;
+}
