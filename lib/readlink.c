@@ -25,11 +25,19 @@
 
 #include <config.h>
 
-#include <sys/stat.h>
 #include <sys/types.h>
 
-int
-chmod (const char *path, mode_t mode)
+#include <errno.h>
+#include <unistd.h>
+
+#include "attributes.h"
+
+/* If we don't have 'readlink' assume the system doesn't support symbolic
+   links and just fail. */
+ssize_t
+readlink (const char *path ATTRIBUTE_UNUSED, char *buffer ATTRIBUTE_UNUSED,
+          size_t bufsize ATTRIBUTE_UNUSED)
 {
-  return _chmod (path, mode);
+  errno = ENOSYS;
+  return -1;
 }

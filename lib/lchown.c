@@ -25,11 +25,18 @@
 
 #include <config.h>
 
-#include <sys/stat.h>
 #include <sys/types.h>
 
+#include <errno.h>
+#include <unistd.h>
+
+#include "attributes.h"
+
+/* lchown which always fails for Windows. */
 int
-chmod (const char *path, mode_t mode)
+lchown (const char *path ATTRIBUTE_UNUSED, uid_t owner ATTRIBUTE_UNUSED,
+        gid_t group ATTRIBUTE_UNUSED)
 {
-  return _chmod (path, mode);
+  errno = ENOSYS;
+  return -1;
 }

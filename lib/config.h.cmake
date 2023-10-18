@@ -62,6 +62,7 @@
 #cmakedefine01 HAVE_CHAR16_T
 #cmakedefine01 HAVE_CHAR32_T
 #cmakedefine01 HAVE_CHAR8_T
+#cmakedefine01 HAVE__CHMOD
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLOCK_GETRES
@@ -234,6 +235,7 @@
 #cmakedefine01 HAVE_ISXDIGIT
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
+#cmakedefine01 HAVE_LCHOWN
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE_LOCALECONV
@@ -304,6 +306,7 @@
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE__READ
 #cmakedefine01 HAVE_READ
+#cmakedefine01 HAVE_READLINK
 #cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_REALLOCF

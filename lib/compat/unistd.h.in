@@ -339,4 +339,16 @@ extern ssize_t write (int fd, const void *buffer, size_t nbytes);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_LCHOWN@
+#  if !@HAVE_LCHOWN@
+extern int lchown (const char *path, uid_t owner, gid_t group);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_READLINK@
+#  if !@HAVE_READLINK@
+extern ssize_t readlink (const char *path, char *buffer, size_t bufsize);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */
