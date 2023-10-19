@@ -26,16 +26,39 @@
 #ifndef SHA256_H
 #define SHA256_H
 
-/* TODO: Use OpenSSL versions if avaliable. */
+#include <config.h>
 
 #include <stddef.h>
 #include <stdint.h>
 
-#define SHA256_BLOCK_SIZE 64
-#define SHA256_DIGEST_SIZE 32
+#if HAVE_OPENSSL_SHA_H
+#  include <openssl/sha.h>
+#endif
 
-#define SHA224_BLOCK_SIZE 64
-#define SHA224_DIGEST_SIZE 28
+#ifndef SHA256_BLOCK_SIZE
+#  define SHA256_BLOCK_SIZE 64
+#endif
+
+#ifndef SHA256_DIGEST_SIZE
+#  define SHA256_DIGEST_SIZE 32
+#endif
+
+#ifndef SHA224_BLOCK_SIZE
+#  define SHA224_BLOCK_SIZE 64
+#endif
+
+#ifndef SHA224_DIGEST_SIZE
+#  define SHA224_DIGEST_SIZE 28
+#endif
+
+#if HAVE_OPENSSL_SHA_H
+
+struct sha256_ctx
+{
+  SHA256_CTX ssl_ctx;
+};
+
+#else /* !HAVE_OPENSSL_SHA_H */
 
 struct sha256_ctx
 {
@@ -43,6 +66,8 @@ struct sha256_ctx
   uint64_t count;
   uint8_t buffer[64];
 };
+
+#endif /* HAVE_OPENSSL_SHA_H */
 
 extern void sha256_init (struct sha256_ctx *ctx);
 extern void sha256_transform (struct sha256_ctx *ctx, const void *buffer);

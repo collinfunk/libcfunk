@@ -52,6 +52,10 @@
 #  define _TIME_BITS 64
 #endif
 
+#ifndef OPENSSL_SUPPRESS_DEPRECATED
+#  define OPENSSL_SUPPRESS_DEPRECATED 1
+#endif
+
 #cmakedefine01 HAVE_ABS
 #cmakedefine01 HAVE__ACCESS
 #cmakedefine01 HAVE_ACCESS
@@ -304,6 +308,11 @@
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
 #cmakedefine01 HAVE_ON_EXIT
+#cmakedefine01 HAVE__OPEN
+#cmakedefine01 HAVE_OPEN
+#cmakedefine01 HAVE_OPENSSL_MD4_H
+#cmakedefine01 HAVE_OPENSSL_MD5_H
+#cmakedefine01 HAVE_OPENSSL_SHA_H
 #cmakedefine01 HAVE__PCLOSE
 #cmakedefine01 HAVE_PCLOSE
 #cmakedefine01 HAVE_PID_T

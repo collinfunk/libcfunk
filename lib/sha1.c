@@ -33,15 +33,45 @@
 #include "circular-shift.h"
 #include "sha1.h"
 
-#define F1(b, c, d) (((b) & (c)) | ((~(b)) & (d)))
-#define F2(b, c, d) ((b) ^ (c) ^ (d))
-#define F3(b, c, d) (((b) & (c)) | ((b) & (d)) | ((c) & (d)))
-#define F4(b, c, d) ((b) ^ (c) ^ (d))
+#if HAVE_OPENSSL_SHA_H
 
-#define K1 0x5a827999UL
-#define K2 0x6ed9eba1UL
-#define K3 0x8f1bbcdcUL
-#define K4 0xca62c1d6UL
+#  include <openssl/sha.h>
+
+void
+sha1_init (struct sha1_ctx *ctx)
+{
+  SHA1_Init (&ctx->ssl_ctx);
+}
+
+void
+sha1_transform (struct sha1_ctx *ctx, const void *buffer)
+{
+  SHA1_Transform (&ctx->ssl_ctx, (const unsigned char *) buffer);
+}
+
+void
+sha1_update (struct sha1_ctx *ctx, const void *buffer, size_t len)
+{
+  SHA1_Update (&ctx->ssl_ctx, buffer, len);
+}
+
+void
+sha1_final (void *digest, struct sha1_ctx *ctx)
+{
+  SHA1_Final ((unsigned char *) digest, &ctx->ssl_ctx);
+}
+
+#else /* !HAVE_OPENSSL_SHA_H */
+
+#  define F1(b, c, d) (((b) & (c)) | ((~(b)) & (d)))
+#  define F2(b, c, d) ((b) ^ (c) ^ (d))
+#  define F3(b, c, d) (((b) & (c)) | ((b) & (d)) | ((c) & (d)))
+#  define F4(b, c, d) ((b) ^ (c) ^ (d))
+
+#  define K1 0x5a827999UL
+#  define K2 0x6ed9eba1UL
+#  define K3 0x8f1bbcdcUL
+#  define K4 0xca62c1d6UL
 
 void
 sha1_init (struct sha1_ctx *ctx)
@@ -191,3 +221,5 @@ sha1_final (void *digest, struct sha1_ctx *ctx)
     buff_put_be32 ((char *) digest + i * 4, ctx->state[i]);
   explicit_bzero (ctx, sizeof (struct sha1_ctx));
 }
+
+#endif /* HAVE_OPENSSL_SHA_H */

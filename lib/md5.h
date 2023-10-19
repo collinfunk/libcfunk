@@ -26,11 +26,31 @@
 #ifndef MD5_H
 #define MD5_H
 
+#include <config.h>
+
 #include <stddef.h>
 #include <stdint.h>
 
-#define MD5_DIGEST_SIZE 16
-#define MD5_BLOCK_SIZE 64
+#if HAVE_OPENSSL_MD5_H
+#  include <openssl/md5.h>
+#endif
+
+#ifndef MD5_DIGEST_SIZE
+#  define MD5_DIGEST_SIZE 16
+#endif
+
+#ifndef MD5_BLOCK_SIZE
+#  define MD5_BLOCK_SIZE 64
+#endif
+
+#if HAVE_OPENSSL_MD5_H
+
+struct md5_ctx
+{
+  MD5_CTX ssl_ctx;
+};
+
+#else /* !HAVE_OPENSSL_MD5_H */
 
 struct md5_ctx
 {
@@ -38,6 +58,8 @@ struct md5_ctx
   uint64_t count;
   uint8_t buffer[64];
 };
+
+#endif /* HAVE_OPENSSL_MD5_H */
 
 extern void md5_init (struct md5_ctx *ctx);
 extern void md5_transform (struct md5_ctx *ctx, const void *buffer);

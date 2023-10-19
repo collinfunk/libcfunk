@@ -23,47 +23,28 @@
  * SUCH DAMAGE.
  */
 
-#ifndef SHA1_H
-#define SHA1_H
+/* #include <config.h> */
 
-#include <config.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
-#include <stddef.h>
-#include <stdint.h>
+#include <fcntl.h>
+#include <stdarg.h>
 
-#if HAVE_OPENSSL_SHA_H
-#  include <openssl/sha.h>
-#endif
-
-#ifndef SHA1_BLOCK_SIZE
-#  define SHA1_BLOCK_SIZE 64
-#endif
-
-#ifndef SHA1_DIGEST_SIZE
-#  define SHA1_DIGEST_SIZE 20
-#endif
-
-#if HAVE_OPENSSL_SHA_H
-
-struct sha1_ctx
+int
+open (const char *path, int flags, ...)
 {
-  SHA_CTX ssl_ctx;
-};
+  mode_t mode = 0;
 
-#else /* !HAVE_OPENSSL_SHA_H */
+  if (flags & O_CREAT)
+    {
+      va_list ap;
 
-struct sha1_ctx
-{
-  uint32_t state[5];
-  uint64_t count;
-  uint8_t buffer[64];
-};
+      va_start (ap, flags);
+      mode = va_arg (ap, int);
 
-#endif /* HAVE_OPENSSL_SHA_H */
+      va_end (ap);
+    }
 
-extern void sha1_init (struct sha1_ctx *ctx);
-extern void sha1_transform (struct sha1_ctx *ctx, const void *buffer);
-extern void sha1_update (struct sha1_ctx *ctx, const void *buffer, size_t len);
-extern void sha1_final (void *digest, struct sha1_ctx *ctx);
-
-#endif /* SHA1_H */
+  return _open (path, flags, mode);
+}

@@ -33,12 +33,54 @@
 #include "circular-shift.h"
 #include "sha512.h"
 
-#define Ch(b, c, d) (((b) & (c)) ^ ((~(b)) & (d)))
-#define Maj(b, c, d) (((b) & (c)) ^ ((b) & (d)) ^ ((c) & (d)))
-#define Sigma0(x) (rotr64 ((x), 28) ^ rotr64 ((x), 34) ^ rotr64 ((x), 39))
-#define Sigma1(x) (rotr64 ((x), 14) ^ rotr64 ((x), 18) ^ rotr64 ((x), 41))
-#define sigma0(x) (rotr64 ((x), 1) ^ rotr64 ((x), 8) ^ ((x) >> 7))
-#define sigma1(x) (rotr64 ((x), 19) ^ rotr64 ((x), 61) ^ ((x) >> 6))
+#if HAVE_OPENSSL_SHA_H
+
+#  include <openssl/sha.h>
+
+void
+sha512_init (struct sha512_ctx *ctx)
+{
+  SHA512_Init (&ctx->ssl_ctx);
+}
+
+void
+sha512_transform (struct sha512_ctx *ctx, const void *buffer)
+{
+  SHA512_Transform (&ctx->ssl_ctx, (const unsigned char *) buffer);
+}
+
+void
+sha512_update (struct sha512_ctx *ctx, const void *buffer, size_t len)
+{
+  SHA512_Update (&ctx->ssl_ctx, buffer, len);
+}
+
+void
+sha512_final (void *digest, struct sha512_ctx *ctx)
+{
+  SHA512_Final ((unsigned char *) digest, &ctx->ssl_ctx);
+}
+
+void
+sha384_init (struct sha512_ctx *ctx)
+{
+  SHA384_Init (&ctx->ssl_ctx);
+}
+
+void
+sha384_final (void *digest, struct sha512_ctx *ctx)
+{
+  SHA384_Final ((unsigned char *) digest, &ctx->ssl_ctx);
+}
+
+#else /* !HAVE_OPENSSL_SHA_H */
+
+#  define Ch(b, c, d) (((b) & (c)) ^ ((~(b)) & (d)))
+#  define Maj(b, c, d) (((b) & (c)) ^ ((b) & (d)) ^ ((c) & (d)))
+#  define Sigma0(x) (rotr64 ((x), 28) ^ rotr64 ((x), 34) ^ rotr64 ((x), 39))
+#  define Sigma1(x) (rotr64 ((x), 14) ^ rotr64 ((x), 18) ^ rotr64 ((x), 41))
+#  define sigma0(x) (rotr64 ((x), 1) ^ rotr64 ((x), 8) ^ ((x) >> 7))
+#  define sigma1(x) (rotr64 ((x), 19) ^ rotr64 ((x), 61) ^ ((x) >> 6))
 
 static const uint64_t sha512_ktable[80]
     = { 0x428a2f98d728ae22ULL, 0x7137449123ef65cdULL, 0xb5c0fbcfec4d3b2fULL,
@@ -246,3 +288,5 @@ sha384_final (void *digest, struct sha512_ctx *ctx)
     buff_put_be64 ((char *) digest + i * 8, ctx->state[i]);
   explicit_bzero (ctx, sizeof (struct sha512_ctx));
 }
+
+#endif /* HAVE_OPENSSL_SHA_H */

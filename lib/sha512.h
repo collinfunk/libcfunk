@@ -26,14 +26,39 @@
 #ifndef SHA512_H
 #define SHA512_H
 
+#include <config.h>
+
 #include <stddef.h>
 #include <stdint.h>
 
-#define SHA512_BLOCK_SIZE 128
-#define SHA512_DIGEST_SIZE 64
+#if HAVE_OPENSSL_SHA_H
+#  include <openssl/sha.h>
+#endif
 
-#define SHA384_BLOCK_SIZE 128
-#define SHA384_DIGEST_SIZE 48
+#ifndef SHA512_BLOCK_SIZE
+#  define SHA512_BLOCK_SIZE 128
+#endif
+
+#ifndef SHA512_DIGEST_SIZE
+#  define SHA512_DIGEST_SIZE 64
+#endif
+
+#ifndef SHA384_BLOCK_SIZE
+#  define SHA384_BLOCK_SIZE 128
+#endif
+
+#ifndef SHA384_DIGEST_SIZE
+#  define SHA384_DIGEST_SIZE 48
+#endif
+
+#if HAVE_OPENSSL_SHA_H
+
+struct sha512_ctx
+{
+  SHA512_CTX ssl_ctx;
+};
+
+#else /* !HAVE_OPENSSL_SHA_H */
 
 struct sha512_ctx
 {
@@ -41,6 +66,8 @@ struct sha512_ctx
   uint64_t count[2];
   uint8_t buffer[128];
 };
+
+#endif /* HAVE_OPENSSL_SHA_H */
 
 extern void sha512_init (struct sha512_ctx *ctx);
 extern void sha512_transform (struct sha512_ctx *ctx, const void *buffer);

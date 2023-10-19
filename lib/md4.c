@@ -33,17 +33,47 @@
 #include "circular-shift.h"
 #include "md4.h"
 
-#define F1(b, c, d) (((b) & (c)) | ((~(b)) & (d)))
-#define F2(b, c, d) (((b) & (c)) | ((b) & (d)) | ((c) & (d)))
-#define F3(b, c, d) ((b) ^ (c) ^ (d))
+#if HAVE_OPENSSL_MD4_H
 
-#define MD4_STEP(fx, a, b, c, d, x, s)                                        \
-  do                                                                          \
-    {                                                                         \
-      (a) += fx ((b), (c), (d)) + (x);                                        \
-      (a) = rotl32 ((a), (s));                                                \
-    }                                                                         \
-  while (0)
+#  include <openssl/md4.h>
+
+void
+md4_init (struct md4_ctx *ctx)
+{
+  MD4_Init (&ctx->ssl_ctx);
+}
+
+void
+md4_transform (struct md4_ctx *ctx, const void *buffer)
+{
+  MD4_Transform (&ctx->ssl_ctx, (const unsigned char *) buffer);
+}
+
+void
+md4_update (struct md4_ctx *ctx, const void *buffer, size_t len)
+{
+  MD4_Update (&ctx->ssl_ctx, buffer, len);
+}
+
+void
+md4_final (void *digest, struct md4_ctx *ctx)
+{
+  MD4_Final ((unsigned char *) digest, &ctx->ssl_ctx);
+}
+
+#else /* !HAVE_OPENSSL_MD4_H */
+
+#  define F1(b, c, d) (((b) & (c)) | ((~(b)) & (d)))
+#  define F2(b, c, d) (((b) & (c)) | ((b) & (d)) | ((c) & (d)))
+#  define F3(b, c, d) ((b) ^ (c) ^ (d))
+
+#  define MD4_STEP(fx, a, b, c, d, x, s)                                      \
+    do                                                                        \
+      {                                                                       \
+        (a) += fx ((b), (c), (d)) + (x);                                      \
+        (a) = rotl32 ((a), (s));                                              \
+      }                                                                       \
+    while (0)
 
 void
 md4_init (struct md4_ctx *ctx)
@@ -202,3 +232,5 @@ md4_final (void *digest, struct md4_ctx *ctx)
     buff_put_le32 ((char *) digest + i * 4, ctx->state[i]);
   explicit_bzero (ctx, sizeof (struct md4_ctx));
 }
+
+#endif /* HAVE_OPENSSL_MD4_H */

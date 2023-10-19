@@ -33,19 +33,49 @@
 #include "circular-shift.h"
 #include "md5.h"
 
-#define F1(b, c, d) (((b) & (c)) | ((~(b)) & (d)))
-#define F2(b, c, d) (((b) & (d)) | ((~(d)) & (c)))
-#define F3(b, c, d) ((b) ^ (c) ^ (d))
-#define F4(b, c, d) ((c) ^ ((b) | (~(d))))
+#if HAVE_OPENSSL_MD5_H
 
-#define MD5_STEP(fx, a, b, c, d, x, s)                                        \
-  do                                                                          \
-    {                                                                         \
-      (a) += fx ((b), (c), (d)) + (x);                                        \
-      (a) = rotl32 ((a), (s));                                                \
-      (a) += (b);                                                             \
-    }                                                                         \
-  while (0)
+#  include <openssl/md5.h>
+
+void
+md5_init (struct md5_ctx *ctx)
+{
+  MD5_Init (&ctx->ssl_ctx);
+}
+
+void
+md5_transform (struct md5_ctx *ctx, const void *buffer)
+{
+  MD5_Transform (&ctx->ssl_ctx, (const unsigned char *) buffer);
+}
+
+void
+md5_update (struct md5_ctx *ctx, const void *buffer, size_t len)
+{
+  MD5_Update (&ctx->ssl_ctx, buffer, len);
+}
+
+void
+md5_final (void *digest, struct md5_ctx *ctx)
+{
+  MD5_Final ((unsigned char *) digest, &ctx->ssl_ctx);
+}
+
+#else /* !HAVE_OPENSSL_MD5_H */
+
+#  define F1(b, c, d) (((b) & (c)) | ((~(b)) & (d)))
+#  define F2(b, c, d) (((b) & (d)) | ((~(d)) & (c)))
+#  define F3(b, c, d) ((b) ^ (c) ^ (d))
+#  define F4(b, c, d) ((c) ^ ((b) | (~(d))))
+
+#  define MD5_STEP(fx, a, b, c, d, x, s)                                      \
+    do                                                                        \
+      {                                                                       \
+        (a) += fx ((b), (c), (d)) + (x);                                      \
+        (a) = rotl32 ((a), (s));                                              \
+        (a) += (b);                                                           \
+      }                                                                       \
+    while (0)
 
 void
 md5_init (struct md5_ctx *ctx)
@@ -221,3 +251,5 @@ md5_final (void *digest, struct md5_ctx *ctx)
     buff_put_le32 ((char *) digest + i * 4, ctx->state[i]);
   explicit_bzero (ctx, sizeof (struct md5_ctx));
 }
+
+#endif /* HAVE_OPENSSL_MD5_H */

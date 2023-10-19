@@ -26,11 +26,31 @@
 #ifndef MD4_H
 #define MD4_H
 
+#include <config.h>
+
 #include <stddef.h>
 #include <stdint.h>
 
-#define MD4_DIGEST_SIZE 16
-#define MD4_BLOCK_SIZE 64
+#if HAVE_OPENSSL_MD4_H
+#  include <openssl/md4.h>
+#endif
+
+#ifndef MD4_DIGEST_SIZE
+#  define MD4_DIGEST_SIZE 16
+#endif
+
+#ifndef MD4_BLOCK_SIZE
+#  define MD4_BLOCK_SIZE 64
+#endif
+
+#if HAVE_OPENSSL_MD4_H
+
+struct md4_ctx
+{
+  MD4_CTX ssl_ctx;
+};
+
+#else /* !HAVE_OPENSSL_MD4_H */
 
 struct md4_ctx
 {
@@ -38,6 +58,8 @@ struct md4_ctx
   uint64_t count;
   uint8_t buffer[64];
 };
+
+#endif /* HAVE_OPENSSL_MD4_H */
 
 extern void md4_init (struct md4_ctx *ctx);
 extern void md4_transform (struct md4_ctx *ctx, const void *buffer);

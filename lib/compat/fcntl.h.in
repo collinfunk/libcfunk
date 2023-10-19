@@ -202,13 +202,19 @@
 
 #if @LIBCFUNK_DECLARE_FCNTL@
 #  if !@HAVE_FCNTL@
-extern int fcntl(int fildes, int cmd, ...);
+extern int fcntl (int fildes, int cmd, ...);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_CREAT@
 #  if !@HAVE_CREAT@
 extern int creat (const char *path, mode_t mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_OPEN@
+#  if !@HAVE_OPEN@
+extern int open (const char *path, int flags, ...);
 #  endif
 #endif
 
