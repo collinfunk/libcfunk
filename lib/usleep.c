@@ -23,35 +23,31 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_DIRENT_H
-#define COMPAT_DIRENT_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <config.h>
 
 #include <sys/types.h>
 
-#if @HAVE_DIRENT_H@
-#  include_next <dirent.h>
-#endif
+#include <errno.h>
+#include <unistd.h>
 
-#if @LIBCFUNK_DECLARE_ALPHASORT@
-#  if !@HAVE_ALPHASORT@
-extern int alphasort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+int
+usleep (useconds_t useconds)
+{
+  unsigned int milliseconds;
 
-#if @LIBCFUNK_DECLARE_VERSIONSORT@
-#  if !@HAVE_VERSIONSORT@
-extern int versionsort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+  /* Reject values over 1 million. */
+  if (useconds > 1000000)
+    {
+      errno = EINVAL;
+      return -1;
+    }
 
-#if @LIBCFUNK_DECLARE_DIRFD@
-#  if !@HAVE_DIRFD@
-extern int dirfd (DIR *dirp);
-#  endif
-#endif
+  /* Windows Sleep () function accepts millisecond values. Round up to the
+     nearest value. */
+  milliseconds = useconds / 1000;
+  if ((milliseconds % 1000) > 0)
+    ++milliseconds;
+  Sleep (milliseconds);
 
-#endif /* COMPAT_DIRENT_H */
+  return 0;
+}

@@ -78,8 +78,22 @@ typedef int pid_t;
 #if !@HAVE_SSIZE_T@
 #endif
 
+#if !@HAVE_SUSECONDS_T@
+typedef int suseconds_t;
+#endif
+
+#if !@HAVE_TIME_T@
+#endif
+
+#if !@HAVE_TIMER_T@
+#endif
+
 #if !@HAVE_UID_T@
 typedef unsigned int uid_t;
+#endif
+
+#if !@HAVE_USECONDS_T@
+typedef unsigned int useconds_t;
 #endif
 
 #endif /* COMPAT_SYS_TYPES_H */

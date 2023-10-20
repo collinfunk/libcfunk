@@ -23,35 +23,42 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_DIRENT_H
-#define COMPAT_DIRENT_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <config.h>
 
 #include <sys/types.h>
 
-#if @HAVE_DIRENT_H@
-#  include_next <dirent.h>
-#endif
+#include <dirent.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#if @LIBCFUNK_DECLARE_ALPHASORT@
-#  if !@HAVE_ALPHASORT@
-extern int alphasort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+#include "test-help.h"
 
-#if @LIBCFUNK_DECLARE_VERSIONSORT@
-#  if !@HAVE_VERSIONSORT@
-extern int versionsort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+int
+main (void)
+{
+  DIR *dir;
+  int fd;
 
-#if @LIBCFUNK_DECLARE_DIRFD@
-#  if !@HAVE_DIRFD@
-extern int dirfd (DIR *dirp);
-#  endif
-#endif
+  dir = opendir (".");
+  ASSERT (dir != NULL);
+  fd = dirfd (dir);
 
-#endif /* COMPAT_DIRENT_H */
+  if (fd < 0)
+    {
+      if (errno == ENOSYS)
+        {
+          fprintf (stderr, "dirfd () not supported on your system.\n");
+          exit (1);
+        }
+      else /* Actual error. */
+        {
+          fprintf (stderr, "dirfd () failed.\n");
+          abort ();
+        }
+    }
+
+  ASSERT (closedir (dir) == 0);
+
+  return 0;
+}

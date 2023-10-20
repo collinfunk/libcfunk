@@ -18,7 +18,11 @@ check_type_size("off_t" OFF_T)
 check_type_size("pid_t" PID_T)
 check_type_size("size_t" SIZE_T)
 check_type_size("ssize_t" SSIZE_T)
+check_type_size("suseconds_t" SUSECONDS_T)
+check_type_size("time_t" TIME_T)
+check_type_size("timer_t" TIMER_T)
 check_type_size("uid_t" UID_T)
+check_type_size("useconds_t" USECONDS_T)
 
 # MSVC
 check_type_size("__int64_t" __INT64_T)

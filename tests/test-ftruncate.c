@@ -23,35 +23,44 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_DIRENT_H
-#define COMPAT_DIRENT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
-
+#include <sys/stat.h>
 #include <sys/types.h>
 
-#if @HAVE_DIRENT_H@
-#  include_next <dirent.h>
-#endif
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#if @LIBCFUNK_DECLARE_ALPHASORT@
-#  if !@HAVE_ALPHASORT@
-extern int alphasort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+#include "test-help.h"
 
-#if @LIBCFUNK_DECLARE_VERSIONSORT@
-#  if !@HAVE_VERSIONSORT@
-extern int versionsort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+#undef TEST_FILE_NAME
+#define TEST_FILE_NAME "test-ftruncate.tmp"
 
-#if @LIBCFUNK_DECLARE_DIRFD@
-#  if !@HAVE_DIRFD@
-extern int dirfd (DIR *dirp);
-#  endif
-#endif
+int
+main (void)
+{
+  char buffer[1024];
+  struct stat st;
+  size_t i;
+  int fd;
 
-#endif /* COMPAT_DIRENT_H */
+  unlink (TEST_FILE_NAME);
+
+  for (i = 0; i < sizeof (buffer); ++i)
+    buffer[i] = (char) (i & 0xff);
+
+  fd = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
+  ASSERT (fd >= 0);
+
+  ASSERT ((size_t) write (fd, buffer, sizeof (buffer)) == sizeof (buffer));
+  ASSERT (ftruncate (fd, sizeof (buffer) / 2) == 0);
+  ASSERT (fstat (fd, &st) == 0);
+  ASSERT ((size_t) st.st_size == sizeof (buffer) / 2);
+
+  ASSERT (close (fd) == 0);
+  ASSERT (unlink (TEST_FILE_NAME) == 0);
+
+  return 0;
+}

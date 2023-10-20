@@ -23,35 +23,49 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_DIRENT_H
-#define COMPAT_DIRENT_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <config.h>
 
 #include <sys/types.h>
 
-#if @HAVE_DIRENT_H@
-#  include_next <dirent.h>
-#endif
+#include <dirent.h>
+#include <errno.h>
 
-#if @LIBCFUNK_DECLARE_ALPHASORT@
-#  if !@HAVE_ALPHASORT@
-extern int alphasort (const struct dirent **d1, const struct dirent **d2);
+#include "attributes.h"
+
+#if !HAVE_DIR_DD_FD && !HAVE_DIR_D_FD && !HAVE_DIR_FD
+
+/* MinGW doesn't seem to have the ability to get a file descriptor from
+   a DIRENT. Maybe dirp->dd_handle works somehow? */
+int
+dirfd (DIR *dirp ATTRIBUTE_UNUSED)
+{
+  errno = ENOSYS;
+  return -1;
+}
+
+#else /* HAVE_DIR_DD_FD || HAVE_DIR_D_FD || HAVE_DIR_FD */
+
+int
+dirfd (DIR *dirp)
+{
+  int fd =
+#  if HAVE_DIR_DD_FD
+      dirp->dd_fd;
+#  elif HAVE_DIR_D_FD
+      dirp->d_fd;
+#  elif HAVE_DIR_FD
+      dirp->fd;
+#  else
+      -1;
 #  endif
-#endif
 
-#if @LIBCFUNK_DECLARE_VERSIONSORT@
-#  if !@HAVE_VERSIONSORT@
-extern int versionsort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
+  if (fd < 0)
+    {
+      fd = -1;
+      errno = EINVAL;
+    }
 
-#if @LIBCFUNK_DECLARE_DIRFD@
-#  if !@HAVE_DIRFD@
-extern int dirfd (DIR *dirp);
-#  endif
-#endif
+  return fd;
+}
 
-#endif /* COMPAT_DIRENT_H */
+#endif /* !HAVE_DIR_DD_FD && !HAVE_DIR_D_FD && !HAVE_DIR_FD */

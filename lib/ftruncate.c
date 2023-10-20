@@ -23,35 +23,21 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_DIRENT_H
-#define COMPAT_DIRENT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <errno.h>
+#include <limits.h>
+#include <unistd.h>
+
+#if HAVE_WINDOWS_H
+#  include <windows.h>
 #endif
 
-#include <sys/types.h>
-
-#if @HAVE_DIRENT_H@
-#  include_next <dirent.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_ALPHASORT@
-#  if !@HAVE_ALPHASORT@
-extern int alphasort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_VERSIONSORT@
-#  if !@HAVE_VERSIONSORT@
-extern int versionsort (const struct dirent **d1, const struct dirent **d2);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_DIRFD@
-#  if !@HAVE_DIRFD@
-extern int dirfd (DIR *dirp);
-#  endif
-#endif
-
-#endif /* COMPAT_DIRENT_H */
+int
+ftruncate (int fd, off_t length)
+{
+  /* FIXME: _chsize takes a 32-bit long int. */
+  if (length > LONG_MAX)
+    abort ();
+  return _chsize (fd, length);
+}

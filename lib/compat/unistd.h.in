@@ -369,4 +369,16 @@ extern int fchdir (int fd);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_USLEEP@
+#  if !@HAVE_USLEEP@
+extern int usleep (useconds_t useconds);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FTRUNCATE@
+#  if !@HAVE_FTRUNCATE@
+extern int ftruncate (int fd, off_t length);
+#  endif
+#endif
+
 #endif /* COMPAT_UNISTD_H */

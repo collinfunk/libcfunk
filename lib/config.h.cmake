@@ -116,8 +116,12 @@
 #cmakedefine01 HAVE_DEV_PTM
 #cmakedefine01 HAVE_DEV_PTMX
 #cmakedefine01 HAVE_DEV_T
+#cmakedefine01 HAVE_DIR_DD_FD
+#cmakedefine01 HAVE_DIR_D_FD
 #cmakedefine01 HAVE_DIRECT_H
 #cmakedefine01 HAVE_DIRENT_H
+#cmakedefine01 HAVE_DIR_FD
+#cmakedefine01 HAVE_DIRFD
 #cmakedefine01 HAVE__DUP
 #cmakedefine01 HAVE_DUP
 #cmakedefine01 HAVE__DUP2
@@ -194,6 +198,7 @@
 #cmakedefine01 HAVE_FTELL
 #cmakedefine01 HAVE__FTELLI64
 #cmakedefine01 HAVE_FTELLO
+#cmakedefine01 HAVE_FTRUNCATE
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE___FWRITABLE
 #cmakedefine01 HAVE___FWRITING
@@ -457,6 +462,7 @@
 #cmakedefine01 HAVE_STRUCT_UTSNAME
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
+#cmakedefine01 HAVE_SUSECONDS_T
 #cmakedefine01 HAVE_SWAB
 #cmakedefine01 HAVE_SYMLINK
 #cmakedefine01 HAVE_SYSCONF
@@ -482,9 +488,11 @@
 #cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TIME_H
+#cmakedefine01 HAVE_TIMER_T
 #cmakedefine01 HAVE_TIMES
 #cmakedefine01 HAVE_TIMESPEC_GET
 #cmakedefine01 HAVE_TIMESPEC_GETRES
+#cmakedefine01 HAVE_TIME_T
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP
 #cmakedefine01 HAVE_TOASCII
 #cmakedefine01 HAVE_TOLOWER
@@ -519,6 +527,8 @@
 #cmakedefine01 HAVE_UNLINK
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_UNLOCKPT
+#cmakedefine01 HAVE_USECONDS_T
+#cmakedefine01 HAVE_USLEEP
 #cmakedefine01 HAVE_UTIME_H
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
