@@ -312,6 +312,7 @@
 #cmakedefine01 HAVE_OPEN
 #cmakedefine01 HAVE_OPENSSL_MD4_H
 #cmakedefine01 HAVE_OPENSSL_MD5_H
+#cmakedefine01 HAVE_OPENSSL_RC4_H
 #cmakedefine01 HAVE_OPENSSL_SHA_H
 #cmakedefine01 HAVE__PCLOSE
 #cmakedefine01 HAVE_PCLOSE

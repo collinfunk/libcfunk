@@ -8,6 +8,7 @@ if (OPENSSL_FOUND)
 else ()
   # If we aren't using OpenSSL setting these here will make
   # check_include_file not run later.
+  set(HAVE_OPENSSL_RC4_H "" CACHE INTERNAL "")
   set(HAVE_OPENSSL_MD4_H "" CACHE INTERNAL "")
   set(HAVE_OPENSSL_MD5_H "" CACHE INTERNAL "")
   set(HAVE_OPENSSL_SHA_H "" CACHE INTERNAL "")
