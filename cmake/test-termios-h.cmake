@@ -16,3 +16,5 @@ target_sources(test-termios-h PRIVATE
 set_target_properties(test-termios-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-termios-h" COMMAND test-termios-h)

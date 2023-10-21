@@ -14,3 +14,5 @@ target_sources(test-__fseterr PRIVATE
 set_target_properties(test-__fseterr PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__fseterr" COMMAND test-__fseterr)

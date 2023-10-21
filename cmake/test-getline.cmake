@@ -14,3 +14,5 @@ target_sources(test-getline PRIVATE
 set_target_properties(test-getline PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+#add_test(NAME "test-getline" COMMAND test-getline)

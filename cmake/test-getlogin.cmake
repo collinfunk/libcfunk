@@ -14,3 +14,5 @@ target_sources(test-getlogin PRIVATE
 set_target_properties(test-getlogin PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-getlogin" COMMAND test-getlogin)

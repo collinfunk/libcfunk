@@ -25,48 +25,29 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <fcntl.h>
-#include <stdarg.h>
-#include <unistd.h>
+#include <byteswap.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "test-help.h"
+
+#define VAL16 ((uint16_t) 0x1234U)
+#define VAL32 ((uint32_t) 0x12345678UL)
+#define VAL64 ((uint64_t) 0x1234567890abcdefULL)
+
+#define VAL16_SWAPPED ((uint16_t) 0x3412U)
+#define VAL32_SWAPPED ((uint32_t) 0x78563412UL)
+#define VAL64_SWAPPED ((uint64_t) 0xefcdab9078563412ULL)
 
 int
-fcntl (int fd, int cmd, ...)
+main (void)
 {
-  /* TODO: Add Windows function mappings to fcntl values. */
-  switch (cmd)
-    {
-    case F_GETFD:
-      {
-        HANDLE file_handle;
-        DWORD file_info;
-
-        file_handle = (HANDLE) _get_osfhandle (fd);
-        if (file_handle == INVALID_HANDLE_VALUE)
-          {
-            errno = EBADF;
-            return -1;
-          }
-
-        /* Check if the file handle is inheritable. */
-        if (!GetHandleInformation (file_handle, &file_info))
-          {
-            errno = EBADF;
-            return -1;
-          }
-
-        /* If it is not inheritible, act like FD_CLOEXEC is set. */
-        if (!(file_info & HANDLE_FLAG_INHERIT))
-          return FD_CLOEXEC;
-        else
-          return 0;
-      }
-      break;
-    default:
-      errno = ENOSYS;
-      return -1;
-      break;
-    }
-
+  ASSERT (bswap_16 (VAL16) == VAL16_SWAPPED);
+  ASSERT (bswap_32 (VAL32) == VAL32_SWAPPED);
+  ASSERT (bswap_64 (VAL64) == VAL64_SWAPPED);
+  ASSERT (bswap_16 (VAL16_SWAPPED) == VAL16);
+  ASSERT (bswap_32 (VAL32_SWAPPED) == VAL32);
+  ASSERT (bswap_64 (VAL64_SWAPPED) == VAL64);
   return 0;
 }

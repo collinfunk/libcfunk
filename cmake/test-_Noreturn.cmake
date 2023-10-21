@@ -14,3 +14,5 @@ target_sources(test-_Noreturn PRIVATE
 set_target_properties(test-_Noreturn PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-_Noreturn" COMMAND test-_Noreturn)

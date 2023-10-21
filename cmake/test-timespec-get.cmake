@@ -14,3 +14,5 @@ target_sources(test-timespec-get PRIVATE
 set_target_properties(test-timespec-get PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-timespec-get" COMMAND test-timespec-get)

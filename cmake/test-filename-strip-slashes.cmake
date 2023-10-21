@@ -14,3 +14,5 @@ target_sources(test-filename-strip-slashes PRIVATE
 set_target_properties(test-filename-strip-slashes PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-filename-strip-slashes" COMMAND test-filename-strip-slashes)

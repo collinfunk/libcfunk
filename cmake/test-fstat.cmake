@@ -17,3 +17,5 @@ target_sources(test-fstat PRIVATE
 set_target_properties(test-fstat PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-fstat" COMMAND test-fstat)

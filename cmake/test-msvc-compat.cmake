@@ -14,3 +14,5 @@ target_sources(test-msvc-compat PRIVATE
 set_target_properties(test-msvc-compat PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-msvc-compat" COMMAND test-msvc-compat)

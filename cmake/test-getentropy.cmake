@@ -14,3 +14,5 @@ target_sources(test-getentropy PRIVATE
 set_target_properties(test-getentropy PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-getentropy" COMMAND test-getentropy)

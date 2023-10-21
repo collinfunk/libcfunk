@@ -29,8 +29,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-int utf8_mblen (const uint8_t *s, size_t n);
-int utf16_mblen (const uint16_t *s, size_t n);
-int utf32_mblen (const uint32_t *s, size_t n);
+extern int utf8_mblen (const uint8_t *s, size_t n);
+extern int utf16_mblen (const uint16_t *s, size_t n);
+extern int utf32_mblen (const uint32_t *s, size_t n);
 
 #endif /* UNICODE_H */

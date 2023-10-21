@@ -14,3 +14,5 @@ target_sources(test-__fwriting PRIVATE
 set_target_properties(test-__fwriting PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__fwriting" COMMAND test-__fwriting)

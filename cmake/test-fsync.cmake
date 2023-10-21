@@ -14,3 +14,5 @@ target_sources(test-fsync PRIVATE
 set_target_properties(test-fsync PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-fsync" COMMAND test-fsync)

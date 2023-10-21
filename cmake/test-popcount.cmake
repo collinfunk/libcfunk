@@ -14,3 +14,5 @@ target_sources(test-popcount PRIVATE
 set_target_properties(test-popcount PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-popcount" COMMAND test-popcount)

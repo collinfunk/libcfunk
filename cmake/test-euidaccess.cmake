@@ -14,3 +14,5 @@ target_sources(test-euidaccess PRIVATE
 set_target_properties(test-euidaccess PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-euidaccess" COMMAND test-euidaccess)

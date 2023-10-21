@@ -14,3 +14,5 @@ target_sources(test-tzset PRIVATE
 set_target_properties(test-tzset PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-tzset" COMMAND test-tzset)

@@ -14,3 +14,5 @@ target_sources(test-pipe PRIVATE
 set_target_properties(test-pipe PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-pipe" COMMAND test-pipe)

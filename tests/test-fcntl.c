@@ -33,46 +33,45 @@
 
 #include "test-help.h"
 
-#ifndef F_DUPFD
-#  define F_DUPFD 0
-#endif
-
 #undef TEST_FILE_NAME
 #define TEST_FILE_NAME "test-fcntl.tmp"
+
+static void test_check_cloexec (void);
 
 int
 main (void)
 {
-  int fd1, fd2;
-
-  /* Cleanup file from any previous tests. */
-  unlink (TEST_FILE_NAME);
-
-  fd1 = creat (TEST_FILE_NAME, 0600);
-  ASSERT (fd1 >= 0);
-
-  fd2 = fcntl (fd1, F_DUPFD, 0);
-  if (fd2 < 0)
-    {
-      int saved_errno = errno;
-      close (fd1);
-      errno = saved_errno;
-      if (errno == ENOSYS)
-        {
-          fprintf (stderr, "fcntl (F_DUPFD) not supported.\n");
-          exit (1);
-        }
-      else /* fcntl actually failed. */
-        {
-          fprintf (stderr, "fcntl (F_DUPFD) failed.\n");
-          abort ();
-        }
-    }
-
-  ASSERT (fd2 - 1 == fd1);
-  ASSERT (close (fd1) == 0);
-  ASSERT (close (fd2) == 0);
-  ASSERT (unlink (TEST_FILE_NAME) == 0);
-
+  test_check_cloexec ();
   return 0;
+}
+
+static void
+test_check_cloexec (void)
+{
+  int fd;
+  int flags;
+
+  /* Create a file without the close-on-exec flag. */
+  fd = open (TEST_FILE_NAME, O_CREAT | O_TRUNC, 0600);
+  ASSERT (fd >= 0);
+
+  /* Test the return value of F_GETFD. */
+  flags = fcntl (fd, F_GETFD, 0);
+  ASSERT (flags >= 0);
+  ASSERT ((flags & FD_CLOEXEC) == 0);
+
+  ASSERT (close (fd) == 0);
+
+  /* Create a file with the close-on-exec flag. */
+  fd = open (TEST_FILE_NAME, O_CREAT | O_TRUNC | O_CLOEXEC, 0600);
+  ASSERT (fd >= 0);
+
+  /* Test the return value of F_GETFD. */
+  flags = fcntl (fd, F_GETFD, 0);
+  ASSERT (flags >= 0);
+  ASSERT ((flags & FD_CLOEXEC) == FD_CLOEXEC);
+
+  ASSERT (close (fd) == 0);
+
+  ASSERT (unlink (TEST_FILE_NAME) == 0);
 }

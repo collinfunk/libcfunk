@@ -14,3 +14,5 @@ target_sources(test-null-device PRIVATE
 set_target_properties(test-null-device PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-null-device" COMMAND test-null-device)

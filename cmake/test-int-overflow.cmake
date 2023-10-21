@@ -14,3 +14,5 @@ target_sources(test-int-overflow PRIVATE
 set_target_properties(test-int-overflow PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-int-overflow" COMMAND test-int-overflow)

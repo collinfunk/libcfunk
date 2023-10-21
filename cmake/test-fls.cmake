@@ -14,3 +14,5 @@ target_sources(test-fls PRIVATE
 set_target_properties(test-fls PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-fls" COMMAND test-fls)

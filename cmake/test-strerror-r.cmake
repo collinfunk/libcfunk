@@ -14,3 +14,5 @@ target_sources(test-strerror-r PRIVATE
 set_target_properties(test-strerror-r PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-strerror-r" COMMAND test-strerror-r)

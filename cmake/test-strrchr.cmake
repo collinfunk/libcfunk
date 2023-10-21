@@ -14,3 +14,5 @@ target_sources(test-strrchr PRIVATE
 set_target_properties(test-strrchr PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-strrchr" COMMAND test-strrchr)

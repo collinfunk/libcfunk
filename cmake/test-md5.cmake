@@ -14,3 +14,5 @@ target_sources(test-md5 PRIVATE
 set_target_properties(test-md5 PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-md5" COMMAND test-md5)

@@ -14,3 +14,5 @@ target_sources(test-rindex PRIVATE
 set_target_properties(test-rindex PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-rindex" COMMAND test-rindex)

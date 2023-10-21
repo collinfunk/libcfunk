@@ -14,3 +14,5 @@ target_sources(test-sha1 PRIVATE
 set_target_properties(test-sha1 PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sha1" COMMAND test-sha1)

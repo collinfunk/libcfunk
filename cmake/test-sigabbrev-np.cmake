@@ -14,3 +14,5 @@ target_sources(test-sigabbrev-np PRIVATE
 set_target_properties(test-sigabbrev-np PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sigabbrev-np" COMMAND test-sigabbrev-np)

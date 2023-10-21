@@ -14,3 +14,5 @@ target_sources(test-sleep PRIVATE
 set_target_properties(test-sleep PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sleep" COMMAND test-sleep)

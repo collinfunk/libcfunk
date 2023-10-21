@@ -18,3 +18,5 @@ target_sources(test-readlink PRIVATE
 set_target_properties(test-readlink PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-readlink" COMMAND test-readlink)

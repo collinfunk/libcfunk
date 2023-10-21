@@ -19,3 +19,5 @@ target_sources(test-ftruncate PRIVATE
 set_target_properties(test-ftruncate PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-ftruncate" COMMAND test-ftruncate)

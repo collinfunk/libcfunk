@@ -13,7 +13,7 @@ CC = $(shell command -v cc)
 # CC = pcc
 
 .SUFFIXES:
-.PHONY: all build-all init init-mingw clean clean-all
+.PHONY: all build-all init init-mingw clean clean-all check
 
 all: build-all
 
@@ -35,6 +35,9 @@ $(BUILD_DIR):
 
 clean:
 	$(CMAKE) --build $(BUILD_DIR) -t clean
+
+check:
+	cd $(BUILD_DIR) && ctest -j 4
 
 clean-all:
 	rm -rf $(BUILD_DIR)

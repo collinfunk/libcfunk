@@ -16,3 +16,5 @@ target_sources(test-sys-ioctl-h PRIVATE
 set_target_properties(test-sys-ioctl-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sys-ioctl-h" COMMAND test-sys-ioctl-h)

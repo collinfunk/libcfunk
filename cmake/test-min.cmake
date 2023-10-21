@@ -14,3 +14,5 @@ target_sources(test-min PRIVATE
 set_target_properties(test-min PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-min" COMMAND test-min)

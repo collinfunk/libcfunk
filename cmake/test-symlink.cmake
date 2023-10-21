@@ -14,3 +14,5 @@ target_sources(test-symlink PRIVATE
 set_target_properties(test-symlink PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-symlink" COMMAND test-symlink)

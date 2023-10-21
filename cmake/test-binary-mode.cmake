@@ -14,3 +14,5 @@ target_sources(test-binary-mode PRIVATE
 set_target_properties(test-binary-mode PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-binary-mode" COMMAND test-binary-mode)

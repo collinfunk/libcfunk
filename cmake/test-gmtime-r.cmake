@@ -14,3 +14,5 @@ target_sources(test-gmtime-r PRIVATE
 set_target_properties(test-gmtime-r PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-gmtime-r" COMMAND test-gmtime-r)

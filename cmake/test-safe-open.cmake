@@ -14,3 +14,5 @@ target_sources(test-safe-open PRIVATE
 set_target_properties(test-safe-open PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-safe-open" COMMAND test-safe-open)

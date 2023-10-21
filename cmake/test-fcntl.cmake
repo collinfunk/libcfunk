@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/open.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
 
 add_executable(test-fcntl)
@@ -17,3 +17,5 @@ target_sources(test-fcntl PRIVATE
 set_target_properties(test-fcntl PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-fcntl" COMMAND test-fcntl)

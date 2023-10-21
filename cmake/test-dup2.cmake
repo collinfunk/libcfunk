@@ -14,3 +14,5 @@ target_sources(test-dup2 PRIVATE
 set_target_properties(test-dup2 PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-dup2" COMMAND test-dup2)

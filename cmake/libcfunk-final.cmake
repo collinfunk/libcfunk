@@ -47,6 +47,13 @@ if ($CACHE{LIBCFUNK_GENERATE_ASSERT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_BYTESWAP_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/byteswap.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/byteswap.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in

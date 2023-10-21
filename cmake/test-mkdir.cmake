@@ -14,3 +14,5 @@ target_sources(test-mkdir PRIVATE
 set_target_properties(test-mkdir PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-mkdir" COMMAND test-mkdir)

@@ -16,3 +16,5 @@ target_sources(test-langinfo-h PRIVATE
 set_target_properties(test-langinfo-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-langinfo-h" COMMAND test-langinfo-h)

@@ -1,0 +1,64 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_BYTESWAP_H
+#define COMPAT_BYTESWAP_H
+
+#ifndef __has_builtin
+#  define __has_builtin(x) 0
+#endif
+
+#if __has_builtin(__builtin_bswap16) && __has_builtin(__builtin_bswap32) && __has_builtin(__builtin_bswap64)
+#  define bswap_16 __builtin_bswap16
+#  define bswap_32 __builtin_bswap32
+#  define bswap_64 __builtin_bswap64
+#elif @HAVE_LIBKERN_OSBYTEORDER_H@ && @HAVE_OSSWAPINT16@ && @HAVE_OSSWAPINT32@ && @HAVE_OSSWAPINT64@
+#  include <libkern/OSByteOrder.h>
+#  define bswap_16 OSSwapInt16
+#  define bswap_32 OSSwapInt32
+#  define bswap_64 OSSwapInt64
+#elif @HAVE_SYS_ENDIAN_H@ && @HAVE_BSWAP16@ && @HAVE_BSWAP32@ && @HAVE_BSWAP64@
+#  include <sys/endian.h>
+#  define bswap_16 bswap16
+#  define bswap_32 bswap32
+#  define bswap_64 bswap64
+#elif @HAVE_SYS_ENDIAN_H@ && @HAVE_SWAP16@ && @HAVE_SWAP32@ && @HAVE_SWAP64@
+#  include <sys/endian.h>
+#  define bswap_16 swap16
+#  define bswap_32 swap32
+#  define bswap_64 swap64
+#elif @HAVE_STDLIB_H@ && @HAVE__BYTESWAP_USHORT@ && @HAVE__BYTESWAP_ULONG@ && @HAVE__BYTESWAP_UINT64@
+#  include <stdlib.h>
+#  define bswap_16 _byteswap_ushort
+#  define bswap_32 _byteswap_ulong
+#  define bswap_64 _byteswap_uint64
+#elif @HAVE_SYS_BYTEORDER_H@
+#  include <sys/byteorder.h>
+#  define bswap_16 BSWAP_16
+#  define bswap_32 BSWAP_32
+#  define bswap_64 BSWAP_64
+#endif
+
+#endif /* COMPAT_BYTESWAP_H */

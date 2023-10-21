@@ -14,3 +14,5 @@ target_sources(test-stdio-ext-h PRIVATE
 set_target_properties(test-stdio-ext-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-stdio-ext-h" COMMAND test-stdio-ext-h)

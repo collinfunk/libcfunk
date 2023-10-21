@@ -14,3 +14,5 @@ target_sources(test-splay-tree PRIVATE
 set_target_properties(test-splay-tree PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-splay-tree" COMMAND test-splay-tree)

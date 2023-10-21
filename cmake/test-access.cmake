@@ -19,3 +19,5 @@ target_sources(test-access PRIVATE
 set_target_properties(test-access PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-access" COMMAND test-access)

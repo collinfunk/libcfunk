@@ -14,3 +14,5 @@ target_sources(test-getdtablesize PRIVATE
 set_target_properties(test-getdtablesize PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-getdtablesize" COMMAND test-getdtablesize)

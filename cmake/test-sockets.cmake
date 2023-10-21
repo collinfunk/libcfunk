@@ -14,3 +14,5 @@ target_sources(test-sockets PRIVATE
 set_target_properties(test-sockets PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sockets" COMMAND test-sockets)

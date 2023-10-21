@@ -14,3 +14,5 @@ target_sources(test-base32 PRIVATE
 set_target_properties(test-base32 PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-base32" COMMAND test-base32)

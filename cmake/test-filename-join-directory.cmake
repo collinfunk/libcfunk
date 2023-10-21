@@ -14,3 +14,5 @@ target_sources(test-filename-join-directory PRIVATE
 set_target_properties(test-filename-join-directory PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-filename-join-directory" COMMAND test-filename-join-directory)

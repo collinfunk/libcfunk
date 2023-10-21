@@ -16,3 +16,5 @@ target_sources(test-signal-h PRIVATE
 set_target_properties(test-signal-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-signal-h" COMMAND test-signal-h)

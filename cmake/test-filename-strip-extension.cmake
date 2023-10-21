@@ -14,3 +14,5 @@ target_sources(test-filename-strip-extension PRIVATE
 set_target_properties(test-filename-strip-extension PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-filename-strip-extension" COMMAND test-filename-strip-extension)

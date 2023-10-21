@@ -18,3 +18,5 @@ target_sources(test-stat PRIVATE
 set_target_properties(test-stat PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-stat" COMMAND test-stat)

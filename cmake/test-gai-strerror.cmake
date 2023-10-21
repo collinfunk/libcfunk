@@ -14,3 +14,5 @@ target_sources(test-gai-strerror PRIVATE
 set_target_properties(test-gai-strerror PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-gai-strerror" COMMAND test-gai-strerror)

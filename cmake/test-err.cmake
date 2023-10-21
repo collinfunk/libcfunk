@@ -14,3 +14,5 @@ target_sources(test-err PRIVATE
 set_target_properties(test-err PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-err" COMMAND test-err)

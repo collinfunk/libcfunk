@@ -14,3 +14,5 @@ target_sources(test-ctz PRIVATE
 set_target_properties(test-ctz PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-ctz" COMMAND test-ctz)

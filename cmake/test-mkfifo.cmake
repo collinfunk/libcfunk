@@ -14,3 +14,5 @@ target_sources(test-mkfifo PRIVATE
 set_target_properties(test-mkfifo PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-mkfifo" COMMAND test-mkfifo)

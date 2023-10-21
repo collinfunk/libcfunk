@@ -14,3 +14,5 @@ target_sources(test-__fpending PRIVATE
 set_target_properties(test-__fpending PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__fpending" COMMAND test-__fpending)

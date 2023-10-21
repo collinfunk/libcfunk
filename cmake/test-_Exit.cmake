@@ -14,3 +14,5 @@ target_sources(test-_Exit PRIVATE
 set_target_properties(test-_Exit PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-_Exit" COMMAND test-_Exit)

@@ -14,3 +14,5 @@ target_sources(test-daemon PRIVATE
 set_target_properties(test-daemon PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-daemon" COMMAND test-daemon)

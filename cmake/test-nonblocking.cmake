@@ -16,3 +16,5 @@ target_sources(test-nonblocking PRIVATE
 set_target_properties(test-nonblocking PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-nonblocking" COMMAND test-nonblocking)

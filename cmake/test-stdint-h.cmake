@@ -14,3 +14,5 @@ target_sources(test-stdint-h PRIVATE
 set_target_properties(test-stdint-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-stdint-h" COMMAND test-stdint-h)

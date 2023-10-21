@@ -14,3 +14,5 @@ target_sources(test-utf8-mblen PRIVATE
 set_target_properties(test-utf8-mblen PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-utf8-mblen" COMMAND test-utf8-mblen)

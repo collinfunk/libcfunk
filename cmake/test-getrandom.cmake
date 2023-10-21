@@ -14,3 +14,5 @@ target_sources(test-getrandom PRIVATE
 set_target_properties(test-getrandom PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-getrandom" COMMAND test-getrandom)

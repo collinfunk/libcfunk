@@ -16,3 +16,5 @@ target_sources(test-locale-h PRIVATE
 set_target_properties(test-locale-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-locale-h" COMMAND test-locale-h)

@@ -14,3 +14,5 @@ target_sources(test-tcgetsid PRIVATE
 set_target_properties(test-tcgetsid PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+#add_test(NAME "test-tcgetsid" COMMAND test-tcgetsid)

@@ -17,3 +17,5 @@ target_sources(test-bind PRIVATE
 set_target_properties(test-bind PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-bind" COMMAND test-bind)

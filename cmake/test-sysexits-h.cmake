@@ -14,3 +14,5 @@ target_sources(test-sysexits-h PRIVATE
 set_target_properties(test-sysexits-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sysexits-h" COMMAND test-sysexits-h)

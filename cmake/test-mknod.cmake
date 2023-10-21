@@ -14,3 +14,5 @@ target_sources(test-mknod PRIVATE
 set_target_properties(test-mknod PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-mknod" COMMAND test-mknod)

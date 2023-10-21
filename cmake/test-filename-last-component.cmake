@@ -14,3 +14,5 @@ target_sources(test-filename-last-component PRIVATE
 set_target_properties(test-filename-last-component PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-filename-last-component" COMMAND test-filename-last-component)

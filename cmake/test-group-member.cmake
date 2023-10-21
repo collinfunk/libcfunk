@@ -14,3 +14,5 @@ target_sources(test-group-member PRIVATE
 set_target_properties(test-group-member PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-group-member" COMMAND test-group-member)

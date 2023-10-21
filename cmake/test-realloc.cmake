@@ -14,3 +14,5 @@ target_sources(test-realloc PRIVATE
 set_target_properties(test-realloc PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-realloc" COMMAND test-realloc)

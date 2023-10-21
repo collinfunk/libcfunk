@@ -14,3 +14,5 @@ target_sources(test-__fwritable PRIVATE
 set_target_properties(test-__fwritable PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__fwritable" COMMAND test-__fwritable)

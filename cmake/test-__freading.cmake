@@ -14,3 +14,5 @@ target_sources(test-__freading PRIVATE
 set_target_properties(test-__freading PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__freading" COMMAND test-__freading)

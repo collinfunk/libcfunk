@@ -14,3 +14,5 @@ target_sources(test-__fpurge PRIVATE
 set_target_properties(test-__fpurge PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__fpurge" COMMAND test-__fpurge)

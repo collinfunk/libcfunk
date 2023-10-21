@@ -14,3 +14,5 @@ target_sources(test-bstree PRIVATE
 set_target_properties(test-bstree PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-bstree" COMMAND test-bstree)

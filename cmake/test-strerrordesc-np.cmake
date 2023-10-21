@@ -14,3 +14,5 @@ target_sources(test-strerrordesc-np PRIVATE
 set_target_properties(test-strerrordesc-np PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-strerrordesc-np" COMMAND test-strerrordesc-np)

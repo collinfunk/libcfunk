@@ -14,3 +14,5 @@ target_sources(test-__fbufsize PRIVATE
 set_target_properties(test-__fbufsize PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-__fbufsize" COMMAND test-__fbufsize)

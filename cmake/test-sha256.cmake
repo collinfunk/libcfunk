@@ -14,3 +14,5 @@ target_sources(test-sha256 PRIVATE
 set_target_properties(test-sha256 PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sha256" COMMAND test-sha256)

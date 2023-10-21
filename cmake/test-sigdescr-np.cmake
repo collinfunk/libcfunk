@@ -14,3 +14,5 @@ target_sources(test-sigdescr-np PRIVATE
 set_target_properties(test-sigdescr-np PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sigdescr-np" COMMAND test-sigdescr-np)

@@ -17,3 +17,5 @@ target_sources(test-sys-types-h PRIVATE
 set_target_properties(test-sys-types-h PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-sys-types-h" COMMAND test-sys-types-h)

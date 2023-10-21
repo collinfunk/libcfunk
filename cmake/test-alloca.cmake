@@ -14,3 +14,5 @@ target_sources(test-alloca PRIVATE
 set_target_properties(test-alloca PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-alloca" COMMAND test-alloca)

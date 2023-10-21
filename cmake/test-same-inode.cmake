@@ -14,3 +14,5 @@ target_sources(test-same-inode PRIVATE
 set_target_properties(test-same-inode PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-same-inode" COMMAND test-same-inode)

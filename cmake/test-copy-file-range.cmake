@@ -14,3 +14,5 @@ target_sources(test-copy-file-range PRIVATE
 set_target_properties(test-copy-file-range PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+#add_test(NAME "test-copy-file-range" COMMAND test-copy-file-range)

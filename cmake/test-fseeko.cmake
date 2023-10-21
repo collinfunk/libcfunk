@@ -14,3 +14,5 @@ target_sources(test-fseeko PRIVATE
 set_target_properties(test-fseeko PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-fseeko" COMMAND test-fseeko)

@@ -14,3 +14,5 @@ target_sources(test-flock PRIVATE
 set_target_properties(test-flock PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-flock" COMMAND test-flock)

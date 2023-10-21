@@ -16,3 +16,5 @@ target_sources(test-rmdir PRIVATE
 set_target_properties(test-rmdir PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
+
+add_test(NAME "test-rmdir" COMMAND test-rmdir)
