@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 
 if (HAVE_STRINGS_H)
   check_symbol_exists("fls" "strings.h" HAVE_FLS)

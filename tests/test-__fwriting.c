@@ -31,8 +31,31 @@
 
 #include "test-help.h"
 
+#undef TEST_FILE_NAME
+#define TEST_FILE_NAME "test-__fwriting.tmp"
+
 int
 main (void)
 {
+  FILE *fp;
+
+  remove (TEST_FILE_NAME);
+
+  fp = fopen (TEST_FILE_NAME, "w");
+  ASSERT (fp != NULL);
+
+  ASSERT (__fwriting (fp));
+  ASSERT (fwrite ("test", 1, 4, fp) == 4);
+  ASSERT (__fwriting (fp));
+  ASSERT (fclose (fp) == 0);
+
+  fp = fopen (TEST_FILE_NAME, "r");
+  ASSERT (fp != NULL);
+  ASSERT (!__fwriting (fp));
+  ASSERT (fgetc (fp) == 't');
+  ASSERT (!__fwriting (fp));
+  ASSERT (fclose (fp) == 0);
+
+  ASSERT (remove (TEST_FILE_NAME) == 0);
   return 0;
 }

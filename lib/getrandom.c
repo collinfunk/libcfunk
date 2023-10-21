@@ -41,18 +41,6 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#ifndef O_CLOEXEC
-#  ifdef O_NOINHERIT
-#    define O_CLOEXEC O_NOINHERIT
-#  else
-#    define O_CLOEXEC 0
-#  endif
-#endif
-
-#ifndef O_NONBLOCK
-#  define O_NONBLOCK 0
-#endif
-
 /* The Windows replacement for getrandom(2) uses the Windows
    "Cryptography API: Next Generation" instead of the older deprecated version.
    The function BCryptGenRandom should be avaliable on any modern version of

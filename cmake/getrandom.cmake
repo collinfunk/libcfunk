@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
 
 if (HAVE_SYS_RANDOM_H)
   check_symbol_exists("getrandom" "sys/random.h" HAVE_GETRANDOM)

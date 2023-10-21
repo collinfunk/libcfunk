@@ -30,10 +30,6 @@
 
 #include "__has_builtin.h"
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
 /* TODO: Optimize. */
 
 /* Find the last bit set in VALUE. */

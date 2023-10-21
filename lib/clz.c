@@ -30,10 +30,6 @@
 #include "__has_builtin.h"
 #include "clz.h"
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
 int
 clz (unsigned int value)
 {

@@ -30,10 +30,6 @@
 
 #include "__has_builtin.h"
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
 /* TODO: This can be optimized.
    Currently it checks every single bit until finding the last set bit. */
 

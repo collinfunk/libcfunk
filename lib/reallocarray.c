@@ -31,10 +31,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
 /* Assumes that size_t is an unsigned integer without padding bits. */
 #define SQRT_SIZE_MAX ((size_t) 1 << (CHAR_BIT * sizeof (size_t) / 2))
 

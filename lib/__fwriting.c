@@ -28,9 +28,15 @@
 #include <stdio.h>
 #include <stdio_ext.h>
 
-/* TODO */
+/* Returns 1 if STREAM is write-only. */
 int
 __fwriting (FILE *stream)
 {
-#error "__fwriting not implemented on your system."
+#if HAVE_FILE__FLAGS && __SWR
+  return (stream->_flags & __SWR) != 0;
+#elif HAVE_FILE__FLAG && _IOWRT
+  return (stream->_flag & _IOWRT) != 0;
+#else
+#  error "__fwriting not implemented on your system."
+#endif
 }
