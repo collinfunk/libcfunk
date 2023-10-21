@@ -68,6 +68,13 @@ if ($CACHE{LIBCFUNK_GENERATE_DIRENT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_ENDIAN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/endian.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/endian.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_ERR_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/err.h.in

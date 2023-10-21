@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
+
 # Check for <byteswap.h>
 check_include_file("byteswap.h" HAVE_BYTESWAP_H)
 

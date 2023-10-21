@@ -1,0 +1,132 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_ENDIAN_H
+#define COMPAT_ENDIAN_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_ENDIAN_H@
+#  include_next <endian.h>
+#endif
+
+#include <byteswap.h>
+#include <stdint.h>
+
+#ifndef LITTLE_ENDIAN
+#  define LITTLE_ENDIAN 1234
+#endif
+
+#ifndef BIG_ENDIAN
+#  define BIG_ENDIAN 4321
+#endif
+
+#ifndef PDP_ENDIAN
+#  define PDP_ENDIAN 3412
+#endif
+
+#ifndef BYTE_ORDER
+#  define BYTE_ORDER @CMAKE_C_BYTE_ORDER@
+#endif
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+#  ifndef htobe16
+#    define htobe16(x) bswap_16 ((uint16_t) (x))
+#  endif
+#  ifndef htobe32
+#    define htobe32(x) bswap_32 ((uint32_t) (x))
+#  endif
+#  ifndef htobe64
+#    define htobe64(x) bswap_64 ((uint64_t) (x))
+#  endif
+#  ifndef htole16
+#    define htole16(x) ((uint16_t) (x))
+#  endif
+#  ifndef htole32
+#    define htole32(x) ((uint32_t) (x))
+#  endif
+#  ifndef htole64
+#    define htole64(x) ((uint64_t) (x))
+#  endif
+#  ifndef be16toh
+#    define be16toh(x) bswap_16 ((uint16_t) (x))
+#  endif
+#  ifndef be32toh
+#    define be32toh(x) bswap_32 ((uint32_t) (x))
+#  endif
+#  ifndef be64toh
+#    define be64toh(x) bswap_64 ((uint64_t) (x))
+#  endif
+#  ifndef le16toh
+#    define le16toh(x) ((uint16_t) (x))
+#  endif
+#  ifndef le32toh
+#    define le32toh(x) ((uint32_t) (x))
+#  endif
+#  ifndef le64toh
+#    define le64toh(x) ((uint64_t) (x))
+#  endif
+#else /* BYTE_ORDER == BIG_ENDIAN */
+#  ifndef htobe16
+#    define htobe16(x) ((uint16_t) (x))
+#  endif
+#  ifndef htobe32
+#    define htobe32(x) ((uint32_t) (x))
+#  endif
+#  ifndef htobe64
+#    define htobe64(x) ((uint64_t) (x))
+#  endif
+#  ifndef htole16
+#    define htole16(x) bswap_16 ((uint16_t) (x))
+#  endif
+#  ifndef htole32
+#    define htole32(x) bswap_32 ((uint32_t) (x))
+#  endif
+#  ifndef htole64
+#    define htole64(x) bswap_64 ((uint64_t) (x))
+#  endif
+#  ifndef be16toh
+#    define be16toh(x) ((uint16_t) (x))
+#  endif
+#  ifndef be32toh
+#    define be32toh(x) ((uint32_t) (x))
+#  endif
+#  ifndef be64toh
+#    define be64toh(x) ((uint64_t) (x))
+#  endif
+#  ifndef le16toh
+#    define le16toh(x) bswap_16 ((uint16_t) (x))
+#  endif
+#  ifndef le32toh
+#    define le32toh(x) bswap_32 ((uint32_t) (x))
+#  endif
+#  ifndef le64toh
+#    define le64toh(x) bswap_64 ((uint64_t) (x))
+#  endif
+#endif
+
+#endif /* COMPAT_ENDIAN_H */
