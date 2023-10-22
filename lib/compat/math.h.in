@@ -57,4 +57,22 @@ extern long double copysignl (long double x, long double y);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_FABS@
+#  if !@HAVE_FABS@
+extern double fabs (double x);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FABSF@
+#  if !@HAVE_FABSF@
+extern float fabsf (float x);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FABSL@
+#  if !@HAVE_FABSL@
+extern long double fabsl (long double x);
+#  endif
+#endif
+
 #endif /* COMPAT_MATH_H */

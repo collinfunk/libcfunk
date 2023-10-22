@@ -34,25 +34,16 @@
 int
 main (void)
 {
-  float result;
+  double result;
 
-  result = copysignf (1.0f, 2.0f);
-  ASSERT (result == 1.0f);
+  result = fabs (1.0);
+  ASSERT (result == 1.0);
 
-  result = copysignf (1.0f, +2.0f);
-  ASSERT (result == 1.0f);
+  result = fabs (+1.0);
+  ASSERT (result == 1.0);
 
-  result = copysignf (1.0f, -2.0f);
-  ASSERT (result == -1.0f);
-
-  result = copysignf (-1.0f, 2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (-1.0f, +2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (-1.0f, -2.0f);
-  ASSERT (result == -1.0f);
+  result = fabs (-1.0);
+  ASSERT (result == 1.0);
 
   return 0;
 }

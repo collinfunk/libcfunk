@@ -36,23 +36,14 @@ main (void)
 {
   float result;
 
-  result = copysignf (1.0f, 2.0f);
+  result = fabsf (1.0f);
   ASSERT (result == 1.0f);
 
-  result = copysignf (1.0f, +2.0f);
+  result = fabsf (+1.0f);
   ASSERT (result == 1.0f);
 
-  result = copysignf (1.0f, -2.0f);
-  ASSERT (result == -1.0f);
-
-  result = copysignf (-1.0f, 2.0f);
+  result = fabsf (-1.0f);
   ASSERT (result == 1.0f);
-
-  result = copysignf (-1.0f, +2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (-1.0f, -2.0f);
-  ASSERT (result == -1.0f);
 
   return 0;
 }

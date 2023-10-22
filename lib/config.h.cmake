@@ -168,6 +168,9 @@
 #cmakedefine01 HAVE_EXECVPE
 #cmakedefine01 HAVE__EXIT
 #cmakedefine01 HAVE_EXPLICIT_BZERO
+#cmakedefine01 HAVE_FABS
+#cmakedefine01 HAVE_FABSF
+#cmakedefine01 HAVE_FABSL
 #cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE___FBUFSIZE
 #cmakedefine01 HAVE_FCHDIR

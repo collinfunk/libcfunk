@@ -36,23 +36,23 @@ main (void)
 {
   long double result;
 
-  result = copysignl (1.0, 2.0);
-  ASSERT (result == 1.0);
+  result = copysignl (1.0l, 2.0l);
+  ASSERT (result == 1.0l);
 
-  result = copysignl (1.0, +2.0);
-  ASSERT (result == 1.0);
+  result = copysignl (1.0l, +2.0l);
+  ASSERT (result == 1.0l);
 
-  result = copysignl (1.0, -2.0);
-  ASSERT (result == -1.0);
+  result = copysignl (1.0l, -2.0l);
+  ASSERT (result == -1.0l);
 
-  result = copysignl (-1.0, 2.0);
-  ASSERT (result == 1.0);
+  result = copysignl (-1.0l, 2.0l);
+  ASSERT (result == 1.0l);
 
-  result = copysignl (-1.0, +2.0);
-  ASSERT (result == 1.0);
+  result = copysignl (-1.0l, +2.0l);
+  ASSERT (result == 1.0l);
 
-  result = copysignl (-1.0, -2.0);
-  ASSERT (result == -1.0);
+  result = copysignl (-1.0l, -2.0l);
+  ASSERT (result == -1.0l);
 
   return 0;
 }

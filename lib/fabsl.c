@@ -26,33 +26,13 @@
 #include <config.h>
 
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-#include "test-help.h"
-
-int
-main (void)
+/* Return the absolute value of X. */
+long double
+fabsl (long double x)
 {
-  float result;
-
-  result = copysignf (1.0f, 2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (1.0f, +2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (1.0f, -2.0f);
-  ASSERT (result == -1.0f);
-
-  result = copysignf (-1.0f, 2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (-1.0f, +2.0f);
-  ASSERT (result == 1.0f);
-
-  result = copysignf (-1.0f, -2.0f);
-  ASSERT (result == -1.0f);
-
-  return 0;
+  if (signbit (x))
+    return -x;
+  else
+    return x;
 }
