@@ -23,38 +23,29 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_MATH_H
-#define COMPAT_MATH_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdio.h>
+#include <stdlib.h>
 
-#if @HAVE_MATH_H@
-#  include_next <math.h>
-#endif
+#include "test-help.h"
 
-/* If we don't have a 'signbit' macro pray that our compiler has it builtin. */
-#ifndef signbit
-#  define signbit(x) __builtin_signbit (x)
-#endif
+int
+main (void)
+{
+  lldiv_t result;
 
-#if @LIBCFUNK_DECLARE_COPYSIGN@
-#  if !@HAVE_COPYSIGN@
-extern double copysign (double x, double y);
-#  endif
-#endif
+  result = lldiv (25, 5);
+  ASSERT (result.quot == 5);
+  ASSERT (result.rem == 0);
 
-#if @LIBCFUNK_DECLARE_COPYSIGNF@
-#  if !@HAVE_COPYSIGNF@
-extern float copysignf (float x, float y);
-#  endif
-#endif
+  result = lldiv (26, 5);
+  ASSERT (result.quot == 5);
+  ASSERT (result.rem == 1);
 
-#if @LIBCFUNK_DECLARE_COPYSIGNL@
-#  if !@HAVE_COPYSIGNL@
-extern long double copysignl (long double x, long double y);
-#  endif
-#endif
+  result = lldiv (100, -20);
+  ASSERT (result.quot == -5);
+  ASSERT (result.rem == 0);
 
-#endif /* COMPAT_MATH_H */
+  return 0;
+}

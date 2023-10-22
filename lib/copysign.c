@@ -23,38 +23,22 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_MATH_H
-#define COMPAT_MATH_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <math.h>
 
-#if @HAVE_MATH_H@
-#  include_next <math.h>
-#endif
+/* This function requires 'signbit' or '__builtin_signbit'. If you don't don't
+   have them, this can be implemented by checking the sign of Y and returning
+   fabs (x) or -fabs (x). To check if Y is positive you must use some other
+   math function to differentiate -0.0 and 0.0. */
 
-/* If we don't have a 'signbit' macro pray that our compiler has it builtin. */
-#ifndef signbit
-#  define signbit(x) __builtin_signbit (x)
-#endif
-
-#if @LIBCFUNK_DECLARE_COPYSIGN@
-#  if !@HAVE_COPYSIGN@
-extern double copysign (double x, double y);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_COPYSIGNF@
-#  if !@HAVE_COPYSIGNF@
-extern float copysignf (float x, float y);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_COPYSIGNL@
-#  if !@HAVE_COPYSIGNL@
-extern long double copysignl (long double x, long double y);
-#  endif
-#endif
-
-#endif /* COMPAT_MATH_H */
+/* Return a value with the magnitude of X and the sign of Y. */
+double
+copysign (double x, double y)
+{
+  /* Do nothing if X and Y have the same sign. */
+  if (signbit (x) == signbit (y))
+    return x;
+  else
+    return -x;
+}

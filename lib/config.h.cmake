@@ -116,6 +116,9 @@
 #cmakedefine01 HAVE__CLOSE
 #cmakedefine01 HAVE_CLOSE
 #cmakedefine01 HAVE_COPY_FILE_RANGE
+#cmakedefine01 HAVE_COPYSIGN
+#cmakedefine01 HAVE_COPYSIGNF
+#cmakedefine01 HAVE_COPYSIGNL
 #cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRTDBG_H
 #cmakedefine01 HAVE_CRT_EXTERNS_H
@@ -132,6 +135,7 @@
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DIR_FD
 #cmakedefine01 HAVE_DIRFD
+#cmakedefine01 HAVE_DIV
 #cmakedefine01 HAVE_DIV_T
 #cmakedefine01 HAVE__DUP
 #cmakedefine01 HAVE_DUP
@@ -294,10 +298,12 @@
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
 #cmakedefine01 HAVE_LCHOWN
+#cmakedefine01 HAVE_LDIV
 #cmakedefine01 HAVE_LDIV_T
 #cmakedefine01 HAVE_LIBKERN_OSBYTEORDER_H
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
+#cmakedefine01 HAVE_LLDIV
 #cmakedefine01 HAVE_LLDIV_T
 #cmakedefine01 HAVE_LOCALECONV
 #cmakedefine01 HAVE_LOCALE_H
@@ -514,6 +520,7 @@
 #cmakedefine01 HAVE_SYS_WAIT_H
 #cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TERMIOS_H
+#cmakedefine01 HAVE_TGMATH_H
 #cmakedefine01 HAVE_TIME_H
 #cmakedefine01 HAVE_TIMER_T
 #cmakedefine01 HAVE_TIMES

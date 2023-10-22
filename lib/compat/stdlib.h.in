@@ -246,4 +246,22 @@ extern int getloadavg (double loadavg[], int nelem);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_DIV@
+#  if !@HAVE_DIV@
+extern div_t div (int numer, int denom);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LDIV@
+#  if !@HAVE_LDIV@
+extern ldiv_t ldiv (long int numer, long int denom);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LLDIV@
+#  if !@HAVE_LLDIV@
+extern lldiv_t lldiv (long long int numer, long long int denom);
+#  endif
+#endif
+
 #endif /* COMPAT_STDLIB_H */
