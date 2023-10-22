@@ -43,6 +43,30 @@
 #  include <sys/loadavg.h>
 #endif
 
+#if !@HAVE_DIV_T@
+typedef struct
+{
+  int quot;
+  int rem;
+} div_t;
+#endif
+
+#if !@HAVE_LDIV_T@
+typedef struct
+{
+  long int quot;
+  long int rem;
+} ldiv_t;
+#endif
+
+#if !@HAVE_LLDIV_T@
+typedef struct
+{
+  long long int quot;
+  long long int rem;
+} lldiv_t;
+#endif
+
 #ifndef EXIT_FAILURE
 #  define EXIT_FAILURE 1
 #else

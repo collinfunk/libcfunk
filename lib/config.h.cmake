@@ -132,6 +132,7 @@
 #cmakedefine01 HAVE_DIRENT_H
 #cmakedefine01 HAVE_DIR_FD
 #cmakedefine01 HAVE_DIRFD
+#cmakedefine01 HAVE_DIV_T
 #cmakedefine01 HAVE__DUP
 #cmakedefine01 HAVE_DUP
 #cmakedefine01 HAVE__DUP2
@@ -144,12 +145,14 @@
 #cmakedefine01 HAVE_ERR
 #cmakedefine01 HAVE_ERRC
 #cmakedefine01 HAVE_ERR_H
+#cmakedefine01 HAVE_ERRNO_H
 #cmakedefine01 HAVE_ERROR
 #cmakedefine01 HAVE_ERROR_AT_LINE
 #cmakedefine01 HAVE_ERROR_H
 #cmakedefine01 HAVE_ERROR_MESSAGE_COUNT
 #cmakedefine01 HAVE_ERROR_ONE_PER_LINE
 #cmakedefine01 HAVE_ERROR_PRINT_PROGNAME
+#cmakedefine01 HAVE_ERROR_T
 #cmakedefine01 HAVE_ERRX
 #cmakedefine01 HAVE_EUIDACCESS
 #cmakedefine01 HAVE_EXECL
@@ -187,6 +190,7 @@
 #cmakedefine01 HAVE_FILE__P
 #cmakedefine01 HAVE_FILE__PTR
 #cmakedefine01 HAVE___FLBF
+#cmakedefine01 HAVE_FLOAT_H
 #cmakedefine01 HAVE_FLOCK
 #cmakedefine01 HAVE_FLOCKFILE
 #cmakedefine01 HAVE_FLS
@@ -247,6 +251,8 @@
 #cmakedefine01 HAVE_GROUP_MEMBER
 #cmakedefine01 HAVE_HAVE_DIRECT_H
 #cmakedefine01 HAVE_IMAXABS
+#cmakedefine01 HAVE_IMAXDIV
+#cmakedefine01 HAVE_IMAXDIV_T
 #cmakedefine01 HAVE_INCLUDE_NEXT
 #cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_INO_T
@@ -288,9 +294,11 @@
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
 #cmakedefine01 HAVE_LCHOWN
+#cmakedefine01 HAVE_LDIV_T
 #cmakedefine01 HAVE_LIBKERN_OSBYTEORDER_H
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
+#cmakedefine01 HAVE_LLDIV_T
 #cmakedefine01 HAVE_LOCALECONV
 #cmakedefine01 HAVE_LOCALE_H
 #cmakedefine01 HAVE_LOCALTIME_R
@@ -300,6 +308,7 @@
 #cmakedefine01 HAVE_LSTAT
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
+#cmakedefine01 HAVE_MATH_H
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY

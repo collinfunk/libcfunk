@@ -23,124 +23,104 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_INTTYPES_H
-#define COMPAT_INTTYPES_H
+#ifndef COMPAT_FLOAT_H
+#define COMPAT_FLOAT_H
 
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
-#if @HAVE_INTTYPES_H@
-#  include_next <inttypes.h>
+#if @HAVE_FLOAT_H@
+#  include_next <float.h>
 #endif
 
-#include <stdint.h>
+/* TODO */
 
-#ifndef PRId8
-#  define PRId8 "d"
+#ifndef FLT_RADIX
 #endif
 
-#ifndef PRIi8
-#  define PRIi8 "i"
+#ifndef FLT_MANT_DIG
 #endif
 
-#ifndef PRIo8
-#  define PRIo8 "o"
+#ifndef DBL_MANT_DIG
 #endif
 
-#ifndef PRIu8
-#  define PRIu8 "u"
+#ifndef LDBL_MANT_DIG
 #endif
 
-#ifndef PRIx8
-#  define PRIx8 "x"
+#ifndef DECIMAL_DIG
 #endif
 
-#ifndef PRIX8
-#  define PRIX8 "X"
+#ifndef FLT_DIG
 #endif
 
-#ifndef PRId16
-#  define PRId16 "d"
+#ifndef DBL_DIG
 #endif
 
-#ifndef PRIi16
-#  define PRIi16 "i"
+#ifndef LDBL_DIG
 #endif
 
-#ifndef PRIo16
-#  define PRIo16 "o"
+#ifndef FLT_MIN_EXP
 #endif
 
-#ifndef PRIu16
-#  define PRIu16 "u"
+#ifndef DBL_MIN_EXP
 #endif
 
-#ifndef PRIx16
-#  define PRIx16 "x"
+#ifndef LDBL_MIN_EXP
 #endif
 
-#ifndef PRIX16
-#  define PRIX16 "X"
+#ifndef FLT_MIN_10_EXP
 #endif
 
-#ifndef PRId32
-#  define PRId32 "d"
+#ifndef DBL_MIN_10_EXP
 #endif
 
-#ifndef PRIi32
-#  define PRIi32 "i"
+#ifndef LDBL_MIN_10_EXP
 #endif
 
-#ifndef PRIo32
-#  define PRIo32 "o"
+#ifndef FLT_MAX_EXP
 #endif
 
-#ifndef PRIu32
-#  define PRIu32 "u"
+#ifndef DBL_MAX_EXP
 #endif
 
-#ifndef PRIx32
-#  define PRIx32 "x"
+#ifndef LDBL_MAX_EXP
 #endif
 
-#ifndef PRIX32
-#  define PRIX32 "X"
+#ifndef FLT_MAX_10_EXP
 #endif
 
-#if !@HAVE_IMAXDIV_T@
-typedef struct
-{
-  intmax_t quot;
-  intmax_t rem;
-} imaxdiv_t;
+#ifndef DBL_MAX_10_EXP
 #endif
 
-/* TODO: Rest of these. 64-bit types are dependent on
-   architecture. */
-
-#if @LIBCFUNK_DECLARE_IMAXABS@
-#  if !@HAVE_IMAXABS@
-extern intmax_t imaxabs (intmax_t value);
-#  endif
+#ifndef LDBL_MAX_10_EXP
 #endif
 
-#if @LIBCFUNK_DECLARE_IMAXDIV@
-#  if !@HAVE_IMAXDIV@
-extern imaxdiv_t imaxdiv (intmax_t numer, intmax_t denom);
-#  endif
+#ifndef FLT_MAX
 #endif
 
-#if @LIBCFUNK_DECLARE_STRTOIMAX@
-#  if !@HAVE_STRTOIMAX@
-extern intmax_t strtoimax (const char *str, char **endptr, int base);
-#  endif
+#ifndef DBL_MAX
 #endif
 
-#if @LIBCFUNK_DECLARE_STRTOUMAX@
-#  if !@HAVE_STRTOUMAX@
-extern uintmax_t strtoumax (const char *str, char **endptr, int base);
-#  endif
+#ifndef LDBL_MAX
 #endif
 
-#endif /* COMPAT_INTTYPES_H */
+#ifndef FLT_EPSILON
+#endif
+
+#ifndef DBL_EPSILON
+#endif
+
+#ifndef LDBL_EPSILON
+#endif
+
+#ifndef FLT_MIN
+#endif
+
+#ifndef DBL_MIN
+#endif
+
+#ifndef LDBL_MIN
+#endif
+
+#endif /* COMPAT_FLOAT_H */

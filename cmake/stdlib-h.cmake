@@ -6,6 +6,18 @@ set(LIBCFUNK_GENERATE_STDLIB_H "1" CACHE INTERNAL "")
 
 check_include_file("stdlib.h" HAVE_STDLIB_H)
 
+if (HAVE_STDLIB_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "stdlib.h")
+  check_type_size("div_t" DIV_T)
+  check_type_size("ldiv_t" LDIV_T)
+  check_type_size("lldiv_t" LLDIV_T)
+  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "stdlib.h")
+else ()
+  set(HAVE_DIV_T "" CACHE INTERNAL "")
+  set(HAVE_LDIV_T "" CACHE INTERNAL "")
+  set(HAVE_LLDIV_T "" CACHE INTERNAL "")
+endif ()
+
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_ABS "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_LABS "0" CACHE INTERNAL "")

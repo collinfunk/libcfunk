@@ -82,6 +82,13 @@ if ($CACHE{LIBCFUNK_GENERATE_ERR_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_ERRNO_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/errno.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/errno.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_ERROR_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/error.h.in
@@ -93,6 +100,13 @@ if ($CACHE{LIBCFUNK_GENERATE_FCNTL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/fcntl.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/fcntl.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_FLOAT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/float.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/float.h
   )
 endif ()
 
@@ -128,6 +142,13 @@ if ($CACHE{LIBCFUNK_GENERATE_MALLOC_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/malloc.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/malloc.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_MATH_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/math.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/math.h
   )
 endif ()
 
