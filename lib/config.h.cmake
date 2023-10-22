@@ -278,6 +278,7 @@
 #cmakedefine01 HAVE_INT_LEAST8_T
 #cmakedefine01 HAVE_INTMAX_T
 #cmakedefine01 HAVE_INTPTR_T
+#cmakedefine01 HAVE_INTRIN_H
 #cmakedefine01 HAVE_INTTYPES_H
 #cmakedefine01 HAVE_IOCTL
 #cmakedefine01 HAVE_IO_H
@@ -297,6 +298,19 @@
 #cmakedefine01 HAVE_ISSETUGID
 #cmakedefine01 HAVE_ISSPACE
 #cmakedefine01 HAVE_ISUPPER
+#cmakedefine01 HAVE_ISWALNUM
+#cmakedefine01 HAVE_ISWALPHA
+#cmakedefine01 HAVE_ISWBLANK
+#cmakedefine01 HAVE_ISWCNTRL
+#cmakedefine01 HAVE_ISWCTYPE
+#cmakedefine01 HAVE_ISWDIGIT
+#cmakedefine01 HAVE_ISWGRAPH
+#cmakedefine01 HAVE_ISWLOWER
+#cmakedefine01 HAVE_ISWPRINT
+#cmakedefine01 HAVE_ISWPUNCT
+#cmakedefine01 HAVE_ISWSPACE
+#cmakedefine01 HAVE_ISWUPPER
+#cmakedefine01 HAVE_ISWXDIGIT
 #cmakedefine01 HAVE_ISXDIGIT
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
@@ -318,6 +332,7 @@
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MATH_H
+#cmakedefine01 HAVE_MBSTATE_T
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY
@@ -534,6 +549,8 @@
 #cmakedefine01 HAVE_TOASCII
 #cmakedefine01 HAVE_TOLOWER
 #cmakedefine01 HAVE_TOUPPER
+#cmakedefine01 HAVE_TOWLOWER
+#cmakedefine01 HAVE_TOWUPPER
 #cmakedefine01 HAVE_TTYNAME
 #cmakedefine01 HAVE_TTYNAME_R
 #cmakedefine01 HAVE___TYPEOF__
@@ -587,6 +604,9 @@
 #cmakedefine01 HAVE_WCSDUP
 #cmakedefine01 HAVE_WCSLEN
 #cmakedefine01 HAVE_WCSNLEN
+#cmakedefine01 HAVE_WCTYPE
+#cmakedefine01 HAVE_WCTYPE_H
+#cmakedefine01 HAVE_WCTYPE_T
 #cmakedefine01 HAVE_WINDOWS_H
 #cmakedefine01 HAVE_WINSOCK2_H
 #cmakedefine01 HAVE_WINT_T

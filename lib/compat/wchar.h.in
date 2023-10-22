@@ -26,10 +26,6 @@
 #ifndef COMPAT_WCHAR_H
 #define COMPAT_WCHAR_H
 
-#include <sys/types.h>
-
-#include <stddef.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
@@ -38,8 +34,24 @@
 #  include_next <wchar.h>
 #endif
 
+#include <sys/types.h>
+
+#include <stddef.h>
+
+#if !@HAVE_MBSTATE_T@
+typedef unsigned int mbstate_t;
+#endif
+
+#if !@HAVE_WCTYPE_T@
+typedef void *wctype_t;
+#endif
+
 #if !@HAVE_WINT_T@
 typedef unsigned int wint_t;
+#endif
+
+#ifndef WEOF
+#  define WEOF ((wint_t) -1)
 #endif
 
 #if @LIBCFUNK_DECLARE_WCPCPY@

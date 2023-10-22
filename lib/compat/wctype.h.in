@@ -1,0 +1,135 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_WCTYPE_H
+#define COMPAT_WCTYPE_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_WCTYPE_H@
+#  include_next <wctype.h>
+#endif
+
+#include <wchar.h>
+
+#if @LIBCFUNK_DECLARE_ISWALNUM@
+#  if !@HAVE_ISWALNUM@
+extern int iswalnum (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWALPHA@
+#  if !@HAVE_ISWALPHA@
+extern int iswalpha (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWBLANK@
+#  if !@HAVE_ISWBLANK@
+extern int iswblank (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWCNTRL@
+#  if !@HAVE_ISWCNTRL@
+extern int iswcntrl (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWCTYPE@
+#  if !@HAVE_ISWCTYPE@
+extern int iswctype (wint_t wc, wctype_t charclass);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWDIGIT@
+#  if !@HAVE_ISWDIGIT@
+extern int iswdigit (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWGRAPH@
+#  if !@HAVE_ISWGRAPH@
+extern int iswgraph (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWLOWER@
+#  if !@HAVE_ISWLOWER@
+extern int iswlower (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWPRINT@
+#  if !@HAVE_ISWPRINT@
+extern int iswprint (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWPUNCT@
+#  if !@HAVE_ISWPUNCT@
+extern int iswpunct (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWSPACE@
+#  if !@HAVE_ISWSPACE@
+extern int iswspace (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWUPPER@
+#  if !@HAVE_ISWUPPER@
+extern int iswupper (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ISWXDIGIT@
+#  if !@HAVE_ISWXDIGIT@
+extern int iswxdigit (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TOWLOWER@
+#  if !@HAVE_TOWLOWER@
+extern wint_t towlower (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TOWUPPER@
+#  if !@HAVE_TOWUPPER@
+extern wint_t towupper (wint_t wc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCTYPE@
+#  if !@HAVE_WCTYPE@
+extern wctype_t wctype (const char *property);
+#  endif
+#endif
+
+#endif /* COMPAT_WCTYPE_H */

@@ -376,6 +376,13 @@ if ($CACHE{LIBCFUNK_GENERATE_WCHAR_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_WCTYPE_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/wctype.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/wctype.h
+  )
+endif ()
+
 configure_file(
   $CACHE{LIBCFUNK_SOURCE_DIR}/config.h.cmake
   $CACHE{LIBCFUNK_CONFIG_DIR}/config.h
