@@ -81,6 +81,7 @@
 #cmakedefine01 HAVE_BSWAP32
 #cmakedefine01 HAVE_BSWAP_64
 #cmakedefine01 HAVE_BSWAP64
+#cmakedefine01 HAVE_BTOWC
 #cmakedefine01 HAVE___BUILTIN_EXPECT
 #cmakedefine01 HAVE_BUILTINS_H
 #cmakedefine01 HAVE_BYTESWAP_H
@@ -332,6 +333,7 @@
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MATH_H
+#cmakedefine01 HAVE_MBRLEN
 #cmakedefine01 HAVE_MBSTATE_T
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP

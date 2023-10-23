@@ -23,23 +23,48 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_WAIT_H
-#define COMPAT_SYS_WAIT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <stdio.h>
+#include <stdlib.h>
+#include <wchar.h>
+#include <wctype.h>
+
+#include "test-help.h"
+
+static void validate_equal (const char *charclass, int (*function) (wint_t));
+
+int
+main (void)
+{
+  validate_equal ("alnum", iswalnum);
+  validate_equal ("alpha", iswalpha);
+  /* FIXME: Windows doesn't have this... */
+#if !HAVE_WINDOWS_H
+  validate_equal ("blank", iswblank);
 #endif
+  validate_equal ("cntrl", iswcntrl);
+  validate_equal ("digit", iswdigit);
+  validate_equal ("graph", iswgraph);
+  validate_equal ("lower", iswlower);
+  validate_equal ("print", iswprint);
+  validate_equal ("space", iswspace);
+  validate_equal ("upper", iswupper);
+  validate_equal ("xdigit", iswxdigit);
+  return 0;
+}
 
-#if @HAVE_SYS_WAIT_H@
-#  include_next <sys/wait.h>
-#endif
+/* Checks the input CHARCLASS string for 'wctype' is equal to the given
+   function from 'wctype.h'. */
+static void
+validate_equal (const char *charclass, int (*function) (wint_t))
+{
+  wint_t i;
+  wctype_t desc;
 
-#include <sys/types.h>
+  desc = wctype (charclass);
+  ASSERT (desc != (wctype_t) 0);
 
-#if @LIBCFUNK_DECLARE_WAITPID@
-#  if !@HAVE_WAITPID@
-extern pid_t waitpid (pid_t pid, int *stat_loc, int options);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_WAIT_H */
+  for (i = 0; i < 256; ++i)
+    ASSERT ((iswctype (i, desc) > 0) == ((*function) (i) > 0));
+}

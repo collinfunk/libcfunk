@@ -23,23 +23,19 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_WAIT_H
-#define COMPAT_SYS_WAIT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <wchar.h>
 
-#if @HAVE_SYS_WAIT_H@
-#  include_next <sys/wait.h>
-#endif
+#include "test-help.h"
 
-#include <sys/types.h>
-
-#if @LIBCFUNK_DECLARE_WAITPID@
-#  if !@HAVE_WAITPID@
-extern pid_t waitpid (pid_t pid, int *stat_loc, int options);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_WAIT_H */
+/* TODO: Set locale before invoking 'ctest' so we can actuall test this
+   function. */
+int
+main (void)
+{
+  ASSERT (btowc (EOF) == WEOF);
+  return 0;
+}

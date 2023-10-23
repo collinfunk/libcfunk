@@ -23,23 +23,15 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_WAIT_H
-#define COMPAT_SYS_WAIT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stddef.h>
+#include <wchar.h>
 
-#if @HAVE_SYS_WAIT_H@
-#  include_next <sys/wait.h>
-#endif
+static mbstate_t internal_state;
 
-#include <sys/types.h>
-
-#if @LIBCFUNK_DECLARE_WAITPID@
-#  if !@HAVE_WAITPID@
-extern pid_t waitpid (pid_t pid, int *stat_loc, int options);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_WAIT_H */
+size_t
+mbrlen (const char *s, size_t n, mbstate_t *ps)
+{
+  return mbrtowc (NULL, s, n, ps != NULL ? ps : &internal_state);
+}

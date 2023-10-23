@@ -23,23 +23,32 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_WAIT_H
-#define COMPAT_SYS_WAIT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
+#include <stdio.h>
+#include <stdlib.h>
+#include <wchar.h>
+#include <wctype.h>
+
+#include "test-help.h"
+
+int
+main (void)
+{
+  ASSERT (wctype ("invalid string") == (wctype_t) 0);
+  ASSERT (wctype ("alnum") != (wctype_t) 0);
+  ASSERT (wctype ("alpha") != (wctype_t) 0);
+  /* FIXME: Windows doesn't have this... */
+#if !HAVE_WINDOWS_H
+  ASSERT (wctype ("blank") != (wctype_t) 0);
 #endif
-
-#if @HAVE_SYS_WAIT_H@
-#  include_next <sys/wait.h>
-#endif
-
-#include <sys/types.h>
-
-#if @LIBCFUNK_DECLARE_WAITPID@
-#  if !@HAVE_WAITPID@
-extern pid_t waitpid (pid_t pid, int *stat_loc, int options);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_WAIT_H */
+  ASSERT (wctype ("cntrl") != (wctype_t) 0);
+  ASSERT (wctype ("digit") != (wctype_t) 0);
+  ASSERT (wctype ("graph") != (wctype_t) 0);
+  ASSERT (wctype ("lower") != (wctype_t) 0);
+  ASSERT (wctype ("print") != (wctype_t) 0);
+  ASSERT (wctype ("space") != (wctype_t) 0);
+  ASSERT (wctype ("upper") != (wctype_t) 0);
+  ASSERT (wctype ("xdigit") != (wctype_t) 0);
+  return 0;
+}

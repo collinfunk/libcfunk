@@ -23,23 +23,26 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_WAIT_H
-#define COMPAT_SYS_WAIT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <wchar.h>
 
-#if @HAVE_SYS_WAIT_H@
-#  include_next <sys/wait.h>
-#endif
+wint_t
+btowc (int ch)
+{
+  wchar_t wc;
+  char str[1];
 
-#include <sys/types.h>
+  /* If CH is equal to EOF, return WEOF. */
+  if (ch == EOF || ch == WEOF)
+    return WEOF;
 
-#if @LIBCFUNK_DECLARE_WAITPID@
-#  if !@HAVE_WAITPID@
-extern pid_t waitpid (pid_t pid, int *stat_loc, int options);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_WAIT_H */
+  /* Convert to a wide character. */
+  str[0] = (char) ch;
+  if (mbtowc (&wc, str, 1) >= 0)
+    return (wint_t) wc;
+  else
+    return WEOF;
+}

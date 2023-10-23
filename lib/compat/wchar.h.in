@@ -54,6 +54,18 @@ typedef unsigned int wint_t;
 #  define WEOF ((wint_t) -1)
 #endif
 
+#if @LIBCFUNK_DECLARE_BTOWC@
+#  if !@HAVE_BTOWC@
+extern wint_t btowc (int ch);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MBRLEN@
+#  if !@HAVE_MBRLEN@
+extern size_t mbrlen (const char *s, size_t n, mbstate_t *ps);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_WCPCPY@
 #  if !@HAVE_WCPCPY@
 extern wchar_t *wcpcpy (wchar_t *ws1, const wchar_t *ws2);

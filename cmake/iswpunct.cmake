@@ -18,5 +18,6 @@ if (NOT HAVE_ISWPUNCT)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-iswpunct.cmake)
 endif ()
 
