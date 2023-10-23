@@ -10,3 +10,7 @@ check_include_file("sys/random.h" HAVE_SYS_RANDOM_H)
 set(LIBCFUNK_DECLARE_GETENTROPY "0" CACHE INTERNAL "")
 set(LIBCFUNK_DECLARE_GETRANDOM "0" CACHE INTERNAL "")
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sys-random-h.cmake)
+endif ()
+

@@ -7,3 +7,8 @@ set(LIBCFUNK_GENERATE_SCHED_H "1" CACHE INTERNAL "")
 check_include_file("sched.h" HAVE_SCHED_H)
 
 set(LIBCFUNK_DECLARE_SCHED_YIELD "0" CACHE INTERNAL "")
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sched-h.cmake)
+endif ()
+

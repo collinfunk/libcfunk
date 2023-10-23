@@ -18,5 +18,6 @@ if (NOT HAVE_ISWALNUM)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-iswalnum.cmake)
 endif ()
 

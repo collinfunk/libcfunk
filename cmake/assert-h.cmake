@@ -31,3 +31,8 @@ main (void)
   return 0;
 }
 " HAVE_C11_STATIC_ASSERT)
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-assert-h.cmake)
+endif ()
+

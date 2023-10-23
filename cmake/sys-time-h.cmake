@@ -6,3 +6,7 @@ set(LIBCFUNK_GENERATE_SYS_TIME_H "1" CACHE INTERNAL "")
 
 check_include_file("sys/time.h" HAVE_SYS_TIME_H)
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sys-time-h.cmake)
+endif ()
+

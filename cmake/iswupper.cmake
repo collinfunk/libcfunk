@@ -18,5 +18,6 @@ if (NOT HAVE_ISWUPPER)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-iswupper.cmake)
 endif ()
 

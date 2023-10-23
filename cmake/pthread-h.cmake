@@ -45,3 +45,7 @@ else ()
   set(HAVE_PTHREAD_T "" CACHE INTERNAL "")
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-pthread-h.cmake)
+endif ()
+

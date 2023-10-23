@@ -21,3 +21,7 @@ set(LIBCFUNK_DECLARE_PCLOSE "0" CACHE INTERNAL "")
 # Use compatiblity macros for getc_unlocked and friends on Windows.
 # See unlocked-stdio.cmake
 set(LIBCFUNK_UNLOCKED_STDIO "0" CACHE INTERNAL "")
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-stdio-h.cmake)
+endif ()
