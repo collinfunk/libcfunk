@@ -72,6 +72,12 @@ extern wchar_t *wcpcpy (wchar_t *ws1, const wchar_t *ws2);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_WCPNCPY@
+#  if !@HAVE_WCPNCPY@
+extern wchar_t *wcpncpy (wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_WCSCASECMP@
 #  if !@HAVE_WCSCASECMP@
 extern int wcscasecmp (const wchar_t *ws1, const wchar_t *ws2);
@@ -102,6 +108,12 @@ extern wchar_t *wcscpy (wchar_t *ws1, const wchar_t *ws2);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_WCSCSPN@
+#  if !@HAVE_WCSCSPN@
+extern size_t wcscspn (const wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_WCSDUP@
 #  if !@HAVE_WCSDUP@
 extern wchar_t *wcsdup (const wchar_t *string);
@@ -120,9 +132,39 @@ extern int wcsncasecmp (const wchar_t *ws1, const wchar_t *ws2, size_t n);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_WCSNCAT@
+#  if !@HAVE_WCSNCAT@
+extern wchar_t *wcsncat (wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSNCMP@
+#  if !@HAVE_WCSNCMP@
+extern int wcsncmp (const wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSNCPY@
+#  if !@HAVE_WCSNCPY@
+extern wchar_t *wcsncpy (wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_WCSNLEN@
 #  if !@HAVE_WCSNLEN@
 extern size_t wcsnlen (const wchar_t *ws, size_t maxlen);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSPBRK@
+#  if !@HAVE_WCSPBRK@
+extern wchar_t *wcspbrk (const wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSSPN@
+#  if !@HAVE_WCSSPN@
+extern size_t wcsspn (const wchar_t *ws1, const wchar_t *ws2);
 #  endif
 #endif
 
