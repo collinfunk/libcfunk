@@ -72,6 +72,12 @@ extern wchar_t *wcpcpy (wchar_t *ws1, const wchar_t *ws2);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_WCSCASECMP@
+#  if !@HAVE_WCSCASECMP@
+extern int wcscasecmp (const wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_WCSCAT@
 #  if !@HAVE_WCSCAT@
 extern wchar_t *wcscat (wchar_t *ws1, const wchar_t *ws2);
@@ -108,9 +114,27 @@ extern size_t wcslen (const wchar_t *ws);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_WCSNCASECMP@
+#  if !@HAVE_WCSNCASECMP@
+extern int wcsncasecmp (const wchar_t *ws1, const wchar_t *ws2, size_t n);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_WCSNLEN@
 #  if !@HAVE_WCSNLEN@
 extern size_t wcsnlen (const wchar_t *ws, size_t maxlen);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSWIDTH@
+#  if !@HAVE_WCSWIDTH@
+extern int wcswidth (const wchar_t *pwcs, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCWIDTH@
+#  if !@HAVE_WCWIDTH@
+extern int wcwidth (wchar_t wc);
 #  endif
 #endif
 
