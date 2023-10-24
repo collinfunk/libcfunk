@@ -333,8 +333,12 @@
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MATH_H
+#cmakedefine01 HAVE_MBLEN
 #cmakedefine01 HAVE_MBRLEN
+#cmakedefine01 HAVE_MBRTOWC
 #cmakedefine01 HAVE_MBSTATE_T
+#cmakedefine01 HAVE_MBSTOWCS
+#cmakedefine01 HAVE_MBTOWC
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY
@@ -615,7 +619,9 @@
 #cmakedefine01 HAVE_WCSNLEN
 #cmakedefine01 HAVE_WCSPBRK
 #cmakedefine01 HAVE_WCSSPN
+#cmakedefine01 HAVE_WCSTOMBS
 #cmakedefine01 HAVE_WCSWIDTH
+#cmakedefine01 HAVE_WCTOMB
 #cmakedefine01 HAVE_WCTYPE
 #cmakedefine01 HAVE_WCTYPE_H
 #cmakedefine01 HAVE_WCTYPE_T
