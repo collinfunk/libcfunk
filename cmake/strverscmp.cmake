@@ -1,7 +1,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
-include($CACHE{LIBCFUNK_MODULE_DIR}/ctype.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/isdigit.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("strverscmp" "string.h" HAVE_STRVERSCMP)

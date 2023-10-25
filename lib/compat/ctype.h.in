@@ -34,81 +34,124 @@
 #  include_next <ctype.h>
 #endif
 
-/* Replacement functions for <ctype.h> if they are missing. */
-
-#if !@HAVE_ISALNUM@
-extern int isalnum (int c);
+#if @LIBCFUNK_DECLARE_ISALNUM@
+#  if !@HAVE_ISALNUM@
+#    undef isalnum
+extern int isalnum (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISALPHA@
-extern int isalpha (int c);
+#if @LIBCFUNK_DECLARE_ISALPHA@
+#  if !@HAVE_ISALPHA@
+#    undef isalpha
+extern int isalpha (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISASCII@
-extern int isascii (int c);
+#if @LIBCFUNK_DECLARE_ISASCII@
+#  if !@HAVE_ISASCII@
+#    undef isascii
+extern int isascii (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISBLANK@
-extern int isblank (int c);
+#if @LIBCFUNK_DECLARE_ISBLANK@
+#  if !@HAVE_ISBLANK@
+#    undef isblank
+extern int isblank (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISCNTRL@
-extern int iscntrl (int c);
+#if @LIBCFUNK_DECLARE_ISCNTRL@
+#  if !@HAVE_ISCNTRL@
+#    undef iscntrl
+extern int iscntrl (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISDIGIT@
-extern int isdigit (int c);
+#if @LIBCFUNK_DECLARE_ISDIGIT@
+#  if !@HAVE_ISDIGIT@
+#    undef isdigit
+extern int isdigit (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISGRAPH@
-extern int isgraph (int c);
+#if @LIBCFUNK_DECLARE_ISGRAPH@
+#  if !@HAVE_ISGRAPH@
+#    undef isgraph
+extern int isgraph (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISLOWER@
-extern int islower (int c);
+#if @LIBCFUNK_DECLARE_ISLOWER@
+#  if !@HAVE_ISLOWER@
+#    undef islower
+extern int islower (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISPRINT@
-extern int isprint (int c);
+#if @LIBCFUNK_DECLARE_ISPRINT@
+#  if !@HAVE_ISPRINT@
+#    undef isprint
+extern int isprint (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISPUNCT@
-extern int ispunct (int c);
+#if @LIBCFUNK_DECLARE_ISPUNCT@
+#  if !@HAVE_ISPUNCT@
+#    undef ispunct
+extern int ispunct (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISSPACE@
-extern int isspace (int c);
+#if @LIBCFUNK_DECLARE_ISSPACE@
+#  if !@HAVE_ISSPACE@
+#    undef isspace
+extern int isspace (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISUPPER@
-extern int isupper (int c);
+#if @LIBCFUNK_DECLARE_ISUPPER@
+#  if !@HAVE_ISUPPER@
+#    undef isupper
+extern int isupper (int ch);
+#  endif
 #endif
 
-#if !@HAVE_ISXDIGIT@
-extern int isxdigit (int c);
+#if @LIBCFUNK_DECLARE_ISXDIGIT@
+#  if !@HAVE_ISXDIGIT@
+#    undef isxdigit
+extern int isxdigit (int ch);
+#  endif
 #endif
 
-#if !@HAVE_TOASCII@
-extern int toascii (int c);
+#if @LIBCFUNK_DECLARE_TOASCII@
+#  if !@HAVE_TOASCII@
+#    undef toascii
+extern int toascii (int ch);
+#  endif
 #endif
 
-#if !@HAVE_TOLOWER@
-extern int tolower (int c);
+#if @LIBCFUNK_DECLARE_TOLOWER@
+#  if !@HAVE_TOLOWER@
+#    undef tolower
+extern int tolower (int ch);
+#  endif
 #endif
 
-#if !@HAVE_TOUPPER@
-extern int toupper (int c);
-#endif
-
-/* POSIX requires that these are defined as macros. They are required
-   to check C is a lowercase character before converting (or vice versa).
-   This is already required in the non prefixed functions according to C99. */
-#ifndef _toupper
-#  define _toupper(c) toupper ((c))
+#if @LIBCFUNK_DECLARE_TOUPPER@
+#  if !@HAVE_TOUPPER@
+#    undef toupper
+extern int toupper (int ch);
+#  endif
 #endif
 
 #ifndef _tolower
-#  define _tolower(c) tolower ((c))
+#  define _tolower tolower
+#endif
+
+#ifndef _toupper
+#  define _toupper toupper
 #endif
 
 #endif /* COMPAT_CTYPE_H */
