@@ -35,9 +35,9 @@ utf32_mblen (const uint32_t *s, size_t n)
 {
   if (s != NULL && n > 0)
     {
-      if (s[0] == 0x00000000U)
-        return 0;
-      if (s[0] < 0x0000d800U || (s[0] > 0x0000dfffU && s[0] <= 0x0010ffffU))
+      if (s[0] < 0xd800)
+        return s[0] == '\0' ? 0 : 1;
+      if (s[0] > 0xdfff && s[0] < 0x110000)
         return 1;
     }
   return -1;

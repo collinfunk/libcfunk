@@ -35,70 +35,68 @@ utf8_mblen (const uint8_t *s, size_t n)
 {
   if (s != NULL && n > 0)
     {
-      if (s[0] == 0x00U)
-        return 0;
-      if (s[0] < 0x80U)
-        return 1;
-      if (s[0] >= 0xc2U)
+      if (s[0] < 0x80)
+        return s[0] == '\0' ? 0 : 1;
+      if (s[0] > 0xc1)
         {
-          if (s[0] < 0xe0U)
+          if (s[0] < 0xe0)
             {
-              if (n >= 2 && s[1] >= 0x80U && s[1] <= 0xbfU)
-                return 2;
-            }
-          else if (s[0] < 0xf0U)
-            {
-              if (n >= 3)
+              if (n > 1)
                 {
-                  if (s[0] < 0xe1U)
+                  if (s[1] > 0x7f && s[1] < 0xc0)
+                    return 2;
+                }
+            }
+          else if (s[0] < 0xf0)
+            {
+              if (n > 2)
+                {
+                  if (s[0] < 0xe1)
                     {
-                      if ((s[1] >= 0xa0U && s[1] <= 0xbfU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU))
+                      if (s[1] > 0x9f && s[1] < 0xc0 && s[2] > 0x7f
+                          && s[2] < 0xc0)
                         return 3;
                     }
-                  else if (s[0] <= 0xecU)
+                  else if (s[0] < 0xed)
                     {
-                      if ((s[1] >= 0x80U && s[1] <= 0xbfU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU))
+                      if (s[1] > 0x7f && s[1] < 0xc0 && s[2] > 0x7f
+                          && s[2] < 0xc0)
                         return 3;
                     }
-                  else if (s[0] == 0xedU)
+                  else if (s[0] == 0xed)
                     {
-                      if ((s[1] >= 0x80U && s[1] <= 0x9fU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU))
+                      if (s[1] > 0x7f && s[1] < 0xa0 && s[2] > 0x7f
+                          && s[2] < 0xc0)
                         return 3;
                     }
-                  else
+                  else /* s[0] == 0xee || s[0] == 0xef */
                     {
-                      if ((s[1] >= 0x80U && s[1] <= 0xbfU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU))
+                      if (s[1] > 0x7f && s[1] < 0xc0 && s[2] > 0x7f
+                          && s[2] < 0xc0)
                         return 3;
                     }
                 }
             }
-          else if (s[0] <= 0xf4U)
+          else if (s[0] < 0xf5)
             {
-              if (n >= 4)
+              if (n > 3)
                 {
-                  if (s[0] < 0xf1U)
+                  if (s[0] < 0xf1)
                     {
-                      if ((s[1] >= 0x90U && s[1] <= 0xbfU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU)
-                          && (s[3] >= 0x80U && s[3] <= 0xbfU))
+                      if (s[1] > 0x8f && s[1] < 0xc0 && s[2] > 0x7f
+                          && s[2] < 0xc0 && s[3] > 0x7f && s[3] < 0xc0)
                         return 4;
                     }
-                  else if (s[0] == 0xf4U)
+                  else if (s[0] < 0xf4)
                     {
-                      if ((s[1] >= 0x80U && s[1] <= 0x8fU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU)
-                          && (s[3] >= 0x80U && s[3] <= 0xbfU))
+                      if (s[1] > 0x7f && s[1] < 0xc0 && s[2] > 0x7f
+                          && s[2] < 0xc0 && s[3] > 0x7f && s[3] < 0xc0)
                         return 4;
                     }
-                  else
+                  else /* s[0] == 0xf4 */
                     {
-                      if ((s[1] >= 0x80U && s[1] <= 0xbfU)
-                          && (s[2] >= 0x80U && s[2] <= 0xbfU)
-                          && (s[3] >= 0x80U && s[3] <= 0xbfU))
+                      if (s[1] > 0x7f && s[1] < 0x90 && s[2] > 0x7f
+                          && s[2] < 0xc0 && s[3] > 0x7f && s[3] < 0xc0)
                         return 4;
                     }
                 }

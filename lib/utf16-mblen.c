@@ -35,11 +35,11 @@ utf16_mblen (const uint16_t *s, size_t n)
 {
   if (s != NULL && n > 0)
     {
-      if (s[0] == 0x0000U)
-        return 0;
-      if (s[0] < 0xd800U || s[0] > 0xdfffU)
+      if (s[0] < 0xd800)
+        return s[0] == '\0' ? 0 : 1;
+      if (s[0] > 0xdfff)
         return 1;
-      if (s[0] < 0xdc00U && n >= 2 && (s[1] > 0xdbffU && s[1] < 0xe000U))
+      if (s[0] < 0xdc00 && n > 1 && s[1] > 0xdbff && s[1] < 0xe000)
         return 2;
     }
   return -1;
