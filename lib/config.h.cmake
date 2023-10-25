@@ -343,6 +343,7 @@
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY
 #cmakedefine01 HAVE_MEMMOVE
+#cmakedefine01 HAVE_MEMPCPY
 #cmakedefine01 HAVE_MEMRCHR
 #cmakedefine01 HAVE_MEMSET
 #cmakedefine01 HAVE_MEMSET_EXPLICIT
@@ -634,6 +635,7 @@
 #cmakedefine01 HAVE_WMEMCMP
 #cmakedefine01 HAVE_WMEMCPY
 #cmakedefine01 HAVE_WMEMMOVE
+#cmakedefine01 HAVE_WMEMPCPY
 #cmakedefine01 HAVE_WMEMSET
 #cmakedefine01 HAVE__WRITE
 #cmakedefine01 HAVE_WRITE

@@ -17,3 +17,7 @@ if (NOT HAVE_BCMP)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-bcmp.cmake)
+endif ()
+

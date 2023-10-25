@@ -1,3 +1,4 @@
+
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
@@ -15,3 +16,8 @@ if (NOT HAVE_MEMSET)
     $CACHE{LIBCFUNK_SOURCE_DIR}/memset.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-memset.cmake)
+endif ()
+
