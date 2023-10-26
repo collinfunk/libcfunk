@@ -26,18 +26,18 @@
 #include <config.h>
 
 #include <stddef.h>
-#include <stdlib.h>
+#include <stdint.h>
 
-#include "test-help.h"
+#include "unicode.h"
 
-/* Make sure that realloc (NULL, 0) returns a pointer that can be access. */
-int
-main (void)
+uint8_t *
+utf8_stpcpy (uint8_t *s1, const uint8_t *s2)
 {
-  char *ptr = (char *) calloc (0, 0);
-  ASSERT (ptr != NULL);
-  *ptr = 1;
-  ASSERT (*ptr == 1);
-  free (ptr);
-  return 0;
+  for (;; ++s1, ++s2)
+    {
+      *s1 = *s2;
+      if (*s1 == '\0')
+        break;
+    }
+  return s1;
 }

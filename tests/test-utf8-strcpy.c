@@ -26,18 +26,27 @@
 #include <config.h>
 
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "test-help.h"
+#include "unicode.h"
 
-/* Make sure that realloc (NULL, 0) returns a pointer that can be access. */
+/* Basic test to make sture 'utf8_strcpy' ends at the NUL character. */
 int
 main (void)
 {
-  char *ptr = (char *) calloc (0, 0);
-  ASSERT (ptr != NULL);
-  *ptr = 1;
-  ASSERT (*ptr == 1);
-  free (ptr);
+  const uint8_t src[12]
+      = { 'T', 'e', 's', 't', ' ', 's', 't', 'r', 'i', 'n', 'g', '\0' };
+  uint8_t dest[12];
+  size_t i;
+
+  /* Make we return the start of DEST. */
+  ASSERT (utf8_strcpy (dest, src) == dest);
+
+  /* Make sure both strings are equal. */
+  for (i = 0; i < ARRAY_SIZE (dest); ++i)
+    ASSERT (dest[i] == src[i]);
+
   return 0;
 }

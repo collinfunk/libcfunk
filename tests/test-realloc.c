@@ -38,5 +38,6 @@ main (void)
   ASSERT (ptr != NULL);
   *ptr = 1;
   ASSERT (*ptr == 1);
+  free (ptr);
   return 0;
 }

@@ -33,12 +33,32 @@
    https://www.unicode.org/versions/Unicode15.1.0/
  */
 
+/* Returns the number of code units which make up the character starting at
+   the first unit of S. If there is an invalid sequence -1 is returned. */
 extern int utf8_mblen (const uint8_t *s, size_t n);
 extern int utf16_mblen (const uint16_t *s, size_t n);
 extern int utf32_mblen (const uint32_t *s, size_t n);
 
+/* Returns the number of code units which make up the character starting at the
+   first unit of S. The character is then stored in PWC as a 32-bit wide
+   character. We use 'uint32_t' since Windows uses a 16-bit short int for
+   'wchar_t'. If S contains an invalid sequence -1 is returned. If S contains
+   an incomplete multibyte character than -2 is returned. In both cases 0xfffd
+   is placed in PWC. */
 /* extern int utf8_mbtowc (uint32_t *pwc, const uint8_t *s, size_t n); */
 extern int utf16_mbtowc (uint32_t *pwc, const uint16_t *s, size_t n);
 extern int utf32_mbtowc (uint32_t *pwc, const uint32_t *s, size_t n);
+
+/* These functions are the exact same as 'strcpy' as specified by ISO C except
+   that they operate on 8-bit, 16-bit, or 32-bit code units. */
+extern uint8_t *utf8_strcpy (uint8_t *s1, const uint8_t *s2);
+extern uint16_t *utf16_strcpy (uint16_t *s1, const uint16_t *s2);
+extern uint32_t *utf32_strcpy (uint32_t *s1, const uint32_t *s2);
+
+/* These functions are the exact same as 'stpcpy' as specified by POSIX except
+   that they operate on 8-bit, 16-bit, or 32-bit code units. */
+extern uint8_t *utf8_stpcpy (uint8_t *s1, const uint8_t *s2);
+extern uint16_t *utf16_stpcpy (uint16_t *s1, const uint16_t *s2);
+extern uint32_t *utf32_stpcpy (uint32_t *s1, const uint32_t *s2);
 
 #endif /* UNICODE_H */

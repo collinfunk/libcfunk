@@ -26,18 +26,21 @@
 #include <config.h>
 
 #include <stddef.h>
-#include <stdlib.h>
+#include <stdint.h>
 
-#include "test-help.h"
+#include "unicode.h"
 
-/* Make sure that realloc (NULL, 0) returns a pointer that can be access. */
-int
-main (void)
+uint32_t *
+utf32_strcpy (uint32_t *s1, const uint32_t *s2)
 {
-  char *ptr = (char *) calloc (0, 0);
-  ASSERT (ptr != NULL);
-  *ptr = 1;
-  ASSERT (*ptr == 1);
-  free (ptr);
-  return 0;
+  const uint32_t *save = s1;
+
+  for (;; ++s1, ++s2)
+    {
+      *s1 = *s2;
+      if (*s1 == '\0')
+        break;
+    }
+
+  return (uint32_t *) save;
 }
