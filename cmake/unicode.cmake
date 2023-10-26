@@ -14,6 +14,9 @@ target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf8-stpcpy.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf16-stpcpy.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf32-stpcpy.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/utf8-strlen.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/utf16-strlen.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/utf32-strlen.c
 )
 
 if (LIBCFUNK_ENABLE_TESTS)
@@ -28,5 +31,8 @@ if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf8-stpcpy.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf16-stpcpy.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf32-stpcpy.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf8-strlen.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf16-strlen.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf32-strlen.cmake)
 endif ()
 

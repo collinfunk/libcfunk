@@ -61,4 +61,10 @@ extern uint8_t *utf8_stpcpy (uint8_t *s1, const uint8_t *s2);
 extern uint16_t *utf16_stpcpy (uint16_t *s1, const uint16_t *s2);
 extern uint32_t *utf32_stpcpy (uint32_t *s1, const uint32_t *s2);
 
+/* These functions are the exact same as 'strlen' as specified by ISO C except
+   that they operate on 8-bit, 16-bit, or 32-bit code units. */
+extern size_t utf8_strlen (const uint8_t *s1);
+extern size_t utf16_strlen (const uint16_t *s1);
+extern size_t utf32_strlen (const uint32_t *s1);
+
 #endif /* UNICODE_H */
