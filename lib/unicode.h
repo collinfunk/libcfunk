@@ -29,6 +29,10 @@
 #include <stddef.h>
 #include <stdint.h>
 
+/* All functions written using the Unicode 15.1.0 standard:
+   https://www.unicode.org/versions/Unicode15.1.0/
+ */
+
 extern int utf8_mblen (const uint8_t *s, size_t n);
 extern int utf16_mblen (const uint16_t *s, size_t n);
 extern int utf32_mblen (const uint32_t *s, size_t n);

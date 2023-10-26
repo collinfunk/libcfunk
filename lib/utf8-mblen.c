@@ -37,13 +37,13 @@ utf8_mblen (const uint8_t *s, size_t n)
     {
       if (s[0] < 0x80)
         return s[0] == '\0' ? 0 : 1;
-      if (s[0] > 0xc1)
+      else if (s[0] > 0xc1)
         {
           if (s[0] < 0xe0)
             {
               if (n > 1)
                 {
-                  if (s[1] > 0x7f && s[1] < 0xc0)
+                  if ((s[1] ^ 0x80) < 0x40)
                     return 2;
                 }
             }
@@ -51,54 +51,20 @@ utf8_mblen (const uint8_t *s, size_t n)
             {
               if (n > 2)
                 {
-                  if (s[0] < 0xe1)
-                    {
-                      if (s[1] > 0x9f && s[1] < 0xc0 && s[2] > 0x7f
-                          && s[2] < 0xc0)
-                        return 3;
-                    }
-                  else if (s[0] < 0xed)
-                    {
-                      if (s[1] > 0x7f && s[1] < 0xc0 && s[2] > 0x7f
-                          && s[2] < 0xc0)
-                        return 3;
-                    }
-                  else if (s[0] == 0xed)
-                    {
-                      if (s[1] > 0x7f && s[1] < 0xa0 && s[2] > 0x7f
-                          && s[2] < 0xc0)
-                        return 3;
-                    }
-                  else /* s[0] == 0xee || s[0] == 0xef */
-                    {
-                      if (s[1] > 0x7f && s[1] < 0xc0 && s[2] > 0x7f
-                          && s[2] < 0xc0)
-                        return 3;
-                    }
+                  if ((s[1] ^ 0x80) < 0x40 && (s[2] ^ 0x80) < 0x40
+                      && (s[0] > 0xe0 || s[1] > 0x9f)
+                      && (s[0] != 0xed || s[1] < 0xa0))
+                    return 3;
                 }
             }
           else if (s[0] < 0xf5)
             {
               if (n > 3)
                 {
-                  if (s[0] < 0xf1)
-                    {
-                      if (s[1] > 0x8f && s[1] < 0xc0 && s[2] > 0x7f
-                          && s[2] < 0xc0 && s[3] > 0x7f && s[3] < 0xc0)
-                        return 4;
-                    }
-                  else if (s[0] < 0xf4)
-                    {
-                      if (s[1] > 0x7f && s[1] < 0xc0 && s[2] > 0x7f
-                          && s[2] < 0xc0 && s[3] > 0x7f && s[3] < 0xc0)
-                        return 4;
-                    }
-                  else /* s[0] == 0xf4 */
-                    {
-                      if (s[1] > 0x7f && s[1] < 0x90 && s[2] > 0x7f
-                          && s[2] < 0xc0 && s[3] > 0x7f && s[3] < 0xc0)
-                        return 4;
-                    }
+                  if ((s[1] ^ 0x80) < 0x40 && (s[2] ^ 0x80) < 0x40
+                      && (s[3] ^ 0x80) < 0x40 && (s[0] > 0xf0 || s[1] > 0x8f)
+                      && (s[0] < 0xf4 || s[1] < 0x90))
+                    return 4;
                 }
             }
         }
