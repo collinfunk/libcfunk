@@ -33,7 +33,7 @@
 int
 utf32_mbtowc (uint32_t *pwc, const uint32_t *s, size_t n)
 {
-  if (s[0] < 0xd7ff || (s[0] > 0xdfff && s[0] < 0x110000))
+  if (s[0] < 0xd800 || (s[0] > 0xdfff && s[0] < 0x110000))
     {
       *pwc = s[0];
       return 1;

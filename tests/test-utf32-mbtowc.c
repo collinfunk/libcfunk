@@ -79,7 +79,7 @@ test_low_single_chars (void)
       ASSERT (wc == i);
     }
 
-  for (i = 0xd700; i < 0xd7ff; ++i)
+  for (i = 0xd700; i < 0xd800; ++i)
     {
       input[0] = i;
       result = utf32_mbtowc (&wc, input, 1);
