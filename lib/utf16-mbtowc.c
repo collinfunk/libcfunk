@@ -23,18 +23,37 @@
  * SUCH DAMAGE.
  */
 
-#ifndef UNICODE_H
-#define UNICODE_H
+#include <config.h>
 
 #include <stddef.h>
 #include <stdint.h>
 
-extern int utf8_mblen (const uint8_t *s, size_t n);
-extern int utf16_mblen (const uint16_t *s, size_t n);
-extern int utf32_mblen (const uint32_t *s, size_t n);
+#include "unicode.h"
 
-/* extern int utf8_mbtowc (uint32_t *pwc, const uint8_t *s, size_t n); */
-extern int utf16_mbtowc (uint32_t *pwc, const uint16_t *s, size_t n);
-extern int utf32_mbtowc (uint32_t *pwc, const uint32_t *s, size_t n);
-
-#endif /* UNICODE_H */
+int
+utf16_mbtowc (uint32_t *pwc, const uint16_t *s, size_t n)
+{
+  if (s[0] < 0xd800 || s[0] > 0xdfff)
+    {
+      *pwc = s[0];
+      return 1;
+    }
+  if (s[0] < 0xdc00)
+    {
+      if (n > 1)
+        {
+          if (s[1] > 0xdbff && s[1] < 0xe000)
+            {
+              *pwc = ((s[0] - 0xd800) * 0x400) + (s[1] - 0xdc00) + 0x10000;
+              return 2;
+            }
+        }
+      else
+        {
+          *pwc = 0xfffd;
+          return -2;
+        }
+    }
+  *pwc = 0xfffd;
+  return -1;
+}
