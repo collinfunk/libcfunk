@@ -45,7 +45,7 @@ extern int utf32_mblen (const uint32_t *s, size_t n);
    'wchar_t'. If S contains an invalid sequence -1 is returned. If S contains
    an incomplete multibyte character than -2 is returned. In both cases 0xfffd
    is placed in PWC. */
-/* extern int utf8_mbtowc (uint32_t *pwc, const uint8_t *s, size_t n); */
+extern int utf8_mbtowc (uint32_t *pwc, const uint8_t *s, size_t n);
 extern int utf16_mbtowc (uint32_t *pwc, const uint16_t *s, size_t n);
 extern int utf32_mbtowc (uint32_t *pwc, const uint32_t *s, size_t n);
 
