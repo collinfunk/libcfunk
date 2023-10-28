@@ -67,4 +67,8 @@ extern size_t utf8_strlen (const uint8_t *s1);
 extern size_t utf16_strlen (const uint16_t *s1);
 extern size_t utf32_strlen (const uint32_t *s1);
 
+extern size_t utf8_strnlen (const uint8_t *s, size_t maxlen);
+extern size_t utf16_strnlen (const uint16_t *s, size_t maxlen);
+extern size_t utf32_strnlen (const uint32_t *s, size_t maxlen);
+
 #endif /* UNICODE_H */
