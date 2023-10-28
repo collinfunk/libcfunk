@@ -162,6 +162,9 @@ main (void)
   ASSERT (tolower ('}') == '}');
   ASSERT (tolower ('~') == '~');
   ASSERT (tolower (127) == 127);
+
+  /* This define is broken on MinGW. */
+#if !HAVE_WINDOWS_H
   ASSERT (_tolower (0x00) == 0x00);
   ASSERT (_tolower (0x01) == 0x01);
   ASSERT (_tolower (0x02) == 0x02);
@@ -290,5 +293,7 @@ main (void)
   ASSERT (_tolower ('}') == '}');
   ASSERT (_tolower ('~') == '~');
   ASSERT (_tolower (127) == 127);
+#endif
+
   return 0;
 }

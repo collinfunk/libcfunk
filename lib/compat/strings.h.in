@@ -26,17 +26,35 @@
 #ifndef COMPAT_STRINGS_H
 #define COMPAT_STRINGS_H
 
-#include <sys/types.h>
-
-#include <stddef.h>
-#include <string.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
 #if @HAVE_STRINGS_H@
 #  include_next <strings.h>
+#endif
+
+#include <sys/types.h>
+
+#include <stddef.h>
+#include <string.h>
+
+#if @LIBCFUNK_DECLARE_BCMP@
+#  if !@HAVE_BCMP@
+extern int bcmp (const void *s1, const void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_BCOPY@
+#  if !@HAVE_BCOPY@
+extern void bcopy (const void *s1, void *s2, size_t n);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_BZERO@
+#  if !@HAVE_BZERO@
+extern void bzero (void *s, size_t n);
+#  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FFS@
@@ -75,6 +93,12 @@ extern int flsll (long long int value);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_INDEX@
+#  if !@HAVE_INDEX@
+extern char *index (const char *s, int c);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_POPCOUNT@
 #  if !@HAVE_POPCOUNT@
 extern unsigned int popcount (unsigned int value);
@@ -90,30 +114,6 @@ extern unsigned int popcountl (unsigned long int value);
 #if @LIBCFUNK_DECLARE_POPCOUNTLL@
 #  if !@HAVE_POPCOUNTLL@
 extern unsigned int popcountll (unsigned long long int value);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_BCMP@
-#  if !@HAVE_BCMP@
-extern int bcmp (const void *s1, const void *s2, size_t n);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_BCOPY@
-#  if !@HAVE_BCOPY@
-extern void bcopy (const void *s1, void *s2, size_t n);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_BZERO@
-#  if !@HAVE_BZERO@
-extern void bzero (void *s, size_t n);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INDEX@
-#  if !@HAVE_INDEX@
-extern char *index (const char *s, int c);
 #  endif
 #endif
 

@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
+
 add_executable(test-toupper)
 
 target_link_libraries(test-toupper PRIVATE
