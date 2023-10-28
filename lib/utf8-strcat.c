@@ -28,22 +28,19 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "attributes.h"
 #include "unicode.h"
 
-/* Leave the third parameter so prototype remains consistent with the other
-   functions. */
-int
-utf32_mbtowc (uint32_t *pwc, const uint32_t *s, size_t n ATTRIBUTE_UNUSED)
+uint8_t *
+utf8_strcat (uint8_t *s1, const uint8_t *s2)
 {
-  if (s[0] < 0xd800 || (s[0] > 0xdfff && s[0] < 0x110000))
+  uint8_t *p = s1;
+  for (; *p != '\0'; ++p)
+    ;
+  for (;; ++p)
     {
-      *pwc = s[0];
-      return 1;
+      *p = *s2++;
+      if (*p == '\0')
+        break;
     }
-  else
-    {
-      *pwc = 0xfffd;
-      return -1;
-    }
+  return s1;
 }

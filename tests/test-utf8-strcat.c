@@ -26,24 +26,25 @@
 #include <config.h>
 
 #include <stddef.h>
-#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "attributes.h"
+#include "test-help.h"
 #include "unicode.h"
 
-/* Leave the third parameter so prototype remains consistent with the other
-   functions. */
+/* Simple test for 'utf8_strcat'. */
 int
-utf32_mbtowc (uint32_t *pwc, const uint32_t *s, size_t n ATTRIBUTE_UNUSED)
+main (void)
 {
-  if (s[0] < 0xd800 || (s[0] > 0xdfff && s[0] < 0x110000))
-    {
-      *pwc = s[0];
-      return 1;
-    }
-  else
-    {
-      *pwc = 0xfffd;
-      return -1;
-    }
+  uint8_t string1[12] = { 'T', 'e', 's', 't', ' ', '\0' };
+  uint8_t string2[7] = { 's', 't', 'r', 'i', 'n', 'g', '\0' };
+
+  /* Test the return value. */
+  ASSERT (utf8_strcat (string1, string2) == string1);
+
+  /* Test that the end of the concanated string is null-terminated. */
+  ASSERT (string1[ARRAY_SIZE (string1) - 1] == '\0');
+
+  return 0;
 }

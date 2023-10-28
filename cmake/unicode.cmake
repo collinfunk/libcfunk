@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
+
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/unicode.h
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf8-mblen.c
@@ -18,6 +20,9 @@ target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf8-strlen.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf16-strlen.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf32-strlen.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/utf8-strcat.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/utf16-strcat.c
+  $CACHE{LIBCFUNK_SOURCE_DIR}/utf32-strcat.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf8-strnlen.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf16-strnlen.c
   $CACHE{LIBCFUNK_SOURCE_DIR}/utf32-strnlen.c
@@ -39,6 +44,9 @@ if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf8-strlen.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf16-strlen.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf32-strlen.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf8-strcat.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf16-strcat.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf32-strcat.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf8-strnlen.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf16-strnlen.cmake)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-utf32-strnlen.cmake)
