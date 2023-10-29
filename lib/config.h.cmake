@@ -358,6 +358,7 @@
 #cmakedefine01 HAVE_MODE_T
 #cmakedefine01 HAVE_NANOSLEEP
 #cmakedefine01 HAVE_NETDB_H
+#cmakedefine01 HAVE_NET_IF_H
 #cmakedefine01 HAVE_NETINET_IN_H
 #cmakedefine01 HAVE_NL_ITEM
 #cmakedefine01 HAVE_NL_LANGINFO
@@ -494,6 +495,8 @@
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_START
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_TYPE
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_WHENCE
+#cmakedefine01 HAVE_STRUCT_IF_NAMEINDEX
+#cmakedefine01 HAVE_STRUCT_IOVEC
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_LCONV
 #cmakedefine01 HAVE_STRUCT_PTMGET
@@ -542,6 +545,7 @@
 #cmakedefine01 HAVE_SYS_TIMES_H
 #cmakedefine01 HAVE_SYS_TTY_H
 #cmakedefine01 HAVE_SYS_TYPES_H
+#cmakedefine01 HAVE_SYS_UIO_H
 #cmakedefine01 HAVE_SYS_UTIME_H
 #cmakedefine01 HAVE_SYS_UTSNAME_H
 #cmakedefine01 HAVE_SYS_WAIT_H

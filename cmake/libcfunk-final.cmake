@@ -166,6 +166,13 @@ if ($CACHE{LIBCFUNK_GENERATE_NETDB_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_NET_IF_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/net/if.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/net/if.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_NETINET_IN_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/netinet/in.h.in
@@ -324,6 +331,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_TYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/types.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/types.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_UIO_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/uio.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/uio.h
   )
 endif ()
 
