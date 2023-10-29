@@ -83,6 +83,68 @@
 #  define R_OK 4
 #endif
 
+#if @LIBCFUNK_DECLARE_ACCESS@
+#  if !@HAVE_ACCESS@
+extern int access (const char *path, int mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CHDIR@
+#  if !@HAVE_CHDIR@
+extern int chdir (const char *path);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CHOWN@
+#  if !@HAVE_CHOWN@
+extern int chown (const char *path, uid_t owner, gid_t group);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CLOSE@
+#  if !@HAVE_CLOSE@
+extern int close (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_COPY_FILE_RANGE@
+#  if !@HAVE_COPY_FILE_RANGE@
+extern ssize_t copy_file_range (int fd_in, off_t *off_in, int fd_out,
+                                off_t *off_out, size_t len,
+                                unsigned int flags);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_DAEMON@
+#  if !@HAVE_DAEMON@
+extern int daemon (int nochdir, int noclose);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_DUP@
+#  if !@HAVE_DUP@
+extern int dup (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_DUP2@
+#  if !@HAVE_DUP2@
+extern int dup2 (int fd1, int fd2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_EACCESS@
+#  if !@HAVE_EACCESS@
+extern int eaccess (const char *pathname, int mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
+#  if !@HAVE_ENDUSERSHELL@
+extern void endusershell (void);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ENVIRON@
 #  if !@HAVE_ENVIRON@
 #    if @HAVE_CRT_EXTERNS_H@ && @HAVE__NSGETENVIRON@
@@ -94,95 +156,9 @@ extern char **environ;
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_CHOWN@
-#  if !@HAVE_CHOWN@
-extern int chown (const char *path, uid_t owner, gid_t group);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_TTYNAME_R@
-#  if !@HAVE_TTYNAME_R@
-extern int ttyname_r (int fd, char *buffer, size_t buffer_len);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETUSERSHELL@
-#  if !@HAVE_GETUSERSHELL@
-extern char *getusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SETUSERSHELL@
-#  if !@HAVE_SETUSERSHELL@
-extern void setusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ENDUSERSHELL@
-#  if !@HAVE_ENDUSERSHELL@
-extern void endusershell (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETCWD@
-#  if @LIBCFUNK_REPLACE_GETCWD@
-#    undef getcwd
-#    define getcwd _libcfunk_getcwd
-extern char *_libcfunk_getcwd (char *buffer, size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SWAB@
-#  if !@HAVE_SWAB@
-extern void swab (const void *src, void *dest, ssize_t nbytes);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETPAGESIZE@
-#  if !@HAVE_GETPAGESIZE@
-extern int getpagesize (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETLOGIN@
-#  if !@HAVE_GETLOGIN@
-extern char *getlogin (void);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETLOGIN_R@
-#  if !@HAVE_GETLOGIN_R@
-extern int getlogin_r (char *name, size_t namesize);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GROUP_MEMBER@
-#  if !@HAVE_GROUP_MEMBER@
-extern int group_member (gid_t gid);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETGROUPS@
-#  if !@HAVE_GETGROUPS@
-extern int getgroups (int gidsetsize, gid_t grouplist[]);
-#  endif
-#endif
-
 #if @LIBCFUNK_DECLARE_EUIDACCESS@
 #  if !@HAVE_EUIDACCESS@
 extern int euidaccess (const char *pathname, int mode);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_EACCESS@
-#  if !@HAVE_EACCESS@
-extern int eaccess (const char *pathname, int mode);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_DAEMON@
-#  if !@HAVE_DAEMON@
-extern int daemon (int nochdir, int noclose);
 #  endif
 #endif
 
@@ -222,28 +198,41 @@ extern int execvpe (const char *file, char *const argv[], char *const envp[]);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_FCHDIR@
+#  if !@HAVE_FCHDIR@
+extern int fchdir (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FDATASYNC@
+#  if !@HAVE_FDATASYNC@
+extern int fdatasync (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FSYNC@
+#  if !@HAVE_FSYNC@
+extern int fsync (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETCWD@
+#  if @LIBCFUNK_REPLACE_GETCWD@
+#    undef getcwd
+#    define getcwd _libcfunk_getcwd
+extern char *_libcfunk_getcwd (char *buffer, size_t size);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_GETDTABLESIZE@
 #  if !@HAVE_GETDTABLESIZE@
 extern int getdtablesize (void);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_PIPE@
-#  if !@HAVE_PIPE@
-extern int pipe (int fd[2]);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ISATTY@
-#  if !@HAVE_ISATTY@ || @HAVE__ISATTY@
-#    undef isatty
-extern int isatty (int fd);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SLEEP@
-#  if !@HAVE_SLEEP@
-extern unsigned int sleep (unsigned int seconds);
+#if @LIBCFUNK_DECLARE_GETGROUPS@
+#  if !@HAVE_GETGROUPS@
+extern int getgroups (int gidsetsize, gid_t grouplist[]);
 #  endif
 #endif
 
@@ -257,85 +246,40 @@ extern int gethostname (char *name, size_t name_len);
 #  endif
 #endif
 
-/* Some systems, such as 4.4BSD and its derivatives, use 'int' instead of
-   'size_t' for the name_len parameter. */
-#if @LIBCFUNK_DECLARE_SETHOSTNAME@
-#  if !@HAVE_SETHOSTNAME@
-extern int sethostname (const char *name, size_t name_len);
+#if @LIBCFUNK_DECLARE_GETLOGIN@
+#  if !@HAVE_GETLOGIN@
+extern char *getlogin (void);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_FSYNC@
-#  if !@HAVE_FSYNC@
-extern int fsync (int fd);
+#if @LIBCFUNK_DECLARE_GETLOGIN_R@
+#  if !@HAVE_GETLOGIN_R@
+extern int getlogin_r (char *name, size_t namesize);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_FDATASYNC@
-#  if !@HAVE_FDATASYNC@
-extern int fdatasync (int fd);
+#if @LIBCFUNK_DECLARE_GETPAGESIZE@
+#  if !@HAVE_GETPAGESIZE@
+extern int getpagesize (void);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_COPY_FILE_RANGE@
-#  if !@HAVE_COPY_FILE_RANGE@
-extern ssize_t copy_file_range (int fd_in, off_t *off_in, int fd_out,
-                                off_t *off_out, size_t len,
-                                unsigned int flags);
+#if @LIBCFUNK_DECLARE_GETUSERSHELL@
+#  if !@HAVE_GETUSERSHELL@
+extern char *getusershell (void);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_DUP@
-#  if !@HAVE_DUP@
-extern int dup (int fd);
+#if @LIBCFUNK_DECLARE_GROUP_MEMBER@
+#  if !@HAVE_GROUP_MEMBER@
+extern int group_member (gid_t gid);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_DUP2@
-#  if !@HAVE_DUP2@
-extern int dup2 (int fd1, int fd2);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_SYMLINK@
-#  if !@HAVE_SYMLINK@
-extern int symlink (const char *path1, const char *path2);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_UNLINK@
-#  if !@HAVE_UNLINK@
-extern int unlink (const char *path);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_RMDIR@
-#  if !@HAVE_RMDIR@
-extern int rmdir (const char *path);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_CLOSE@
-#  if !@HAVE_CLOSE@
-extern int close (int fd);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_LSEEK@
-#  if !@HAVE_LSEEK@
-extern off_t lseek (int fd, off_t offset, int whence);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_READ@
-#  if !@HAVE_READ@
-extern ssize_t read (int fd, void *buffer, size_t nbytes);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_WRITE@
-#  if !@HAVE_WRITE@
-extern ssize_t write (int fd, const void *buffer, size_t nbytes);
+#if @LIBCFUNK_DECLARE_ISATTY@
+#  if !@HAVE_ISATTY@ || @HAVE__ISATTY@
+#    undef isatty
+extern int isatty (int fd);
 #  endif
 #endif
 
@@ -345,27 +289,69 @@ extern int lchown (const char *path, uid_t owner, gid_t group);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_LSEEK@
+#  if !@HAVE_LSEEK@
+extern off_t lseek (int fd, off_t offset, int whence);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_PIPE@
+#  if !@HAVE_PIPE@
+extern int pipe (int fd[2]);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_READ@
+#  if !@HAVE_READ@
+extern ssize_t read (int fd, void *buffer, size_t nbytes);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_READLINK@
 #  if !@HAVE_READLINK@
 extern ssize_t readlink (const char *path, char *buffer, size_t bufsize);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_ACCESS@
-#  if !@HAVE_ACCESS@
-extern int access (const char *path, int mode);
+#if @LIBCFUNK_DECLARE_RMDIR@
+#  if !@HAVE_RMDIR@
+extern int rmdir (const char *path);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_CHDIR@
-#  if !@HAVE_CHDIR@
-extern int chdir (const char *path);
+#if @LIBCFUNK_DECLARE_SETUSERSHELL@
+#  if !@HAVE_SETUSERSHELL@
+extern void setusershell (void);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_FCHDIR@
-#  if !@HAVE_FCHDIR@
-extern int fchdir (int fd);
+#if @LIBCFUNK_DECLARE_SLEEP@
+#  if !@HAVE_SLEEP@
+extern unsigned int sleep (unsigned int seconds);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SWAB@
+#  if !@HAVE_SWAB@
+extern void swab (const void *src, void *dest, ssize_t nbytes);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SYMLINK@
+#  if !@HAVE_SYMLINK@
+extern int symlink (const char *path1, const char *path2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TTYNAME_R@
+#  if !@HAVE_TTYNAME_R@
+extern int ttyname_r (int fd, char *buffer, size_t buffer_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_UNLINK@
+#  if !@HAVE_UNLINK@
+extern int unlink (const char *path);
 #  endif
 #endif
 
@@ -375,9 +361,9 @@ extern int usleep (useconds_t useconds);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_FTRUNCATE@
-#  if !@HAVE_FTRUNCATE@
-extern int ftruncate (int fd, off_t length);
+#if @LIBCFUNK_DECLARE_WRITE@
+#  if !@HAVE_WRITE@
+extern ssize_t write (int fd, const void *buffer, size_t nbytes);
 #  endif
 #endif
 

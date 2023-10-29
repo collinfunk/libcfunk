@@ -91,15 +91,9 @@ extern int abs (int value);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_LABS@
-#  if !@HAVE_LABS@
-extern long int labs (long int value);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_LLABS@
-#  if !@HAVE_LLABS@
-extern long long int llabs (long long int value);
+#if @LIBCFUNK_DECLARE_ATEXIT@
+#  if !@HAVE_ATEXIT@
+extern int atexit (void (*function) (void));
 #  endif
 #endif
 
@@ -121,9 +115,121 @@ extern long long int atoll (const char *str);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_BSEARCH@
+#  if !@HAVE_BSEARCH@
+extern void *bsearch (const void *key, const void *base, size_t nel,
+                      size_t width, int (*compar) (const void *,
+                                                   const void *));
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_C99__EXIT@
+#  if !@HAVE_C99__EXIT@
+extern void _Exit (int status);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CALLOC@
+#  if @LIBCFUNK_REPLACE_CALLOC@
+#    undef calloc
+#    define calloc _libcfunk_calloc
+extern void *_libcfunk_calloc (size_t nelem, size_t elsize);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_DIV@
+#  if !@HAVE_DIV@
+extern div_t div (int numer, int denom);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FREE@
+#  if @LIBCFUNK_REPLACE_FREE@
+#    undef free
+#    define free _libcfunk_free
+extern void _libcfunk_free (void *ptr);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETLOADAVG@
+#  if !@HAVE_GETLOADAVG@
+extern int getloadavg (double loadavg[], int nelem);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LABS@
+#  if !@HAVE_LABS@
+extern long int labs (long int value);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LDIV@
+#  if !@HAVE_LDIV@
+extern ldiv_t ldiv (long int numer, long int denom);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LLABS@
+#  if !@HAVE_LLABS@
+extern long long int llabs (long long int value);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_LLDIV@
+#  if !@HAVE_LLDIV@
+extern lldiv_t lldiv (long long int numer, long long int denom);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MALLOC@
+#  if @LIBCFUNK_REPLACE_MALLOC@
+#    undef malloc
+#    define malloc _libcfunk_malloc
+extern void *_libcfunk_malloc (size_t size);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MKDTEMP@
+#  if !@HAVE_MKDTEMP@
+extern char *mkdtemp (char *template);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MKSTEMP@
+#  if !@HAVE_MKSTEMP@
+extern int mkstemp (char *template);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_POSIX_OPENPT@
+#  if !@HAVE_POSIX_OPENPT@
+extern int posix_openpt (int flags);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_REALLOC@
+#  if @LIBCFUNK_REPLACE_REALLOC@
+#    undef realloc
+#    define realloc _libcfunk_realloc
+extern void *_libcfunk_realloc (void *ptr, size_t size);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_REALLOCARRAY@
 #  if !@HAVE_REALLOCARRAY@
 extern void *reallocarray (void *ptr, size_t nelem, size_t elsize);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_REALLOCF@
+#  if !@HAVE_REALLOCF@
+extern void *reallocf (void *ptr, size_t size);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SECURE_GETENV@
+#  if !@HAVE_SECURE_GETENV@
+extern char *secure_getenv (const char *name);
 #  endif
 #endif
 
@@ -152,115 +258,9 @@ extern unsigned long long int strtoull (const char *str, char **endptr,
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_SECURE_GETENV@
-#  if !@HAVE_SECURE_GETENV@
-extern char *secure_getenv (const char *name);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_MKSTEMP@
-#  if !@HAVE_MKSTEMP@
-extern int mkstemp (char *template);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_MKDTEMP@
-#  if !@HAVE_MKDTEMP@
-extern char *mkdtemp (char *template);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_BSEARCH@
-#  if !@HAVE_BSEARCH@
-extern void *bsearch (const void *key, const void *base, size_t nel,
-                      size_t width, int (*compar) (const void *,
-                                                   const void *));
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_C99__EXIT@
-#  if !@HAVE_C99__EXIT@
-extern void _Exit (int status);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ATEXIT@
-#  if !@HAVE_ATEXIT@
-extern int atexit (void (*function) (void));
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_POSIX_OPENPT@
-#  if !@HAVE_POSIX_OPENPT@
-extern int posix_openpt (int flags);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_MALLOC@
-#  if @LIBCFUNK_REPLACE_MALLOC@
-#    undef malloc
-#    define malloc _libcfunk_malloc
-extern void *_libcfunk_malloc (size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_CALLOC@
-#  if @LIBCFUNK_REPLACE_CALLOC@
-#    undef calloc
-#    define calloc _libcfunk_calloc
-extern void *_libcfunk_calloc (size_t nelem, size_t elsize);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_REALLOC@
-#  if @LIBCFUNK_REPLACE_REALLOC@
-#    undef realloc
-#    define realloc _libcfunk_realloc
-extern void *_libcfunk_realloc (void *ptr, size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_FREE@
-#  if @LIBCFUNK_REPLACE_FREE@
-#    undef free
-#    define free _libcfunk_free
-extern void _libcfunk_free (void *ptr);
-#  endif
-#endif
-
 #if @LIBCFUNK_DECLARE_UNLOCKPT@
 #  if !@HAVE_UNLOCKPT@
 extern int unlockpt (int fd);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_REALLOCF@
-#  if !@HAVE_REALLOCF@
-extern void *reallocf (void *ptr, size_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETLOADAVG@
-#  if !@HAVE_GETLOADAVG@
-extern int getloadavg (double loadavg[], int nelem);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_DIV@
-#  if !@HAVE_DIV@
-extern div_t div (int numer, int denom);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_LDIV@
-#  if !@HAVE_LDIV@
-extern ldiv_t ldiv (long int numer, long int denom);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_LLDIV@
-#  if !@HAVE_LLDIV@
-extern lldiv_t lldiv (long long int numer, long long int denom);
 #  endif
 #endif
 
