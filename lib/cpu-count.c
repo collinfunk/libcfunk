@@ -37,13 +37,8 @@
 #  include <sched.h>
 #endif
 
-#ifdef _WIN32
-#  if HAVE_SYSINFOAPI_H
-#    include <sysinfoapi.h>
-#    include <windows.h>
-#  else
-#    error "Your system does not have <sysinfoapi.h>"
-#  endif
+#if HAVE_WINDOWS_H
+#  include <windows.h>
 #endif
 
 #include "cpu-count.h"
@@ -54,74 +49,90 @@
 long int
 cpu_count_available (void)
 {
-#ifdef _WIN32
-  DWORD_PTR proc_mask, sys_mask;
+#if HAVE_WINDOWS_H
+  {
+    DWORD_PTR proc_mask, sys_mask;
 
-  if (GetProcessAffinityMask (GetCurrentProcess (), &proc_mask, &sys_mask))
-    return (long int) popcountl ((unsigned long) proc_mask);
+    if (GetProcessAffinityMask (GetCurrentProcess (), &proc_mask, &sys_mask))
+      return (long int) popcountl ((unsigned long) proc_mask);
+  }
 #endif
 
 #if HAVE_SCHED_H && HAVE_SCHED_GETAFFINITY
-  cpu_set_t set;
+  {
+    cpu_set_t set;
 
-  if (sched_getaffinity (getpid (), sizeof (set), &set) >= 0)
-    {
-      size_t i;
-      long int count;
+    if (sched_getaffinity (getpid (), sizeof (set), &set) >= 0)
+      {
+        size_t i;
+        long int count = 0;
 
-      for (i = count = 0; i < CPU_SETSIZE; ++i)
-        {
+        for (i = 0; i < CPU_SETSIZE; ++i)
           if (CPU_ISSET (i, &set))
             ++count;
-        }
 
-      return count;
-    }
+        return count;
+      }
+  }
 #endif
 
 #if HAVE_SYS_SYSCTL_H && defined(HW_NCPU)
-  int mib[2] = { CTL_HW, HW_NCPU };
-  int cpu_count;
-  size_t len;
+  {
+    int mib[2] = { CTL_HW, HW_NCPU };
+    int cpu_count;
+    size_t len;
 
-  /* FIXME: Same as total. */
-  if (sysctl (mib, 2, &cpu_count, &len, NULL, 0) < 0)
-    return 1;
+    /* FIXME: Same as total. */
+    if (sysctl (mib, 2, &cpu_count, &len, NULL, 0) < 0)
+      return 1;
 
-  return cpu_count > 0 ? cpu_count : 1;
+    return cpu_count > 0 ? cpu_count : 1;
+  }
 #endif
 
 #if defined(_SC_NPROCESSORS_ONLN)
-  long int cpu_count = sysconf (_SC_NPROCESSORS_ONLN);
+  {
+    long int cpu_count = sysconf (_SC_NPROCESSORS_ONLN);
 
-  return cpu_count < 0 ? 1 : cpu_count;
+    return cpu_count < 0 ? 1 : cpu_count;
+  }
 #endif
-  /* We have to have 1... */
+
   return 1;
 }
 
 long int
 cpu_count_total (void)
 {
-#ifdef _WIN32
-  SYSTEM_INFO system_info;
+#if HAVE_WINDOWS_H
+  {
+    SYSTEM_INFO system_info;
 
-  GetSystemInfo (&system_info);
-  return system_info.dwNumberOfProcessors;
-#elif HAVE_SYS_SYSCTL_H && defined(HW_NCPU)
-  int mib[2] = { CTL_HW, HW_NCPU };
-  int cpu_count;
-  size_t len;
-
-  if (sysctl (mib, 2, &cpu_count, &len, NULL, 0) < 0)
-    return 1;
-
-  return cpu_count > 0 ? cpu_count : 1;
-#else
-  long int cpu_count = sysconf (_SC_NPROCESSORS_CONF);
-
-  return cpu_count < 0 ? 1 : cpu_count;
+    GetSystemInfo (&system_info);
+    return system_info.dwNumberOfProcessors;
+  }
 #endif
-  /* We have to have 1... */
+
+#if HAVE_SYS_SYSCTL_H && defined(HW_NCPU)
+  {
+    int mib[2] = { CTL_HW, HW_NCPU };
+    int cpu_count;
+    size_t len;
+
+    if (sysctl (mib, 2, &cpu_count, &len, NULL, 0) < 0)
+      return 1;
+
+    return cpu_count > 0 ? cpu_count : 1;
+  }
+#endif
+
+#if defined(_SC_NPROCESSORS_CONF)
+  {
+    long int cpu_count = sysconf (_SC_NPROCESSORS_CONF);
+
+    return cpu_count < 0 ? 1 : cpu_count;
+  }
+#endif
+
   return 1;
 }
