@@ -607,6 +607,7 @@
 #cmakedefine01 HAVE_WCHAR_H
 #cmakedefine01 HAVE_WCPCPY
 #cmakedefine01 HAVE_WCPNCPY
+#cmakedefine01 HAVE_WCRTOMB
 #cmakedefine01 HAVE_WCSCASECMP
 #cmakedefine01 HAVE_WCSCAT
 #cmakedefine01 HAVE_WCSCHR

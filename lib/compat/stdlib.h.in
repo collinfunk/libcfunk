@@ -189,6 +189,12 @@ extern void *_libcfunk_malloc (size_t size);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_MBTOWC@
+#  if !@HAVE_MBTOWC@
+extern int mbtowc (wchar_t *pwc, const char *s, size_t n);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_MKDTEMP@
 #  if !@HAVE_MKDTEMP@
 extern char *mkdtemp (char *template);
@@ -261,6 +267,12 @@ extern unsigned long long int strtoull (const char *str, char **endptr,
 #if @LIBCFUNK_DECLARE_UNLOCKPT@
 #  if !@HAVE_UNLOCKPT@
 extern int unlockpt (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCTOMB@
+#  if !@HAVE_WCTOMB@
+extern int wctomb (char *s, wchar_t wc);
 #  endif
 #endif
 
