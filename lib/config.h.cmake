@@ -178,6 +178,7 @@
 #cmakedefine01 HAVE_FCNTL
 #cmakedefine01 HAVE_FCNTL_H
 #cmakedefine01 HAVE_FDATASYNC
+#cmakedefine01 HAVE_FENV_H
 #cmakedefine01 HAVE_FFS
 #cmakedefine01 HAVE_FFSL
 #cmakedefine01 HAVE_FFSLL

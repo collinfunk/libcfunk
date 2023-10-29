@@ -103,6 +103,13 @@ if ($CACHE{LIBCFUNK_GENERATE_FCNTL_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_FENV_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/fenv.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/fenv.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_FLOAT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/float.h.in
