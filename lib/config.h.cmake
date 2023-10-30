@@ -362,6 +362,7 @@
 #cmakedefine01 HAVE_NETINET_IN_H
 #cmakedefine01 HAVE_NL_ITEM
 #cmakedefine01 HAVE_NL_LANGINFO
+#cmakedefine01 HAVE_NL_LANGINFO_CODESET
 #cmakedefine01 HAVE_NL_TYPES_H
 #cmakedefine01 HAVE__NSGETENVIRON
 #cmakedefine01 HAVE_OFF_T
@@ -403,6 +404,7 @@
 #cmakedefine01 HAVE_PTHREAD_RWLOCK_T
 #cmakedefine01 HAVE_PTHREAD_SPINLOCK_T
 #cmakedefine01 HAVE_PTHREAD_T
+#cmakedefine01 HAVE_PTRDIFF_T
 #cmakedefine01 HAVE_PTSNAME
 #cmakedefine01 HAVE_PTY_H
 #cmakedefine01 HAVE__PUTCHAR_NOLOCK
@@ -598,6 +600,7 @@
 #cmakedefine01 HAVE_USECONDS_T
 #cmakedefine01 HAVE_USLEEP
 #cmakedefine01 HAVE_UTIME_H
+#cmakedefine01 HAVE_VA_LIST
 #cmakedefine01 HAVE_VERR
 #cmakedefine01 HAVE_VERRC
 #cmakedefine01 HAVE_VERRX
@@ -610,6 +613,7 @@
 #cmakedefine01 HAVE_WARNC
 #cmakedefine01 HAVE_WARNX
 #cmakedefine01 HAVE_WCHAR_H
+#cmakedefine01 HAVE_WCHAR_T
 #cmakedefine01 HAVE_WCPCPY
 #cmakedefine01 HAVE_WCPNCPY
 #cmakedefine01 HAVE_WCRTOMB

@@ -23,20 +23,23 @@
  * SUCH DAMAGE.
  */
 
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
 /* Help GNU libc find some types. */
 #if defined(__need_wchar_t) || defined(__need_size_t)                         \
     || defined(__need_ptrdiff_t) || defined(__need_NULL)                      \
     || defined(__need_wint_t)
+
 #if @HAVE_STDDEF_H@
 #  include_next <stddef.h>
 #endif
+
 #else
+
 #ifndef COMPAT_STDDEF_H
 #define COMPAT_STDDEF_H
-
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
 
 #if @HAVE_STDDEF_H@
 #  include_next <stddef.h>
