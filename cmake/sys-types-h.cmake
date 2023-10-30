@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
+
 # Generate <sys/types.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_SYS_TYPES_H "1" CACHE INTERNAL "")
 
@@ -16,7 +18,6 @@ check_type_size("ino_t" INO_T)
 check_type_size("mode_t" MODE_T)
 check_type_size("off_t" OFF_T)
 check_type_size("pid_t" PID_T)
-check_type_size("size_t" SIZE_T)
 check_type_size("ssize_t" SSIZE_T)
 check_type_size("suseconds_t" SUSECONDS_T)
 check_type_size("time_t" TIME_T)

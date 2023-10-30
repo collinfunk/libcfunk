@@ -208,6 +208,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SIGNAL_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDARG_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdarg.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdarg.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDBOOL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdbool.h.in
@@ -219,6 +226,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDCKDINT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdckdint.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/stdckdint.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_STDDEF_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stddef.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stddef.h
   )
 endif ()
 

@@ -23,76 +23,49 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+/* Help GNU libc find some types. */
+#if defined(__need_wchar_t) || defined(__need_size_t)                         \
+    || defined(__need_ptrdiff_t) || defined(__need_NULL)                      \
+    || defined(__need_wint_t)
+#if @HAVE_STDDEF_H@
+#  include_next <stddef.h>
+#endif
+#else
+#ifndef COMPAT_STDDEF_H
+#define COMPAT_STDDEF_H
 
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
+#if @HAVE_STDDEF_H@
+#  include_next <stddef.h>
 #endif
 
-#include <stddef.h>
-
-#if !@HAVE_BLKCNT_T@
+#ifndef NULL
+#  define NULL ((void *) 0)
 #endif
 
-#if !@HAVE_BLKSIZE_T@
+#if !@HAVE_PTRDIFF_T@
+#ifndef __PTRDIFF_TYPE__
+#  define __PTRDIFF_TYPE__ long int
+#endif
+typedef __PTRDIFF_TYPE__ ptrdiff_t;
 #endif
 
-#if !@HAVE_CLOCKID_T@
-typedef int clockid_t;
+#if !@HAVE_WCHAR_T@
+#ifndef __WCHAR_TYPE__
+#  define __WCHAR_TYPE__ int
+#endif
+typedef __WCHAR_TYPE__ wchar_t;
 #endif
 
-#if !@HAVE_DEV_T@
-typedef unsigned long int dev_t;
+#if !@HAVE_SIZE_T@
+#ifndef __SIZE_TYPE__
+#  define __SIZE_TYPE__ unsigned long int
+#endif
+typedef __SIZE_TYPE__ size_t;
 #endif
 
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
+#endif /* COMPAT_STDDEF_H */
 #endif
-
-#if !@HAVE_INO_T@
-typedef unsigned long long int ino_t;
-#endif
-
-#if !@HAVE_MODE_T@
-typedef unsigned int mode_t;
-#endif
-
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#if !@HAVE_PID_T@
-typedef int pid_t;
-#endif
-
-#if !@HAVE_SSIZE_T@
-#endif
-
-#if !@HAVE_SUSECONDS_T@
-typedef int suseconds_t;
-#endif
-
-#if !@HAVE_TIME_T@
-#endif
-
-#if !@HAVE_TIMER_T@
-#endif
-
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
-
-#if !@HAVE_USECONDS_T@
-typedef unsigned int useconds_t;
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */

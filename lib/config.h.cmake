@@ -448,6 +448,7 @@
 #cmakedefine01 HAVE_STACK_T
 #cmakedefine01 HAVE__STAT
 #cmakedefine01 HAVE_STAT
+#cmakedefine01 HAVE_STDARG_H
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
 #cmakedefine01 HAVE_STDDEF_H
