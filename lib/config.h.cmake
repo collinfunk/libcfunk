@@ -640,6 +640,7 @@
 #cmakedefine01 HAVE_WCTYPE_T
 #cmakedefine01 HAVE_WCWIDTH
 #cmakedefine01 HAVE_WINDOWS_H
+#cmakedefine01 HAVE_WINNLS_H
 #cmakedefine01 HAVE_WINSOCK2_H
 #cmakedefine01 HAVE_WINT_T
 #cmakedefine01 HAVE_WMEMCHR
