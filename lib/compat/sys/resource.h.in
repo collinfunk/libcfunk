@@ -57,4 +57,18 @@ struct rusage
 };
 #endif
 
+#ifndef RUSAGE_SELF
+#  define RUSAGE_SELF 0
+#endif
+
+#ifndef RUSAGE_CHILDREN
+#  define RUSAGE_CHILDREN -1
+#endif
+
+#if @LIBCFUNK_DECLARE_GETRUSAGE@
+#  if !@HAVE_GETRUSAGE@
+extern int getrusage (int who, struct rusage *r_usage);
+#  endif
+#endif
+
 #endif /* COMPAT_SYS_RESOURCE_H */

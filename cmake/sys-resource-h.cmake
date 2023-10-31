@@ -21,6 +21,8 @@ else ()
   set(HAVE_STRUCT_RUSAGE "" CACHE INTERNAL "")
 endif ()
 
+set(LIBCFUNK_DECLARE_GETRUSAGE "0" CACHE INTERNAL "")
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-sys-resource-h.cmake)
 endif ()

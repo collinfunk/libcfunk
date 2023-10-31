@@ -26,14 +26,30 @@
 #ifndef COMPAT_SYS_TIME_H
 #define COMPAT_SYS_TIME_H
 
-#include <sys/types.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
 #if @HAVE_SYS_TIME_H@
 #  include_next <sys/time.h>
+#endif
+
+#include <sys/types.h>
+
+#if !@HAVE_STRUCT_TIMEVAL@
+struct timeval
+{
+  time_t tv_sec;
+  suseconds_t tv_usec;
+};
+#endif
+
+#if !@HAVE_STRUCT_ITIMERVAL@
+struct itimerval
+{
+  struct timeval it_interval;
+  struct timeval it_value;
+};
 #endif
 
 /* Convert TV to a struct timespec stored in TS. */
@@ -56,6 +72,12 @@
         (tv)->tv_usec = (ts)->tv_nsec / 1000;                                 \
       }                                                                       \
     while (0)
+#endif
+
+#if @LIBCFUNK_DECLARE_GETTIMEOFDAY@
+#  if !@HAVE_GETTIMEOFDAY@
+extern int gettimeofday (struct timeval *tp, void *tzp);
+#  endif
 #endif
 
 #endif /* COMPAT_SYS_TIME_H */

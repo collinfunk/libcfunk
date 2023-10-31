@@ -25,30 +25,7 @@
 
 #include <config.h>
 
-#include <sys/time.h>
+#include <sys/resource.h>
 
-#include "attributes.h"
-
-static void test_struct_timeval_defined (void);
-static void test_struct_itimerval_declared (void);
-
-/* Test that 'sys/time.h' can be included. */
-int
-main (void)
-{
-  test_struct_timeval_defined ();
-  test_struct_itimerval_declared ();
-  return 0;
-}
-
-static void
-test_struct_timeval_defined (void)
-{
-  struct timeval value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_itimerval_declared (void)
-{
-  struct itimerval value ATTRIBUTE_UNUSED;
-}
+/* TODO */
+int getrusage (int who, struct rusage *r_usage);
