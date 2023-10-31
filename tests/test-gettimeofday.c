@@ -27,28 +27,26 @@
 
 #include <sys/time.h>
 
-#if HAVE_WINDOWS_H
-#  include <windows.h>
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-/* https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimeasfiletime */
-/* https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime */
+#include "test-help.h"
+
 int
-gettimeofday (struct timeval *tp, void *tzp)
+main (void)
 {
-  FILETIME current_time;
-  unsigned long long int value;
+  const char *str;
+  struct timeval tv;
+  time_t current_time;
 
-  GetSystemTimeAsFileTime (&current_time);
+  ASSERT (gettimeofday (&tv, NULL) == 0);
 
-  /* 100-nanosecond intervals since January 1, 1601 UTC. */
-  value = ((unsigned long long int) current_time.dwHighDateTime << 32)
-          | ((unsigned long long int) current_time.dwLowDateTime);
+  current_time = tv.tv_sec;
+  str = ctime (&current_time);
+  ASSERT (str != NULL);
 
-  /* 134774 days between January 1, 1601 and January 1, 1970. */
-  value -= 116444736000000000ULL;
-  tp->tv_sec = value / 10000000ULL;
-  tp->tv_usec = value % 10000000ULL;
+  printf ("%s", str);
 
   return 0;
 }
