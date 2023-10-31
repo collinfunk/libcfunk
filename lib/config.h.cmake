@@ -422,6 +422,7 @@
 #cmakedefine01 HAVE_REMOVE
 #cmakedefine01 HAVE_REVOKE
 #cmakedefine01 HAVE_RINDEX
+#cmakedefine01 HAVE_RLIM_T
 #cmakedefine01 HAVE__RMDIR
 #cmakedefine01 HAVE_RMDIR
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
@@ -503,6 +504,8 @@
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_LCONV
 #cmakedefine01 HAVE_STRUCT_PTMGET
+#cmakedefine01 HAVE_STRUCT_RLIMIT
+#cmakedefine01 HAVE_STRUCT_RUSAGE
 #cmakedefine01 HAVE_STRUCT_SIGACTION
 #cmakedefine01 HAVE_STRUCT_SIGEVENT
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
