@@ -237,15 +237,19 @@
 #endif
 
 #ifndef LONG_LONG_MIN
-#  define LONG_LONG_MIN ULLONG_MIN
+#  define LONG_LONG_MIN LLONG_MIN
 #endif
 
 #ifndef BOOL_WIDTH
 #  define BOOL_WIDTH 1
 #endif
 
-#ifdef SSIZE_MAX
-#  if INT_WIDTH == @SSIZE_WIDTH@
+#ifndef SSIZE_MAX
+#  if SCHAR_WIDTH == @SSIZE_WIDTH@
+#    define SSIZE_MAX SCHAR_MAX
+#  elif SHRT_WIDTH == @SSIZE_WIDTH@
+#    define SSIZE_MAX SHRT_MAX
+#  elif INT_WIDTH == @SSIZE_WIDTH@
 #    define SSIZE_MAX INT_MAX
 #  elif LONG_WIDTH == @SSIZE_WIDTH@
 #    define SSIZE_MAX LONG_MAX
