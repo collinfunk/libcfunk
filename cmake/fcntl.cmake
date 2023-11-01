@@ -3,6 +3,8 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
+
 if (HAVE_FCNTL_H)
   check_symbol_exists("fcntl" "fcntl.h" HAVE_FCNTL)
 else ()

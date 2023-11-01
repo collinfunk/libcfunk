@@ -46,7 +46,7 @@ main (void)
   unlink (TEST_FILE_NAME);
 
   /* Open the file. */
-  fd = open (TEST_FILE_NAME, O_CREAT | O_TRUNC | O_WRONLY, 0600);
+  fd = open (TEST_FILE_NAME, O_CREAT | O_TRUNC | O_WRONLY | O_BINARY, 0600);
   ASSERT (fd >= 0);
 
   /* Buffer contains 0, 1, 2, ... 63. */
@@ -61,10 +61,13 @@ main (void)
       (size_t) pwrite (fd, buffer, sizeof (buffer) / 2, sizeof (buffer) / 2)
       == sizeof (buffer) / 2);
 
+  /* Make sure we are still at an offset of sizeof (buffer). */
+  ASSERT ((size_t) lseek (fd, 0, SEEK_CUR) == sizeof (buffer));
+
   ASSERT (close (fd) == 0);
 
   /* Open the file for reading. */
-  fd = open (TEST_FILE_NAME, O_RDONLY);
+  fd = open (TEST_FILE_NAME, O_RDONLY | O_BINARY);
   ASSERT (fd >= 0);
 
   /* Read the file. */

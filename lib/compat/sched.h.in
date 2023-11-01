@@ -34,6 +34,13 @@
 #  include_next <sched.h>
 #endif
 
+#if !@HAVE_STRUCT_SCHED_PARAM@
+struct sched_param
+{
+  int sched_priority;
+};
+#endif
+
 #if @LIBCFUNK_DECLARE_SCHED_YIELD@
 #  if @HAVE_SCHED_YIELD@
 extern int sched_yield (void);

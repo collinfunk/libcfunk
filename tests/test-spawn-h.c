@@ -25,32 +25,11 @@
 
 #include <config.h>
 
-#include <sys/types.h>
+#include <spawn.h>
 
-#include <errno.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-/* The 'pwrite' system call does not modify the offset of FD. This allows
-   multiple threads to access it at once. This implementation is NOT
-   thread-safe. A thread may change the offset before another writes. */
-ssize_t
-pwrite (int fd, const void *buffer, size_t nbyte, off_t offset)
+/* Test that 'spawn.h' can be included. */
+int
+main (void)
 {
-  off_t starting_offset;
-  ssize_t result;
-
-  starting_offset = lseek (fd, 0, SEEK_CUR);
-  if (starting_offset == -1)
-    return -1;
-
-  if (lseek (fd, offset, SEEK_SET) == -1)
-    return -1;
-
-  result = write (fd, buffer, nbyte);
-
-  if (lseek (fd, starting_offset, SEEK_SET) == -1)
-    return -1;
-
-  return result;
+  return 0;
 }

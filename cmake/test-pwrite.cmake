@@ -1,6 +1,11 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/read.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/write.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
+
 add_executable(test-pwrite)
 
 target_link_libraries(test-pwrite PRIVATE

@@ -27,9 +27,20 @@
 
 #include <sched.h>
 
+#include "attributes.h"
+
+static void test_struct_sched_param_defined (void);
+
 /* Test that 'sched.h' can be included. */
 int
 main (void)
 {
+  test_struct_sched_param_defined ();
   return 0;
+}
+
+static void
+test_struct_sched_param_defined (void)
+{
+  struct sched_param value ATTRIBUTE_UNUSED;
 }

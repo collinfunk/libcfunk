@@ -23,34 +23,23 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef COMPAT_SPAWN_H
+#define COMPAT_SPAWN_H
 
-#include <sys/types.h>
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
-#include <errno.h>
-#include <stdlib.h>
-#include <unistd.h>
+#if @HAVE_SPAWN_H@
+#  include_next <spawn.h>
+#endif
 
-/* The 'pwrite' system call does not modify the offset of FD. This allows
-   multiple threads to access it at once. This implementation is NOT
-   thread-safe. A thread may change the offset before another writes. */
-ssize_t
-pwrite (int fd, const void *buffer, size_t nbyte, off_t offset)
-{
-  off_t starting_offset;
-  ssize_t result;
+/* TODO */
 
-  starting_offset = lseek (fd, 0, SEEK_CUR);
-  if (starting_offset == -1)
-    return -1;
+#if !@HAVE_POSIX_SPAWNATTR_T@
+#endif
 
-  if (lseek (fd, offset, SEEK_SET) == -1)
-    return -1;
+#if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_T@
+#endif
 
-  result = write (fd, buffer, nbyte);
-
-  if (lseek (fd, starting_offset, SEEK_SET) == -1)
-    return -1;
-
-  return result;
-}
+#endif /* COMPAT_SPAWN_H */

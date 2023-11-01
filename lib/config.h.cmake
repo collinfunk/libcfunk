@@ -390,6 +390,8 @@
 #cmakedefine01 HAVE__POPEN
 #cmakedefine01 HAVE_POPEN
 #cmakedefine01 HAVE_POSIX_OPENPT
+#cmakedefine01 HAVE_POSIX_SPAWNATTR_T
+#cmakedefine01 HAVE_POSIX_SPAWN_FILE_ACTIONS_T
 #cmakedefine01 HAVE_PREAD
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
@@ -452,6 +454,7 @@
 #cmakedefine01 HAVE_SIGSET_T
 #cmakedefine01 HAVE_SIZE_T
 #cmakedefine01 HAVE_SLEEP
+#cmakedefine01 HAVE_SPAWN_H
 #cmakedefine01 HAVE_SSIZE_T
 #cmakedefine01 HAVE_STACK_T
 #cmakedefine01 HAVE__STAT
@@ -513,6 +516,7 @@
 #cmakedefine01 HAVE_STRUCT_PTMGET
 #cmakedefine01 HAVE_STRUCT_RLIMIT
 #cmakedefine01 HAVE_STRUCT_RUSAGE
+#cmakedefine01 HAVE_STRUCT_SCHED_PARAM
 #cmakedefine01 HAVE_STRUCT_SIGACTION
 #cmakedefine01 HAVE_STRUCT_SIGEVENT
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM

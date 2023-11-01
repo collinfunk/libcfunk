@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/lseek.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("pread" "unistd.h" HAVE_PREAD)

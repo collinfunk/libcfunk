@@ -31,4 +31,26 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-extern ssize_t pread (int fd, void *buffer, size_t nbyte, off_t offset);
+/* The 'pread' system call does not modify the offset of FD. This allows
+   multiple threads to access it at once. This implementation is NOT
+   thread-safe. A thread may change the offset before another reads. */
+ssize_t
+pread (int fd, void *buffer, size_t nbyte, off_t offset)
+{
+  off_t starting_offset;
+  ssize_t result;
+
+  starting_offset = lseek (fd, 0, SEEK_CUR);
+  if (starting_offset == -1)
+    return -1;
+
+  if (lseek (fd, offset, SEEK_SET) == -1)
+    return -1;
+
+  result = read (fd, buffer, nbyte);
+
+  if (lseek (fd, starting_offset, SEEK_SET) == -1)
+    return -1;
+
+  return result;
+}

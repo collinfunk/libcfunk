@@ -208,6 +208,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SCHED_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SPAWN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/spawn.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/spawn.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SIGNAL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/signal.h.in

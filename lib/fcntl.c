@@ -30,6 +30,10 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+#if HAVE_WINDOWS_H
+#  include <windows.h>
+#endif
+
 int
 fcntl (int fd, int cmd, ...)
 {
