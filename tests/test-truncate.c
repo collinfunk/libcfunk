@@ -29,6 +29,7 @@
 #include <sys/types.h>
 
 #include <fcntl.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -36,7 +37,7 @@
 #include "test-help.h"
 
 #undef TEST_FILE_NAME
-#define TEST_FILE_NAME "test-ftruncate.tmp"
+#define TEST_FILE_NAME "test-truncate.tmp"
 
 int
 main (void)
@@ -60,12 +61,12 @@ main (void)
   ASSERT ((size_t) write (fd, buffer, sizeof (buffer)) == sizeof (buffer));
 
   /* Truncate it to half the size. */
-  ASSERT (ftruncate (fd, sizeof (buffer) / 2) == 0);
+  ASSERT (truncate (TEST_FILE_NAME, sizeof (buffer) / 2) == 0);
   ASSERT (fstat (fd, &st) == 0);
   ASSERT (st.st_size == sizeof (buffer) / 2);
 
   /* Truncate it to an empty size. */
-  ASSERT (ftruncate (fd, 0) == 0);
+  ASSERT (truncate (TEST_FILE_NAME, 0) == 0);
   ASSERT (fstat (fd, &st) == 0);
   ASSERT (st.st_size == 0);
 

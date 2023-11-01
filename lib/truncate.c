@@ -25,52 +25,27 @@
 
 #include <config.h>
 
-#include <sys/stat.h>
-#include <sys/types.h>
-
 #include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <sys/types.h>
 #include <unistd.h>
 
-#include "test-help.h"
-
-#undef TEST_FILE_NAME
-#define TEST_FILE_NAME "test-ftruncate.tmp"
-
 int
-main (void)
+truncate (const char *path, off_t length)
 {
   int fd;
-  char buffer[4096];
-  struct stat st;
-  size_t i;
 
-  /* Cleanup file from previous tests. */
-  unlink (TEST_FILE_NAME);
+  fd = open (path, O_WRONLY | O_CLOEXEC);
+  if (fd < 0)
+    return -1;
 
-  /* Fill the buffer to avoid uninitialized undefined behavior. */
-  for (i = 0; i < sizeof (buffer); ++i)
-    buffer[i] = (char) (i & 0xff);
-
-  fd = open (TEST_FILE_NAME, O_RDWR | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd >= 0);
-
-  /* Write some data to the file. */
-  ASSERT ((size_t) write (fd, buffer, sizeof (buffer)) == sizeof (buffer));
-
-  /* Truncate it to half the size. */
-  ASSERT (ftruncate (fd, sizeof (buffer) / 2) == 0);
-  ASSERT (fstat (fd, &st) == 0);
-  ASSERT (st.st_size == sizeof (buffer) / 2);
-
-  /* Truncate it to an empty size. */
-  ASSERT (ftruncate (fd, 0) == 0);
-  ASSERT (fstat (fd, &st) == 0);
-  ASSERT (st.st_size == 0);
-
-  ASSERT (close (fd) == 0);
-  ASSERT (unlink (TEST_FILE_NAME) == 0);
-
-  return 0;
+  if (ftruncate (fd, length) < 0)
+    {
+      close (fd);
+      return -1;
+    }
+  else
+    {
+      close (fd);
+      return 0;
+    }
 }

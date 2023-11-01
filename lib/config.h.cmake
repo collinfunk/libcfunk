@@ -573,6 +573,7 @@
 #cmakedefine01 HAVE_TOUPPER
 #cmakedefine01 HAVE_TOWLOWER
 #cmakedefine01 HAVE_TOWUPPER
+#cmakedefine01 HAVE_TRUNCATE
 #cmakedefine01 HAVE_TTYNAME
 #cmakedefine01 HAVE_TTYNAME_R
 #cmakedefine01 HAVE___TYPEOF__
