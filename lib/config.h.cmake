@@ -388,6 +388,7 @@
 #cmakedefine01 HAVE__POPEN
 #cmakedefine01 HAVE_POPEN
 #cmakedefine01 HAVE_POSIX_OPENPT
+#cmakedefine01 HAVE_PREAD
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
@@ -412,6 +413,7 @@
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
 #cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE_PUTC_UNLOCKED
+#cmakedefine01 HAVE_PWRITE
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE__READ
 #cmakedefine01 HAVE_READ

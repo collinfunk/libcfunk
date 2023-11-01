@@ -301,6 +301,18 @@ extern int pipe (int fd[2]);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_PREAD@
+#  if !@HAVE_PREAD@
+extern ssize_t pread (int fd, void *buffer, size_t nbyte, off_t offset);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_PWRITE@
+#  if !@HAVE_PWRITE@
+extern ssize_t pwrite (int fd, const void *buffer, size_t nbyte, off_t offset);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_READ@
 #  if !@HAVE_READ@
 extern ssize_t read (int fd, void *buffer, size_t nbytes);
