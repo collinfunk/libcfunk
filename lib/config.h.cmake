@@ -361,6 +361,7 @@
 #cmakedefine01 HAVE_NETDB_H
 #cmakedefine01 HAVE_NET_IF_H
 #cmakedefine01 HAVE_NETINET_IN_H
+#cmakedefine01 HAVE_NFDS_T
 #cmakedefine01 HAVE_NL_ITEM
 #cmakedefine01 HAVE_NL_LANGINFO
 #cmakedefine01 HAVE_NL_LANGINFO_CODESET
@@ -382,6 +383,7 @@
 #cmakedefine01 HAVE_PID_T
 #cmakedefine01 HAVE__PIPE
 #cmakedefine01 HAVE_PIPE
+#cmakedefine01 HAVE_POLL_H
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL
 #cmakedefine01 HAVE_POPCOUNTLL
@@ -507,6 +509,7 @@
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_ITIMERVAL
 #cmakedefine01 HAVE_STRUCT_LCONV
+#cmakedefine01 HAVE_STRUCT_POLLFD
 #cmakedefine01 HAVE_STRUCT_PTMGET
 #cmakedefine01 HAVE_STRUCT_RLIMIT
 #cmakedefine01 HAVE_STRUCT_RUSAGE

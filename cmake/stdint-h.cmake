@@ -7,6 +7,12 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 set(LIBCFUNK_GENERATE_STDINT_H "1" CACHE INTERNAL "")
 
 check_include_file("stdint.h" HAVE_STDINT_H)
+check_include_file("inttypes.h" HAVE_INTTYPES_H)
+
+if (HAVE_INTTYPES_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "inttypes.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+endif ()
 
 # Signed exact-width integer types.
 check_type_size("int8_t" INT8_T)

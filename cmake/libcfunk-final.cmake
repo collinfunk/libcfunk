@@ -180,6 +180,13 @@ if ($CACHE{LIBCFUNK_GENERATE_NETINET_IN_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_POLL_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/poll.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/poll.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_PTHREAD_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pthread.h.in

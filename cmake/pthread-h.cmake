@@ -6,6 +6,12 @@ set(LIBCFUNK_GENERATE_PTHREAD_H "1" CACHE INTERNAL "")
 
 check_include_file("pthread.h" HAVE_PTHREAD_H)
 check_include_file("windows.h" HAVE_WINDOWS_H)
+check_include_file("signal.h" HAVE_SIGNAL_H)
+
+if (HAVE_SIGNAL_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "signal.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+endif ()
 
 if (HAVE_PTHREAD_H)
   # Find the pthread library to link to.
@@ -15,6 +21,7 @@ if (HAVE_PTHREAD_H)
 
   # Check for types.
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "pthread.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("pthread_attr_t" PTHREAD_ATTR_T)
   check_type_size("pthread_barrier_t" PTHREAD_BARRIER_T)
   check_type_size("pthread_barrierattr_t" PTHREAD_BARRIERATTR_T)
@@ -28,7 +35,6 @@ if (HAVE_PTHREAD_H)
   check_type_size("pthread_rwlockattr_t" PTHREAD_RWLOCKATTR_T)
   check_type_size("pthread_spinlock_t" PTHREAD_SPINLOCK_T)
   check_type_size("pthread_t" PTHREAD_T)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "time.h")
 else ()
   set(HAVE_PTHREAD_ATTR_T "" CACHE INTERNAL "")
   set(HAVE_PTHREAD_BARRIER_T "" CACHE INTERNAL "")

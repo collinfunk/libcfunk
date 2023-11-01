@@ -6,21 +6,21 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 check_symbol_exists("posix_openpt" "stdlib.h" HAVE_POSIX_OPENPT)
 
 # Linux, FreeBSD, MacOS, etc.
-if (EXISTS "/dev/ptmx")
+if (EXISTS "/dev/ptmx" AND NOT CMAKE_CROSSCOMPILING)
   set(HAVE_DEV_PTMX "1" CACHE INTERNAL "")
 else ()
   set(HAVE_DEV_PTMX "" CACHE INTERNAL "")
 endif ()
 
 # AIX
-if (EXISTS "/dev/ptc")
+if (EXISTS "/dev/ptc" AND NOT CMAKE_CROSSCOMPILING)
   set(HAVE_DEV_PTC "1" CACHE INTERNAL "")
 else ()
   set(HAVE_DEV_PTC "" CACHE INTERNAL "")
 endif ()
 
 # OpenBSD.
-if (EXISTS "/dev/ptm")
+if (EXISTS "/dev/ptm" AND NOT CMAKE_CROSSCOMPILING)
   set(HAVE_DEV_PTM "1" CACHE INTERNAL "")
 else ()
   set(HAVE_DEV_PTM "" CACHE INTERNAL "")
