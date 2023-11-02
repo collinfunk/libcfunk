@@ -88,6 +88,14 @@ struct sigaction
 };
 #endif
 
+#if !@HAVE_SIGHANDLER_T@
+typedef void (*sighandler_t) (int);
+#endif
+
+#if !@HAVE_SIG_T@
+typedef void (*sig_t) (int);
+#endif
+
 #if @LIBCFUNK_DECLARE_STR2SIG@
 #  if !@HAVE_STR2SIG@
 extern int str2sig (const char *str, int *signum);
