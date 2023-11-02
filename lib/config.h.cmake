@@ -468,11 +468,17 @@
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_SIG2STR
 #cmakedefine01 HAVE_SIGABBREV_NP
+#cmakedefine01 HAVE_SIGADDSET
 #cmakedefine01 HAVE_SIG_ATOMIC_T
+#cmakedefine01 HAVE_SIGDELSET
 #cmakedefine01 HAVE_SIGDESCR_NP
+#cmakedefine01 HAVE_SIGEMPTYSET
+#cmakedefine01 HAVE_SIGFILLSET
 #cmakedefine01 HAVE_SIGHANDLER_T
 #cmakedefine01 HAVE_SIGINFO_T
+#cmakedefine01 HAVE_SIGISMEMBER
 #cmakedefine01 HAVE_SIGNAL_H
+#cmakedefine01 HAVE_SIGPROCMASK
 #cmakedefine01 HAVE_SIGSET_T
 #cmakedefine01 HAVE_SIG_T
 #cmakedefine01 HAVE_SIZE_T

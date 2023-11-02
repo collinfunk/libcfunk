@@ -42,6 +42,10 @@
 #  include <pthread.h>
 #endif
 
+#ifndef NSIG
+#  define NSIG 32
+#endif
+
 #if !@HAVE_SIGSET_T@
 typedef unsigned int sigset_t;
 #endif
@@ -96,16 +100,53 @@ typedef void (*sighandler_t) (int);
 typedef void (*sig_t) (int);
 #endif
 
+#if @LIBCFUNK_DECLARE_SIG2STR@
+#  if !@HAVE_SIG2STR@
+extern int sig2str (int signum, char *str);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGADDSET@
+#  if !@HAVE_SIGADDSET@
+extern int sigaddset (sigset_t *set, int signo);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGDELSET@
+#  if !@HAVE_SIGDELSET@
+extern int sigdelset (sigset_t *set, int signo);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGEMPTYSET@
+#  if !@HAVE_SIGEMPTYSET@
+extern int sigemptyset (sigset_t *set);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGFILLSET@
+#  if !@HAVE_SIGFILLSET@
+extern int sigfillset (sigset_t *set);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGISMEMBER@
+#  if !@HAVE_SIGISMEMBER@
+extern int sigismember (const sigset_t *set, int signo);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SIGPROCMASK@
+#  if !@HAVE_SIGPROCMASK@
+extern int sigprocmask (int how, const sigset_t *set, sigset_t *oset);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STR2SIG@
 #  if !@HAVE_STR2SIG@
 extern int str2sig (const char *str, int *signum);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_SIG2STR@
-#  if !@HAVE_SIG2STR@
-extern int sig2str (int signum, char *str);
-#  endif
-#endif
 
 #endif /* COMPAT_SIGNAL_H */
