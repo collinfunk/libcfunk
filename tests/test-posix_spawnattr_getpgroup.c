@@ -26,29 +26,30 @@
 #include <config.h>
 
 #include <spawn.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
+/* Test that 'posix_spawnattr_getpgroup' is declared and returns the default
+   value after calling 'posix_spawnattr_init'. */
 int
 main (void)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  posix_spawnattr_t attr;
+  pid_t pgroup;
+  int result;
+
+  ASSERT (posix_spawnattr_init (&attr) == 0);
+
+  pgroup = (pid_t) -1;
+
+  /* POSIX states the default pgroup is zero. */
+  result = posix_spawnattr_getpgroup (&attr, &pgroup);
+  ASSERT (result == 0);
+  ASSERT (pgroup == 0);
+
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
+
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

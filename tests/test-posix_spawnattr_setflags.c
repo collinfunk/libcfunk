@@ -26,29 +26,28 @@
 #include <config.h>
 
 #include <spawn.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
+/* Test that 'posix_spawnattr_setflags' is declared. Make sure to initialize
+   and destroy the attributes structure to avoid undefined behavior. */
 int
 main (void)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  posix_spawnattr_t attr;
+  int result;
+
+  ASSERT (posix_spawnattr_init (&attr) == 0);
+
+  result = posix_spawnattr_setflags (
+      &attr, POSIX_SPAWN_RESETIDS | POSIX_SPAWN_SETPGROUP
+                 | POSIX_SPAWN_SETSIGDEF | POSIX_SPAWN_SETSIGMASK
+                 | POSIX_SPAWN_SETSCHEDPARAM | POSIX_SPAWN_SETSCHEDULER);
+  ASSERT (result == 0);
+
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
+
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

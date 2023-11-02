@@ -25,30 +25,13 @@
 
 #include <config.h>
 
+#include <sys/types.h>
+
 #include <spawn.h>
 
-#include "attributes.h"
-
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
 int
-main (void)
+posix_spawnattr_getpgroup (const posix_spawnattr_t *attr, pid_t *pgroup)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  *pgroup = attr->pgroup;
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

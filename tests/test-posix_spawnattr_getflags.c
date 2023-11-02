@@ -26,29 +26,37 @@
 #include <config.h>
 
 #include <spawn.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
+/* Test that 'posix_spawnattr_getflags' is declared and works properly. */
 int
 main (void)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  posix_spawnattr_t attr;
+  int result;
+  short int flags;
+
+  ASSERT (posix_spawnattr_init (&attr) == 0);
+
+  result = posix_spawnattr_setflags (
+      &attr, POSIX_SPAWN_RESETIDS | POSIX_SPAWN_SETPGROUP
+                 | POSIX_SPAWN_SETSIGDEF | POSIX_SPAWN_SETSIGMASK
+                 | POSIX_SPAWN_SETSCHEDPARAM | POSIX_SPAWN_SETSCHEDULER);
+  ASSERT (result == 0);
+
+  result = posix_spawnattr_getflags (&attr, &flags);
+  ASSERT (result == 0);
+  ASSERT ((flags & POSIX_SPAWN_RESETIDS) == POSIX_SPAWN_RESETIDS);
+  ASSERT ((flags & POSIX_SPAWN_SETPGROUP) == POSIX_SPAWN_SETPGROUP);
+  ASSERT ((flags & POSIX_SPAWN_SETSIGDEF) == POSIX_SPAWN_SETSIGDEF);
+  ASSERT ((flags & POSIX_SPAWN_SETSIGMASK) == POSIX_SPAWN_SETSIGMASK);
+  ASSERT ((flags & POSIX_SPAWN_SETSCHEDPARAM) == POSIX_SPAWN_SETSCHEDPARAM);
+  ASSERT ((flags & POSIX_SPAWN_SETSCHEDULER) == POSIX_SPAWN_SETSCHEDULER);
+
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
+
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

@@ -25,30 +25,21 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <spawn.h>
 
-#include "attributes.h"
-
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
 int
-main (void)
+posix_spawnattr_setflags (posix_spawnattr_t *attr, short int flags)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  /* Validate the FLAGS parameter. */
+  if (flags
+      & ~(POSIX_SPAWN_RESETIDS | POSIX_SPAWN_SETPGROUP | POSIX_SPAWN_SETSIGDEF
+          | POSIX_SPAWN_SETSIGMASK | POSIX_SPAWN_SETSCHEDPARAM
+          | POSIX_SPAWN_SETSCHEDULER))
+    return EINVAL;
+
+  /* Set the flags field of ATTR. */
+  attr->flags = flags;
+
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

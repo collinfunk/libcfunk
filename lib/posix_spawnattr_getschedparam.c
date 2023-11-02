@@ -25,30 +25,13 @@
 
 #include <config.h>
 
+#include <sched.h>
 #include <spawn.h>
 
-#include "attributes.h"
-
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
 int
-main (void)
+posix_spawnattr_getschedparam (const posix_spawnattr_t *attr,
+                               struct sched_param *schedparam)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  *schedparam = attr->schedparam;
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

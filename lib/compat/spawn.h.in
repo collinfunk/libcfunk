@@ -43,7 +43,9 @@
 #if !@HAVE_POSIX_SPAWNATTR_T@
 typedef struct
 {
-  int todo;
+  short int flags;
+  pid_t pgroup;
+  struct sched_param schedparam;
 } posix_spawnattr_t;
 #endif
 
@@ -52,6 +54,16 @@ typedef struct
 {
   int todo;
 } posix_spawn_file_actions_t;
+#endif
+
+/* Don't mess with the systems implementation of posix_spawn. */
+#if !@HAVE_SPAWN_H@
+#  define POSIX_SPAWN_RESETIDS 0x01
+#  define POSIX_SPAWN_SETPGROUP 0x02
+#  define POSIX_SPAWN_SETSIGDEF 0x04
+#  define POSIX_SPAWN_SETSIGMASK 0x08
+#  define POSIX_SPAWN_SETSCHEDPARAM 0x10
+#  define POSIX_SPAWN_SETSCHEDULER 0x20
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN@

@@ -26,29 +26,13 @@
 #include <config.h>
 
 #include <spawn.h>
+#include <string.h>
 
-#include "attributes.h"
-
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
+/* Currently only initializes all fields to zero. This function may allocate
+   memory and fail with fail and return ENOMEM. */
 int
-main (void)
+posix_spawnattr_init (posix_spawnattr_t *attr)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  memset (attr, '\0', sizeof (posix_spawnattr_t));
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }

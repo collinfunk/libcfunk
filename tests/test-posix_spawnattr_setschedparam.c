@@ -25,30 +25,46 @@
 
 #include <config.h>
 
+#include <sched.h>
 #include <spawn.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_posix_spawnattr_t_defined (void);
-static void test_posix_spawn_file_actions_t_defined (void);
-
-/* Test that 'spawn.h' can be included. */
+/* Test that 'posix_spawnattr_setschedparam' is declared and working. */
 int
 main (void)
 {
-  test_posix_spawnattr_t_defined ();
-  test_posix_spawn_file_actions_t_defined ();
+  posix_spawnattr_t attr;
+  struct sched_param param;
+  int result;
+
+  ASSERT (posix_spawnattr_init (&attr) == 0);
+
+  /* Initial value is undefined so set it to a defined value. */
+  param.sched_priority = 1;
+  result = posix_spawnattr_setschedparam (&attr, &param);
+  ASSERT (result == 0);
+
+  /* Check the returned parameter from 'posix_spawnattr_getschedparam'. */
+  param.sched_priority = -1;
+  result = posix_spawnattr_getschedparam (&attr, &param);
+  ASSERT (result == 0);
+  ASSERT (param.sched_priority == 1);
+
+  /* Set the value again. */
+  param.sched_priority = 2;
+  result = posix_spawnattr_setschedparam (&attr, &param);
+  ASSERT (result == 0);
+
+  /* Check the returned parameter from 'posix_spawnattr_getschedparam'. */
+  param.sched_priority = -2;
+  result = posix_spawnattr_getschedparam (&attr, &param);
+  ASSERT (result == 0);
+  ASSERT (param.sched_priority == 2);
+
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
+
   return 0;
-}
-
-static void
-test_posix_spawnattr_t_defined (void)
-{
-  posix_spawnattr_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_posix_spawn_file_actions_t_defined (void)
-{
-  posix_spawn_file_actions_t value ATTRIBUTE_UNUSED;
 }
