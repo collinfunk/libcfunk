@@ -46,6 +46,9 @@ typedef struct
   short int flags;
   pid_t pgroup;
   struct sched_param schedparam;
+  int schedpolicy;
+  sigset_t sigdefault;
+  sigset_t sigmask;
 } posix_spawnattr_t;
 #endif
 

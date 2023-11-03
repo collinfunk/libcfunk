@@ -25,50 +25,57 @@
 
 #include <config.h>
 
-#include <signal.h>
+#include <sched.h>
+#include <spawn.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "test-help.h"
 
-/* Signals described by ISO C99. */
-static const int supported_signals[] = {
-#ifdef SIGABRT
-  SIGABRT,
-#endif
-#ifdef SIGFPE
-  SIGFPE,
-#endif
-#ifdef SIGILL
-  SIGILL,
-#endif
-#ifdef SIGINT
-  SIGINT,
-#endif
-#ifdef SIGSEGV
-  SIGSEGV,
-#endif
-#ifdef SIGTERM
-  SIGTERM,
-#endif
-};
-
-/* Test that 'sigismember' is declared. */
+/* Test that 'posix_spawnattr_setschedpolicy' is declared and working. */
 int
 main (void)
 {
-  sigset_t set;
-  size_t i;
+  posix_spawnattr_t attr;
+  int policy;
+  int result;
 
-  /* No signals set. */
-  ASSERT (sigemptyset (&set) == 0);
-  for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
-    ASSERT (sigismember (&set, supported_signals[i]) == 0);
+  ASSERT (posix_spawnattr_init (&attr) == 0);
 
-  /* All signals set. */
-  ASSERT (sigfillset (&set) == 0);
-  for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
-    ASSERT (sigismember (&set, supported_signals[i]) == 1);
+  /* Initial value is undefined so set it to a defined value. */
+  policy = SCHED_OTHER;
+  result = posix_spawnattr_setschedpolicy (&attr, policy);
+  ASSERT (result == 0);
+
+  /* Test the returned parameter from 'posix_spawnattr_getschedpolicy'. */
+  policy = -1;
+  result = posix_spawnattr_getschedpolicy (&attr, &policy);
+  ASSERT (result == 0);
+  ASSERT (policy == SCHED_OTHER);
+
+  /* Test with SCHED_FIFO. */
+  policy = SCHED_FIFO;
+  result = posix_spawnattr_setschedpolicy (&attr, policy);
+  ASSERT (result == 0);
+
+  /* Test the returned value. */
+  policy = -1;
+  result = posix_spawnattr_getschedpolicy (&attr, &policy);
+  ASSERT (result == 0);
+  ASSERT (policy == SCHED_FIFO);
+
+  /* Test with SCHED_RR. */
+  policy = SCHED_RR;
+  result = posix_spawnattr_setschedpolicy (&attr, policy);
+  ASSERT (result == 0);
+
+  /* Test the returned value. */
+  policy = -1;
+  result = posix_spawnattr_getschedpolicy (&attr, &policy);
+  ASSERT (result == 0);
+  ASSERT (policy == SCHED_RR);
+
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
 
   return 0;
 }

@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <signal.h>
+#include <spawn.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -53,22 +54,43 @@ static const int supported_signals[] = {
 #endif
 };
 
-/* Test that 'sigismember' is declared. */
+/* Test that 'posix_spawnattr_setsigdefault' is declared. */
 int
 main (void)
 {
+  posix_spawnattr_t attr;
   sigset_t set;
+  int result;
   size_t i;
 
-  /* No signals set. */
-  ASSERT (sigemptyset (&set) == 0);
+  ASSERT (posix_spawnattr_init (&attr) == 0);
+
+  result = posix_spawnattr_getsigdefault (&attr, &set);
+  ASSERT (result == 0);
+
+  /* Initial value for this attribute is an empty signal set. */
   for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
     ASSERT (sigismember (&set, supported_signals[i]) == 0);
 
-  /* All signals set. */
+  /* Fill the set. */
   ASSERT (sigfillset (&set) == 0);
+
+  /* Set the sigdefault attribute of ATTR. */
+  result = posix_spawnattr_setsigdefault (&attr, &set);
+  ASSERT (result == 0);
+
+  /* Empty the set. */
+  ASSERT (sigemptyset (&set) == 0);
+
+  /* Get the sigdefault attribute from ATTR. */
+  result = posix_spawnattr_getsigdefault (&attr, &set);
+  ASSERT (result == 0);
+
+  /* Now SET should be a full signal set. */
   for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
     ASSERT (sigismember (&set, supported_signals[i]) == 1);
+
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
 
   return 0;
 }

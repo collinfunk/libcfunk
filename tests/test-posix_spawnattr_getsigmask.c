@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <signal.h>
+#include <spawn.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -53,22 +54,34 @@ static const int supported_signals[] = {
 #endif
 };
 
-/* Test that 'sigismember' is declared. */
+/* Test that 'posix_spawnattr_getsigmask' is defined. */
 int
 main (void)
 {
+  posix_spawnattr_t attr;
   sigset_t set;
+  int result;
   size_t i;
 
-  /* No signals set. */
+  ASSERT (posix_spawnattr_init (&attr) == 0);
+
+  /* Default value for sigmask is undefined. Set it to an empty set. */
   ASSERT (sigemptyset (&set) == 0);
+  result = posix_spawnattr_setsigmask (&attr, &set);
+  ASSERT (result == 0);
+
+  /* Fill the set. */
+  ASSERT (sigfillset (&set) == 0);
+
+  /* Get the set from ATTR. */
+  result = posix_spawnattr_getsigmask (&attr, &set);
+  ASSERT (result == 0);
+
+  /* Make sure that SET is now empty. */
   for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
     ASSERT (sigismember (&set, supported_signals[i]) == 0);
 
-  /* All signals set. */
-  ASSERT (sigfillset (&set) == 0);
-  for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
-    ASSERT (sigismember (&set, supported_signals[i]) == 1);
+  ASSERT (posix_spawnattr_destroy (&attr) == 0);
 
   return 0;
 }

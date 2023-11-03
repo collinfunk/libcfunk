@@ -34,6 +34,13 @@
 #  include_next <sched.h>
 #endif
 
+/* Define scheduling policy constants if none are defined by the system. */
+#if !defined(SCHED_FIFO) && !defined(SCHED_RR) && !defined(SCHED_OTHER)
+#  define SCHED_FIFO 1
+#  define SCHED_RR 2
+#  define SCHED_OTHER 3
+#endif
+
 #if !@HAVE_STRUCT_SCHED_PARAM@
 struct sched_param
 {

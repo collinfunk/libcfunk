@@ -26,49 +26,12 @@
 #include <config.h>
 
 #include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <spawn.h>
+#include <string.h>
 
-#include "test-help.h"
-
-/* Signals described by ISO C99. */
-static const int supported_signals[] = {
-#ifdef SIGABRT
-  SIGABRT,
-#endif
-#ifdef SIGFPE
-  SIGFPE,
-#endif
-#ifdef SIGILL
-  SIGILL,
-#endif
-#ifdef SIGINT
-  SIGINT,
-#endif
-#ifdef SIGSEGV
-  SIGSEGV,
-#endif
-#ifdef SIGTERM
-  SIGTERM,
-#endif
-};
-
-/* Test that 'sigismember' is declared. */
 int
-main (void)
+posix_spawnattr_getsigmask (const posix_spawnattr_t *attr, sigset_t *sigmask)
 {
-  sigset_t set;
-  size_t i;
-
-  /* No signals set. */
-  ASSERT (sigemptyset (&set) == 0);
-  for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
-    ASSERT (sigismember (&set, supported_signals[i]) == 0);
-
-  /* All signals set. */
-  ASSERT (sigfillset (&set) == 0);
-  for (i = 0; i < ARRAY_SIZE (supported_signals); ++i)
-    ASSERT (sigismember (&set, supported_signals[i]) == 1);
-
+  memcpy (sigmask, &attr->sigmask, sizeof (sigset_t));
   return 0;
 }
