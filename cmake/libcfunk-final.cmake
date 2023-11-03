@@ -117,6 +117,13 @@ if ($CACHE{LIBCFUNK_GENERATE_FLOAT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_GETOPT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/getopt.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/getopt.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in

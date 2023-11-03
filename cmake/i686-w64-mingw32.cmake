@@ -1,9 +1,10 @@
 
 set(CMAKE_SYSTEM_NAME "Windows")
+set(CMAKE_SYSTEM_PROCESSOR "i686")
 set(TOOLCHAIN_PREFIX "i686-w64-mingw32")
 
 find_program(CMAKE_C_COMPILER "${TOOLCHAIN_PREFIX}-gcc")
-find_program(CMAKE_C_COMPILER "${TOOLCHAIN_PREFIX}-g++")
+find_program(CMAKE_CXX_COMPILER "${TOOLCHAIN_PREFIX}-g++")
 find_program(WINE_PROGRAM "wine")
 
 set(CMAKE_FIND_ROOT_PATH "/usr/${TOOLCHAIN_PREFIX}")

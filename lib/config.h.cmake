@@ -247,7 +247,9 @@
 #cmakedefine01 HAVE_GETLOGIN
 #cmakedefine01 HAVE_GETLOGIN_R
 #cmakedefine01 HAVE__GETMAXSTDIO
+#cmakedefine01 HAVE_GETOPT_H
 #cmakedefine01 HAVE_GETPAGESIZE
+#cmakedefine01 HAVE_GETPID
 #cmakedefine01 HAVE_GETPROGNAME
 #cmakedefine01 HAVE_GETRANDOM
 #cmakedefine01 HAVE_GETRLIMIT
@@ -315,6 +317,7 @@
 #cmakedefine01 HAVE_ISWUPPER
 #cmakedefine01 HAVE_ISWXDIGIT
 #cmakedefine01 HAVE_ISXDIGIT
+#cmakedefine01 HAVE_KILL
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
 #cmakedefine01 HAVE_LCHOWN
@@ -439,6 +442,7 @@
 #cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_PWRITE
+#cmakedefine01 HAVE_RAISE
 #cmakedefine01 HAVE_RAWMEMCHR
 #cmakedefine01 HAVE__READ
 #cmakedefine01 HAVE_READ
@@ -541,6 +545,7 @@
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_ITIMERVAL
 #cmakedefine01 HAVE_STRUCT_LCONV
+#cmakedefine01 HAVE_STRUCT_OPTION
 #cmakedefine01 HAVE_STRUCT_POLLFD
 #cmakedefine01 HAVE_STRUCT_PTMGET
 #cmakedefine01 HAVE_STRUCT_RLIMIT

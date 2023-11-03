@@ -100,6 +100,12 @@ typedef void (*sighandler_t) (int);
 typedef void (*sig_t) (int);
 #endif
 
+#if @LIBCFUNK_DECLARE_RAISE@
+#  if !@HAVE_RAISE@
+extern int raise (int sig);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_SIG2STR@
 #  if !@HAVE_SIG2STR@
 extern int sig2str (int signum, char *str);
