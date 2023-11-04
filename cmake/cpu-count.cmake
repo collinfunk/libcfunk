@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/popcount.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/popcountl.cmake)
 
 check_include_file("sys/sysctl.h" HAVE_SYS_SYSCTL_H)
 check_include_file("sched.h" HAVE_SCHED_H)

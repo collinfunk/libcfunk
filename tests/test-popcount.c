@@ -26,57 +26,33 @@
 #include <config.h>
 
 #include <limits.h>
-
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
 
 #include "test-help.h"
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
-#define TYPE_WIDTH(type) (CHAR_BIT * sizeof (type))
-
-/* Windows doesn't define these in <limits.h> :( */
 #ifndef UINT_WIDTH
-#  define UINT_WIDTH TYPE_WIDTH (unsigned int)
-#endif
-
-#ifndef ULONG_WIDTH
-#  define ULONG_WIDTH TYPE_WIDTH (unsigned long int)
-#endif
-
-#ifndef ULLONG_WIDTH
-#  define ULLONG_WIDTH TYPE_WIDTH (unsigned long long int)
+#  define UINT_WIDTH (CHAR_BIT * sizeof (unsigned int))
 #endif
 
 static void test_popcount (void);
-static void test_popcountl (void);
-static void test_popcountll (void);
 
 int
 main (void)
 {
   test_popcount ();
-  test_popcountl ();
-  test_popcountll ();
   return 0;
 }
 
 static void
 test_popcount (void)
 {
-  unsigned int forward;
-  unsigned int backward;
+  unsigned int forward = 0;
+  unsigned int backward = 0;
   unsigned int forward_result;
   unsigned int backward_result;
   size_t i;
-
-  forward = 0;
-  backward = 0;
 
   for (i = 0; i < UINT_WIDTH; ++i)
     {
@@ -84,52 +60,6 @@ test_popcount (void)
       backward |= (1U << (UINT_WIDTH - i - 1));
       forward_result = popcount (forward);
       backward_result = popcount (backward);
-      ASSERT ((size_t) forward_result == i + 1);
-      ASSERT (forward_result == backward_result);
-    }
-}
-
-static void
-test_popcountl (void)
-{
-  unsigned long int forward;
-  unsigned long int backward;
-  unsigned int forward_result;
-  unsigned int backward_result;
-  size_t i;
-
-  forward = 0;
-  backward = 0;
-
-  for (i = 0; i < ULONG_WIDTH; ++i)
-    {
-      forward |= (1UL << i);
-      backward |= (1UL << (ULONG_WIDTH - i - 1));
-      forward_result = popcountl (forward);
-      backward_result = popcountl (backward);
-      ASSERT ((size_t) forward_result == i + 1);
-      ASSERT (forward_result == backward_result);
-    }
-}
-
-static void
-test_popcountll (void)
-{
-  unsigned long long int forward;
-  unsigned long long int backward;
-  unsigned int forward_result;
-  unsigned int backward_result;
-  size_t i;
-
-  forward = 0;
-  backward = 0;
-
-  for (i = 0; i < ULLONG_WIDTH; ++i)
-    {
-      forward |= (1ULL << i);
-      backward |= (1ULL << (ULLONG_WIDTH - i - 1));
-      forward_result = popcountll (forward);
-      backward_result = popcountll (backward);
       ASSERT ((size_t) forward_result == i + 1);
       ASSERT (forward_result == backward_result);
     }

@@ -32,31 +32,33 @@
 
 #include "test-help.h"
 
-#ifndef INT_WIDTH
-#  define INT_WIDTH (CHAR_BIT * sizeof (int))
+#ifndef LONG_WIDTH
+#  define LONG_WIDTH (CHAR_BIT * sizeof (long int))
 #endif
 
-static void test_ffs (void);
+static void test_flsl (void);
 
 int
 main (void)
 {
-  test_ffs ();
+  test_flsl ();
   return 0;
 }
 
 static void
-test_ffs (void)
+test_flsl (void)
 {
-  int value;
+  long int value;
   int result;
   size_t i;
 
-  for (i = 0; i < INT_WIDTH - 1; ++i)
+  value = 0;
+  ASSERT (flsl (value) == 0);
+  for (i = 0; i < LONG_WIDTH - 1; ++i)
     {
-      value = 1U << i;
-      result = ffs (value);
+      value |= (1UL << i);
+      result = flsl (value);
       ASSERT ((size_t) result - 1 == i);
-      printf ("ffs (0x%x) == %d\n", value, result);
+      printf ("flsl (0x%lx) == %d\n", value, result);
     }
 }

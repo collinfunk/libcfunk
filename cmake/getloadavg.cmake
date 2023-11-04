@@ -17,8 +17,6 @@ if (HAVE_STDLIB_H OR HAVE_SYS_LOADAVG_H)
   endif ()
   check_symbol_exists("getloadavg" "${GETLOADAVG_INCLUDES}" HAVE_GETLOADAVG)
   unset(GETLOADAVG_INCLUDES)
-else ()
-  set(HAVE_GETLOADAVG "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETLOADAVG "1" CACHE INTERNAL "")

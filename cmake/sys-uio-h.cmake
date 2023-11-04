@@ -10,11 +10,11 @@ check_include_file("sys/uio.h" HAVE_SYS_UIO_H)
 
 if (HAVE_SYS_UIO_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/uio.h")
-  check_type_size("struct iovec" STRUCT_IOVEC)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "sys/uio.h")
-else ()
-  set(HAVE_STRUCT_IOVEC "" CACHE INTERNAL "")
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+check_type_size("struct iovec" STRUCT_IOVEC)
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-sys-uio-h.cmake)

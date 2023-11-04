@@ -26,43 +26,22 @@
 #include <config.h>
 
 #include <limits.h>
-
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
 
 #include "test-help.h"
 
-#ifndef CHAR_BIT
-#  define CHAR_BIT 8
-#endif
-
-#define TYPE_WIDTH(type) (CHAR_BIT * sizeof (type))
-
-/* Windows doesn't define these in <limits.h> :( */
 #ifndef INT_WIDTH
-#  define INT_WIDTH TYPE_WIDTH (int)
-#endif
-
-#ifndef LONG_WIDTH
-#  define LONG_WIDTH TYPE_WIDTH (long int)
-#endif
-
-#ifndef LLONG_WIDTH
-#  define LLONG_WIDTH TYPE_WIDTH (long long int)
+#  define INT_WIDTH (CHAR_BIT * sizeof (int))
 #endif
 
 static void test_fls (void);
-static void test_flsl (void);
-static void test_flsll (void);
 
 int
 main (void)
 {
   test_fls ();
-  test_flsl ();
-  test_flsll ();
   return 0;
 }
 
@@ -77,45 +56,9 @@ test_fls (void)
   ASSERT (fls (value) == 0);
   for (i = 0; i < INT_WIDTH - 1; ++i)
     {
-      value |= (1 << i);
+      value |= (1U << i);
       result = fls (value);
       ASSERT ((size_t) result - 1 == i);
       printf ("fls (0x%x) == %d\n", value, result);
-    }
-}
-
-static void
-test_flsl (void)
-{
-  long int value;
-  int result;
-  size_t i;
-
-  value = 0;
-  ASSERT (flsl (value) == 0);
-  for (i = 0; i < LONG_WIDTH - 1; ++i)
-    {
-      value |= (1L << i);
-      result = flsl (value);
-      ASSERT ((size_t) result - 1 == i);
-      printf ("flsl (0x%lx) == %d\n", value, result);
-    }
-}
-
-static void
-test_flsll (void)
-{
-  long long int value;
-  int result;
-  size_t i;
-
-  value = 0;
-  ASSERT (flsll (value) == 0);
-  for (i = 0; i < LLONG_WIDTH - 1; ++i)
-    {
-      value |= (1LL << i);
-      result = flsll (value);
-      ASSERT ((size_t) result - 1 == i);
-      printf ("flsll (0x%llx) == %d\n", value, result);
     }
 }

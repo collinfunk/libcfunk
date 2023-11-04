@@ -10,11 +10,10 @@ check_include_file("inttypes.h" HAVE_INTTYPES_H)
 
 if (HAVE_INTTYPES_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "inttypes.h")
-  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
-  check_type_size("imaxdiv_t" IMAXDIV_T)
-else ()
-  set(HAVE_IMAXDIV_T "" CACHE INTERNAL "")
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+check_type_size("imaxdiv_t" IMAXDIV_T)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_IMAXABS "0" CACHE INTERNAL "")

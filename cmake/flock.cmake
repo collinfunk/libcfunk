@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-file-h.cmake)
 
 if (HAVE_SYS_FILE_H)
   check_symbol_exists("flock" "sys/file.h" HAVE_FLOCK)
-else ()
-  set(HAVE_FLOCK "" CACHE INTERNAL "")
 endif ()
 
 check_include_file("fcntl.h" HAVE_FCNTL_H)
@@ -14,8 +12,8 @@ check_include_file("unistd.h" HAVE_UNISTD_H)
 
 if (HAVE_FCNTL_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "fcntl.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("struct flock" STRUCT_FLOCK)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "fcntl.h")
   check_struct_has_member("struct flock" "l_type" "fcntl.h" HAVE_STRUCT_FLOCK_L_TYPE)
   check_struct_has_member("struct flock" "l_whence" "fcntl.h" HAVE_STRUCT_FLOCK_L_WHENCE)
   check_struct_has_member("struct flock" "l_start" "fcntl.h" HAVE_STRUCT_FLOCK_L_START)

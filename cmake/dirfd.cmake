@@ -15,8 +15,6 @@ endif ()
 if (HAVE_DIRENT_H)
   list(APPEND DIRFD_HEADERS "dirent.h")
   check_symbol_exists("dirfd" "dirent.h" HAVE_DIRFD)
-else ()
-  set(HAVE_DIRFD "" CACHE INTERNAL "")
 endif ()
 
 check_struct_has_member("DIR" "fd" "${DIRFD_HEADERS}" HAVE_DIR_FD)

@@ -9,11 +9,15 @@ check_include_file("xlocale.h" HAVE_XLOCALE_H)
 
 if (HAVE_LOCALE_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "locale.h")
-  check_type_size("struct lconv" STRUCT_LCONV)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "locale.h")
-else ()
-  set(HAVE_STRUCT_LCONV "" CACHE INTERNAL "")
 endif ()
+
+if (HAVE_XLOCALE_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "xlocale.h")
+endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+check_type_size("struct lconv" STRUCT_LCONV)
 
 set(LIBCFUNK_DECLARE_LOCALECONV "0" CACHE INTERNAL "")
 

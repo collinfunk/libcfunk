@@ -32,31 +32,35 @@
 
 #include "test-help.h"
 
-#ifndef INT_WIDTH
-#  define INT_WIDTH (CHAR_BIT * sizeof (int))
+#ifndef ULLONG_WIDTH
+#  define ULLONG_WIDTH (CHAR_BIT * sizeof (unsigned long long int))
 #endif
 
-static void test_ffs (void);
+static void test_popcountll (void);
 
 int
 main (void)
 {
-  test_ffs ();
+  test_popcountll ();
   return 0;
 }
 
 static void
-test_ffs (void)
+test_popcountll (void)
 {
-  int value;
-  int result;
+  unsigned long long int forward = 0;
+  unsigned long long int backward = 0;
+  unsigned int forward_result;
+  unsigned int backward_result;
   size_t i;
 
-  for (i = 0; i < INT_WIDTH - 1; ++i)
+  for (i = 0; i < ULLONG_WIDTH; ++i)
     {
-      value = 1U << i;
-      result = ffs (value);
-      ASSERT ((size_t) result - 1 == i);
-      printf ("ffs (0x%x) == %d\n", value, result);
+      forward |= (1ULL << i);
+      backward |= (1ULL << (ULLONG_WIDTH - i - 1));
+      forward_result = popcountll (forward);
+      backward_result = popcountll (backward);
+      ASSERT ((size_t) forward_result == i + 1);
+      ASSERT (forward_result == backward_result);
     }
 }
