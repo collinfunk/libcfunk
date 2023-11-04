@@ -23,76 +23,59 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_GETOPT_H
-#define COMPAT_GETOPT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <getopt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#if @HAVE_GETOPT_H@
-#  include_next <getopt.h>
-#endif
+#include "test-help.h"
 
-#if @HAVE_STDLIB_H@
-#  include <stdlib.h>
-#endif
-
-#if @HAVE_UNISTD_H@
-#  include <unistd.h>
-#endif
-
-#if !@HAVE_STRUCT_OPTION@
-struct option
+/* Simple test program for 'getopt'. */
+int
+main (int argc, char **argv)
 {
-  const char *name;
-  int has_arg;
-  int *flag;
-  int val;
-};
-#endif
+  int ch;
+  int seen_options = 0;
 
-#if !@HAVE_OPTARG@
-extern char *optarg;
-#endif
+  while ((ch = getopt (argc, argv, ":abf:o:")) != -1)
+    {
+      switch (ch)
+        {
+        case 'a':
+          printf ("%d: Saw option a.\n", seen_options);
+          ++seen_options;
+          break;
+        case 'b':
+          printf ("%d: Saw option b.\n", seen_options);
+          ++seen_options;
+          break;
+        case 'f':
+          ASSERT (optarg != NULL);
+          printf ("%d: Saw option f with argument '%s'.\n", seen_options,
+                  optarg);
+          ++seen_options;
+          break;
+        case 'o':
+          ASSERT (optarg != NULL);
+          printf ("%d: Saw option o with argument '%s'.\n", seen_options,
+                  optarg);
+          ++seen_options;
+          break;
+        case ':':
+          fprintf (stderr, "%d: Missing argument for %c.\n", seen_options, ch);
+          ++seen_options;
+          break;
+        case '?':
+        default:
+          fprintf (stderr, "%d: Invalid option %c.\n", seen_options, optopt);
+          ++seen_options;
+          break;
+        }
+    }
 
-#if !@HAVE_OPTERR@
-extern int opterr;
-#endif
+  printf ("Total options seen: %d\n", seen_options);
 
-#if !@HAVE_OPTIND@
-extern int optind;
-#endif
-
-#if !@HAVE_OPTOPT@
-extern int optopt;
-#endif
-
-#ifndef no_argument
-#  define no_argument 0
-#endif
-
-#ifndef required_argument
-#  define required_argument 1
-#endif
-
-#ifndef optional_argument
-#  define optional_argument 2
-#endif
-
-#if @LIBCFUNK_DECLARE_GETOPT@
-#  if !@HAVE_GETOPT@
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETOPT_LONG@
-#  if !@HAVE_GETOPT_LONG@
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETOPT_LONG_ONLY@
-#  if !@HAVE_GETOPT_LONG_ONLY@
-#  endif
-#endif
-
-#endif /* COMPAT_GETOPT_H */
+  return 0;
+}

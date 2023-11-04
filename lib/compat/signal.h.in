@@ -46,6 +46,10 @@
 #  define NSIG 32
 #endif
 
+#if !@HAVE_SIG_ATOMIC_T@
+typedef int sig_atomic_t;
+#endif
+
 #if !@HAVE_SIGSET_T@
 typedef unsigned int sigset_t;
 #endif

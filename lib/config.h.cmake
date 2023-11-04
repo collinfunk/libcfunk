@@ -247,7 +247,10 @@
 #cmakedefine01 HAVE_GETLOGIN
 #cmakedefine01 HAVE_GETLOGIN_R
 #cmakedefine01 HAVE__GETMAXSTDIO
+#cmakedefine01 HAVE_GETOPT
 #cmakedefine01 HAVE_GETOPT_H
+#cmakedefine01 HAVE_GETOPT_LONG
+#cmakedefine01 HAVE_GETOPT_LONG_ONLY
 #cmakedefine01 HAVE_GETPAGESIZE
 #cmakedefine01 HAVE_GETPID
 #cmakedefine01 HAVE_GETPROGNAME
@@ -378,6 +381,10 @@
 #cmakedefine01 HAVE_OPENSSL_MD5_H
 #cmakedefine01 HAVE_OPENSSL_RC4_H
 #cmakedefine01 HAVE_OPENSSL_SHA_H
+#cmakedefine01 HAVE_OPTARG
+#cmakedefine01 HAVE_OPTERR
+#cmakedefine01 HAVE_OPTIND
+#cmakedefine01 HAVE_OPTOPT
 #cmakedefine01 HAVE_OSSWAPINT16
 #cmakedefine01 HAVE_OSSWAPINT32
 #cmakedefine01 HAVE_OSSWAPINT64
