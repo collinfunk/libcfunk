@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("atoi" "stdlib.h" HAVE_ATOI)
 endif ()
 
-set(LIBCFUNK_DECLARE_ATOI "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ATOI "1" CACHE STRING "")
 
 if (NOT HAVE_ATOI)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

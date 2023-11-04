@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_access" "unistd.h" HAVE__ACCESS)
 endif ()
 
-set(LIBCFUNK_DECLARE_ACCESS "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ACCESS "1" CACHE STRING "")
 
 if (NOT HAVE_ACCESS)
   if (NOT HAVE__ACCESS)

@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strndup" "string.h" HAVE_STRNDUP)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRNDUP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRNDUP "1" CACHE STRING "")
 
 if (NOT HAVE_STRNDUP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

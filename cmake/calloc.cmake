@@ -8,7 +8,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 if (HAVE_STDLIB_H)
   check_symbol_exists("calloc" "stdlib.h" HAVE_CALLOC)
 else ()
-  set(HAVE_CALLOC "" CACHE INTERNAL "")
+  set(HAVE_CALLOC "" CACHE STRING "")
 endif ()
 
 # Should never happen.
@@ -18,7 +18,7 @@ endif ()
 
 # FIXME: Figure out a good way to handle this.
 if (CMAKE_CROSSCOMPILING AND NOT CMAKE_CROSSCOMPILING_EMULATOR)
-  set(CALLOC_0_0_RETURNS_NONNULL "" CACHE INTERNAL "")
+  set(CALLOC_0_0_RETURNS_NONNULL "" CACHE STRING "")
 else ()
   check_c_source_runs("
   #include <stdlib.h>
@@ -44,10 +44,10 @@ else ()
   }" CALLOC_0_0_RETURNS_NONNULL)
 endif ()
 
-set(LIBCFUNK_DECLARE_CALLOC "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_CALLOC "1" CACHE STRING "")
 
 if (NOT CALLOC_0_0_RETURNS_NONNULL)
-  set(LIBCFUNK_REPLACE_CALLOC "1" CACHE INTERNAL "")
+  set(LIBCFUNK_REPLACE_CALLOC "1" CACHE STRING "")
 endif ()
 
 if (LIBCFUNK_REPLACE_CALLOC)

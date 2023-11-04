@@ -8,7 +8,7 @@ if (HAVE_SYS_STAT_H)
   check_symbol_exists("_chmod" "sys/stat.h" HAVE__CHMOD)
 endif ()
 
-set(LIBCFUNK_DECLARE_CHMOD "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_CHMOD "1" CACHE STRING "")
 
 if (NOT HAVE_CHMOD)
   if (NOT HAVE__CHMOD)

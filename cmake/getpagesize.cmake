@@ -7,7 +7,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("getpagesize" "unistd.h" HAVE_GETPAGESIZE)
 endif ()
 
-set(LIBCFUNK_DECLARE_GETPAGESIZE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_GETPAGESIZE "1" CACHE STRING "")
 
 if (NOT HAVE_GETPAGESIZE)
   check_include_file("windows.h" HAVE_WINDOWS_H)

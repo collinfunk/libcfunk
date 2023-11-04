@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strnlen" "string.h" HAVE_STRNLEN)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRNLEN "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRNLEN "1" CACHE STRING "")
 
 if (NOT HAVE_STRNLEN)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

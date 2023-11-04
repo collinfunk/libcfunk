@@ -7,7 +7,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("dysize" "time.h" HAVE_DYSIZE)
 endif ()
 
-set(LIBCFUNK_DECLARE_DYSIZE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_DYSIZE "1" CACHE STRING "")
 
 if (NOT HAVE_DYSIZE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

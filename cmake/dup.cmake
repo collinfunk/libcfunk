@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_dup" "unistd.h" HAVE__DUP)
 endif ()
 
-set(LIBCFUNK_DECLARE_DUP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_DUP "1" CACHE STRING "")
 
 if (NOT HAVE_DUP)
   if (NOT HAVE__DUP)

@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("on_exit" "stdlib.h" HAVE_ON_EXIT)
 endif ()
 
-set(LIBCFUNK_DECLARE_ATEXIT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ATEXIT "1" CACHE STRING "")
 
 if (NOT HAVE_ATEXIT)
   # Shouldn't ever happen but just make sure.

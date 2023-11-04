@@ -7,7 +7,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("strtoull" "stdlib.h" HAVE_STRTOULL)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRTOULL "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRTOULL "1" CACHE STRING "")
 
 if (NOT HAVE_STRTOULL)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

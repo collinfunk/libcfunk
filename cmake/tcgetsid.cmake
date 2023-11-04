@@ -8,7 +8,7 @@ if (HAVE_TERMIOS_H)
   check_symbol_exists("tcgetsid" "termios.h" HAVE_TCGETSID)
 endif ()
 
-set(LIBCFUNK_DECLARE_TCGETSID "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_TCGETSID "1" CACHE STRING "")
 
 if (NOT HAVE_TCGETSID)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

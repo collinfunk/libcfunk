@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strncmp" "string.h" HAVE_STRNCMP)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRNCMP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRNCMP "1" CACHE STRING "")
 
 if (NOT HAVE_STRNCMP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

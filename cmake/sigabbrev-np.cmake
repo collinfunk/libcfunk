@@ -8,7 +8,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("sigabbrev_np" "string.h" HAVE_SIGABBREV_NP)
 endif ()
 
-set(LIBCFUNK_DECLARE_SIGABBREV_NP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_SIGABBREV_NP "1" CACHE STRING "")
 
 if (NOT HAVE_SIGABBREV_NP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ if (HAVE_WCTYPE_H)
   check_symbol_exists("iswdigit" "wctype.h" HAVE_ISWDIGIT)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISWDIGIT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISWDIGIT "1" CACHE STRING "")
 
 if (NOT HAVE_ISWDIGIT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

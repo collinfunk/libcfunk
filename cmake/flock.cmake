@@ -21,7 +21,7 @@ if (HAVE_FCNTL_H)
   check_struct_has_member("struct flock" "l_pid" "fcntl.h" HAVE_STRUCT_FLOCK_L_PID)
 endif ()
 
-set(LIBCFUNK_DECLARE_FLOCK "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FLOCK "1" CACHE STRING "")
 
 if (NOT HAVE_FLOCK)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

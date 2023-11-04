@@ -8,7 +8,7 @@ if (HAVE_LOCALE_H)
   check_symbol_exists("localeconv" "locale.h" HAVE_LOCALECONV)
 endif ()
 
-set(LIBCFUNK_DECLARE_LOCALECONV "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_LOCALECONV "1" CACHE STRING "")
 
 if (NOT HAVE_LOCALECONV)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

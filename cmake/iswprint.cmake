@@ -7,7 +7,7 @@ if (HAVE_WCTYPE_H)
   check_symbol_exists("iswprint" "wctype.h" HAVE_ISWPRINT)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISWPRINT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISWPRINT "1" CACHE STRING "")
 
 if (NOT HAVE_ISWPRINT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("stpcpy" "string.h" HAVE_STPCPY)
 endif ()
 
-set(LIBCFUNK_DECLARE_STPCPY "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STPCPY "1" CACHE STRING "")
 
 if (NOT HAVE_STPCPY)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

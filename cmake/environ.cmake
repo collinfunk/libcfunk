@@ -11,7 +11,7 @@ check_symbol_exists("environ" "stdlib.h;unistd.h" HAVE_ENVIRON)
 check_include_file("crt_externs.h" HAVE_CRT_EXTERNS_H)
 check_symbol_exists("_NSGetEnviron" "crt_externs.h" HAVE__NSGETENVIRON)
 
-set(LIBCFUNK_DECLARE_ENVIRON "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ENVIRON "1" CACHE STRING "")
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-environ.cmake)

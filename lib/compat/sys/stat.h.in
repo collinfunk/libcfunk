@@ -198,10 +198,12 @@ extern int lstat (const char *path, struct stat *buffer);
 #endif
 
 #if @LIBCFUNK_DECLARE_MKDIR@
-#  if !@HAVE_MKDIR@
+#  if @LIBCFUNK_REPLACE_MKDIR@
 #    undef mkdir
 #    define mkdir _libcfunk_mkdir
 extern int _libcfunk_mkdir (const char *path, mode_t mode);
+#  elif !@HAVE_MKDIR@
+extern int mkdir (const char *path, mode_t mode);
 #  endif
 #endif
 

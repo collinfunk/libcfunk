@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_isatty" "unistd.h" HAVE__ISATTY)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISATTY "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISATTY "1" CACHE STRING "")
 
 if (HAVE__ISATTY OR NOT HAVE_ISATTY)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

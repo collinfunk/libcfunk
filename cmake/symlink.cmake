@@ -7,7 +7,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("symlink" "unistd.h" HAVE_SYMLINK)
 endif ()
 
-set(LIBCFUNK_DECLARE_SYMLINK "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_SYMLINK "1" CACHE STRING "")
 
 if (NOT HAVE_SYMLINK)
   include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)

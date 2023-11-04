@@ -211,7 +211,11 @@ extern wchar_t *wmempcpy (wchar_t *dest, const wchar_t *src, size_t n);
 #endif
 
 #if @LIBCFUNK_DECLARE_WMEMSET@
-#  if !@HAVE_WMEMSET@
+#  if @LIBCFUNK_REPLACE_WMEMSET@
+#    undef wmemset
+#    define wmemset _libcfunk_wmemset
+extern wchar_t *_libcfunk_wmemset (wchar_t *ws, wchar_t wc, size_t n);
+#  elif !@HAVE_WMEMSET@
 extern wchar_t *wmemset (wchar_t *ws, wchar_t wc, size_t n);
 #  endif
 #endif

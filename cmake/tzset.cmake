@@ -8,7 +8,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("_tzset" "time.h" HAVE__TZSET)
 endif ()
 
-set(LIBCFUNK_DECLARE_TZSET "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_TZSET "1" CACHE STRING "")
 
 if (NOT HAVE_TZSET)
   if (NOT HAVE__TZSET)

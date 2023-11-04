@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("unlockpt" "stdlib.h" HAVE_UNLOCKPT)
 endif ()
 
-set(LIBCFUNK_DECLARE_UNLOCKPT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_UNLOCKPT "1" CACHE STRING "")
 
 if (NOT HAVE_UNLOCKPT)
   check_symbol_exists("ptsname" "stdlib.h" HAVE_PTSNAME)

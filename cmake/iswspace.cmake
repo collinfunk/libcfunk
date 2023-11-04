@@ -7,7 +7,7 @@ if (HAVE_WCTYPE_H)
   check_symbol_exists("iswspace" "wctype.h" HAVE_ISWSPACE)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISWSPACE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISWSPACE "1" CACHE STRING "")
 
 if (NOT HAVE_ISWSPACE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
 
 # Generate <sys/types.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_SYS_TYPES_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_TYPES_H "1" CACHE STRING "")
 
 check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
 

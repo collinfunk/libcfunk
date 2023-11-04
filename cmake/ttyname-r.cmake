@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("ttyname" "unistd.h" HAVE_TTYNAME)
 endif ()
 
-set(LIBCFUNK_DECLARE_TTYNAME_R "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_TTYNAME_R "1" CACHE STRING "")
 
 if (NOT HAVE_TTYNAME_R)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

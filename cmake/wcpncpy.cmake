@@ -10,7 +10,7 @@ if (HAVE_WCHAR_H)
   check_symbol_exists("wcpncpy" "wchar.h" HAVE_WCPNCPY)
 endif ()
 
-set(LIBCFUNK_DECLARE_WCPNCPY "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_WCPNCPY "1" CACHE STRING "")
 
 if (NOT HAVE_WCPNCPY)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

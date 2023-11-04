@@ -7,7 +7,7 @@ if (HAVE_INTTYPES_H)
   check_symbol_exists("imaxdiv" "inttypes.h" HAVE_IMAXDIV)
 endif ()
 
-set(LIBCFUNK_DECLARE_IMAXDIV "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_IMAXDIV "1" CACHE STRING "")
 
 if (NOT HAVE_IMAXDIV)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

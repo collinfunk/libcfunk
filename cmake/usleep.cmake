@@ -10,7 +10,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("usleep" "unistd.h" HAVE_USLEEP)
 endif ()
 
-set(LIBCFUNK_DECLARE_USLEEP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_USLEEP "1" CACHE STRING "")
 
 if (NOT HAVE_USLEEP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

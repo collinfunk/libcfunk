@@ -7,7 +7,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("timespec_getres" "time.h" HAVE_TIMESPEC_GETRES)
 endif ()
 
-set(LIBCFUNK_DECLARE_TIMESPEC_GETRES "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_TIMESPEC_GETRES "1" CACHE STRING "")
 
 if (NOT HAVE_TIMESPEC_GETRES)
   check_symbol_exists("clock_getres" "time.h" HAVE_CLOCK_GETRES)

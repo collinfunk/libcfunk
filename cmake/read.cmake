@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_read" "unistd.h" HAVE__READ)
 endif ()
 
-set(LIBCFUNK_DECLARE_READ "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_READ "1" CACHE STRING "")
 
 if (NOT HAVE_READ)
   if (NOT HAVE__READ)

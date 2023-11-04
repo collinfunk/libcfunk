@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <langinfo.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_LANGINFO_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_LANGINFO_H "1" CACHE STRING "")
 
 check_include_file("langinfo.h" HAVE_LANGINFO_H)
 check_include_file("locale.h" HAVE_LOCALE_H)
@@ -25,11 +25,7 @@ if (HAVE_LANGINFO_H OR HAVE_NL_TYPES_H)
     list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "${header}")
   endforeach ()
   unset(NL_ITEM_INCLUDES)
-else ()
-  set(HAVE_NL_ITEM "" CACHE INTERNAL "")
 endif ()
-
-set(LIBCFUNK_DECLARE_NL_LANGINFO "0" CACHE INTERNAL "")
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-langinfo-h.cmake)

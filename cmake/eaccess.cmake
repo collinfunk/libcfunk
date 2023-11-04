@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("eaccess" "unistd.h" HAVE_EACCESS)
 endif ()
 
-set(LIBCFUNK_DECLARE_EACCESS "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_EACCESS "1" CACHE STRING "")
 
 if (NOT HAVE_EACCESS)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

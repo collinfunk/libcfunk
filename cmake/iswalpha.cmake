@@ -7,7 +7,7 @@ if (HAVE_WCTYPE_H)
   check_symbol_exists("iswalpha" "wctype.h" HAVE_ISWALPHA)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISWALPHA "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISWALPHA "1" CACHE STRING "")
 
 if (NOT HAVE_ISWALPHA)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

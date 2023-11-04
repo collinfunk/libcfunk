@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <assert.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_ASSERT_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_ASSERT_H "1" CACHE STRING "")
 
 check_include_file("assert.h" HAVE_ASSERT_H)
 

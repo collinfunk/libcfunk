@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("copy_file_range" "unistd.h" HAVE_COPY_FILE_RANGE)
 endif ()
 
-set(LIBCFUNK_DECLARE_COPY_FILE_RANGE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_COPY_FILE_RANGE "1" CACHE STRING "")
 
 if (NOT HAVE_COPY_FILE_RANGE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

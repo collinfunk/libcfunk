@@ -7,7 +7,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("localtime_r" "time.h" HAVE_LOCALTIME_R)
 endif ()
 
-set(LIBCFUNK_DECLARE_LOCALTIME_R "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_LOCALTIME_R "1" CACHE STRING "")
 
 if (NOT HAVE_LOCALTIME_R)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

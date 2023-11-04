@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_write" "unistd.h" HAVE__WRITE)
 endif ()
 
-set(LIBCFUNK_DECLARE_WRITE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_WRITE "1" CACHE STRING "")
 
 if (NOT HAVE_WRITE)
   if (NOT HAVE__WRITE)

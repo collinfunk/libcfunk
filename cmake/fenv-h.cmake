@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <fenv.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_FENV_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_FENV_H "1" CACHE STRING "")
 
 check_include_file("fenv.h" HAVE_FENV_H)
 

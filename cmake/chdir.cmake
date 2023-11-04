@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_chdir" "unistd.h" HAVE__CHDIR)
 endif ()
 
-set(LIBCFUNK_DECLARE_CHDIR "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_CHDIR "1" CACHE STRING "")
 
 if (NOT HAVE_CHDIR)
   if (NOT HAVE__CHDIR)

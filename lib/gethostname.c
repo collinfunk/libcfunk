@@ -35,11 +35,9 @@
 
 #if LIBCFUNK_REPLACE_GETHOSTNAME
 
-/* Don't call ourselves. */
-#  undef gethostname
-
 int
-_libcfunk_gethostname (char *name, size_t name_len)
+gethostname (char *name, size_t name_len)
+  #undef gethostname
 {
   /* Windows uses int and not size_t. */
   if (name_len > INT_MAX)

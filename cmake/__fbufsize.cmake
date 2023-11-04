@@ -7,7 +7,7 @@ if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__fbufsize" "stdio_ext.h" HAVE___FBUFSIZE)
 endif ()
 
-set(LIBCFUNK_DECLARE___FBUFSIZE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE___FBUFSIZE "1" CACHE STRING "")
 
 if (NOT HAVE___FBUFSIZE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

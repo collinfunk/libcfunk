@@ -7,7 +7,7 @@ if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__freadable" "stdio_ext.h" HAVE___FREADABLE)
 endif ()
 
-set(LIBCFUNK_DECLARE___FREADABLE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE___FREADABLE "1" CACHE STRING "")
 
 if (NOT HAVE___FREADABLE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

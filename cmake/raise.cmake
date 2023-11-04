@@ -14,7 +14,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("getpid" "unistd.h" HAVE_GETPID)
 endif ()
 
-set(LIBCFUNK_DECLARE_RAISE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_RAISE "1" CACHE STRING "")
 
 if (NOT HAVE_RAISE)
   if (NOT HAVE_KILL OR NOT HAVE_GETPID)

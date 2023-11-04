@@ -7,7 +7,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("llabs" "stdlib.h" HAVE_LLABS)
 endif ()
 
-set(LIBCFUNK_DECLARE_LLABS "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_LLABS "1" CACHE STRING "")
 
 if (NOT HAVE_LLABS)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

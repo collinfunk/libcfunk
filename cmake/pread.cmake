@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("pread" "unistd.h" HAVE_PREAD)
 endif ()
 
-set(LIBCFUNK_DECLARE_PREAD "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_PREAD "1" CACHE STRING "")
 
 if (NOT HAVE_PREAD)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

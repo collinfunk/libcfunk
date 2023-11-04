@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("isupper" "ctype.h" HAVE_ISUPPER)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISUPPER "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISUPPER "1" CACHE STRING "")
 
 if (NOT HAVE_ISUPPER)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("explicit_bzero" "string.h" HAVE_EXPLICIT_BZERO)
 endif ()
 
-set(LIBCFUNK_DECLARE_EXPLICIT_BZERO "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_EXPLICIT_BZERO "1" CACHE STRING "")
 
 if (NOT HAVE_EXPLICIT_BZERO)
   check_symbol_exists("SecureZeroMemory" "windows.h" HAVE_SECUREZEROMEMORY)

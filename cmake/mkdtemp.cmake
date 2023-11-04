@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("mkdtemp" "stdlib.h" HAVE_MKDTEMP)
 endif ()
 
-set(LIBCFUNK_DECLARE_MKDTEMP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_MKDTEMP "1" CACHE STRING "")
 
 # Substitution function uses getrandom to make a random filename.
 if (NOT HAVE_MKDTEMP)

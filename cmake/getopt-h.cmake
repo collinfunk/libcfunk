@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <getopt.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_GETOPT_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_GETOPT_H "1" CACHE STRING "")
 
 check_include_file("getopt.h" HAVE_GETOPT_H)
 check_include_file("stdlib.h" HAVE_STDLIB_H)
@@ -28,10 +28,6 @@ if (HAVE_GETOPT_H OR HAVE_STDLIB_H OR HAVE_UNISTD_H)
   check_symbol_exists("optopt" "${GETOPT_INCLUDES}" HAVE_OPTOPT)
   unset(GETOPT_INCLUDES)
 endif ()
-
-set(LIBCFUNK_DECLARE_GETOPT "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE_GETOPT_LONG "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE_GETOPT_LONG_ONLY "0" CACHE INTERNAL "")
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-getopt-h.cmake)

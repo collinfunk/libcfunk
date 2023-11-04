@@ -9,9 +9,13 @@ if (HAVE_STRING_H)
   check_function_exists("__xpg_strerror_r" HAVE___XPG_STRERROR_R)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRERROR_R "1" CACHE INTERNAL "")
+if (HAVE___XPG_STRERROR_R)
+  set(LIBCFUNK_REPLACE_STRERROR_R "1" CACHE STRING "")
+endif ()
 
-if (NOT HAVE_STRERROR_R OR HAVE___XPG_STRERROR_R)
+set(LIBCFUNK_DECLARE_STRERROR_R "1" CACHE STRING "")
+
+if (NOT HAVE_STRERROR_R OR LIBCFUNK_REPLACE_STRERROR_R)
   if (NOT HAVE___XPG_STRERROR_R AND NOT HAVE_STRERROR_S)
     message(FATAL_ERROR "strerror_r does not have an implementation that is \
 thread-safe for your system.")

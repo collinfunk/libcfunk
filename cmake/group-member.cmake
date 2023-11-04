@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("group_member" "unistd.h" HAVE_GROUP_MEMBER)
 endif ()
 
-set(LIBCFUNK_DECLARE_GROUP_MEMBER "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_GROUP_MEMBER "1" CACHE STRING "")
 
 if (NOT HAVE_GROUP_MEMBER)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

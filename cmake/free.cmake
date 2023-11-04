@@ -14,7 +14,7 @@ endif ()
 
 # FIXME: Figure out a good way to handle this.
 if (CMAKE_CROSSCOMPILING AND NOT CMAKE_CROSSCOMPILING_EMULATOR)
-  set(FREE_NULL_IS_NOP "" CACHE INTERNAL "")
+  set(FREE_NULL_IS_NOP "" CACHE STRING "")
 else ()
   check_c_source_runs("
   #include <stdlib.h>
@@ -32,10 +32,10 @@ else ()
   }" FREE_NULL_IS_NOP)
 endif ()
 
-set(LIBCFUNK_DECLARE_FREE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FREE "1" CACHE STRING "")
 
 if (NOT FREE_NULL_IS_NOP)
-  set(LIBCFUNK_REPLACE_FREE "1" CACHE INTERNAL "")
+  set(LIBCFUNK_REPLACE_FREE "1" CACHE STRING "")
 endif ()
 
 if (LIBCFUNK_REPLACE_FREE)

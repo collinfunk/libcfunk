@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("memcpy" "string.h" HAVE_MEMCPY)
 endif ()
 
-set(LIBCFUNK_DECLARE_MEMCPY "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_MEMCPY "1" CACHE STRING "")
 
 if (NOT HAVE_MEMCPY)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

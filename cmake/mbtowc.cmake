@@ -10,7 +10,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("mbtowc" "stdlib.h" HAVE_MBTOWC)
 endif ()
 
-set(LIBCFUNK_DECLARE_MBTOWC "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_MBTOWC "1" CACHE STRING "")
 
 if (NOT HAVE_MBTOWC)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

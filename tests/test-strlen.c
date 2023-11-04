@@ -26,17 +26,45 @@
 #include <config.h>
 
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-/* Replacement function for malloc for systems where malloc (0) returns
-   a NULL pointer. */
-void *
-malloc (size_t size)
-#undef malloc
+#include "test-help.h"
+
+static char buffer[4096];
+
+static void do_simple_test (void);
+static void do_big_test (void);
+
+int
+main (void)
 {
-  /* Make sure malloc returns a value. */
-  if (size == 0)
-    size = 1;
+  do_simple_test ();
+  do_big_test ();
+  return 0;
+}
 
-  return malloc (size);
+static void
+do_simple_test (void)
+{
+  ASSERT (strlen ("") == 0);
+  ASSERT (strlen ("1") == 1);
+  ASSERT (strlen ("test") == 4);
+  ASSERT (strlen ("test1") == 5);
+}
+
+static void
+do_big_test (void)
+{
+  size_t i;
+
+  ASSERT (sizeof (buffer) > 0);
+
+  for (i = 0; i < sizeof (buffer) - 1; ++i)
+    {
+      buffer[i] = 'a';
+      buffer[i + 1] = '\0';
+      ASSERT (strlen (buffer) == i + 1);
+    }
 }

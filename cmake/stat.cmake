@@ -8,7 +8,7 @@ if (HAVE_SYS_STAT_H)
   check_symbol_exists("_stat" "sys/stat.h" HAVE__STAT)
 endif ()
 
-set(LIBCFUNK_DECLARE_STAT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STAT "1" CACHE STRING "")
 
 if (NOT HAVE_STAT)
   if (NOT HAVE__STAT)

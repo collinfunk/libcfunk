@@ -6,7 +6,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 check_symbol_exists("_Exit" "stdlib.h" HAVE_C99__EXIT)
 check_symbol_exists("_exit" "unistd.h" HAVE__EXIT)
 
-set(LIBCFUNK_DECLARE_C99__EXIT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_C99__EXIT "1" CACHE STRING "")
 
 if (NOT HAVE_C99__EXIT)
   if (NOT HAVE__EXIT)

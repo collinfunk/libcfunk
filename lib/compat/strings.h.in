@@ -40,37 +40,61 @@
 #include <string.h>
 
 #if @LIBCFUNK_DECLARE_BCMP@
-#  if !@HAVE_BCMP@
+#  if @LIBCFUNK_REPLACE_BCMP@
+#    undef bcmp
+#    define bcmp _libcfunk_bcmp
+extern int _libcfunk_bcmp (const void *s1, const void *s2, size_t n);
+#  elif !@HAVE_BCMP@
 extern int bcmp (const void *s1, const void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_BCOPY@
-#  if !@HAVE_BCOPY@
+#  if @LIBCFUNK_REPLACE_BCOPY@
+#    undef bcopy
+#    define bcopy _libcfunk_bcopy
+extern void _libcfunk_bcopy (const void *s1, void *s2, size_t n);
+#  elif !@HAVE_BCOPY@
 extern void bcopy (const void *s1, void *s2, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_BZERO@
-#  if !@HAVE_BZERO@
+#  if @LIBCFUNK_REPLACE_BZERO@
+#    undef bzero
+#    define bzero _libcfunk_bzero
+extern void _libcfunk_bzero (void *s, size_t n);
+#  elif !@HAVE_BZERO@
 extern void bzero (void *s, size_t n);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FFS@
-#  if !@HAVE_FFS@
+#  if @LIBCFUNK_REPLACE_FFS@
+#    undef ffs
+#    define ffs _libcfunk_ffs
+extern int _libcfunk_ffs (int value);
+#  elif !@HAVE_FFS@
 extern int ffs (int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FFSL@
-#  if !@HAVE_FFSL@
+#  if @LIBCFUNK_REPLACE_FFSL@
+#    undef ffsl
+#    define ffsl _libcfunk_ffsl
+extern int _libcfunk_ffsl (long int value);
+#  elif !@HAVE_FFSL@
 extern int ffsl (long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FFSLL@
-#  if !@HAVE_FFSLL@
+#  if @LIBCFUNK_REPLACE_FFSLL@
+#    undef ffsll
+#    define ffsll _libcfunk_ffsll
+extern int _libcfunk_ffsll (long long int value);
+#  elif !@HAVE_FFSLL@
 extern int ffsll (long long int value);
 #  endif
 #endif
@@ -94,7 +118,11 @@ extern int flsll (long long int value);
 #endif
 
 #if @LIBCFUNK_DECLARE_INDEX@
-#  if !@HAVE_INDEX@
+#  if @LIBCFUNK_REPLACE_INDEX@
+#    undef index
+#    define index _libcfunk_index
+extern char *_libcfunk_index (const char *s, int c);
+#  elif !@HAVE_INDEX@
 extern char *index (const char *s, int c);
 #  endif
 #endif
@@ -118,7 +146,11 @@ extern unsigned int popcountll (unsigned long long int value);
 #endif
 
 #if @LIBCFUNK_DECLARE_RINDEX@
-#  if !@HAVE_RINDEX@
+#  if @LIBCFUNK_REPLACE_RINDEX@
+#    undef rindex
+#    define rindex _libcfunk_rindex
+extern char *_libcfunk_rindex (const char *s, int c);
+#  elif !@HAVE_RINDEX@
 extern char *rindex (const char *s, int c);
 #  endif
 #endif

@@ -7,7 +7,7 @@ if (HAVE_MATH_H)
   check_symbol_exists("copysignf" "math.h" HAVE_COPYSIGNF)
 endif ()
 
-set(LIBCFUNK_DECLARE_COPYSIGNF "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_COPYSIGNF "1" CACHE STRING "")
 
 if (NOT HAVE_COPYSIGNF)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

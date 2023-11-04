@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("execlp" "unistd.h" HAVE_EXECLP)
 endif ()
 
-set(LIBCFUNK_DECLARE_EXECLP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_EXECLP "1" CACHE STRING "")
 
 if (NOT HAVE_EXECLP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

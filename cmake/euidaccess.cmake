@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("faccessat" "unistd.h" HAVE_FACCESSAT)
 endif ()
 
-set(LIBCFUNK_DECLARE_EUIDACCESS "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_EUIDACCESS "1" CACHE STRING "")
 
 if (NOT HAVE_EUIDACCESS)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

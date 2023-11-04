@@ -7,7 +7,7 @@ if (HAVE_MATH_H)
   check_symbol_exists("fabsl" "math.h" HAVE_FABSL)
 endif ()
 
-set(LIBCFUNK_DECLARE_FABSL "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FABSL "1" CACHE STRING "")
 
 if (NOT HAVE_FABSL)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

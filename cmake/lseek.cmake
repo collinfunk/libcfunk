@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_lseeki64" "unistd.h" HAVE__LSEEKI64)
 endif ()
 
-set(LIBCFUNK_DECLARE_LSEEK "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_LSEEK "1" CACHE STRING "")
 
 if (NOT HAVE_LSEEK)
   if (NOT HAVE__LSEEKI64)

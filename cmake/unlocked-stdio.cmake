@@ -3,7 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 
-set(LIBCFUNK_UNLOCKED_STDIO "1" CACHE INTERNAL "")
+set(LIBCFUNK_UNLOCKED_STDIO "1" CACHE STRING "")
 
 check_symbol_exists("flockfile" "stdio.h" HAVE_FLOCKFILE)
 check_symbol_exists("_lock_file" "stdio.h" HAVE__LOCK_FILE)

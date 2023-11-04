@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("fchdir" "unistd.h" HAVE_FCHDIR)
 endif ()
 
-set(LIBCFUNK_DECLARE_FCHDIR "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FCHDIR "1" CACHE STRING "")
 
 if (NOT HAVE_FCHDIR)
   # We assume that if 'fchdir' is not provided it is impossible to implement

@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("isdigit" "ctype.h" HAVE_ISDIGIT)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISDIGIT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISDIGIT "1" CACHE STRING "")
 
 if (NOT HAVE_ISDIGIT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
 # and provided by glibc in <sys/random.h>. Check unistd.h and sys/random.h.
 check_symbol_exists("getentropy" "unistd.h;sys/random.h" HAVE_GETENTROPY)
 
-set(LIBCFUNK_DECLARE_GETENTROPY "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_GETENTROPY "1" CACHE STRING "")
 
 # Provided a replacement function using getrandom
 if (NOT HAVE_GETENTROPY)

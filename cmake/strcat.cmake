@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strcat" "string.h" HAVE_STRCAT)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRCAT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRCAT "1" CACHE STRING "")
 
 if (NOT HAVE_STRCAT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strpbrk" "string.h" HAVE_STRPBRK)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRPBRK "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRPBRK "1" CACHE STRING "")
 
 if (NOT HAVE_STRPBRK)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

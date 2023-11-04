@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("reallocf" "stdlib.h" HAVE_REALLOCF)
 endif ()
 
-set(LIBCFUNK_DECLARE_REALLOCF "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_REALLOCF "1" CACHE STRING "")
 
 if (NOT HAVE_REALLOCF)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("isgraph" "ctype.h" HAVE_ISGRAPH)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISGRAPH "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISGRAPH "1" CACHE STRING "")
 
 if (NOT HAVE_ISGRAPH)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

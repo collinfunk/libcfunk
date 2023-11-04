@@ -7,7 +7,7 @@ if (HAVE_SYS_STAT_H)
   check_symbol_exists("lstat" "sys/stat.h" HAVE_LSTAT)
 endif ()
 
-set(LIBCFUNK_DECLARE_LSTAT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_LSTAT "1" CACHE STRING "")
 
 if (NOT HAVE_LSTAT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

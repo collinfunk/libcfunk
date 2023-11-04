@@ -7,7 +7,7 @@ if (HAVE_INTTYPES_H)
   check_symbol_exists("strtoumax" "inttypes.h" HAVE_STRTOUMAX)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRTOUMAX "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRTOUMAX "1" CACHE STRING "")
 
 if (NOT HAVE_STRTOUMAX)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

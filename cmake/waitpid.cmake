@@ -8,7 +8,7 @@ if (HAVE_SYS_WAIT_H)
   check_symbol_exists("waitpid" "sys/wait.h" HAVE_WAITPID)
 endif ()
 
-set(LIBCFUNK_DECLARE_WAITPID "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_WAITPID "1" CACHE STRING "")
 
 if (NOT HAVE_WAITPID)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

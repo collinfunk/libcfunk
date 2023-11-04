@@ -7,7 +7,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("bsearch" "stdlib.h" HAVE_BSEARCH)
 endif ()
 
-set(LIBCFUNK_DECLARE_BSEARCH "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_BSEARCH "1" CACHE STRING "")
 
 if (NOT HAVE_BSEARCH)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

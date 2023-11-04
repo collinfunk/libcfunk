@@ -10,7 +10,7 @@ if (HAVE_FCNTL_H)
   check_symbol_exists("_open" "fcntl.h" HAVE__OPEN)
 endif ()
 
-set(LIBCFUNK_DECLARE_OPEN "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_OPEN "1" CACHE STRING "")
 
 if (NOT HAVE_OPEN)
   if (NOT HAVE__OPEN)

@@ -28,12 +28,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-/* Make sure we don't call ourselves. */
-#undef free
-
 /* Replacement function for free on systems where free (NULL) is unsafe. */
 void
-_libcfunk_free (void *ptr)
+free (void *ptr)
+#undef free
 {
   if (ptr != NULL)
     free (ptr);

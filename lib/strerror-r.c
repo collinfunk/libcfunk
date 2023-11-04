@@ -30,35 +30,37 @@
 #include <stddef.h>
 #include <string.h>
 
-/* Don't call ourselves. */
-#undef strerror_r
-
 /* Use the POSIX compatible strerror_r provided by glibc. */
 #if HAVE___XPG_STRERROR_R
 extern int __xpg_strerror_r (int errnum, char *buffer, size_t buffer_len);
 #endif
 
 int
-_libcfunk_strerror_r (int errnum, char *buffer, size_t buffer_len)
+strerror_r (int errnum, char *buffer, size_t buffer_len)
+#undef strerror_r
 {
 #if HAVE___XPG_STRERROR_R
-  int return_value = __xpg_strerror_r (errnum, buffer, buffer_len);
-  if (return_value == 0)
-    return 0;
-  else
-    return errno;
+  {
+    int return_value = __xpg_strerror_r (errnum, buffer, buffer_len);
+    if (return_value == 0)
+      return 0;
+    else
+      return errno;
+  }
 #elif HAVE_STRERROR_S
-  int return_val;
+  {
+    int return_value;
 
-  /* strerror_s takes an int, not size_t. */
-  if (buffer_len > INT_MAX)
-    return ERANGE;
+    /* strerror_s takes an int, not size_t. */
+    if (buffer_len > INT_MAX)
+      return ERANGE;
 
-  return_val = strerror_s (buffer, buffer_len, errnum);
-  if (return_val == 0)
-    return 0;
-  else
-    return errno;
+    return_value = strerror_s (buffer, buffer_len, errnum);
+    if (return_value == 0)
+      return 0;
+    else
+      return errno;
+  }
 #else
 #  error "No thread-safe implementation of strerror_r for your system."
 #endif

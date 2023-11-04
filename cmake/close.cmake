@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_close" "unistd.h" HAVE__CLOSE)
 endif ()
 
-set(LIBCFUNK_DECLARE_CLOSE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_CLOSE "1" CACHE STRING "")
 
 if (NOT HAVE_CLOSE)
   if (NOT HAVE__CLOSE)

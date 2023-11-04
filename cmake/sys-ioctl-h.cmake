@@ -5,7 +5,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/termios-h.cmake)
 
 # Generate <sys/ioctl.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_SYS_IOCTL_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_IOCTL_H "1" CACHE STRING "")
 
 check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
 check_include_file("sys/ioctl.h" HAVE_SYS_IOCTL_H)

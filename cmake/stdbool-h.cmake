@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <stdbool.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_STDBOOL_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_STDBOOL_H "1" CACHE STRING "")
 
 check_include_file("stdbool.h" HAVE_STDBOOL_H)
 

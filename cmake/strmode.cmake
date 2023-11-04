@@ -8,7 +8,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strmode" "string.h" HAVE_STRMODE)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRMODE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRMODE "1" CACHE STRING "")
 
 if (NOT HAVE_STRMODE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

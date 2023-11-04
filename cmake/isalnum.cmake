@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("isalnum" "ctype.h" HAVE_ISALNUM)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISALNUM "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISALNUM "1" CACHE STRING "")
 
 if (NOT HAVE_ISALNUM)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("islower" "ctype.h" HAVE_ISLOWER)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISLOWER "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISLOWER "1" CACHE STRING "")
 
 if (NOT HAVE_ISLOWER)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

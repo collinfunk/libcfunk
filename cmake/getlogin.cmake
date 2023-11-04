@@ -7,7 +7,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("getlogin" "unistd.h" HAVE_GETLOGIN)
 endif ()
 
-set(LIBCFUNK_DECLARE_GETLOGIN "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_GETLOGIN "1" CACHE STRING "")
 
 if (NOT HAVE_GETLOGIN)
   check_include_file("windows.h" HAVE_WINDOWS_H)

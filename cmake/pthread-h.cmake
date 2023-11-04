@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <pthread.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_PTHREAD_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_PTHREAD_H "1" CACHE STRING "")
 
 check_include_file("pthread.h" HAVE_PTHREAD_H)
 check_include_file("windows.h" HAVE_WINDOWS_H)

@@ -7,7 +7,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("chown" "unistd.h" HAVE_CHOWN)
 endif ()
 
-set(LIBCFUNK_DECLARE_CHOWN "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_CHOWN "1" CACHE STRING "")
 
 if (NOT HAVE_CHOWN)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

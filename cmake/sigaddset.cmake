@@ -7,7 +7,7 @@ if (HAVE_SIGNAL_H)
   check_symbol_exists("sigaddset" "signal.h" HAVE_SIGADDSET)
 endif ()
 
-set(LIBCFUNK_DECLARE_SIGADDSET "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_SIGADDSET "1" CACHE STRING "")
 
 if (NOT HAVE_SIGADDSET)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -19,7 +19,7 @@ if (HAVE_WCTYPE_H)
   check_symbol_exists("wctype" "wctype.h" HAVE_WCTYPE)
 endif ()
 
-set(LIBCFUNK_DECLARE_WCTYPE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_WCTYPE "1" CACHE STRING "")
 
 if (NOT HAVE_WCTYPE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

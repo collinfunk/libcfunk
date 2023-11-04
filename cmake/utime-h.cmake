@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <utime.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_UTIME_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_UTIME_H "1" CACHE STRING "")
 
 check_include_file("utime.h" HAVE_UTIME_H)
 check_include_file("sys/utime.h" HAVE_SYS_UTIME_H)

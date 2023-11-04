@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <poll.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_POLL_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_POLL_H "1" CACHE STRING "")
 
 check_include_file("poll.h" HAVE_POLL_H)
 
@@ -12,9 +12,6 @@ if (HAVE_POLL_H)
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("struct pollfd" STRUCT_POLLFD)
   check_type_size("nfds_t" NFDS_T)
-else ()
-  set(HAVE_STRUCT_POLLFD "" CACHE INTERNAL "")
-  set(HAVE_NFDS_T "" CACHE INTERNAL "")
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)

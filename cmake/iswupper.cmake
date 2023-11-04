@@ -7,7 +7,7 @@ if (HAVE_WCTYPE_H)
   check_symbol_exists("iswupper" "wctype.h" HAVE_ISWUPPER)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISWUPPER "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISWUPPER "1" CACHE STRING "")
 
 if (NOT HAVE_ISWUPPER)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

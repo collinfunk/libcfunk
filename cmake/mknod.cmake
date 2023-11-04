@@ -9,7 +9,7 @@ endif ()
 
 check_include_file("windows.h" HAVE_WINDOWS_H)
 
-set(LIBCFUNK_DECLARE_MKNOD "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_MKNOD "1" CACHE STRING "")
 
 if (NOT HAVE_MKNOD)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("fsync" "unistd.h" HAVE_FSYNC)
 endif ()
 
-set(LIBCFUNK_DECLARE_FSYNC "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FSYNC "1" CACHE STRING "")
 
 if (NOT HAVE_FSYNC)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

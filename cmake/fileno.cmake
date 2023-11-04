@@ -8,7 +8,7 @@ if (HAVE_STDIO_H)
   check_symbol_exists("_fileno" "stdio.h" HAVE__FILENO)
 endif ()
 
-set(LIBCFUNK_DECLARE_FILENO "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FILENO "1" CACHE STRING "")
 
 if (NOT HAVE_FILENO)
   if (NOT HAVE__FILENO)

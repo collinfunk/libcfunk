@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("iscntrl" "ctype.h" HAVE_ISCNTRL)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISCNTRL "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISCNTRL "1" CACHE STRING "")
 
 if (NOT HAVE_ISCNTRL)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

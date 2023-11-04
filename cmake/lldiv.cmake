@@ -7,7 +7,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("lldiv" "stdlib.h" HAVE_LLDIV)
 endif ()
 
-set(LIBCFUNK_DECLARE_LLDIV "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_LLDIV "1" CACHE STRING "")
 
 if (NOT HAVE_LLDIV)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

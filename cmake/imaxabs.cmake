@@ -7,7 +7,7 @@ if (HAVE_INTTYPES_H)
   check_symbol_exists("imaxabs" "inttypes.h" HAVE_IMAXABS)
 endif ()
 
-set(LIBCFUNK_DECLARE_IMAXABS "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_IMAXABS "1" CACHE STRING "")
 
 if (NOT HAVE_IMAXABS)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

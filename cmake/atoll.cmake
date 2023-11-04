@@ -8,7 +8,7 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("atoll" "stdlib.h" HAVE_ATOLL)
 endif ()
 
-set(LIBCFUNK_DECLARE_ATOLL "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ATOLL "1" CACHE STRING "")
 
 if (NOT HAVE_ATOLL)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

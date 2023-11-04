@@ -7,7 +7,7 @@ if (HAVE_STRING_H)
   check_symbol_exists("strcspn" "string.h" HAVE_STRCSPN)
 endif ()
 
-set(LIBCFUNK_DECLARE_STRCSPN "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_STRCSPN "1" CACHE STRING "")
 
 if (NOT HAVE_STRCSPN)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

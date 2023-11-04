@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("readlink" "unistd.h" HAVE_READLINK)
 endif ()
 
-set(LIBCFUNK_DECLARE_READLINK "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_READLINK "1" CACHE STRING "")
 
 if (NOT HAVE_READLINK)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -8,7 +8,7 @@ if (HAVE_WCHAR_H)
   check_symbol_exists("wcscasecmp" "wchar.h" HAVE_WCSCASECMP)
 endif ()
 
-set(LIBCFUNK_DECLARE_WCSCASECMP "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_WCSCASECMP "1" CACHE STRING "")
 
 if (NOT HAVE_WCSCASECMP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

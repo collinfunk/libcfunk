@@ -8,7 +8,7 @@ if (HAVE_STDIO_H)
   check_symbol_exists("_popen" "stdio.h" HAVE__POPEN)
 endif ()
 
-set(LIBCFUNK_DECLARE_POPEN "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_POPEN "1" CACHE STRING "")
 
 if (NOT HAVE_POPEN)
   if (NOT HAVE__POPEN)

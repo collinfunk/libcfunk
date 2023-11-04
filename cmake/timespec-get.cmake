@@ -7,7 +7,7 @@ if (HAVE_TIME_H)
   check_symbol_exists("timespec_get" "time.h" HAVE_TIMESPEC_GET)
 endif ()
 
-set(LIBCFUNK_DECLARE_TIMESPEC_GET "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_TIMESPEC_GET "1" CACHE STRING "")
 
 if (NOT HAVE_TIMESPEC_GET)
   include($CACHE{LIBCFUNK_MODULE_DIR}/gettimeofday.cmake)

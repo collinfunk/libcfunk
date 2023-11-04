@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <stdio_ext.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_STDIO_EXT_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_STDIO_EXT_H "1" CACHE STRING "")
 
 check_include_file("stdio.h" HAVE_STDIO_H)
 check_include_file("stdio_ext.h" HAVE_STDIO_EXT_H)
@@ -26,16 +26,6 @@ if (HAVE_STDIO_H)
   check_struct_has_member("FILE" "_IO_write_ptr" "stdio.h" HAVE_FILE__IO_WRITE_PTR)
   check_struct_has_member("FILE" "_IO_write_base" "stdio.h" HAVE_FILE__IO_WRITE_BASE)
 endif ()
-
-set(LIBCFUNK_DECLARE___FBUFSIZE "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FPURGE "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FSETERR "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FLBF "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FPENDING "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FREADABLE "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FWRITABLE "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FREADING "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE___FWRITING "0" CACHE INTERNAL "")
 
 if (LIBCFUNK_MODULE_DIR)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-stdio-ext-h.cmake)

@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <stddef.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_STDDEF_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_STDDEF_H "1" CACHE STRING "")
 
 check_include_file("stddef.h" HAVE_STDDEF_H)
 

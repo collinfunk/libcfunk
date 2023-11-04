@@ -6,7 +6,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 if (HAVE_STDLIB_H)
   check_symbol_exists("malloc" "stdlib.h" HAVE_MALLOC)
 else ()
-  set(HAVE_MALLOC "" CACHE INTERNAL "")
+  set(HAVE_MALLOC "" CACHE STRING "")
 endif ()
 
 # Should never happen.
@@ -16,7 +16,7 @@ endif ()
 
 # FIXME: Figure out a good way to handle this.
 if (CMAKE_CROSSCOMPILING AND NOT CMAKE_CROSSCOMPILING_EMULATOR)
-  set(MALLOC_0_RETURNS_NONNULL "" CACHE INTERNAL "")
+  set(MALLOC_0_RETURNS_NONNULL "" CACHE STRING "")
 else ()
   check_c_source_runs("
   #include <stdlib.h>
@@ -42,10 +42,10 @@ else ()
   }" MALLOC_0_RETURNS_NONNULL)
 endif ()
 
-set(LIBCFUNK_DECLARE_MALLOC "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_MALLOC "1" CACHE STRING "")
 
 if (NOT MALLOC_0_RETURNS_NONNULL)
-  set(LIBCFUNK_REPLACE_MALLOC "1" CACHE INTERNAL "")
+  set(LIBCFUNK_REPLACE_MALLOC "1" CACHE STRING "")
 endif ()
 
 if (LIBCFUNK_REPLACE_MALLOC)

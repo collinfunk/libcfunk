@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 
 # Generate <sys/uio.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_SYS_UIO_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_UIO_H "1" CACHE STRING "")
 
 check_include_file("sys/uio.h" HAVE_SYS_UIO_H)
 

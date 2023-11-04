@@ -7,7 +7,7 @@ if (HAVE_SYS_UTSNAME_H)
   check_symbol_exists("uname" "sys/utsname.h" HAVE_UNAME)
 endif ()
 
-set(LIBCFUNK_DECLARE_UNAME "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_UNAME "1" CACHE STRING "")
 
 if (NOT HAVE_UNAME)
   include($CACHE{LIBCFUNK_MODULE_DIR}/gethostname.cmake)

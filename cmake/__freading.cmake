@@ -7,7 +7,7 @@ if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__freading" "stdio_ext.h" HAVE___FREADING)
 endif ()
 
-set(LIBCFUNK_DECLARE___FREADING "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE___FREADING "1" CACHE STRING "")
 
 if (NOT HAVE___FREADING)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

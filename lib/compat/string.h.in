@@ -81,7 +81,11 @@ extern void *memrchr (const void *s, int c, size_t n);
 #endif
 
 #if @LIBCFUNK_DECLARE_MEMSET@
-#  if !@HAVE_MEMSET@
+#  if @LIBCFUNK_REPLACE_MEMSET@
+#    undef memset
+#    define memset _libcfunk_memset
+extern void *memset (void *s, int c, size_t n);
+#  elif !@HAVE_MEMSET@
 extern void *memset (void *s, int c, size_t n);
 #  endif
 #endif
@@ -123,7 +127,11 @@ extern char *strcat (char *s1, const char *s2);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCHR@
-#  if !@HAVE_STRCHR@
+#  if @LIBCFUNK_REPLACE_STRCHR@
+#    undef strchr
+#    define strchr _libcfunk_strchr
+extern char *_libcfunk_strchr (const char *s, int c);
+#  elif !@HAVE_STRCHR@
 extern char *strchr (const char *s, int c);
 #  endif
 #endif
@@ -165,15 +173,21 @@ extern const char *strerrorname_np (int errnum);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRERROR_R@
-#  if !@HAVE_STRERROR_R@ || @HAVE___XPG_STRERROR_R@
+#  if @LIBCFUNK_REPLACE_STRERROR_R@
 #    undef strerror_r
 #    define strerror_r _libcfunk_strerror_r
 extern int _libcfunk_strerror_r (int errnum, char *buffer, size_t buffer_len);
+#  elif !@HAVE_STRERROR_R@
+extern int strerror_r (int errnum, char *buffer, size_t buffer_len);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRLEN@
-#  if !@HAVE_STRLEN@
+#  if @LIBCFUNK_REPLACE_STRLEN@
+#    undef strlen
+#    define strlen _libcfunk_strlen
+extern size_t _libcfunk_strlen (const char *str);
+#  elif !@HAVE_STRLEN@
 extern size_t strlen (const char *str);
 #  endif
 #endif
@@ -221,8 +235,12 @@ extern char *strpbrk (const char *str, const char *charset);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRRCHR@
-#  if !@HAVE_STRRCHR@
-extern char *strchr (const char *s, int c);
+#  if @LIBCFUNK_REPLACE_STRRCHR@
+#    undef strrchr
+#    define strrchr _libcfunk_strrchr
+extern char *_libcfunk_strrchr (const char *s, int c);
+#  elif !@HAVE_STRRCHR@
+extern char *strrchr (const char *s, int c);
 #  endif
 #endif
 

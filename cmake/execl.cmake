@@ -10,7 +10,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("execve" "unistd.h" HAVE_EXECVE)
 endif ()
 
-set(LIBCFUNK_DECLARE_EXECL "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_EXECL "1" CACHE STRING "")
 
 if (NOT HAVE_EXECL)
   # FIXME

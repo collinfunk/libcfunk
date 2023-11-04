@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <sys/file.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_SYS_FILE_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYS_FILE_H "1" CACHE STRING "")
 
 check_include_file("sys/file.h" HAVE_SYS_FILE_H)
 

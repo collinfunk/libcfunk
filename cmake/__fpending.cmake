@@ -7,7 +7,7 @@ if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__fpending" "stdio_ext.h" HAVE___FPENDING)
 endif ()
 
-set(LIBCFUNK_DECLARE___FPENDING "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE___FPENDING "1" CACHE STRING "")
 
 if (NOT HAVE___FPENDING)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

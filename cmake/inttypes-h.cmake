@@ -4,7 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
 
 # Generate <inttypes.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_INTTYPES_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_INTTYPES_H "1" CACHE STRING "")
 
 check_include_file("inttypes.h" HAVE_INTTYPES_H)
 
@@ -13,13 +13,8 @@ if (HAVE_INTTYPES_H)
 endif ()
 
 list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
-check_type_size("imaxdiv_t" IMAXDIV_T)
 
-# Only show prototypes for checked functions.
-set(LIBCFUNK_DECLARE_IMAXABS "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE_IMAXDIV "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE_STRTOIMAX "0" CACHE INTERNAL "")
-set(LIBCFUNK_DECLARE_STRTOUMAX "0" CACHE INTERNAL "")
+check_type_size("imaxdiv_t" IMAXDIV_T)
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-inttypes-h.cmake)

@@ -8,7 +8,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("pwrite" "unistd.h" HAVE_PWRITE)
 endif ()
 
-set(LIBCFUNK_DECLARE_PWRITE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_PWRITE "1" CACHE STRING "")
 
 if (NOT HAVE_PWRITE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

@@ -10,7 +10,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("ftruncate" "unistd.h" HAVE_FTRUNCATE)
 endif ()
 
-set(LIBCFUNK_DECLARE_FTRUNCATE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_FTRUNCATE "1" CACHE STRING "")
 
 if (NOT HAVE_FTRUNCATE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

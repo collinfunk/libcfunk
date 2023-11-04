@@ -7,7 +7,7 @@ if (HAVE_CTYPE_H)
   check_symbol_exists("isxdigit" "ctype.h" HAVE_ISXDIGIT)
 endif ()
 
-set(LIBCFUNK_DECLARE_ISXDIGIT "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_ISXDIGIT "1" CACHE STRING "")
 
 if (NOT HAVE_ISXDIGIT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

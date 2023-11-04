@@ -12,7 +12,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("setsid" "unistd.h" HAVE_SETSID)
 endif ()
 
-set(LIBCFUNK_DECLARE_DAEMON "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_DAEMON "1" CACHE STRING "")
 
 if (NOT HAVE_DAEMON)
   # This is pretty much just a check to see if the host is Windows.

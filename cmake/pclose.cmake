@@ -8,7 +8,7 @@ if (HAVE_STDIO_H)
   check_symbol_exists("_pclose" "stdio.h" HAVE__PCLOSE)
 endif ()
 
-set(LIBCFUNK_DECLARE_PCLOSE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_PCLOSE "1" CACHE STRING "")
 
 if (NOT HAVE_PCLOSE)
   if (NOT HAVE__PCLOSE)

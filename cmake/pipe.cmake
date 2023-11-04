@@ -9,7 +9,7 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("_pipe" "unistd.h" HAVE__PIPE)
 endif ()
 
-set(LIBCFUNK_DECLARE_PIPE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_PIPE "1" CACHE STRING "")
 
 if (NOT HAVE_PIPE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

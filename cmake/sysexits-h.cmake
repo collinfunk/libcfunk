@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 # Generate <sysexits.h> at libcfunk-final.cmake
-set(LIBCFUNK_GENERATE_SYSEXITS_H "1" CACHE INTERNAL "")
+set(LIBCFUNK_GENERATE_SYSEXITS_H "1" CACHE STRING "")
 
 check_include_file("sysexits.h" HAVE_SYSEXITS_H)
 

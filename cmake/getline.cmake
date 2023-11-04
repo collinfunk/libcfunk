@@ -8,7 +8,7 @@ if (HAVE_STDIO_H)
   check_symbol_exists("getline" "stdio.h" HAVE_GETLINE)
 endif ()
 
-set(LIBCFUNK_DECLARE_GETLINE "1" CACHE INTERNAL "")
+set(LIBCFUNK_DECLARE_GETLINE "1" CACHE STRING "")
 
 if (NOT HAVE_GETLINE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
