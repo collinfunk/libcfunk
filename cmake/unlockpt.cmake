@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-ioctl-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("unlockpt" "stdlib.h" HAVE_UNLOCKPT)
-else ()
-  set(HAVE_UNLOCKPT "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_UNLOCKPT "1" CACHE INTERNAL "")

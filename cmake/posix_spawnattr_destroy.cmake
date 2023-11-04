@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 if (HAVE_SPAWN_H)
   check_symbol_exists("posix_spawnattr_destroy" "spawn.h" HAVE_POSIX_SPAWNATTR_DESTROY)
-else ()
-  set(HAVE_POSIX_SPAWNATTR_DESTROY "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_POSIX_SPAWNATTR_DESTROY "1" CACHE INTERNAL "")

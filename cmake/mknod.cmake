@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-stat-h.cmake)
 
 if (HAVE_SYS_STAT_H)
   check_symbol_exists("mknod" "sys/stat.h" HAVE_MKNOD)
-else ()
-  set(HAVE_MKNOD "" CACHE INTERNAL "")
 endif ()
 
 check_include_file("windows.h" HAVE_WINDOWS_H)

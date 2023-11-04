@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
 
 if (HAVE_CTYPE_H)
   check_symbol_exists("toupper" "ctype.h" HAVE_TOUPPER)
-else ()
-  set(HAVE_TOUPPER "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_TOUPPER "1" CACHE INTERNAL "")

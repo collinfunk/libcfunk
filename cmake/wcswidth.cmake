@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wcwidth.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists("wcswidth" "wchar.h" HAVE_WCSWIDTH)
-else ()
-  set(HAVE_WCSWIDTH "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_WCSWIDTH "1" CACHE INTERNAL "")

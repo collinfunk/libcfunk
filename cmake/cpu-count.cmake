@@ -16,8 +16,6 @@ endif ()
 
 if (HAVE_SCHED_H)
   check_symbol_exists("sched_getaffinity" "sched.h" HAVE_SCHED_GETAFFINITY)
-else ()
-  set(HAVE_SCHED_GETAFFINITY "" CACHE INTERNAL "")
 endif ()
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

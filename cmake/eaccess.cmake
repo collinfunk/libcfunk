@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/euidaccess.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("eaccess" "unistd.h" HAVE_EACCESS)
-else ()
-  set(HAVE_EACCESS "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_EACCESS "1" CACHE INTERNAL "")

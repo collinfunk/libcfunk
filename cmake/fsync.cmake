@@ -7,8 +7,6 @@ check_include_files("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("fsync" "unistd.h" HAVE_FSYNC)
-else ()
-  set(HAVE_FSYNC "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_FSYNC "1" CACHE INTERNAL "")

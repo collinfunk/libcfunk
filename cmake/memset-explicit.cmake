@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("memset_explicit" "string.h" HAVE_MEMSET_EXPLICIT)
-else ()
-  set(HAVE_MEMSET_EXPLICIT "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_MEMSET_EXPLICIT "1" CACHE INTERNAL "")

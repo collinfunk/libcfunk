@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/realloc.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("reallocf" "stdlib.h" HAVE_REALLOCF)
-else ()
-  set(HAVE_REALLOCF "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_REALLOCF "1" CACHE INTERNAL "")

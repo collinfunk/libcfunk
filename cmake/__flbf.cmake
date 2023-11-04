@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-ext-h.cmake)
 
 if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__flbf" "stdio_ext.h" HAVE___FLBF)
-else ()
-  set(HAVE___FLBF "0" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE___FLBF "1" CACHE INTERNAL "")

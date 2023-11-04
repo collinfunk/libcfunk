@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/spawn-h.cmake)
 
 if (HAVE_SPAWN_H)
   check_symbol_exists("posix_spawnattr_setflags" "spawn.h" HAVE_POSIX_SPAWNATTR_SETFLAGS)
-else ()
-  set(HAVE_POSIX_SPAWNATTR_SETFLAGS "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETFLAGS "1" CACHE INTERNAL "")

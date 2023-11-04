@@ -8,11 +8,11 @@ check_include_file("sched.h" HAVE_SCHED_H)
 
 if (HAVE_SCHED_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sched.h")
-  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
-  check_type_size("struct sched_param" STRUCT_SCHED_PARAM)
-else ()
-  set(HAVE_STRUCT_SCHED_PARAM "" CACHE INTERNAL "")
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+check_type_size("struct sched_param" STRUCT_SCHED_PARAM)
 
 set(LIBCFUNK_DECLARE_SCHED_YIELD "0" CACHE INTERNAL "")
 

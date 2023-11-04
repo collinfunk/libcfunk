@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wctype-h.cmake)
 
 if (HAVE_WCTYPE_H)
   check_symbol_exists("iswalnum" "wctype.h" HAVE_ISWALNUM)
-else ()
-  set(HAVE_ISWALNUM "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISWALNUM "1" CACHE INTERNAL "")

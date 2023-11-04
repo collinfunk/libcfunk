@@ -11,18 +11,11 @@ if (HAVE_LANGINFO_H)
   check_symbol_exists("nl_langinfo" "langinfo.h" HAVE_NL_LANGINFO)
   if (HAVE_NL_LANGINFO)
     check_symbol_exists("CODESET" "langinfo.h" HAVE_NL_LANGINFO_CODESET)
-  else ()
-    set(HAVE_NL_LANGINFO_CODESET "" CACHE INTERNAL "")
   endif ()
-else ()
-  set(HAVE_NL_LANGINFO "" CACHE INTERNAL "")
-  set(HAVE_NL_LANGINFO_CODESET "" CACHE INTERNAL "")
 endif ()
 
 if (HAVE_LOCALE_H)
   check_symbol_exists("setlocale" "locale.h" HAVE_SETLOCALE)
-else ()
-  set(HAVE_SETLOCALE "" CACHE INTERNAL "")
 endif ()
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

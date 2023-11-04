@@ -7,19 +7,22 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
 set(LIBCFUNK_GENERATE_UCHAR_H "1" CACHE INTERNAL "")
 
 check_include_file("uchar.h" HAVE_UCHAR_H)
+check_include_file("wchar.h" HAVE_WCHAR_H)
 
-# Check for types.
+if (HAVE_WCHAR_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "wchar.h")
+endif ()
+
 if (HAVE_UCHAR_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "uchar.h")
-  check_type_size("char8_t" CHAR8_T)
-  check_type_size("char16_t" CHAR16_T)
-  check_type_size("char32_t" CHAR32_T)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "uchar.h")
-else ()
-  set(HAVE_CHAR8_T "" CACHE INTERNAL "")
-  set(HAVE_CHAR16_T "" CACHE INTERNAL "")
-  set(HAVE_CHAR32_T "" CACHE INTERNAL "")
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+# Check for types.
+check_type_size("char8_t" CHAR8_T)
+check_type_size("char16_t" CHAR16_T)
+check_type_size("char32_t" CHAR32_T)
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-uchar-h.cmake)

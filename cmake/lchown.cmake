@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("lchown" "unistd.h" HAVE_LCHOWN)
-else ()
-  set(HAVE_LCHOWN "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_LCHOWN "1" CACHE INTERNAL "")

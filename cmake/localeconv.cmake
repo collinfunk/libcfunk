@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 
 if (HAVE_LOCALE_H)
   check_symbol_exists("localeconv" "locale.h" HAVE_LOCALECONV)
-else ()
-  set(HAVE_LOCALECONV "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_LOCALECONV "1" CACHE INTERNAL "")

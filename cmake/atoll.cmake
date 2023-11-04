@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/strtoll.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("atoll" "stdlib.h" HAVE_ATOLL)
-else ()
-  set(HAVE_ATOLL "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ATOLL "1" CACHE INTERNAL "")

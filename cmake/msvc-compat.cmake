@@ -7,14 +7,10 @@ check_include_file("stdlib.h" HAVE_STDLIB_H)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("_set_invalid_parameter_handler" "stdlib.h" HAVE__SET_INVALID_PARAMETER_HANDLER)
-else ()
-  set(HAVE__SET_INVALID_PARAMETER_HANDLER "" CACHE INTERNAL "")
 endif ()
 
 if (HAVE_CRTDBG_H)
   check_symbol_exists("_CrtSetReportMode" "crtdbg.h" HAVE__CRTSETREPORTMODE)
-else ()
-  set(HAVE__CRTSETREPORTMODE "" CACHE INTERNAL "")
 endif ()
 
 if (HAVE__SET_INVALID_PARAMETER_HANDLER)

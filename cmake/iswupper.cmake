@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wctype-h.cmake)
 
 if (HAVE_WCTYPE_H)
   check_symbol_exists("iswupper" "wctype.h" HAVE_ISWUPPER)
-else ()
-  set(HAVE_ISWUPPER "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISWUPPER "1" CACHE INTERNAL "")

@@ -1,11 +1,10 @@
+
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("explicit_bzero" "string.h" HAVE_EXPLICIT_BZERO)
-else ()
-  set(HAVE_EXPLICIT_BZERO "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_EXPLICIT_BZERO "1" CACHE INTERNAL "")

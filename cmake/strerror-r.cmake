@@ -7,10 +7,6 @@ if (HAVE_STRING_H)
   check_symbol_exists("strerror_s" "string.h" HAVE_STRERROR_S)
   # GNU libc hides this pretty well in string.h, just check we can link.
   check_function_exists("__xpg_strerror_r" HAVE___XPG_STRERROR_R)
-else ()
-  set(HAVE_STRERROR_R "" CACHE INTERNAL "")
-  set(HAVE_STRERROR_S "" CACHE INTERNAL "")
-  set(HAVE___XPG_STRERROR_R "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_STRERROR_R "1" CACHE INTERNAL "")

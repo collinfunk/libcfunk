@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/iswprint.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists("wcwidth" "wchar.h" HAVE_WCWIDTH)
-else ()
-  set(HAVE_WCWIDTH "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_WCWIDTH "1" CACHE INTERNAL "")

@@ -8,8 +8,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wmemset.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists("wcpncpy" "wchar.h" HAVE_WCPNCPY)
-else ()
-  set(HAVE_WCPNCPY "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_WCPNCPY "1" CACHE INTERNAL "")

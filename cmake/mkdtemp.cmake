@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/mkdir.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("mkdtemp" "stdlib.h" HAVE_MKDTEMP)
-else ()
-  set (HAVE_MKDTEMP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_MKDTEMP "1" CACHE INTERNAL "")

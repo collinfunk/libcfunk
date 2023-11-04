@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("wcstombs" "stdlib.h" HAVE_WCSTOMBS)
-else ()
-  set(HAVE_WCSTOMBS "" CACHE INTERNAL "")
 endif ()
 
 if (NOT HAVE_WCSTOMBS)

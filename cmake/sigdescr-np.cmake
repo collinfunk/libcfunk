@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/signal-h.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("sigdescr_np" "string.h" HAVE_SIGDESCR_NP)
-else ()
-  set(HAVE_SIGDESCR_NP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_SIGDESCR_NP "1" CACHE INTERNAL "")

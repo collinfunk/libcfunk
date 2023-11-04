@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
 
 if (HAVE_CTYPE_H)
   check_symbol_exists("isascii" "ctype.h" HAVE_ISASCII)
-else ()
-  set(HAVE_ISASCII "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISASCII "1" CACHE INTERNAL "")

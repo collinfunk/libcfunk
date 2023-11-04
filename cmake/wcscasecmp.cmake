@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/towlower.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists("wcscasecmp" "wchar.h" HAVE_WCSCASECMP)
-else ()
-  set(HAVE_WCSCASECMP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_WCSCASECMP "1" CACHE INTERNAL "")

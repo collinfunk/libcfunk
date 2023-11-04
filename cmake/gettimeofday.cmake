@@ -7,8 +7,6 @@ check_include_file("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_SYS_TIME_H)
   check_symbol_exists("gettimeofday" "sys/time.h" HAVE_GETTIMEOFDAY)
-else ()
-  set(HAVE_GETTIMEOFDAY "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETTIMEOFDAY "1" CACHE INTERNAL "")

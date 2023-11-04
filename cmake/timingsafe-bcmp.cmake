@@ -1,11 +1,10 @@
+
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("timingsafe_bcmp" "string.h" HAVE_TIMINGSAFE_BCMP)
-else ()
-  set(HAVE_TIMINGSAFE_BCMP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_TIMINGSAFE_BCMP "1" CACHE INTERNAL "")
@@ -19,3 +18,4 @@ endif ()
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-timingsafe-bcmp.cmake)
 endif ()
+

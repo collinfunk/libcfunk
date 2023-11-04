@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-ext-h.cmake)
 
 if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__fwritable" "stdio_ext.h" HAVE___FWRITABLE)
-else ()
-  set(HAVE___FWRITABLE "0" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE___FWRITABLE "1" CACHE INTERNAL "")

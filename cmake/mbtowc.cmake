@@ -8,8 +8,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/memset.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("mbtowc" "stdlib.h" HAVE_MBTOWC)
-else ()
-  set(HAVE_MBTOWC "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_MBTOWC "1" CACHE INTERNAL "")

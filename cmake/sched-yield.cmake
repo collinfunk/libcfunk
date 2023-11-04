@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sched-h.cmake)
 
 if (HAVE_SCHED_H)
   check_symbol_exists("sched_yield" "sched.h" HAVE_SCHED_YIELD)
-else ()
-  set(HAVE_SCHED_YIELD "" CACHE INTERNAL "")
 endif ()
 
 check_include_file("windows.h" HAVE_WINDOWS_H)

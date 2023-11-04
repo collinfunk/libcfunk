@@ -7,8 +7,6 @@ check_include_file("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_FCNTL_H)
   check_symbol_exists("fcntl" "fcntl.h" HAVE_FCNTL)
-else ()
-  set(HAVE_FCNTL "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_FCNTL "1" CACHE INTERNAL "")

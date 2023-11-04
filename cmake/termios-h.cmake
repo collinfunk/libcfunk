@@ -10,29 +10,17 @@ set(LIBCFUNK_GENERATE_TERMIOS_H "1" CACHE INTERNAL "")
 check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
 check_include_file("termios.h" HAVE_TERMIOS_H)
 
-if (HAVE_SYS_TYPES_H)
-  list(APPEND TERMIOS_INCLUDES "sys/types.h")
-endif ()
-
 if (HAVE_SYS_IOCTL_H)
-  list(APPEND TERMIOS_INCLUDES "sys/ioctl.h")
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/ioctl.h")
 endif ()
 
 if (HAVE_TERMIOS_H)
-  list(APPEND TERMIOS_INCLUDES "termios.h")
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "termios.h")
 endif ()
 
-foreach (header ${TERMIOS_INCLUDES})
-  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "${header}")
-endforeach ()
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 
 check_type_size("struct termios" STRUCT_TERMIOS)
-
-foreach (header ${TERMIOS_INCLUDES})
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "${header}")
-endforeach ()
-
-unset(TERMIOS_INCLUDES)
 
 set(LIBCFUNK_DECLARE_TCGETSID "0" CACHE INTERNAL "")
 

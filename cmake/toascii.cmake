@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
 
 if (HAVE_CTYPE_H)
   check_symbol_exists("toascii" "ctype.h" HAVE_TOASCII)
-else ()
-  set(HAVE_TOASCII "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_TOASCII "1" CACHE INTERNAL "")

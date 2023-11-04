@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/mbrtowc.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists("mbrlen" "wchar.h" HAVE_MBRLEN)
-else ()
-  set(HAVE_MBRLEN "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_MBRLEN "1" CACHE INTERNAL "")

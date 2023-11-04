@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wctype-h.cmake)
 
 if (HAVE_WCTYPE_H)
   check_symbol_exists("iswblank" "wctype.h" HAVE_ISWBLANK)
-else ()
-  set(HAVE_ISWBLANK "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISWBLANK "1" CACHE INTERNAL "")

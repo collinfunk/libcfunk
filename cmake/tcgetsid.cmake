@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-ioctl-h.cmake)
 
 if (HAVE_TERMIOS_H)
   check_symbol_exists("tcgetsid" "termios.h" HAVE_TCGETSID)
-else ()
-  set(HAVE_TCGETSID "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_TCGETSID "1" CACHE INTERNAL "")

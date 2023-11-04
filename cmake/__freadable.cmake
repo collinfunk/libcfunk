@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-ext-h.cmake)
 
 if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__freadable" "stdio_ext.h" HAVE___FREADABLE)
-else ()
-  set(HAVE___FREADABLE "0" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE___FREADABLE "1" CACHE INTERNAL "")

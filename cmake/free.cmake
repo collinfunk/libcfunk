@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("free" "stdlib.h" HAVE_FREE)
-else ()
-  set(HAVE_FREE "" CACHE INTERNAL "")
 endif ()
 
 # Should never happen.

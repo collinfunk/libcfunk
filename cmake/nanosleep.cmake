@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
 
 if (HAVE_TIME_H)
   check_symbol_exists("nanosleep" "time.h" HAVE_NANOSLEEP)
-else ()
-  set(HAVE_NANOSLEEP "" CACHE INTERNAL "")
 endif ()
 
 check_include_file("windows.h" HAVE_WINDOWS_H)

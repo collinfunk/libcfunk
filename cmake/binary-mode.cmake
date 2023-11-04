@@ -13,9 +13,6 @@ check_include_file("io.h" HAVE_IO_H)
 if (HAVE_IO_H)
   check_symbol_exists("setmode" "io.h" HAVE_SETMODE)
   check_symbol_exists("_setmode" "io.h" HAVE__SETMODE)
-else ()
-  set(HAVE_SETMODE "" CACHE INTERNAL "")
-  set(HAVE__SETMODE "" CACHE INTERNAL "")
 endif ()
 
 target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE

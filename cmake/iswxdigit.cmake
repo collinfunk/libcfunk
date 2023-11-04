@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wctype-h.cmake)
 
 if (HAVE_WCTYPE_H)
   check_symbol_exists("iswxdigit" "wctype.h" HAVE_ISWXDIGIT)
-else ()
-  set(HAVE_ISWXDIGIT "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISWXDIGIT "1" CACHE INTERNAL "")

@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/signal-h.cmake)
 
 if (HAVE_SIGNAL_H)
   check_symbol_exists("sigdelset" "signal.h" HAVE_SIGDELSET)
-else ()
-  set(HAVE_SIGDELSET "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_SIGDELSET "1" CACHE INTERNAL "")

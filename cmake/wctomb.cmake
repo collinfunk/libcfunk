@@ -8,8 +8,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/memset.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("wctomb" "stdlib.h" HAVE_WCTOMB)
-else ()
-  set(HAVE_WCTOMB "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_WCTOMB "1" CACHE INTERNAL "")

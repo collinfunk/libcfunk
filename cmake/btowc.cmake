@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wchar-h.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists("btowc" "wchar.h" HAVE_BTOWC)
-else ()
-  set(HAVE_BTOWC "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_BTOWC "1" CACHE INTERNAL "")

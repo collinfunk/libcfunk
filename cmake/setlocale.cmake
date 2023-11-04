@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/locale-h.cmake)
 
 if (HAVE_LOCALE_H)
   check_symbol_exists("setlocale" "locale.h" HAVE_SETLOCALE)
-else ()
-  set(HAVE_SETLOCALE "" CACHE INTERNAL "")
 endif ()
 
 if (NOT HAVE_SETLOCALE)

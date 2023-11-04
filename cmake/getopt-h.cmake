@@ -27,8 +27,6 @@ if (HAVE_GETOPT_H OR HAVE_STDLIB_H OR HAVE_UNISTD_H)
   check_symbol_exists("optind" "${GETOPT_INCLUDES}" HAVE_OPTIND)
   check_symbol_exists("optopt" "${GETOPT_INCLUDES}" HAVE_OPTOPT)
   unset(GETOPT_INCLUDES)
-else ()
-  set(HAVE_STRUCT_OPTION "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETOPT "0" CACHE INTERNAL "")

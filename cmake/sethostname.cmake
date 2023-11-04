@@ -1,4 +1,3 @@
-# TODO
 
 include_guard(GLOBAL)
 
@@ -6,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("sethostname" "unistd.h" HAVE_SETHOSTNAME)
-else ()
-  set(HAVE_SETHOSTNAME "" CACHE INTERNAL "")
 endif ()
 
 check_include_file("windows.h" HAVE_WINDOWS_H)

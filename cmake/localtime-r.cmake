@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
 
 if (HAVE_TIME_H)
   check_symbol_exists("localtime_r" "time.h" HAVE_LOCALTIME_R)
-else ()
-  set(HAVE_LOCALTIME_R "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_LOCALTIME_R "1" CACHE INTERNAL "")

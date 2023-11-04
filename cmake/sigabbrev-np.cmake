@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/signal-h.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("sigabbrev_np" "string.h" HAVE_SIGABBREV_NP)
-else ()
-  set(HAVE_SIGABBREV_NP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_SIGABBREV_NP "1" CACHE INTERNAL "")

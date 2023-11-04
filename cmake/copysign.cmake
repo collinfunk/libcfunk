@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/math-h.cmake)
 
 if (HAVE_MATH_H)
   check_symbol_exists("copysign" "math.h" HAVE_COPYSIGN)
-else ()
-  set(HAVE_COPYSIGN "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_COPYSIGN "1" CACHE INTERNAL "")

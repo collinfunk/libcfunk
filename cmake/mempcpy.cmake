@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/memcpy.cmake)
 
 if (HAVE_STRING_H)
   check_symbol_exists("mempcpy" "string.h" HAVE_MEMPCPY)
-else ()
-  set(HAVE_MEMPCPY "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_MEMPCPY "1" CACHE INTERNAL "")

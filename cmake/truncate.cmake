@@ -8,8 +8,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/ftruncate.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("truncate" "unistd.h" HAVE_TRUNCATE)
-else ()
-  set(HAVE_TRUNCATE "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_TRUNCATE "1" CACHE INTERNAL "")

@@ -9,18 +9,16 @@ check_include_file("time.h" HAVE_TIME_H)
 
 if (HAVE_SYS_TIME_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/time.h")
-  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 endif ()
 
 if (HAVE_TIME_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "time.h")
-  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
-  check_type_size("struct timespec" STRUCT_TIMESPEC)
-  check_type_size("struct itimerspec" STRUCT_ITIMERSPEC)
-else ()
-  set(HAVE_STRUCT_TIMESPEC "" CACHE INTERNAL "")
-  set(HAVE_STRUCT_ITIMERSPEC "" CACHE INTERNAL "")
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+check_type_size("struct timespec" STRUCT_TIMESPEC)
+check_type_size("struct itimerspec" STRUCT_ITIMERSPEC)
 
 # Only show prototypes for checked functions.
 set(LIBCFUNK_DECLARE_DYSIZE "0" CACHE INTERNAL "")

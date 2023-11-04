@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("fchdir" "unistd.h" HAVE_FCHDIR)
-else ()
-  set(HAVE_FCHDIR "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_FCHDIR "1" CACHE INTERNAL "")

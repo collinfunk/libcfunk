@@ -1,11 +1,10 @@
+
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("getpagesize" "unistd.h" HAVE_GETPAGESIZE)
-else ()
-  set(HAVE_GETPAGESIZE "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETPAGESIZE "1" CACHE INTERNAL "")

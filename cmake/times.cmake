@@ -4,13 +4,11 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-times-h.cmake)
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
+
 if (HAVE_SYS_TIMES_H)
   check_symbol_exists("times" "sys/times.h" HAVE_TIMES)
-else ()
-  set(HAVE_TIMES "" CACHE INTERNAL "")
 endif ()
-
-check_include_file("windows.h" HAVE_WINDOWS_H)
 
 set(LIBCFUNK_DECLARE_TIMES "1" CACHE INTERNAL "")
 

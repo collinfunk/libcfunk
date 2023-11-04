@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/strings-h.cmake)
 
 if (HAVE_STRINGS_H)
   check_symbol_exists("bcmp" "strings.h" HAVE_BCMP)
-else ()
-  set (HAVE_BCMP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_BCMP "1" CACHE INTERNAL "")

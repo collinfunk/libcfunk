@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
 
 if (HAVE_CTYPE_H)
   check_symbol_exists("isgraph" "ctype.h" HAVE_ISGRAPH)
-else ()
-  set(HAVE_ISGRAPH "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISGRAPH "1" CACHE INTERNAL "")

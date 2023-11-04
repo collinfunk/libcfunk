@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/inttypes-h.cmake)
 
 if (HAVE_INTTYPES_H)
   check_symbol_exists("imaxdiv" "inttypes.h" HAVE_IMAXDIV)
-else ()
-  set(HAVE_IMAXDIV "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_IMAXDIV "1" CACHE INTERNAL "")

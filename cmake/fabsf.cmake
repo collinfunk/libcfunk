@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/math-h.cmake)
 
 if (HAVE_MATH_H)
   check_symbol_exists("fabsf" "math.h" HAVE_FABSF)
-else ()
-  set(HAVE_FABSF "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_FABSF "1" CACHE INTERNAL "")

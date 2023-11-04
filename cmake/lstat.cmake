@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-stat-h.cmake)
 
 if (HAVE_SYS_STAT_H)
   check_symbol_exists("lstat" "sys/stat.h" HAVE_LSTAT)
-else ()
-  set(HAVE_LSTAT "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_LSTAT "1" CACHE INTERNAL "")

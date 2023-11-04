@@ -3,13 +3,11 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
+
 if (HAVE_UNISTD_H)
   check_symbol_exists("sleep" "unistd.h" HAVE_SLEEP)
-else ()
-  set(HAVE_SLEEP "" CACHE INTERNAL "")
 endif ()
-
-check_include_file("windows.h" HAVE_WINDOWS_H)
 
 set(LIBCFUNK_DECLARE_SLEEP "1" CACHE INTERNAL "")
 

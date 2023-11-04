@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-resource-h.cmake)
 
 if (HAVE_SYS_RESOURCE_H)
   check_symbol_exists("getrusage" "sys/resource.h" HAVE_GETRUSAGE)
-else ()
-  set(HAVE_GETRUSAGE "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETRUSAGE "1" CACHE INTERNAL "")

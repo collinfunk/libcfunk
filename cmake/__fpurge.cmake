@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-ext-h.cmake)
 
 if (HAVE_STDIO_EXT_H)
   check_symbol_exists("__fpurge" "stdio_ext.h" HAVE___FPURGE)
-else ()
-  set(HAVE___FPURGE "0" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE___FPURGE "1" CACHE INTERNAL "")

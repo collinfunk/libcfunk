@@ -9,8 +9,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/euidaccess.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("execvpe" "unistd.h" HAVE_EXECVPE)
-else ()
-  set(HAVE_EXECVPE "" CACHE INTERAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_EXECVPE "1" CACHE INTERNAL "")

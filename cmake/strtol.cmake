@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("strtol" "stdlib.h" HAVE_STRTOL)
-else ()
-  set (HAVE_STRTOL "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_STRTOL "1" CACHE INTERNAL "")

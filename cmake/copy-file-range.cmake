@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("copy_file_range" "unistd.h" HAVE_COPY_FILE_RANGE)
-else ()
-  set(HAVE_COPY_FILE_RANGE "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_COPY_FILE_RANGE "1" CACHE INTERNAL "")

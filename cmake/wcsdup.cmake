@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wchar-h.cmake)
 
 if (HAVE_WCHAR_H)
   check_symbol_exists(wcsdup "wchar.h" HAVE_WCSDUP)
-else ()
-  set(HAVE_WCSDUP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_WCSDUP "1" CACHE INTERNAL "")

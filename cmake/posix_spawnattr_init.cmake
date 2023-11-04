@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/memset.cmake)
 
 if (HAVE_SPAWN_H)
   check_symbol_exists("posix_spawnattr_init" "spawn.h" HAVE_POSIX_SPAWNATTR_INIT)
-else ()
-  set(HAVE_POSIX_SPAWNATTR_INIT "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_POSIX_SPAWNATTR_INIT "1" CACHE INTERNAL "")

@@ -8,8 +8,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("realloc" "stdlib.h" HAVE_REALLOC)
-else ()
-  set(HAVE_REALLOC "" CACHE INTERNAL "")
 endif ()
 
 # Should never happen.

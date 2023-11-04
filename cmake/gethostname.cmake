@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 # Check for a declaration of gethostname in unistd.h
 if (HAVE_UNISTD_H)
   check_symbol_exists("gethostname" "unistd.h" HAVE_GETHOSTNAME)
-else ()
-  set(HAVE_GETHOSTNAME "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETHOSTNAME "1" CACHE INTERNAL "")

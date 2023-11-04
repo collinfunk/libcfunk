@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("getlogin" "unistd.h" HAVE_GETLOGIN)
-else ()
-  set(HAVE_GETLOGIN "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_GETLOGIN "1" CACHE INTERNAL "")

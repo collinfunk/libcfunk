@@ -4,9 +4,7 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/wchar-h.cmake)
 
 if (HAVE_WCHAR_H)
-  check_symbol_exists(wcscspn "wchar.h" HAVE_WCSCSPN)
-else ()
-  set(HAVE_WCSCSPN "" CACHE INTERNAL "")
+  check_symbol_exists("wcscspn" "wchar.h" HAVE_WCSCSPN)
 endif ()
 
 set(LIBCFUNK_DECLARE_WCSCSPN "1" CACHE INTERNAL "")

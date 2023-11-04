@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/ctype-h.cmake)
 
 if (HAVE_CTYPE_H)
   check_symbol_exists("islower" "ctype.h" HAVE_ISLOWER)
-else ()
-  set(HAVE_ISLOWER "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISLOWER "1" CACHE INTERNAL "")

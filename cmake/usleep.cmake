@@ -8,8 +8,6 @@ check_include_file("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("usleep" "unistd.h" HAVE_USLEEP)
-else ()
-  set(HAVE_USLEEP "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_USLEEP "1" CACHE INTERNAL "")

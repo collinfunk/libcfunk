@@ -6,9 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 if (HAVE_UNISTD_H)
   check_symbol_exists("getcwd" "unistd.h" HAVE_GETCWD)
   check_symbol_exists("_getcwd" "unistd.h" HAVE__GETCWD)
-else ()
-  set(HAVE_GETCWD "" CACHE INTERNAL "")
-  set(HAVE__GETCWD "" CACHE INTERNAL "")
 endif ()
 
 # This might be possible on old systems.

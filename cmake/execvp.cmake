@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/execvpe.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("execvp" "unistd.h" HAVE_EXECVP)
-else ()
-  set(HAVE_EXECVP "" CACHE INTERAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_EXECVP "1" CACHE INTERNAL "")

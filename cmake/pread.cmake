@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/lseek.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("pread" "unistd.h" HAVE_PREAD)
-else ()
-  set(HAVE_PREAD "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_PREAD "1" CACHE INTERNAL "")

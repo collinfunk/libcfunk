@@ -11,12 +11,6 @@ if (HAVE_ERROR_H)
   check_symbol_exists("error_print_progname" "error.h" HAVE_ERROR_PRINT_PROGNAME)
   check_symbol_exists("error" "error.h" HAVE_ERROR)
   check_symbol_exists("error_at_line" "error.h" HAVE_ERROR_AT_LINE)
-else ()
-  set(HAVE_ERROR_MESSAGE_COUNT CACHE INTERNAL "")
-  set(HAVE_ERROR_ONE_PER_LINE "" CACHE INTERNAL "")
-  set(HAVE_ERROR_PRINT_PROGNAME "" CACHE INTERNAL "")
-  set(HAVE_ERROR "" CACHE INTERNAL "")
-  set(HAVE_ERROR_AT_LINE "" CACHE INTERNAL "")
 endif ()
 
 if (NOT HAVE_ERROR_MESSAGE_COUNT OR NOT HAVE_ERROR_ONE_PER_LINE

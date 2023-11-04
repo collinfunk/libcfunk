@@ -8,8 +8,6 @@ check_include_file("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("ftruncate" "unistd.h" HAVE_FTRUNCATE)
-else ()
-  set(HAVE_FTRUNCATE "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_FTRUNCATE "1" CACHE INTERNAL "")

@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("div" "stdlib.h" HAVE_DIV)
-else ()
-  set(HAVE_DIV "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_DIV "1" CACHE INTERNAL "")

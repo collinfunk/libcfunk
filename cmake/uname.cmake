@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-utsname-h.cmake)
 
 if (HAVE_SYS_UTSNAME_H)
   check_symbol_exists("uname" "sys/utsname.h" HAVE_UNAME)
-else ()
-  set(HAVE_UNAME "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_UNAME "1" CACHE INTERNAL "")

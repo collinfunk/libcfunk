@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wctype-h.cmake)
 
 if (HAVE_WCTYPE_H)
   check_symbol_exists("iswlower" "wctype.h" HAVE_ISWLOWER)
-else ()
-  set(HAVE_ISWLOWER "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_ISWLOWER "1" CACHE INTERNAL "")

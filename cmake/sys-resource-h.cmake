@@ -11,15 +11,13 @@ check_include_file("sys/resource.h" HAVE_SYS_RESOURCE_H)
 
 if (HAVE_SYS_RESOURCE_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/resource.h")
-  check_type_size("rlim_t" RLIM_T)
-  check_type_size("struct rlimit" STRUCT_RLIMIT)
-  check_type_size("struct rusage" STRUCT_RUSAGE)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "sys/resource.h")
-else ()
-  set(HAVE_RLIM_T "" CACHE INTERNAL "")
-  set(HAVE_STRUCT_RLIMIT "" CACHE INTERNAL "")
-  set(HAVE_STRUCT_RUSAGE "" CACHE INTERNAL "")
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+check_type_size("rlim_t" RLIM_T)
+check_type_size("struct rlimit" STRUCT_RLIMIT)
+check_type_size("struct rusage" STRUCT_RUSAGE)
 
 set(LIBCFUNK_DECLARE_GETRUSAGE "0" CACHE INTERNAL "")
 

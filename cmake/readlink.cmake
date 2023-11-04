@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("readlink" "unistd.h" HAVE_READLINK)
-else ()
-  set(HAVE_READLINK "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_READLINK "1" CACHE INTERNAL "")

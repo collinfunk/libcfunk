@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("symlink" "unistd.h" HAVE_SYMLINK)
-else ()
-  set(HAVE_SYMLINK "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_SYMLINK "1" CACHE INTERNAL "")

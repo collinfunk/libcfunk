@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("secure_getenv" "stdlib.h" HAVE_SECURE_GETENV)
-else ()
-  set (HAVE_SECURE_GETENV "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_SECURE_GETENV "1" CACHE INTERNAL "")

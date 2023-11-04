@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/wctype-h.cmake)
 
 if (HAVE_WCTYPE_H)
   check_symbol_exists("towlower" "wctype.h" HAVE_TOWLOWER)
-else ()
-  set(HAVE_TOWLOWER "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_TOWLOWER "1" CACHE INTERNAL "")

@@ -5,8 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/signal-h.cmake)
 
 if (HAVE_SIGNAL_H)
   check_symbol_exists("sigismember" "signal.h" HAVE_SIGISMEMBER)
-else ()
-  set(HAVE_SIGISMEMBER "" CACHE INTERNAL "")
 endif ()
 
 set(LIBCFUNK_DECLARE_SIGISMEMBER "1" CACHE INTERNAL "")

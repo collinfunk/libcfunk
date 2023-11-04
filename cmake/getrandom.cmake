@@ -6,8 +6,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
 
 if (HAVE_SYS_RANDOM_H)
   check_symbol_exists("getrandom" "sys/random.h" HAVE_GETRANDOM)
-else ()
-  set (HAVE_GETRANDOM "" CACHE INTERNAL "")
 endif ()
 
 if (NOT HAVE_GETRANDOM)

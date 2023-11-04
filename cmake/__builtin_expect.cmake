@@ -5,8 +5,6 @@ check_include_file("builtins.h" HAVE_BUILTINS_H)
 
 if (HAVE_BUILTINS_H)
   set(BUILTIN_EXPECT_INCLUDES "#include <builtins.h>")
-else ()
-  set(BUILTIN_EXPECT_INCLUDES "")
 endif ()
 
 check_c_source_compiles("
