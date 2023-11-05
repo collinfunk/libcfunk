@@ -3,14 +3,21 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
 
-# This is implemented in a system call on most operating systems
-# and provided by glibc in <sys/random.h>. Check unistd.h and sys/random.h.
-check_symbol_exists("getentropy" "unistd.h;sys/random.h" HAVE_GETENTROPY)
+if (HAVE_UNISTD_H OR HAVE_SYS_RANDOM_H)
+  set(GETENTROPY_INCLUDES "")
+  if (HAVE_UNISTD_H)
+    list(APPEND GETENTROPY_INCLUDES "unistd.h")
+  endif ()
+  if (HAVE_SYS_RANDOM_H)
+    list(APPEND GETENTROPY_INCLUDES "sys/random.h")
+  endif ()
+  check_symbol_exists("getentropy" "${GETRANDOM_INCLUDES}" HAVE_GETENTROPY)
+  unset(GETENTROPY_INCLUDES)
+endif ()
 
 set(LIBCFUNK_DECLARE_GETENTROPY "1" CACHE STRING "")
 
-# Provided a replacement function using getrandom
-if (NOT HAVE_GETENTROPY)
+if (NOT HAVE_GETENTROPY OR LIBCFUNK_REPLACE_GETENTROPY)
   include($CACHE{LIBCFUNK_MODULE_DIR}/getrandom.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/getentropy.c

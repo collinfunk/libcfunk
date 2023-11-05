@@ -26,17 +26,19 @@
 #ifndef COMPAT_SYS_RANDOM_H
 #define COMPAT_SYS_RANDOM_H
 
-#include <sys/types.h>
-
-/* For systems where getentropy(2) is a system call. */
-#include <unistd.h>
-
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
 #if @HAVE_SYS_RANDOM_H@
 #  include_next <sys/random.h>
+#endif
+
+#include <sys/types.h>
+
+/* For systems where getentropy(2) is a system call. */
+#if @HAVE_UNISTD_H@
+#  include <unistd.h>
 #endif
 
 #ifndef GRND_NONBLOCK
@@ -52,13 +54,22 @@
 #endif
 
 #if @LIBCFUNK_DECLARE_GETRANDOM@
-#  if !@HAVE_GETRANDOM@
+#  if @LIBCFUNK_REPLACE_GETRANDOM@
+#    undef getrandom
+#    define getrandom _libcfunk_getrandom
+extern ssize_t _libcfunk_getrandom (void *buffer, size_t length,
+                                    unsigned int flags);
+#  elif !@HAVE_GETRANDOM@
 extern ssize_t getrandom (void *buffer, size_t length, unsigned int flags);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_GETENTROPY@
-#  if !@HAVE_GETENTROPY@
+#  if @LIBCFUNK_REPLACE_GETENTROPY@
+#    undef getentropy
+#    define getentropy _libcfunk_getentropy
+extern int _libcfunk_getentropy (void *buffer, size_t length);
+#  elif !@HAVE_GETENTROPY@
 extern int getentropy (void *buffer, size_t length);
 #  endif
 #endif

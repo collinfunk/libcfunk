@@ -4,8 +4,16 @@ include_guard(GLOBAL)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/fcntl-h.cmake)
 
-if (HAVE_SYS_RANDOM_H)
-  check_symbol_exists("getrandom" "sys/random.h" HAVE_GETRANDOM)
+if (HAVE_UNISTD_H OR HAVE_SYS_RANDOM_H)
+  set(GETRANDOM_INCLUDES "")
+  if (HAVE_UNISTD_H)
+    list(APPEND GETRANDOM_INCLUDES "unistd.h")
+  endif ()
+  if (HAVE_SYS_RANDOM_H)
+    list(APPEND GETRANDOM_INCLUDES "sys/random.h")
+  endif ()
+  check_symbol_exists("getrandom" "${GETRANDOM_INCLUDES}" HAVE_GETRANDOM)
+  unset(GETRANDOM_INCLUDES)
 endif ()
 
 if (NOT HAVE_GETRANDOM)
@@ -23,7 +31,7 @@ endif ()
 
 set(LIBCFUNK_DECLARE_GETRANDOM "1" CACHE STRING "")
 
-if (NOT HAVE_GETRANDOM)
+if (NOT HAVE_GETRANDOM OR LIBCFUNK_REPLACE_GETRANDOM)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/getrandom.c
   )

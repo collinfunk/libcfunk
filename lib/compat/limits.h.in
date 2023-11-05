@@ -31,7 +31,7 @@
 #endif
 
 #if @HAVE_LIMITS_H@
-//#  include_next <limits.h>
+#  include_next <limits.h>
 #endif
 
 #ifndef CHAR_BIT
