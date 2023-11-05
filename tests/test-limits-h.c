@@ -34,6 +34,7 @@
 
 #define TYPE_MAX_SIGNED(type)                                                 \
   ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1)
+
 #define TYPE_MIN_SIGNED(type) (~TYPE_MAX_SIGNED (type))
 
 static void test_sane_widths (void);

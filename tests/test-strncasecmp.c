@@ -25,67 +25,28 @@
 
 #include <config.h>
 
-#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include <strings.h>
 
-#if HAVE_SYS_UTSNAME_H
-#  include <sys/utsname.h>
-#endif
-
-#if LIBCFUNK_REPLACE_GETHOSTNAME
+#include "test-help.h"
 
 int
-gethostname (char *name, size_t name_len)
-#  undef gethostname
+main (void)
 {
-  /* Windows uses int and not size_t. */
-  if (name_len > INT_MAX)
-    {
-      errno = EINVAL;
-      return -1;
-    }
-
-  return gethostname (name, (int) name_len);
-}
-
-#elif HAVE_UNAME
-
-int
-gethostname (char *name, size_t name_len)
-{
-  struct utsname buffer;
-
-  if (name_len < 0 || uname (&buffer) < 0)
-    return -1;
-
-  if (name_len > sizeof (buffer.nodename))
-    strcpy (name, buffer.nodename);
-  else
-    {
-      size_t nodename_len = strlen (buffer.nodename);
-      if (nodename_len + 1 <= name_len)
-        memcpy (name, buffer.nodename, nodename_len + 1);
-      else
-        {
-          memcpy (name, buffer.nodename, name_len);
-          name[name_len - 1] = '\0';
-          return -1;
-        }
-    }
-
+  ASSERT (strncasecmp ("hello", "hello", 1) == 0);
+  ASSERT (strncasecmp ("Hello", "hello", 100) == 0);
+  ASSERT (strncasecmp ("hello", "Hello", 10000) == 0);
+  ASSERT (strncasecmp ("HEllo", "heLLO", 1000000) == 0);
+  ASSERT (strncasecmp ("heLLO", "HEllo", 100000000) == 0);
+  ASSERT (strncasecmp ("hello1", "hello2", 5) == 0);
+  ASSERT (strncasecmp ("hello2", "hello1", 5) == 0);
+  ASSERT (strncasecmp ("Hello1", "hello2", 5) == 0);
+  ASSERT (strncasecmp ("hello2", "Hello1", 5) == 0);
+  ASSERT (strncasecmp ("hello1", "hello2", 6) < 0);
+  ASSERT (strncasecmp ("hello2", "hello1", 6) > 0);
+  ASSERT (strncasecmp ("Hello1", "hello2", 6) < 0);
+  ASSERT (strncasecmp ("hello2", "Hello1", 6) > 0);
   return 0;
 }
-
-#else /* Unlucky */
-
-int
-gethostname (char *name, size_t name_len)
-{
-  if (name != NULL)
-    *name = '\0';
-  errno = ENOSYS;
-  return -1;
-}
-
-#endif

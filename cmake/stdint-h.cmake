@@ -11,8 +11,9 @@ check_include_file("inttypes.h" HAVE_INTTYPES_H)
 
 if (HAVE_INTTYPES_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "inttypes.h")
-  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 
 # Signed exact-width integer types.
 check_type_size("int8_t" INT8_T)
@@ -60,6 +61,16 @@ check_type_size("uintmax_t" UINTMAX_T)
 
 # Needed for size_t.
 check_type_size("size_t" SIZE_T)
+
+set(INT8_WIDTH "8" CACHE STRING "")
+set(INT16_WIDTH "16" CACHE STRING "")
+set(INT32_WIDTH "32" CACHE STRING "")
+set(INT64_WIDTH "64" CACHE STRING "")
+
+set(UINT8_WIDTH "${INT8_WIDTH}" CACHE STRING "")
+set(UINT16_WIDTH "${INT16_WIDTH}" CACHE STRING "")
+set(UINT32_WIDTH "${INT32_WIDTH}" CACHE STRING "")
+set(UINT64_WIDTH "${INT64_WIDTH}" CACHE STRING "")
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-stdint-h.cmake)

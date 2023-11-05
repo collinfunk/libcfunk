@@ -100,19 +100,31 @@ extern int ffsll (long long int value);
 #endif
 
 #if @LIBCFUNK_DECLARE_FLS@
-#  if !@HAVE_FLS@
+#  if @LIBCFUNK_REPLACE_FLS@
+#    undef fls
+#    define fls _libcfunk_fls
+extern int _libcfunk_fls (int value);
+#  elif !@HAVE_FLS@
 extern int fls (int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FLSL@
-#  if !@HAVE_FLSL@
+#  if @LIBCFUNK_REPLACE_FLSL@
+#    undef flsl
+#    define flsl _libcfunk_flsl
+extern int _libcfunk_flsl (long int value);
+#  elif !@HAVE_FLSL@
 extern int flsl (long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FLSLL@
-#  if !@HAVE_FLSLL@
+#  if @LIBCFUNK_REPLACE_FLSLL@
+#    undef flsll
+#    define flsll _libcfunk_flsll
+extern int _libcfunk_flsll (long long int value);
+#  elif !@HAVE_FLSLL@
 extern int flsll (long long int value);
 #  endif
 #endif
@@ -128,19 +140,31 @@ extern char *index (const char *s, int c);
 #endif
 
 #if @LIBCFUNK_DECLARE_POPCOUNT@
-#  if !@HAVE_POPCOUNT@
+#  if @LIBCFUNK_REPLACE_POPCOUNT@
+#    undef popcount
+#    define popcount _libcfunk_popcount
+extern unsigned int _libcfunk_popcount (unsigned int value);
+#  elif !@HAVE_POPCOUNT@
 extern unsigned int popcount (unsigned int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POPCOUNTL@
-#  if !@HAVE_POPCOUNTL@
+#  if @LIBCFUNK_REPLACE_POPCOUNTL@
+#    undef popcountl
+#    define popcountl _libcfunk_popcountl
+extern unsigned int _libcfunk_popcountl (unsigned long int value);
+#  elif !@HAVE_POPCOUNTL@
 extern unsigned int popcountl (unsigned long int value);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POPCOUNTLL@
-#  if !@HAVE_POPCOUNTLL@
+#  if @LIBCFUNK_REPLACE_POPCOUNTLL@
+#    undef popcountll
+#    define popcountll _libcfunk_popcountll
+extern unsigned int _libcfunk_popcountll (unsigned long long int value);
+#  elif !@HAVE_POPCOUNTLL@
 extern unsigned int popcountll (unsigned long long int value);
 #  endif
 #endif
@@ -156,13 +180,22 @@ extern char *rindex (const char *s, int c);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRCASECMP@
-#  if !@HAVE_STRCASECMP@
+#  if @LIBCFUNK_REPLACE_STRCASECMP@
+#    undef strcasecmp
+#    define strcasecmp _libcfunk_strcasecmp
+extern int _libcfunk_strcasecmp (const char *str1, const char *str2);
+#  elif !@HAVE_STRCASECMP@
 extern int strcasecmp (const char *str1, const char *str2);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRNCASECMP@
-#  if !@HAVE_STRNCASECMP@
+#  if @LIBCFUNK_REPLACE_STRNCASECMP@
+#    undef strncasecmp
+#    define strncasecmp _libcfunk_strncasecmp
+extern int _libcfunk_strncasecmp (const char *str1, const char *str2,
+                                  size_t size);
+#  elif !@HAVE_STRNCASECMP@
 extern int strncasecmp (const char *str1, const char *str2, size_t size);
 #  endif
 #endif

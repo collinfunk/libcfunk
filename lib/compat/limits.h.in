@@ -31,201 +31,139 @@
 #endif
 
 #if @HAVE_LIMITS_H@
-#  include_next <limits.h>
+//#  include_next <limits.h>
 #endif
 
 #ifndef CHAR_BIT
-#  if defined(__CHAR_BIT__)
-#    define CHAR_BIT __CHAR_BIT__
-#  elif defined(__SCHAR_WIDTH__)
-#    define CHAR_BIT __SCHAR_WIDTH__
-#  elif defined(CHAR_WIDTH)
-#    define CHAR_BIT CHAR_WIDTH
-#  else
-#    define CHAR_BIT 8
-#  endif
+#  define CHAR_BIT @CHAR_BIT@
 #endif
 
 #ifndef WORD_BIT
-#  if defined(__INT_WIDTH__)
-#    define WORD_BIT __INT_WIDTH__
-#  elif defined(INT_WIDTH)
-#    define WORD_BIT INT_WIDTH
-#  else
-#    define WORD_BIT @INT_WIDTH@
-#  endif
+#  define WORD_BIT @WORD_BIT@
 #endif
 
 #ifndef LONG_BIT
-#  if defined(__LONG_WIDTH__)
-#    define LONG_BIT __LONG_WIDTH__
-#  elif defined (LONG_WIDTH)
-#    define LONG_BIT LONG_WIDTH
-#  else
-#    define LONG_BIT @LONG_WIDTH@
-#  endif
+#  define LONG_BIT @LONG_BIT@
 #endif
 
 #ifndef CHAR_WIDTH
-#  define CHAR_WIDTH CHAR_BIT
+#  define CHAR_WIDTH @CHAR_WIDTH@
 #endif
 
 #ifndef SCHAR_WIDTH
-#  define SCHAR_WIDTH CHAR_WIDTH
+#  define SCHAR_WIDTH @SCHAR_WIDTH@
 #endif
 
 #ifndef SHRT_WIDTH
-#  if defined(__SHRT_WIDTH__)
-#    define SHRT_WIDTH __SHRT_WIDTH__
-#  else
-#    define SHRT_WIDTH @SHRT_WIDTH@
-#  endif
+#  define SHRT_WIDTH @SHRT_WIDTH@
 #endif
 
 #ifndef INT_WIDTH
-#  define INT_WIDTH WORD_BIT
+#  define INT_WIDTH @INT_WIDTH@
 #endif
 
 #ifndef LONG_WIDTH
-#  define LONG_WIDTH LONG_BIT
+#  define LONG_WIDTH @LONG_WIDTH@
 #endif
 
 #ifndef LLONG_WIDTH
-#  if defined(__LONG_LONG_WIDTH__)
-#    define LLONG_WIDTH __LONG_LONG_WIDTH__
-#  else
-#    define LLONG_WIDTH @LONG_LONG_WIDTH@
-#  endif
+#  define LLONG_WIDTH @LLONG_WIDTH@
 #endif
 
 #ifndef UCHAR_WIDTH
-#  define UCHAR_WIDTH SCHAR_WIDTH
+#  define UCHAR_WIDTH @UCHAR_WIDTH@
 #endif
 
 #ifndef USHRT_WIDTH
-#  define USHRT_WIDTH SHRT_WIDTH
+#  define USHRT_WIDTH @USHRT_WIDTH@
 #endif
 
 #ifndef UINT_WIDTH
-#  define UINT_WIDTH INT_WIDTH
+#  define UINT_WIDTH @UINT_WIDTH@
 #endif
 
 #ifndef ULONG_WIDTH
-#  define ULONG_WIDTH LONG_WIDTH
+#  define ULONG_WIDTH @ULONG_WIDTH@
 #endif
 
 #ifndef ULLONG_WIDTH
-#  define ULLONG_WIDTH LLONG_WIDTH
+#  define ULLONG_WIDTH @ULLONG_WIDTH@
 #endif
 
 #ifndef SCHAR_MAX
-#  ifdef __SCHAR_MAX__
-#    define SCHAR_MAX __SCHAR_MAX__
-#  else
-#    define SCHAR_MAX 0x7f
-#  endif
+#  define SCHAR_MAX @SCHAR_MAX@
 #endif
 
 #ifndef SHRT_MAX
-#  ifdef __SHRT_MAX__
-#    define SHRT_MAX __SHRT_MAX__
-#  else
-#    define SHRT_MAX 0x7fff
-#  endif
+#  define SHRT_MAX @SHRT_MAX@
 #endif
 
 #ifndef INT_MAX
-#  ifdef __INT_MAX__
-#    define INT_MAX __INT_MAX__
-#  else
-#    define INT_MAX 0x7fffffff
-#  endif
+#  define INT_MAX @INT_MAX@
 #endif
 
 #ifndef LONG_MAX
-#  ifdef __LONG_MAX__
-#    define LONG_MAX __LONG_MAX__
-#  elif LONG_WIDTH == 4
-#    define LONG_MAX 0x7fffffffL
-#  elif LONG_WIDTH == 8
-#    define LONG_MAX 0x7fffffffffffffffL
-#  endif
+#  define LONG_MAX @LONG_MAX@
 #endif
 
 #ifndef LLONG_MAX
-#  ifdef __LONG_LONG_MAX__
-#    define LLONG_MAX __LONG_LONG_MAX__
-#  elif LLONG_WIDTH == 4
-#    define LLONG_MAX 0x7fffffffLL
-#  elif LLONG_WIDTH == 8
-#    define LLONG_MAX 0x7fffffffffffffffLL
-#  endif
-#endif
-
-#ifndef UCHAR_MAX
-#  if SCHAR_MAX == INT_MAX
-#    define UCHAR_MAX (SCHAR_MAX * 2U + 1U)
-#  else
-#    define UCHAR_MAX (SCHAR_MAX * 2 + 1)
-#  endif
-#endif
-
-#ifndef USHRT_MAX
-#  if SHRT_MAX == INT_MAX
-#    define USHRT_MAX (SHRT_MAX * 2U + 1U)
-#  else
-#    define USHRT_MAX (SHRT_MAX * 2 + 1)
-#  endif
-#endif
-
-#ifndef UINT_MAX
-#  define UINT_MAX (INT_MAX * 2U + 1U)
-#endif
-
-#ifndef ULONG_MAX
-#  define ULONG_MAX (LONG_MAX * 2UL + 1UL)
-#endif
-
-#ifndef ULLONG_MAX
-#  define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+#  define LLONG_MAX @LLONG_MAX@
 #endif
 
 #ifndef SCHAR_MIN
-#  define SCHAR_MIN (-SCHAR_MAX - 1)
+#  define SCHAR_MIN @SCHAR_MIN@
 #endif
 
 #ifndef SHRT_MIN
-#  define SHRT_MIN (-SHRT_MAX - 1)
+#  define SHRT_MIN @SHRT_MIN@
 #endif
 
 #ifndef INT_MIN
-#  define INT_MIN (-INT_MAX - 1)
+#  define INT_MIN @INT_MIN@
 #endif
 
 #ifndef LONG_MIN
-#  define LONG_MIN (-LONG_MAX - 1L)
+#  define LONG_MIN @LONG_MIN@
 #endif
 
 #ifndef LLONG_MIN
-#  define LLONG_MIN (-LLONG_MAX - 1LL)
+#  define LLONG_MIN @LLONG_MIN@
+#endif
+
+#ifndef UCHAR_MAX
+#  define UCHAR_MAX @UCHAR_MAX@
+#endif
+
+#ifndef USHRT_MAX
+#  define USHRT_MAX @USHRT_MAX@
+#endif
+
+#ifndef UINT_MAX
+#  define UINT_MAX @UINT_MAX@
+#endif
+
+#ifndef ULONG_MAX
+#  define ULONG_MAX @ULONG_MAX@
+#endif
+
+#ifndef ULLONG_MAX
+#  define ULLONG_MAX @ULLONG_MAX@
 #endif
 
 #ifndef CHAR_MAX
-#  if !defined(__CHAR_UNSIGNED__) && !@CHAR_IS_UNSIGNED@
-#    define CHAR_MAX SCHAR_MAX
-#  else
-#    define CHAR_MAX UCHAR_MAX
-#  endif
+#  define CHAR_MAX @CHAR_MAX@
 #endif
 
 #ifndef CHAR_MIN
-#  if !defined(__CHAR_UNSIGNED__) && !@CHAR_IS_UNSIGNED@
-#    define CHAR_MIN SCHAR_MIN
-#  elif SCHAR_MAX == INT_MAX
-#    define CHAR_MIN 0U
-#  else
-#    define CHAR_MIN 0
-#  endif
+#  define CHAR_MIN @CHAR_MIN@
+#endif
+
+#ifndef SSIZE_MAX
+#  define SSIZE_MAX @SSIZE_MAX@
+#endif
+
+#ifndef LONG_LONG_MIN
+#  define LONG_LONG_MIN LLONG_MIN
 #endif
 
 #ifndef LONG_LONG_MAX
@@ -234,32 +172,6 @@
 
 #ifndef ULONG_LONG_MAX
 #  define ULONG_LONG_MAX ULLONG_MAX
-#endif
-
-#ifndef LONG_LONG_MIN
-#  define LONG_LONG_MIN LLONG_MIN
-#endif
-
-#ifndef BOOL_WIDTH
-#  define BOOL_WIDTH 1
-#endif
-
-#ifndef SSIZE_MAX
-#  if SCHAR_WIDTH == @SSIZE_WIDTH@
-#    define SSIZE_MAX SCHAR_MAX
-#  elif SHRT_WIDTH == @SSIZE_WIDTH@
-#    define SSIZE_MAX SHRT_MAX
-#  elif INT_WIDTH == @SSIZE_WIDTH@
-#    define SSIZE_MAX INT_MAX
-#  elif LONG_WIDTH == @SSIZE_WIDTH@
-#    define SSIZE_MAX LONG_MAX
-#  elif LLONG_WIDTH == @SSIZE_WIDTH@
-#    define SSIZE_MAX LLONG_MAX
-#  endif
-#endif
-
-#ifndef MB_LEN_MAX
-#  define MB_LEN_MAX 16
 #endif
 
 #endif /* COMPAT_LIMITS_H */
