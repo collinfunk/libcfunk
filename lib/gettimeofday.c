@@ -27,6 +27,9 @@
 
 #include <sys/time.h>
 
+#include <errno.h>
+#include <time.h>
+
 #if HAVE_WINDOWS_H
 #  include <windows.h>
 #endif
@@ -35,20 +38,40 @@
 /* https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ns-minwinbase-filetime */
 int
 gettimeofday (struct timeval *tp, void *tzp)
+#undef gettimeofday
 {
-  FILETIME current_time;
-  unsigned long long int value;
+#if HAVE_WINDOWS_H
+  {
+    FILETIME current_time;
+    unsigned long long int value;
 
-  GetSystemTimeAsFileTime (&current_time);
+    GetSystemTimePreciseAsFileTime (&current_time);
 
-  /* 100-nanosecond intervals since January 1, 1601 UTC. */
-  value = ((unsigned long long int) current_time.dwHighDateTime << 32)
-          | ((unsigned long long int) current_time.dwLowDateTime);
+    /* 100-nanosecond intervals since January 1, 1601 UTC. */
+    value = ((unsigned long long int) current_time.dwHighDateTime << 32)
+            | ((unsigned long long int) current_time.dwLowDateTime);
 
-  /* 134774 days between January 1, 1601 and January 1, 1970. */
-  value -= 116444736000000000ULL;
-  tp->tv_sec = value / 10000000ULL;
-  tp->tv_usec = value % 10000000ULL;
+    /* 134774 days between January 1, 1601 and January 1, 1970. */
+    value -= 116444736000000000ULL;
+    tp->tv_sec = value / 10000000ULL;
+    tp->tv_usec = value % 10000000ULL;
 
-  return 0;
+    return 0;
+  }
+#elif HAVE_TIME
+  {
+    time_t seconds = time (NULL);
+    if (seconds == (time_t) -1)
+      return -1;
+    else
+      {
+        tp->tv_sec = seconds;
+        tp->tv_usec = 0;
+        return 0;
+      }
+  }
+#else
+  errno = ENOSYS;
+  return -1;
+#endif
 }

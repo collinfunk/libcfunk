@@ -75,7 +75,11 @@ struct itimerval
 #endif
 
 #if @LIBCFUNK_DECLARE_GETTIMEOFDAY@
-#  if !@HAVE_GETTIMEOFDAY@
+#  if @LIBCFUNK_REPLACE_GETTIMEOFDAY@
+#    undef gettimeofday
+#    define gettimeofday _libcfunk_gettimeofday
+extern int _libcfunk_gettimeofday (struct timeval *tp, void *tzp);
+#  elif !@HAVE_GETTIMEOFDAY@
 extern int gettimeofday (struct timeval *tp, void *tzp);
 #  endif
 #endif
