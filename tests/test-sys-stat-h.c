@@ -31,7 +31,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "attributes.h"
 #include "test-help.h"
+
+static void test_struct_stat_defined (void);
 
 int
 main (void)
@@ -59,5 +62,13 @@ main (void)
   printf ("S_ISGID: %04o\n", (unsigned int) S_ISGID);
   printf ("S_ISUID: %04o\n", (unsigned int) S_ISUID);
 
+  test_struct_stat_defined ();
+
   return 0;
+}
+
+static void
+test_struct_stat_defined (void)
+{
+  struct stat value ATTRIBUTE_UNUSED;
 }

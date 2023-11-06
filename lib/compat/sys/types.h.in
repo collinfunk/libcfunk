@@ -37,9 +37,15 @@
 #include <stddef.h>
 
 #if !@HAVE_BLKCNT_T@
+typedef long int blkcnt_t;
 #endif
 
 #if !@HAVE_BLKSIZE_T@
+typedef long int blksize_t;
+#endif
+
+#if !@HAVE_CLOCK_T@
+typedef int clock_t;
 #endif
 
 #if !@HAVE_CLOCKID_T@
@@ -60,6 +66,10 @@ typedef unsigned long long int ino_t;
 
 #if !@HAVE_MODE_T@
 typedef unsigned int mode_t;
+#endif
+
+#if !@HAVE_NLINK_T@
+typedef unsigned int nlink_t;
 #endif
 
 #if !@HAVE_OFF_T@

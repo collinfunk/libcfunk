@@ -6,16 +6,31 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
 # Generate <sys/types.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_SYS_TYPES_H "1" CACHE STRING "")
 
+# Some types might be in the time headers.
 check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
+check_include_file("sys/time.h" HAVE_SYS_TIME_H)
+check_include_file("time.h" HAVE_TIME_H)
+
+if (HAVE_SYS_TIME_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/time.h")
+endif ()
+
+if (HAVE_TIME_H)
+  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "time.h")
+endif ()
+
+list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 
 # Types defined by <sys/types.h>
 check_type_size("blkcnt_t" BLKCNT_T)
 check_type_size("blksize_t" BLKSIZE_T)
+check_type_size("clock_t" CLOCK_T)
 check_type_size("clockid_t" CLOCKID_T)
 check_type_size("dev_t" DEV_T)
 check_type_size("gid_t" GID_T)
 check_type_size("ino_t" INO_T)
 check_type_size("mode_t" MODE_T)
+check_type_size("nlink_t" NLINK_T)
 check_type_size("off_t" OFF_T)
 check_type_size("pid_t" PID_T)
 check_type_size("ssize_t" SSIZE_T)
