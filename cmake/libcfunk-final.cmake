@@ -418,6 +418,13 @@ if ($CACHE{LIBCFUNK_GENERATE_TERMIOS_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_THREADS_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/threads.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/threads.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_TIME_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/time.h.in

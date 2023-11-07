@@ -1,0 +1,216 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_THREADS_H
+#define COMPAT_THREADS_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_THREADS_H@
+#  include_next <threads.h>
+#endif
+
+#include <pthread.h>
+#include <time.h>
+
+#if !@HAVE_CND_T@
+#endif
+
+#if !@HAVE_THRD_T@
+#endif
+
+#if !@HAVE_TSS_T@
+#endif
+
+#if !@HAVE_MTX_T@
+#endif
+
+#if !@HAVE_TSS_DTOR_T@
+typedef void (*tss_dtor_t) (void *);
+#endif
+
+#if !@HAVE_THRD_START_T@
+typedef int (*thrd_start_t) (void *);
+#endif
+
+#if !@HAVE_ONCE_FLAG@
+#  define ONCE_FLAG_INIT PTHREAD_ONCE_INIT
+typedef pthread_once_t once_flag;
+#endif
+
+#if @LIBCFUNK_DECLARE_CALL_ONCE@
+#  if !@HAVE_CALL_ONCE@
+extern void call_once (once_flag *flag, void (*func) (void));
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CND_BROADCAST@
+#  if !@HAVE_CND_BROADCAST@
+extern int cnd_broadcast (cnd_t *cond);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CND_DESTROY@
+#  if !@HAVE_CND_DESTROY@
+extern void cnd_destroy (cnd_t *cond);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CND_INIT@
+#  if !@HAVE_CND_INIT@
+extern int cnd_init (cnd_t *cond);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CND_SIGNAL@
+#  if !@HAVE_CND_SIGNAL@
+extern int cnd_signal (cnd_t *cond);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CND_TIMEDWAIT@
+#  if !@HAVE_CND_TIMEDWAIT@
+extern int cnd_timedwait (cnd_t *cond, mtx_t *mtx, const struct timespec *ts);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CND_WAIT@
+#  if !@HAVE_CND_WAIT@
+extern int cnd_wait (cnd_t *cond, mtx_t *mtx);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MTX_DESTROY@
+#  if !@HAVE_MTX_DESTROY@
+extern void mtx_destroy (mtx_t *mtx);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MTX_INIT@
+#  if !@HAVE_MTX_INIT@
+extern int mtx_init (mtx_t *mtx, int type);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MTX_LOCK@
+#  if !@HAVE_MTX_LOCK@
+extern int mtx_lock (mtx_t *mtx);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MTX_TIMEDLOCK@
+#  if !@HAVE_MTX_TIMEDLOCK@
+extern int mtx_timedlock (mtx_t *mtx, const struct timespec *ts);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MTX_TRYLOCK@
+#  if !@HAVE_MTX_TRYLOCK@
+extern int mtx_trylock (mtx_t *mtx);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_MTX_UNLOCK@
+#  if !@HAVE_MTX_UNLOCK@
+extern int mtx_unlock (mtx_t *mtx);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_CREATE@
+#  if !@HAVE_THRD_CREATE@
+extern int thrd_create (thrd_t *thr, thrd_start_t func, void *arg);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_CURRENT@
+#  if !@HAVE_THRD_CURRENT@
+extern thrd_t thrd_current (void);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_DETACH@
+#  if !@HAVE_THRD_DETACH@
+extern int thrd_detach (thrd_t thr);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_EQUAL@
+#  if !@HAVE_THRD_EQUAL@
+extern int thrd_equal (thrd_t thr0, thrd_t thr1);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_EXIT@
+#  if !@HAVE_THRD_EXIT@
+extern _Noreturn void thrd_exit (int res);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_JOIN@
+#  if !@HAVE_THRD_JOIN@
+extern int thrd_join (thrd_t thr, int *res);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_SLEEP@
+#  if !@HAVE_THRD_SLEEP@
+extern int thrd_sleep (const struct timespec *duration,
+                       struct timespec *remaining);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_THRD_YIELD@
+#  if !@HAVE_THRD_YIELD@
+extern void thrd_yield (void);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TSS_CREATE@
+#  if !@HAVE_TSS_CREATE@
+extern int tss_create (tss_t *key, tss_dtor_t dtor);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TSS_DELETE@
+#  if !@HAVE_TSS_DELETE@
+extern void tss_delete (tss_t key);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TSS_GET@
+#  if !@HAVE_TSS_GET@
+extern void *tss_get (tss_t key);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TSS_SET@
+#  if !@HAVE_TSS_SET@
+extern int tss_set (tss_t key, void *val);
+#  endif
+#endif
+
+#endif /* COMPAT_THREADS_H */
