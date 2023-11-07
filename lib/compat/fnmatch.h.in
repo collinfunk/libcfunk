@@ -23,24 +23,17 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef COMPAT_FNMATCH_H
+#define COMPAT_FNMATCH_H
 
-#include <dirent.h>
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
-#include "attributes.h"
+#if @HAVE_FNMATCH_H@
+#  include_next <fnmatch.h>
+#endif
 
-static void test_struct_dirent_defined (void);
+/* TODO: Implement. */
 
-/* Test that 'dirent.h' can be included. */
-int
-main (void)
-{
-  test_struct_dirent_defined ();
-  return 0;
-}
-
-static void
-test_struct_dirent_defined (void)
-{
-  struct dirent value ATTRIBUTE_UNUSED;
-}
+#endif /* COMPAT_FNMATCH_H */

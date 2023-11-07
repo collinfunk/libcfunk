@@ -117,10 +117,24 @@ if ($CACHE{LIBCFUNK_GENERATE_FLOAT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_FNMATCH_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/fnmatch.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/fnmatch.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_GETOPT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/getopt.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/getopt.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_GLOB_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/glob.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/glob.h
   )
 endif ()
 

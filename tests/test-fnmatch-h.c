@@ -25,22 +25,11 @@
 
 #include <config.h>
 
-#include <dirent.h>
+#include <fnmatch.h>
 
-#include "attributes.h"
-
-static void test_struct_dirent_defined (void);
-
-/* Test that 'dirent.h' can be included. */
+/* Test that 'fnmatch.h' can be included. */
 int
 main (void)
 {
-  test_struct_dirent_defined ();
   return 0;
-}
-
-static void
-test_struct_dirent_defined (void)
-{
-  struct dirent value ATTRIBUTE_UNUSED;
 }

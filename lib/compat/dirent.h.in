@@ -30,10 +30,18 @@
 #  pragma GCC system_header
 #endif
 
-#include <sys/types.h>
-
 #if @HAVE_DIRENT_H@
 #  include_next <dirent.h>
+#endif
+
+#include <sys/types.h>
+
+#if !@HAVE_STRUCT_DIRENT@
+struct dirent
+{
+  ino_t d_ino;
+  char d_name[255];
+};
 #endif
 
 #if @LIBCFUNK_DECLARE_ALPHASORT@

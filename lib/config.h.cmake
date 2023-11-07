@@ -114,6 +114,7 @@
 #cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
 #cmakedefine01 HAVE_CLOCKID_T
+#cmakedefine01 HAVE_CLOCK_T
 #cmakedefine01 HAVE__CLOSE
 #cmakedefine01 HAVE_CLOSE
 #cmakedefine01 HAVE_COPY_FILE_RANGE
@@ -206,6 +207,7 @@
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
+#cmakedefine01 HAVE_FNMATCH_H
 #cmakedefine01 HAVE_FORK
 #cmakedefine01 HAVE___FPENDING
 #cmakedefine01 HAVE___FPURGE
@@ -263,6 +265,8 @@
 #cmakedefine01 HAVE_GETUSERHSELL
 #cmakedefine01 HAVE_GETUSERSHELL
 #cmakedefine01 HAVE_GID_T
+#cmakedefine01 HAVE_GLOB_H
+#cmakedefine01 HAVE_GLOB_T
 #cmakedefine01 HAVE_GMTIME_R
 #cmakedefine01 HAVE_GROUP_MEMBER
 #cmakedefine01 HAVE_HAVE_DIRECT_H
@@ -369,6 +373,7 @@
 #cmakedefine01 HAVE_NET_IF_H
 #cmakedefine01 HAVE_NETINET_IN_H
 #cmakedefine01 HAVE_NFDS_T
+#cmakedefine01 HAVE_NLINK_T
 #cmakedefine01 HAVE_NL_ITEM
 #cmakedefine01 HAVE_NL_LANGINFO
 #cmakedefine01 HAVE_NL_LANGINFO_CODESET
@@ -542,6 +547,7 @@
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
+#cmakedefine01 HAVE_STRUCT_DIRENT
 #cmakedefine01 HAVE_STRUCT_FLOCK
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_LEN
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_PID
@@ -561,6 +567,7 @@
 #cmakedefine01 HAVE_STRUCT_SCHED_PARAM
 #cmakedefine01 HAVE_STRUCT_SIGACTION
 #cmakedefine01 HAVE_STRUCT_SIGEVENT
+#cmakedefine01 HAVE_STRUCT_STAT
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM_TIMESPEC_TV_NSEC
