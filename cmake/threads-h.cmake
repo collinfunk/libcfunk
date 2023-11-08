@@ -50,6 +50,26 @@ main (void)
   return value;
 }" HAVE_C11__THREAD_LOCAL)
 
+# Test if the compiler has the GNU CC extension __thread.
+check_c_source_compiles("
+__thread int value;
+int
+main (void)
+{
+  value = 0;
+  return value;
+}" HAVE_GNUC___THREAD)
+
+# Test if the compiler supports the MSVC declspec thread attribute.
+check_c_source_compiles("
+__declspec (thread) int value;
+int
+main (void)
+{
+  value = 0;
+  return value;
+}" HAVE___DECLSPEC_THREAD)
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-threads-h.cmake)
 endif ()

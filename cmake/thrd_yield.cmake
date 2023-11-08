@@ -2,7 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/threads-h.cmake)
-include($CACHE{LIBCFUNK_MODULE_DIR}/sched-yield.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sched_yield.cmake)
 
 if (HAVE_THREADS_H)
   check_symbol_exists("thrd_yield" "threads.h" HAVE_THRD_YIELD)

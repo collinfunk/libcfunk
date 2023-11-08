@@ -137,6 +137,7 @@
 #cmakedefine01 HAVE__CRTSETREPORTMODE
 #cmakedefine01 HAVE_CTYPE_H
 #cmakedefine01 HAVE_DAEMON
+#cmakedefine01 HAVE___DECLSPEC_THREAD
 #cmakedefine01 HAVE_DEV_PTC
 #cmakedefine01 HAVE_DEV_PTM
 #cmakedefine01 HAVE_DEV_PTMX
@@ -278,6 +279,7 @@
 #cmakedefine01 HAVE_GLOB_H
 #cmakedefine01 HAVE_GLOB_T
 #cmakedefine01 HAVE_GMTIME_R
+#cmakedefine01 HAVE_GNUC___THREAD
 #cmakedefine01 HAVE_GROUP_MEMBER
 #cmakedefine01 HAVE_HAVE_DIRECT_H
 #cmakedefine01 HAVE_IMAXABS

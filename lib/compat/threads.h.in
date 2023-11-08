@@ -37,13 +37,23 @@
 #include <pthread.h>
 #include <time.h>
 
-/* If our compiler doesn't have the C23 'thread_local' keyword but it has the
-   C11 '_Thread_local' keyword, define 'thread_local'. */
-#if !@HAVE_C23_THREAD_LOCAL@
-#  ifndef thread_local
-#    if @HAVE_C11__THREAD_LOCAL@
-#      define thread_local _Thread_local
-#    endif
+/* The _Thread_local keyword was added in C11. Try to define it if it is not
+   supported by the compiler. */
+#if !@HAVE_C11__THREAD_LOCAL@ && !defined(_Thread_local)
+#  if @HAVE_C23_THREAD_LOCAL@ || defined(thread_local)
+#    define _Thread_local thread_local
+#  elif @HAVE_GNUC___THREAD@
+#    define _Thread_local __thread
+#  elif @HAVE___DECLSPEC_THREAD@
+#    define _Thread_local __declspec (thread)
+#  endif
+#endif
+
+/* The thread_local keyword was added in C23. Define it to _Thread_local if
+   it is supported or defined to a equivalent compiler extension. */
+#if !@HAVE_C23_THREAD_LOCAL@ && !defined(thread_local)
+#  if HAVE_C11__THREAD_LOCAL || defined(_Thread_local)
+#    define thread_local _Thread_local
 #  endif
 #endif
 

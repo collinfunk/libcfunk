@@ -29,10 +29,12 @@
 
 #if HAVE_WINDOWS_H
 #  include <windows.h>
-#else
-#  error "sched_yield not implemented for your operating system."
 #endif
 
+/* TODO: SwitchToThread () vs Sleep (0) ?
+   https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-switchtothread
+   https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-sleep
+ */
 int
 sched_yield (void)
 {

@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 include(CheckSymbolExists)
 include(CheckFunctionExists)
+include(CheckLibraryExists)
 include(CheckStructHasMember)
 include(CheckTypeSize)
 include(CheckIncludeFile)

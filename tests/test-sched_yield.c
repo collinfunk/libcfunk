@@ -26,11 +26,15 @@
 #include <config.h>
 
 #include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "test-help.h"
 
 /* Check that 'sched_yield' is declared. */
 int
 main (void)
 {
-  sched_yield ();
+  ASSERT (sched_yield () == 0);
   return 0;
 }
