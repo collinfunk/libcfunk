@@ -26,10 +26,12 @@
 #include <config.h>
 
 #include <pthread.h>
+#include <sched.h>
 #include <threads.h>
 
 void
-call_once (once_flag *flag, void (*func) (void))
+thrd_yield (void)
 {
-  pthread_once (flag, func);
+  if (sched_yield () != 0)
+    abort ();
 }

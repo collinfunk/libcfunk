@@ -25,11 +25,20 @@
 
 #include <config.h>
 
-#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+#include "test-help.h"
+
+/* Test that 'thrd_sleep' is defined. */
+int
+main (void)
 {
-  pthread_once (flag, func);
+  struct timespec count = { .tv_sec = 1, .tv_nsec = 0 };
+
+  /* Just sleep for a second and check the return value. */
+  ASSERT (thrd_sleep (&count, NULL) == 0);
+
+  return 0;
 }

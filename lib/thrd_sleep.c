@@ -27,9 +27,10 @@
 
 #include <pthread.h>
 #include <threads.h>
+#include <time.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+int
+thrd_sleep (const struct timespec *duration, struct timespec *remaining)
 {
-  pthread_once (flag, func);
+  return nanosleep (duration, remaining);
 }

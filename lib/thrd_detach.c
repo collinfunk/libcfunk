@@ -28,8 +28,12 @@
 #include <pthread.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+int
+thrd_detach (thrd_t thr)
 {
-  pthread_once (flag, func);
+  int result = pthread_detach (thr);
+  if (result != 0)
+    return thrd_error;
+  else
+    return thrd_success;
 }

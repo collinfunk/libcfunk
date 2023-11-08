@@ -26,10 +26,23 @@
 #include <config.h>
 
 #include <pthread.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+int
+thrd_join (thrd_t thr, int *res)
 {
-  pthread_once (flag, func);
+  void *value_ptr;
+  int result;
+
+  result = pthread_join (thr, &value_ptr);
+  if (result != 0)
+    return thrd_error;
+  else
+    {
+      if (res != NULL)
+        *res = (int) (intptr_t) value_ptr;
+      return thrd_success;
+    }
 }

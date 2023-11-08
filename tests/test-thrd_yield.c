@@ -25,11 +25,12 @@
 
 #include <config.h>
 
-#include <pthread.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+/* Test that 'thrd_yield' is declared. */
+int
+main (void)
 {
-  pthread_once (flag, func);
+  thrd_yield ();
+  return 0;
 }

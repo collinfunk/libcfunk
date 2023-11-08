@@ -28,8 +28,8 @@
 #include <pthread.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+int
+thrd_equal (thrd_t thr0, thrd_t thr1)
 {
-  pthread_once (flag, func);
+  return pthread_equal (thr0, thr1);
 }

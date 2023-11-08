@@ -26,10 +26,13 @@
 #include <config.h>
 
 #include <pthread.h>
+#include <stdint.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+/* FIXME: MinGW 'pthread.h' gives a warning since 'pthread_exit' wasn't marked
+   with __attribute__ ((__noreturn__)) :( */
+_Noreturn void
+thrd_exit (int res)
 {
-  pthread_once (flag, func);
+  pthread_exit ((void *) (intptr_t) res);
 }

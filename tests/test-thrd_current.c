@@ -25,11 +25,17 @@
 
 #include <config.h>
 
-#include <pthread.h>
+#include <stdio.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+/* Test that 'thrd_current' is declared. */
+int
+main (void)
 {
-  pthread_once (flag, func);
+  unsigned long int current_thread;
+
+  current_thread = (unsigned long int) thrd_current ();
+  printf ("Current thread ID: %lx\n", current_thread);
+
+  return 0;
 }

@@ -28,8 +28,8 @@
 #include <pthread.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+thrd_t
+thrd_current (void)
 {
-  pthread_once (flag, func);
+  return pthread_self ();
 }

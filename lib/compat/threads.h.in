@@ -37,16 +37,32 @@
 #include <pthread.h>
 #include <time.h>
 
+#if !@HAVE_THREADS_H@
+enum
+{
+  thrd_success = 0,
+  thrd_nomem = 1,
+  thrd_timedout = 2,
+  thrd_busy = 3,
+  thrd_error = 4
+};
+#endif
+
 #if !@HAVE_CND_T@
+typedef pthread_cond_t cnd_t;
 #endif
 
 #if !@HAVE_THRD_T@
+typedef pthread_t thrd_t;
 #endif
 
 #if !@HAVE_TSS_T@
+#  define TSS_DTOR_ITERATIONS PTHREAD_DESTRUCTOR_ITERATIONS
+typedef pthread_key_t tss_t;
 #endif
 
 #if !@HAVE_MTX_T@
+typedef pthread_mutex_t mtx_t;
 #endif
 
 #if !@HAVE_TSS_DTOR_T@

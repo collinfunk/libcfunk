@@ -25,11 +25,16 @@
 
 #include <config.h>
 
-#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <threads.h>
 
-void
-call_once (once_flag *flag, void (*func) (void))
+#include "test-help.h"
+
+/* Test that 'thrd_equal' is defined. */
+int
+main (void)
 {
-  pthread_once (flag, func);
+  ASSERT (thrd_equal (thrd_current (), thrd_current ()));
+  return 0;
 }
