@@ -37,6 +37,16 @@
 #include <pthread.h>
 #include <time.h>
 
+/* If our compiler doesn't have the C23 'thread_local' keyword but it has the
+   C11 '_Thread_local' keyword, define 'thread_local'. */
+#if !@HAVE_C23_THREAD_LOCAL@
+#  ifndef thread_local
+#    if @HAVE_C11__THREAD_LOCAL@
+#      define thread_local _Thread_local
+#    endif
+#  endif
+#endif
+
 #if !@HAVE_THREADS_H@
 enum
 {
@@ -45,6 +55,15 @@ enum
   thrd_timedout = 2,
   thrd_busy = 3,
   thrd_error = 4
+};
+#endif
+
+#if !@HAVE_THREADS_H@
+enum
+{
+  mtx_plain = 0,
+  mtx_recursive = 1,
+  mtx_timed = 2,
 };
 #endif
 

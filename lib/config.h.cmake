@@ -93,11 +93,13 @@
 #cmakedefine01 HAVE_C11__ALIGNOF
 #cmakedefine01 HAVE_C11__NORETURN
 #cmakedefine01 HAVE_C11_STATIC_ASSERT
+#cmakedefine01 HAVE_C11__THREAD_LOCAL
 #cmakedefine01 HAVE_C23_ALIGNAS
 #cmakedefine01 HAVE_C23_ALIGNOF
 #cmakedefine01 HAVE_C23_BOOL
 #cmakedefine01 HAVE_C23_NULLPTR
 #cmakedefine01 HAVE_C23_STATIC_ASSERT
+#cmakedefine01 HAVE_C23_THREAD_LOCAL
 #cmakedefine01 HAVE_C99_BOOL
 #cmakedefine01 HAVE_C99__EXIT
 #cmakedefine01 HAVE_C99__FUNC__
