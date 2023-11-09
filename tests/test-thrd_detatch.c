@@ -23,22 +23,40 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_PTHREAD_H
-#define COMPAT_PTHREAD_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdio.h>
+#include <stdlib.h>
+#include <threads.h>
 
-#if @HAVE_PTHREAD_H@
-#  include_next <pthread.h>
-#endif
+#include "attributes.h"
+#include "test-help.h"
 
-#include <sys/types.h>
+static int worker_func (void *arg);
 
-#include <sched.h>
-#include <time.h>
+int
+main (void)
+{
+  thrd_t worker_thread;
+  struct timespec ts = { .tv_sec = 1, .tv_nsec = 0 };
 
-/* TODO: Implement for Windows. */
+  /* Create a thread. */
+  ASSERT (thrd_create (&worker_thread, worker_func, NULL) == thrd_success);
 
-#endif /* COMPAT_PTHREAD_H */
+  /* Sleep for a second so WORKER_THREAD has time to finish. */
+  ASSERT (thrd_sleep (&ts, NULL) == thrd_success);
+
+  /* Make sure thrd_join fails. */
+  ASSERT (thrd_join (worker_thread, NULL) == thrd_error);
+
+  return 0;
+}
+
+/* The worker thread which calls thrd_detatch on itself. After this
+   thread returns, the subsequent call to thrd_join should fail. */
+static int
+worker_func (void *arg ATTRIBUTE_UNUSED)
+{
+  ASSERT (thrd_detach (thrd_current ()) == thrd_success);
+  return 0;
+}

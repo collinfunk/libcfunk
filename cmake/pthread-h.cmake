@@ -1,6 +1,10 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sched-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
+
 # Generate <pthread.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_PTHREAD_H "1" CACHE STRING "")
 

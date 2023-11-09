@@ -16,6 +16,6 @@ if (NOT HAVE_THRD_DETACH)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-thrd_current.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-thrd_detatch.cmake)
 endif ()
 

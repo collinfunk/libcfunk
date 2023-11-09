@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <threads.h>
 
+#include "attributes.h"
 #include "test-help.h"
 
 static thrd_t worker_thread;
@@ -60,7 +61,7 @@ main (void)
 }
 
 static int
-thread_function (void *arg)
+thread_function (void *arg ATTRIBUTE_UNUSED)
 {
   return 1;
 }
