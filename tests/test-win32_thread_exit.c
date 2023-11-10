@@ -25,39 +25,13 @@
 
 #include <config.h>
 
-#ifndef _WIN32_WINNT
-#  define _WIN32_WINNT 0x0600
-#endif
+#include "win32-thread.h"
 
-#include <windows.h>
-
-#include "attributes.h"
-#include "win32-once.h"
-
-#ifndef CALLBACK
-#  define CALLBACK __stdcall
-#endif
-
-/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nc-synchapi-pinit_once_fn */
-static BOOL CALLBACK
-win32_once_entry_point (INIT_ONCE *control, void *param,
-                        void **context ATTRIBUTE_UNUSED)
-{
-  void (*init_routine) (void) = (void (*) (void)) param;
-  (*init_routine) ();
-  return TRUE;
-}
-
-/* https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-initonceexecuteonce */
+/* Test that 'win32_thread_exit' works correctly when there are no threads. */
 int
-win32_once (struct win32_once *once_control, void (*init_routine) (void))
+main (void)
 {
-  BOOL result;
-
-  result = InitOnceExecuteOnce (&once_control->control, win32_once_entry_point,
-                                (void *) init_routine, NULL);
-  if (!result)
-    return EINVAL;
-  else
-    return 0;
+  win32_thread_exit ((void *) 0);
+  /* Unreached. */
+  return 1;
 }

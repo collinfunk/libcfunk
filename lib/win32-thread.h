@@ -26,10 +26,24 @@
 #ifndef WIN32_THREAD_H
 #define WIN32_THREAD_H
 
-/* TODO */
+#include <windows.h>
+
 struct win32_thread
 {
   HANDLE handle;
+  DWORD thread_id;
+  int detached;
+  void *(*start_routine) (void *);
+  void *arg;
 };
+
+extern int win32_thread_create (struct win32_thread **thread,
+                                void *(*start_routine) (void *), void *arg);
+extern int win32_thread_detach (struct win32_thread *thread);
+extern int win32_thread_equal (struct win32_thread *t1,
+                               struct win32_thread *t2);
+extern void win32_thread_exit (void *value_ptr);
+extern int win32_thread_join (struct win32_thread *thread, void **value_ptr);
+extern struct win32_thread *win32_thread_self (void);
 
 #endif /* WIN32_THREAD_H */
