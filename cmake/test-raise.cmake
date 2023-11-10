@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/_Exit.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 add_executable(test-raise)
 

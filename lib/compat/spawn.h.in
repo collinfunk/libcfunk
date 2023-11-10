@@ -34,13 +34,16 @@
 #  include_next <spawn.h>
 #endif
 
-#include <sys/types.h>
-#include <signal.h>
 #include <sched.h>
+#include <signal.h>
+#include <sys/types.h>
 
 /* TODO */
 
-#if !@HAVE_POSIX_SPAWNATTR_T@
+#if !@HAVE_POSIX_SPAWNATTR_T@ || @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_T@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_T@
+#    define posix_spawnattr_t _libcfunk_posix_spawnattr_t
+#  endif
 typedef struct
 {
   short int flags;
@@ -52,7 +55,11 @@ typedef struct
 } posix_spawnattr_t;
 #endif
 
-#if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_T@
+#if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_T@ ||                                    \
+    @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_T@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_T@
+#    define posix_spawn_file_actions_t _libcfunk_posix_spawn_file_actions_t
+#  endif
 typedef struct
 {
   int todo;
@@ -70,7 +77,15 @@ typedef struct
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN@
-#  if !@HAVE_POSIX_SPAWN@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN@
+#    undef posix_spawn
+#    define posix_spawn _libcfunk_posix_spawn
+extern int
+_libcfunk_posix_spawn (pid_t *pid, const char *path,
+                       const posix_spawn_file_actions_t *file_actions,
+                       const posix_spawnattr_t *attrp, char *const argv[],
+                       char *const envp[]);
+#  elif !@HAVE_POSIX_SPAWN@
 extern int posix_spawn (pid_t *pid, const char *path,
                         const posix_spawn_file_actions_t *file_actions,
                         const posix_spawnattr_t *attrp, char *const argv[],
@@ -79,112 +94,204 @@ extern int posix_spawn (pid_t *pid, const char *path,
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN_FILE_ACTIONS_ADDCLOSE@
-#  if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDCLOSE@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_ADDCLOSE@
+#    undef posix_spawn_file_actions_addclose
+#    define posix_spawn_file_actions_addclose                                 \
+      _libcfunk_posix_spawn_file_actions_addclose
+extern int _libcfunk_posix_spawn_file_actions_addclose (
+    posix_spawn_file_actions_t *file_actions, int fd);
+#  elif !@HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDCLOSE@
 extern int
 posix_spawn_file_actions_addclose (posix_spawn_file_actions_t *file_actions,
-                                   int fildes);
+                                   int fd);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN_FILE_ACTIONS_ADDDUP2@
-#  if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDDUP2@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_ADDDUP2@
+#    undef posix_spawn_file_actions_adddup2
+#    define posix_spawn_file_actions_adddup2                                  \
+      _libcfunk_posix_spawn_file_actions_adddup2
+extern int _libcfunk_posix_spawn_file_actions_adddup2 (
+    posix_spawn_file_actions_t *file_actions, int fd, int newfd);
+#  elif !@HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDDUP2@
 extern int
 posix_spawn_file_actions_adddup2 (posix_spawn_file_actions_t *file_actions,
-                                  int fildes, int newfildes);
+                                  int fd, int newfd);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN_FILE_ACTIONS_ADDOPEN@
-#  if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDOPEN@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_ADDOPEN@
+#    undef posix_spawn_file_actions_addopen
+#    define posix_spawn_file_actions_addopen                                  \
+      _libcfunk_posix_spawn_file_actions_addopen
+extern int _libcfunk_posix_spawn_file_actions_addopen (
+    posix_spawn_file_actions_t *file_actions, int fd, const char *path,
+    int oflag, mode_t mode);
+#  elif !@HAVE_POSIX_SPAWN_FILE_ACTIONS_ADDOPEN@
 extern int
 posix_spawn_file_actions_addopen (posix_spawn_file_actions_t *file_actions,
-                                  int fildes, const char *path, int oflag,
+                                  int fd, const char *path, int oflag,
                                   mode_t mode);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN_FILE_ACTIONS_DESTROY@
-#  if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_DESTROY@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_DESTROY@
+#    undef posix_spawn_file_actions_destroy
+#    define posix_spawn_file_actions_destroy                                  \
+      _libcfunk_posix_spawn_file_actions_destroy
+extern int _libcfunk_posix_spawn_file_actions_destroy (
+    posix_spawn_file_actions_t *file_actions);
+#  elif !@HAVE_POSIX_SPAWN_FILE_ACTIONS_DESTROY@
 extern int
 posix_spawn_file_actions_destroy (posix_spawn_file_actions_t *file_actions);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWN_FILE_ACTIONS_INIT@
-#  if !@HAVE_POSIX_SPAWN_FILE_ACTIONS_INIT@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWN_FILE_ACTIONS_INIT@
+#    undef posix_spawn_file_actions_init
+#    define posix_spawn_file_actions_init                                     \
+      _libcfunk_posix_spawn_file_actions_init
+extern int _libcfunk_posix_spawn_file_actions_init (
+    posix_spawn_file_actions_t *file_actions);
+#  elif !@HAVE_POSIX_SPAWN_FILE_ACTIONS_INIT@
 extern int
 posix_spawn_file_actions_init (posix_spawn_file_actions_t *file_actions);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_DESTROY@
-#  if !@HAVE_POSIX_SPAWNATTR_DESTROY@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_DESTROY@
+#    undef posix_spawnattr_destroy
+#    define posix_spawnattr_destroy _libcfunk_posix_spawnattr_destroy
+extern int _libcfunk_posix_spawnattr_destroy (posix_spawnattr_t *attr);
+#  elif !@HAVE_POSIX_SPAWNATTR_DESTROY@
 extern int posix_spawnattr_destroy (posix_spawnattr_t *attr);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_GETFLAGS@
-#  if !@HAVE_POSIX_SPAWNATTR_GETFLAGS@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_GETFLAGS@
+#    undef posix_spawnattr_getflags
+#    define posix_spawnattr_getflags _libcfunk_posix_spawnattr_getflags
+extern int _libcfunk_posix_spawnattr_getflags (const posix_spawnattr_t *attr,
+                                               short int *flags);
+#  elif !@HAVE_POSIX_SPAWNATTR_GETFLAGS@
 extern int posix_spawnattr_getflags (const posix_spawnattr_t *attr,
                                      short int *flags);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_GETPGROUP@
-#  if !@HAVE_POSIX_SPAWNATTR_GETPGROUP@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_GETPGROUP@
+#    undef posix_spawnattr_getpgroup
+#    define posix_spawnattr_getpgroup _libcfunk_posix_spawnattr_getpgroup
+extern int _libcfunk_posix_spawnattr_getpgroup (const posix_spawnattr_t *attr,
+                                                pid_t *pgroup);
+#  elif !@HAVE_POSIX_SPAWNATTR_GETPGROUP@
 extern int posix_spawnattr_getpgroup (const posix_spawnattr_t *attr,
                                       pid_t *pgroup);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_GETSCHEDPARAM@
-#  if !@HAVE_POSIX_SPAWNATTR_GETSCHEDPARAM@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_GETSCHEDPARAM@
+#    undef posix_spawnattr_getschedparam
+#    define posix_spawnattr_getschedparam                                     \
+      _libcfunk_posix_spawnattr_getschedparam
+extern int
+_libcfunk_posix_spawnattr_getschedparam (const posix_spawnattr_t *attr,
+                                         struct sched_param *schedparam);
+#  elif !@HAVE_POSIX_SPAWNATTR_GETSCHEDPARAM@
 extern int posix_spawnattr_getschedparam (const posix_spawnattr_t *attr,
                                           struct sched_param *schedparam);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_GETSCHEDPOLICY@
-#  if !@HAVE_POSIX_SPAWNATTR_GETSCHEDPOLICY@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_GETSCHEDPOLICY@
+#    undef posix_spawnattr_getschedpolicy
+#    define posix_spawnattr_getschedpolicy                                    \
+      _libcfunk_posix_spawnattr_getschedpolicy
+extern int
+_libcfunk_posix_spawnattr_getschedpolicy (const posix_spawnattr_t *attr,
+                                          int *schedpolicy);
+#  elif !@HAVE_POSIX_SPAWNATTR_GETSCHEDPOLICY@
 extern int posix_spawnattr_getschedpolicy (const posix_spawnattr_t *attr,
                                            int *schedpolicy);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_GETSIGDEFAULT@
-#  if !@HAVE_POSIX_SPAWNATTR_GETSIGDEFAULT@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_GETSIGDEFAULT@
+#    undef posix_spawnattr_getsigdefault
+#    define posix_spawnattr_getsigdefault                                     \
+      _libcfunk_posix_spawnattr_getsigdefault
+extern int
+_libcfunk_posix_spawnattr_getsigdefault (const posix_spawnattr_t *attr,
+                                         sigset_t *sigdefault);
+#  elif !@HAVE_POSIX_SPAWNATTR_GETSIGDEFAULT@
 extern int posix_spawnattr_getsigdefault (const posix_spawnattr_t *attr,
                                           sigset_t *sigdefault);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_GETSIGMASK@
-#  if !@HAVE_POSIX_SPAWNATTR_GETSIGMASK@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_GETSIGMASK@
+#    undef posix_spawnattr_getsigmask
+#    define posix_spawnattr_getsigmask _libcfunk_posix_spawnattr_getsigmask
+extern int _libcfunk_posix_spawnattr_getsigmask (const posix_spawnattr_t *attr,
+                                                 sigset_t *sigmask);
+#  elif !@HAVE_POSIX_SPAWNATTR_GETSIGMASK@
 extern int posix_spawnattr_getsigmask (const posix_spawnattr_t *attr,
                                        sigset_t *sigmask);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_INIT@
-#  if !@HAVE_POSIX_SPAWNATTR_INIT@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_INIT@
+#    undef posix_spawnattr_init
+#    define posix_spawnattr_init _libcfunk_posix_spawnattr_init
+extern int _libcfunk_posix_spawnattr_init (posix_spawnattr_t *attr);
+#  elif !@HAVE_POSIX_SPAWNATTR_INIT@
 extern int posix_spawnattr_init (posix_spawnattr_t *attr);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETFLAGS@
-#  if !@HAVE_POSIX_SPAWNATTR_SETFLAGS@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_SETFLAGS@
+#    undef posix_spawnattr_setflags
+#    define posix_spawnattr_setflags _libcfunk_posix_spawnattr_setflags
+extern int _libcfunk_posix_spawnattr_setflags (posix_spawnattr_t *attr,
+                                               short int flags);
+#  elif !@HAVE_POSIX_SPAWNATTR_SETFLAGS@
 extern int posix_spawnattr_setflags (posix_spawnattr_t *attr, short int flags);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETPGROUP@
-#  if !@HAVE_POSIX_SPAWNATTR_SETPGROUP@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_SETPGROUP@
+#    undef posix_spawnattr_setpgroup
+#    define posix_spawnattr_setpgroup _libcfunk_posix_spawnattr_setpgroup
+extern int _libcfunk_posix_spawnattr_setpgroup (posix_spawnattr_t *attr,
+                                                pid_t pgroup);
+#  elif !@HAVE_POSIX_SPAWNATTR_SETPGROUP@
 extern int posix_spawnattr_setpgroup (posix_spawnattr_t *attr, pid_t pgroup);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETSCHEDPARAM@
-#  if !@HAVE_POSIX_SPAWNATTR_SETSCHEDPARAM@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_SETSCHEDPARAM@
+#    undef posix_spawnattr_setschedparam
+#    define posix_spawnattr_setschedparam                                     \
+      _libcfunk_posix_spawnattr_setschedparam
+extern int
+_libcfunk_posix_spawnattr_setschedparam (posix_spawnattr_t *attr,
+                                         const struct sched_param *schedparam);
+#  elif !@HAVE_POSIX_SPAWNATTR_SETSCHEDPARAM@
 extern int
 posix_spawnattr_setschedparam (posix_spawnattr_t *attr,
                                const struct sched_param *schedparam);
@@ -192,28 +299,54 @@ posix_spawnattr_setschedparam (posix_spawnattr_t *attr,
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETSCHEDPOLICY@
-#  if !@HAVE_POSIX_SPAWNATTR_SETSCHEDPOLICY@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_SETSCHEDPOLICY@
+#    undef posix_spawnattr_setschedpolicy
+#    define posix_spawnattr_setschedpolicy                                    \
+      _libcfunk_posix_spawnattr_setschedpolicy
+extern int _libcfunk_posix_spawnattr_setschedpolicy (posix_spawnattr_t *attr,
+                                                     int schedpolicy);
+#  elif !@HAVE_POSIX_SPAWNATTR_SETSCHEDPOLICY@
 extern int posix_spawnattr_setschedpolicy (posix_spawnattr_t *attr,
                                            int schedpolicy);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETSIGDEFAULT@
-#  if !@HAVE_POSIX_SPAWNATTR_SETSIGDEFAULT@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_SETSIGDEFAULT@
+#    undef posix_spawnattr_setsigdefault
+#    define posix_spawnattr_setsigdefault                                     \
+      _libcfunk_posix_spawnattr_setsigdefault
+extern int
+_libcfunk_posix_spawnattr_setsigdefault (posix_spawnattr_t *attr,
+                                         const sigset_t *sigdefault);
+#  elif !@HAVE_POSIX_SPAWNATTR_SETSIGDEFAULT@
 extern int posix_spawnattr_setsigdefault (posix_spawnattr_t *attr,
                                           const sigset_t *sigdefault);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNATTR_SETSIGMASK@
-#  if !@HAVE_POSIX_SPAWNATTR_SETSIGMASK@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNATTR_SETSIGMASK@
+#    undef posix_spawnattr_setsigmask
+#    define posix_spawnattr_setsigmask _libcfunk_posix_spawnattr_setsigmask
+extern int _libcfunk_posix_spawnattr_setsigmask (posix_spawnattr_t *attr,
+                                                 const sigset_t *sigmask);
+#  elif !@HAVE_POSIX_SPAWNATTR_SETSIGMASK@
 extern int posix_spawnattr_setsigmask (posix_spawnattr_t *attr,
                                        const sigset_t *sigmask);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_POSIX_SPAWNP@
-#  if !@HAVE_POSIX_SPAWNP@
+#  if @LIBCFUNK_REPLACE_POSIX_SPAWNP@
+#    undef posix_spawnp
+#    define posix_spawnp _libcfunk_posix_spawnp
+extern int
+_libcfunk_posix_spawnp (pid_t *pid, const char *file,
+                        const posix_spawn_file_actions_t *file_actions,
+                        const posix_spawnattr_t *attrp, char *const argv[],
+                        char *const envp[]);
+#  elif !@HAVE_POSIX_SPAWNP@
 extern int posix_spawnp (pid_t *pid, const char *file,
                          const posix_spawn_file_actions_t *file_actions,
                          const posix_spawnattr_t *attrp, char *const argv[],

@@ -25,34 +25,13 @@
 
 #include <config.h>
 
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include <spawn.h>
 
 #include "attributes.h"
-#include "test-help.h"
 
-static void signal_handler (int);
-
-/* Test that 'raise' is declared and works properly. */
 int
-main (void)
+posix_spawn_file_actions_destroy (
+    posix_spawn_file_actions_t *file_actions ATTRIBUTE_UNUSED)
 {
-  /* SIGABRT should be defined everywhere as it is required by ISO C99. Set it
-     to our signal handler. */
-  ASSERT (signal (SIGABRT, signal_handler) != SIG_ERR);
-
-  /* Raise a SIGABRT signal. */
-  ASSERT (raise (SIGABRT) == 0);
-
-  /* If 'raise' works properly this will not be reached. CTest expects the
-     return value to be 0 from the signal handler. */
-  _Exit (1);
-}
-
-/* Signal handler that exits with return code 0. */
-static void
-signal_handler (int i ATTRIBUTE_UNUSED)
-{
-  _Exit (0);
+  return 0;
 }
