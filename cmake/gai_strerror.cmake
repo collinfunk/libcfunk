@@ -58,10 +58,10 @@ endif ()
 
 if (LIBCFUNK_REPLACE_GAI_STRERROR OR NOT HAVE_GAI_STRERROR)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/gai-strerror.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/gai_strerror.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-gai-strerror.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-gai_strerror.cmake)
 endif ()

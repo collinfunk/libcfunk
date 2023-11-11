@@ -21,10 +21,10 @@ if (NOT HAVE_STRERROR_R OR LIBCFUNK_REPLACE_STRERROR_R)
 thread-safe for your system.")
   endif ()
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/strerror-r.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/strerror_r.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strerror-r.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strerror_r.cmake)
 endif ()

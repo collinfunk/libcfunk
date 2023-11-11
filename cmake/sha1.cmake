@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/explicit-bzero.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/explicit_bzero.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/circular-shift.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/bswap.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/openssl.cmake)

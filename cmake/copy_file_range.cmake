@@ -12,11 +12,11 @@ set(LIBCFUNK_DECLARE_COPY_FILE_RANGE "1" CACHE STRING "")
 
 if (NOT HAVE_COPY_FILE_RANGE)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/copy-file-range.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/copy_file_range.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-copy-file-range.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-copy_file_range.cmake)
 endif ()
 

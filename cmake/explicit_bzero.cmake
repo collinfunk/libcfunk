@@ -13,6 +13,6 @@ if (NOT HAVE_EXPLICIT_BZERO)
   check_symbol_exists("SecureZeroMemory" "windows.h" HAVE_SECUREZEROMEMORY)
   check_symbol_exists("memset_explicit" "string.h" HAVE_MEMSET_EXPLICIT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/explicit-bzero.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/explicit_bzero.c
   )
 endif ()

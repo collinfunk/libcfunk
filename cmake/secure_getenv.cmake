@@ -16,7 +16,7 @@ if (NOT HAVE_SECURE_GETENV)
   check_symbol_exists("getuid" "unistd.h" HAVE_GETUID)
   check_symbol_exists("geteuid" "unistd.h" HAVE_GETEUID)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/secure-getenv.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/secure_getenv.c
   )
 endif ()
 

@@ -15,10 +15,10 @@ if (NOT HAVE_GETLOGIN_R)
     message(FATAL_ERROR "No implemented replacement for getlogin_r(3).")
   endif ()
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/getlogin-r.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/getlogin_r.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-getlogin-r.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-getlogin_r.cmake)
 endif ()
