@@ -26,12 +26,16 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+
+#include "test-help.h"
 
 int
 main (void)
 {
   int page_size = getpagesize ();
+  ASSERT (page_size > 0);
   printf ("%d\n", page_size);
   return 0;
 }

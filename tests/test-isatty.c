@@ -25,16 +25,54 @@
 
 #include <config.h>
 
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
+#include "null-device.h"
+#include "test-help.h"
+
+static void test_isatty_stdout (void);
+static void test_isatty_null_device (void);
+
+/* Test that 'isatty' is defined and working. */
 int
 main (void)
 {
-  int value = isatty (STDOUT_FILENO);
-  if (value)
-    printf ("STDOUT is a tty.\n");
-  else
-    printf ("STDOUT is not a tty.\n");
+  test_isatty_stdout ();
+  test_isatty_null_device ();
   return 0;
+}
+
+/* We assume this test is run from CTest or a shell script.
+   Fail for STDOUT_FILENO being a tty but a print a message. */
+static void
+test_isatty_stdout (void)
+{
+  int result = isatty (STDOUT_FILENO);
+  if (result)
+    {
+      fprintf (stderr, "This test should be run from a test driver so that "
+                       "STDOUT_FILENO is not a TTY.\n");
+      abort ();
+    }
+}
+
+/* Test that isatty fails on the systems /dev/null (or equivalent) file. The
+   Windows provided isatty returns true for character devices and may fail
+   here if not replaced. */
+static void
+test_isatty_null_device (void)
+{
+  int fd;
+  int result;
+
+  fd = open (NULL_DEVICE, O_RDONLY);
+  ASSERT (fd >= 0);
+
+  result = isatty (fd);
+  ASSERT (!result);
+
+  ASSERT (close (fd) == 0);
 }

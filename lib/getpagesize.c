@@ -27,17 +27,24 @@
 
 #include <unistd.h>
 
-#ifdef _WIN32
+#if HAVE_WINDOWS_H
 #  include <windows.h>
 #endif
 
 /* https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info */
 /* https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsysteminfo */
-
 int
 getpagesize (void)
 {
+#if HAVE_WINDOWS_H
   SYSTEM_INFO system_info;
   GetSystemInfo (&system_info);
   return (int) system_info.dwPageSize;
+#else /* HAVE_SYSCONF assumed. */
+#  ifdef _SC_PAGE_SIZE
+  return (int) sysconf (_SC_PAGE_SIZE);
+#  else /* _SC_PAGESIZE assumed. */
+  return (int) sysconf (_SC_PAGESIZE);
+#  endif
+#endif
 }

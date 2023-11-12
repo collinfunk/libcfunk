@@ -1,6 +1,10 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/null-device.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/open.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
 add_executable(test-isatty)
 
 target_link_libraries(test-isatty PRIVATE

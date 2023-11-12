@@ -45,7 +45,11 @@ main (void)
 {
   const int result = ttyname_r (STDOUT_FILENO, buffer, sizeof (buffer));
 
-  ASSERT (result == expected_return);
+  /* Don't fail if running from CTest or a shell script. */
+  if (isatty (STDOUT_FILENO))
+    ASSERT (result == expected_return);
+  else
+    ASSERT (result == ENOTTY);
 
   if (result == 0)
     printf ("STDOUT TTY: %s\n", buffer);

@@ -29,20 +29,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+int
+dup (int fd)
+#undef dup
+{
 #if HAVE__DUP
-
-int
-dup (int fd)
-{
   return _dup (fd);
-}
-
 #else
-
-int
-dup (int fd)
-{
   return fcntl (fd, F_DUPFD, 0);
-}
-
 #endif
+}

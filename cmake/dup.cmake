@@ -11,7 +11,7 @@ endif ()
 
 set(LIBCFUNK_DECLARE_DUP "1" CACHE STRING "")
 
-if (NOT HAVE_DUP)
+if (NOT HAVE_DUP OR LIBCFUNK_REPLACE_DUP)
   if (NOT HAVE__DUP)
     check_include_file("fcntl.h" HAVE_FCNTL_H)
     if (HAVE_FCNTL_H)

@@ -29,24 +29,19 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#if HAVE__DUP2
-
-int
-dup2 (int fd1, int fd2)
-{
-  return _dup2 (fd1, fd2);
-}
-
-#else
-
 /* Closing and duplicating the file descriptor is not done atomically.
    This is susceptible to race conditions. */
 int
 dup2 (int fd1, int fd2)
+#undef dup2
 {
+#if HAVE__DUP2
+  return _dup2 (fd1, fd2);
+#else
   int saved_errno;
 
-  if (fd2 < 0)
+  /* Check if FD2 is a valid file descriptor. */
+  if (fd2 < 0 || fd2 >= getdtablesize ())
     {
       errno = EBADF;
       return -1;
@@ -62,10 +57,9 @@ dup2 (int fd1, int fd2)
 
   /* Close FD2 while preserving the current value of errno. */
   saved_errno = errno;
-  close (fd2);
+  (void) close (fd2);
   errno = saved_errno;
 
   return fcntl (fd1, F_DUPFD, fd2);
-}
-
 #endif
+}

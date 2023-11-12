@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/isatty.cmake)
+
 add_executable(test-ttyname_r)
 
 target_link_libraries(test-ttyname_r PRIVATE

@@ -48,6 +48,8 @@ isatty (int fd)
       errno = EBADF;
       return 0;
     }
+  /* Windows checks for character devices not terminals with _isatty. We
+     have to perform an extra check if it returns true. */
   if (_isatty (fd))
     {
       DWORD mode;

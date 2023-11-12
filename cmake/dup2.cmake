@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/getdtablesize.cmake)
 
 # Check for dup2 or _dup2.
 if (HAVE_UNISTD_H)
@@ -11,7 +12,7 @@ endif ()
 
 set(LIBCFUNK_DECLARE_DUP2 "1" CACHE STRING "")
 
-if (NOT HAVE_DUP2)
+if (NOT HAVE_DUP2 OR LIBCFUNK_REPLACE_DUP2)
   if (NOT HAVE__DUP2)
     check_include_file("fcntl.h" HAVE_FCNTL_H)
     if (HAVE_FCNTL_H)

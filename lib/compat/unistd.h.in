@@ -122,13 +122,21 @@ extern int daemon (int nochdir, int noclose);
 #endif
 
 #if @LIBCFUNK_DECLARE_DUP@
-#  if !@HAVE_DUP@
+#  if @LIBCFUNK_REPLACE_DUP@
+#    undef dup
+#    define dup _libcfunk_dup
+extern int _libcfunk_dup (int fd);
+#  elif !@HAVE_DUP@
 extern int dup (int fd);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_DUP2@
-#  if !@HAVE_DUP2@
+#  if @LIBCFUNK_REPLACE_DUP2@
+#    undef dup2
+#    define dup2 _libcfunk_dup2
+extern int _libcfunk_dup2 (int fd1, int fd2);
+#  elif !@HAVE_DUP2@
 extern int dup2 (int fd1, int fd2);
 #  endif
 #endif
@@ -259,7 +267,11 @@ extern int getlogin_r (char *name, size_t namesize);
 #endif
 
 #if @LIBCFUNK_DECLARE_GETPAGESIZE@
-#  if !@HAVE_GETPAGESIZE@
+#  if @LIBCFUNK_REPLACE_GETPAGESIZE@
+#    undef getpagesize
+#    define getpagesize _libcfunk_getpagesize
+extern int _libcfunk_getpagesize (void);
+#  elif !@HAVE_GETPAGESIZE@
 extern int getpagesize (void);
 #  endif
 #endif
@@ -277,8 +289,11 @@ extern int group_member (gid_t gid);
 #endif
 
 #if @LIBCFUNK_DECLARE_ISATTY@
-#  if !@HAVE_ISATTY@ || @HAVE__ISATTY@
+#  if @LIBCFUNK_REPLACE_ISATTY@
 #    undef isatty
+#    define isatty _libcfunk_isatty
+extern int _libcfunk_isatty (int fd);
+#  elif !@HAVE_ISATTY@
 extern int isatty (int fd);
 #  endif
 #endif
