@@ -29,8 +29,10 @@
 #include <stdlib.h>
 #include <sys/ioctl.h>
 
+#include "attributes.h"
+
 int
-unlockpt (int fd)
+unlockpt (int fd ATTRIBUTE_UNUSED)
 {
 #ifdef TIOCSPTLCK
   int unlock = 0;

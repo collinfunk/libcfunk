@@ -11,6 +11,9 @@ include(CheckIncludeFiles)
 include(CheckCSourceCompiles)
 include(CheckCSourceRuns)
 
+find_package(Git)
+find_package(CVS)
+
 # These variables should be set before including this file. They can be
 # defined in a CMakeLists.txt or as a command line option.
 set(LIBCFUNK_LIBRARY_NAME "" CACHE STRING "")
@@ -78,6 +81,8 @@ else ()
 endif ()
 
 if ($CACHE{LIBCFUNK_ENABLE_TESTS})
+  set(CTEST_CVS_COMMAND "${CVS_EXECUTABLE}")
+  set(CTEST_GIT_COMMAND "${GIT_EXECUTABLE}")
   include(CTest)
   enable_testing()
 endif ()

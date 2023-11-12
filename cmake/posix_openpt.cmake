@@ -48,10 +48,10 @@ set(LIBCFUNK_DECLARE_POSIX_OPENPT "1" CACHE STRING "")
 
 if (NOT HAVE_POSIX_OPENPT)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/posix-openpt.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/posix_openpt.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-posix-openpt.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-posix_openpt.cmake)
 endif ()

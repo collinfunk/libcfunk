@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-ioctl-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("unlockpt" "stdlib.h" HAVE_UNLOCKPT)

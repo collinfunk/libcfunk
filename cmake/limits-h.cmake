@@ -5,6 +5,7 @@ include_guard(GLOBAL)
 set(LIBCFUNK_GENERATE_LIMITS_H "1" CACHE STRING "")
 
 check_include_file("limits.h" HAVE_LIMITS_H)
+check_include_file("sys/param.h" HAVE_SYS_PARAM_H)
 
 # Check if `char' is signed or unsigned.
 check_c_source_compiles("

@@ -34,8 +34,10 @@
 #  include <sys/ioctl.h>
 #endif
 
+#include "attributes.h"
+
 pid_t
-tcgetsid (int fd)
+tcgetsid (int fd ATTRIBUTE_UNUSED)
 {
 #ifdef TIOCGSID
   pid_t session_id;

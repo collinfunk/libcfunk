@@ -455,7 +455,7 @@ if (UNIX)
   include(cmake/cloexec.cmake)
   include(cmake/daemon.cmake)
   include(cmake/nonblocking.cmake)
-  include(cmake/posix-openpt.cmake)
+  include(cmake/posix_openpt.cmake)
 
   # FIXME: Add implementation using Windows fileapi.h
   include(cmake/flock.cmake)

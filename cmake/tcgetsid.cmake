@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/termios-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-ioctl-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/tcgetsid.cmake)
 
 if (HAVE_TERMIOS_H)
   check_symbol_exists("tcgetsid" "termios.h" HAVE_TCGETSID)

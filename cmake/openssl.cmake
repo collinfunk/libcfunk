@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include(FindOpenSSL)
+find_package(OpenSSL)
 
 if (OPENSSL_FOUND)
   target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC OpenSSL::Crypto)

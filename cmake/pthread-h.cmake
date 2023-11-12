@@ -18,14 +18,21 @@ if (HAVE_SIGNAL_H)
 endif ()
 
 if (HAVE_PTHREAD_H)
-  # Find the pthread library to link to.
-  find_library(PTHREAD_LIBRARY "pthread" REQUIRED)
-  target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC "${PTHREAD_LIBRARY}")
-  list(APPEND CMAKE_REQUIRED_LIBRARIES "${PTHREAD_LIBRARY}")
 
-  # Check for types.
+  # Check for pthreads in libc or with the '-pthread' compiler flag.
+  set(THREADS_PREFER_PTHREAD_FLAG ON)
+  find_package(Threads REQUIRED)
+  unset(THREADS_HAVE_PTHREAD_ARG)
+
+  # Add the library.
+  target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC Threads::Threads)
+  list(APPEND CMAKE_REQUIRED_LIBRARIES Threads::Threads)
+
+  # Add the header.
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "pthread.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+
+  # Check for types.
   check_type_size("pthread_attr_t" PTHREAD_ATTR_T)
   check_type_size("pthread_barrier_t" PTHREAD_BARRIER_T)
   check_type_size("pthread_barrierattr_t" PTHREAD_BARRIERATTR_T)

@@ -34,6 +34,18 @@
 #  include_next <limits.h>
 #endif
 
+#if @HAVE_SYS_PARAM_H@
+#  include <sys/param.h>
+#endif
+
+#ifndef HOST_NAME_MAX
+#  ifndef MAXHOSTNAMELEN
+#    define HOST_NAME_MAX MAXHOSTNAMELEN
+#  else
+#    define HOST_NAME_MAX 256
+#  endif
+#endif
+
 #ifndef CHAR_BIT
 #  define CHAR_BIT @CHAR_BIT@
 #endif
