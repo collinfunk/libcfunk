@@ -28,7 +28,6 @@
 #include <errno.h>
 #include <unistd.h>
 
-/* TODO: Windows. */
 int
 fdatasync (int fd)
 {

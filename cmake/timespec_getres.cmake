@@ -16,7 +16,7 @@ if (NOT HAVE_TIMESPEC_GETRES)
     message(FATAL_ERROR "Could not implement timespec_getres on your system.")
   endif ()
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/timespec-getres.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/timespec_getres.c
   )
 endif ()
 

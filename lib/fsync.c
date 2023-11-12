@@ -30,8 +30,6 @@
 
 #if HAVE_WINDOWS_H
 #  include <windows.h>
-#else
-#  error "fsync not implemented for your system."
 #endif
 
 int

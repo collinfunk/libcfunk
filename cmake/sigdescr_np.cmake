@@ -12,11 +12,11 @@ set(LIBCFUNK_DECLARE_SIGDESCR_NP "1" CACHE STRING "")
 
 if (NOT HAVE_SIGDESCR_NP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/sigdescr-np.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/sigdescr_np.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sigdescr-np.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sigdescr_np.cmake)
 endif ()
 

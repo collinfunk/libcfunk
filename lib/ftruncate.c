@@ -36,8 +36,5 @@
 int
 ftruncate (int fd, off_t length)
 {
-  /* FIXME: _chsize takes a 32-bit long int. */
-  if (length > LONG_MAX)
-    abort ();
-  return _chsize (fd, length);
+  return _chsize_s (fd, length);
 }

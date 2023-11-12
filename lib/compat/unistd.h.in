@@ -213,7 +213,8 @@ extern int fchdir (int fd);
 #endif
 
 #if @LIBCFUNK_DECLARE_FDATASYNC@
-#  if !@HAVE_FDATASYNC@
+#  if @LIBCFUNK_REPLACE_FDATASYNC@
+#  elif !@HAVE_FDATASYNC@
 extern int fdatasync (int fd);
 #  endif
 #endif
@@ -221,6 +222,16 @@ extern int fdatasync (int fd);
 #if @LIBCFUNK_DECLARE_FSYNC@
 #  if !@HAVE_FSYNC@
 extern int fsync (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FTRUNCATE@
+#  if @LIBCFUNK_REPLACE_FTRUNCATE@
+#    undef ftruncate
+#    define ftruncate _libcfunk_ftruncate
+extern int _libcfunk_ftruncate (int fd, off_t length);
+#  elif !@HAVE_FTRUNCATE@
+extern int ftruncate (int fd, off_t length);
 #  endif
 #endif
 

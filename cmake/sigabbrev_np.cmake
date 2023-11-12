@@ -12,11 +12,11 @@ set(LIBCFUNK_DECLARE_SIGABBREV_NP "1" CACHE STRING "")
 
 if (NOT HAVE_SIGABBREV_NP)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/sigabbrev-np.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/sigabbrev_np.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sigabbrev-np.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sigabbrev_np.cmake)
 endif ()
 
