@@ -30,12 +30,24 @@
 #include "dirent_internal.h"
 
 void
-rewinddir (DIR *dirp)
-#undef rewinddir
+seekdir (DIR *dirp, long loc)
 {
-  if (dirp->handle != INVALID_HANDLE_VALUE)
-    (void) FindClose (dirp->handle);
-  dirp->handle = INVALID_HANDLE_VALUE;
-  dirp->offset = 0;
-  dirp->state = -1;
+  if (loc < 0L)
+    return;
+  switch (dirp->state)
+    {
+    case -1: /* DIRP has had a filename initialized by opendir. */
+      break;
+    case 0: /* DIRP has a open HANDLE object. */
+      break;
+    case 1: /* DIRP has finished reading the directory. */
+      break;
+    default: /* DIRP is uninitialized. */
+      return;
+    }
+
+  rewinddir (dirp);
+
+  while (dirp->offset < (size_t) loc && readdir (dirp) != NULL)
+    ;
 }

@@ -50,6 +50,7 @@ readdir (DIR *dirp)
           errno = EBADF;
           return NULL;
         }
+      dirp->offset = 1;
       break;
     case 0: /* DIRP has a open HANDLE object. */
       if (FindNextFile (dirp->handle, &dirp->find_data))

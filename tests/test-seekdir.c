@@ -26,16 +26,50 @@
 #include <config.h>
 
 #include <dirent.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "dirent_internal.h"
+#include "test-help.h"
 
-void
-rewinddir (DIR *dirp)
-#undef rewinddir
+int
+main (void)
 {
-  if (dirp->handle != INVALID_HANDLE_VALUE)
-    (void) FindClose (dirp->handle);
-  dirp->handle = INVALID_HANDLE_VALUE;
-  dirp->offset = 0;
-  dirp->state = -1;
+  DIR *dirp;
+  struct dirent *curr;
+  long offsets[3];
+  long result;
+  size_t i = 0;
+
+  offsets[0] = offsets[1] = offsets[2] = -1;
+
+  dirp = opendir (".");
+  ASSERT (dirp != NULL);
+
+  for (;; ++i)
+    {
+      if (i <= 2)
+        {
+          offsets[i] = telldir (dirp);
+          ASSERT (offsets[i] != -1);
+          ASSERT (i == 0 ? 1 : offsets[i] >= offsets[i - 1]);
+          printf ("%zu (%ld): %s\n", i, offsets[i],
+                  i == 0 ? "START" : curr->d_name);
+        }
+      curr = readdir (dirp);
+      if (curr == NULL)
+        break;
+    }
+
+  for (i = 0; i < ARRAY_SIZE (offsets) && offsets[i] != -1; ++i)
+    {
+      seekdir (dirp, offsets[i]);
+      result = telldir (dirp);
+      ASSERT (result == offsets[i]);
+      curr = readdir (dirp);
+      printf ("%zu (%ld): %s\n", i + 1, offsets[i], curr->d_name);
+    }
+
+  ASSERT (closedir (dirp) == 0);
+
+  return 0;
 }
