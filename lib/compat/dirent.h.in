@@ -44,21 +44,136 @@ struct dirent
 };
 #endif
 
+#if !@HAVE_DIR@
+/* TODO */
+#endif
+
 #if @LIBCFUNK_DECLARE_ALPHASORT@
-#  if !@HAVE_ALPHASORT@
+#  if @LIBCFUNK_REPLACE_ALPHASORT@
+#    undef alphasort
+#    define alphasort _libcfunk_alphasort
+extern int _libcfunk_alphasort (const struct dirent **d1,
+                                const struct dirent **d2);
+#  elif !@HAVE_ALPHASORT@
 extern int alphasort (const struct dirent **d1, const struct dirent **d2);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_VERSIONSORT@
-#  if !@HAVE_VERSIONSORT@
-extern int versionsort (const struct dirent **d1, const struct dirent **d2);
+#if @LIBCFUNK_DECLARE_CLOSEDIR@
+#  if @LIBCFUNK_REPLACE_CLOSEDIR@
+#    undef closedir
+#    define closedir _libcfunk_closedir
+extern int _libcfunk_closedir (DIR *dirp);
+#  elif !@HAVE_CLOSEDIR@
+extern int closedir (DIR *dirp);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_DIRFD@
-#  if !@HAVE_DIRFD@
+#  if @LIBCFUNK_REPLACE_DIRFD@
+#    undef dirfd
+#    define dirfd _libcfunk_dirfd
+extern int _libcfunk_dirfd (DIR *dirp);
+#  elif !@HAVE_DIRFD@
 extern int dirfd (DIR *dirp);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FDOPENDIR@
+#  if @LIBCFUNK_REPLACE_FDOPENDIR@
+#    undef fdopendir
+#    define fdopendir _libcfunk_fdopendir
+extern DIR *_libcfunk_fdopendir (int fd);
+#  elif !@HAVE_FDOPENDIR@
+extern DIR *fdopendir (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_OPENDIR@
+#  if @LIBCFUNK_REPLACE_OPENDIR@
+#    undef opendir
+#    define opendir _libcfunk_opendir
+extern DIR *_libcfunk_opendir (const char *dirname);
+#  elif !@HAVE_OPENDIR@
+extern DIR *opendir (const char *dirname);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_READDIR@
+#  if @LIBCFUNK_REPLACE_READDIR@
+#    undef readdir
+#    define readdir _libcfunk_readdir
+extern struct dirent *_libcfunk_readdir (DIR *dirp);
+#  elif !@HAVE_READDIR@
+extern struct dirent *readdir (DIR *dirp);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_READDIR_R@
+#  if @LIBCFUNK_REPLACE_READDIR_R@
+#    undef readdir_r
+#    define readdir_r _libcfunk_readdir_r
+extern int _libcfunk_readdir_r (DIR *dirp, struct dirent *entry,
+                                struct dirent **result);
+#  elif !@HAVE_READDIR_R@
+extern int readdir_r (DIR *dirp, struct dirent *entry, struct dirent **result);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_REWINDDIR@
+#  if @LIBCFUNK_REPLACE_REWINDDIR@
+#    undef rewinddir
+#    define rewinddir _libcfunk_rewinddir
+extern void _libcfunk_rewinddir (DIR *dirp);
+#  elif !@HAVE_REWINDDIR@
+extern void rewinddir (DIR *dirp);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SCANDIR@
+#  if @LIBCFUNK_REPLACE_SCANDIR@
+#    undef scandir
+#    define scandir _libcfunk_scandir
+extern int _libcfunk_scandir (const char *dir, struct dirent ***namelist,
+                              int (*sel) (const struct dirent *),
+                              int (*compar) (const struct dirent **,
+                                             const struct dirent **));
+#  elif !@HAVE_SCANDIR@
+extern int scandir (const char *dir, struct dirent ***namelist,
+                    int (*sel) (const struct dirent *),
+                    int (*compar) (const struct dirent **,
+                                   const struct dirent **));
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SEEKDIR@
+#  if @LIBCFUNK_REPLACE_SEEKDIR@
+#    undef seekdir
+#    define seekdir _libcfunk_seekdir
+extern void _libcfunk_seekdir (DIR *dirp, long loc);
+#  elif !@HAVE_SEEKDIR@
+extern void seekdir (DIR *dirp, long loc);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_TELLDIR@
+#  if @LIBCFUNK_REPLACE_TELLDIR@
+#    undef telldir
+#    define telldir _libcfunk_telldir
+extern long _libcfunk_telldir (DIR *dirp);
+#  elif !@HAVE_TELLDIR@
+extern long telldir (DIR *dirp);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_VERSIONSORT@
+#  if @LIBCFUNK_REPLACE_VERSIONSORT@
+#    undef versionsort
+#    define versionsort _libcfunk_versionsort
+extern int _libcfunk_versionsort (const struct dirent **d1,
+                                  const struct dirent **d2);
+#  elif !@HAVE_VERSIONSORT@
+extern int versionsort (const struct dirent **d1, const struct dirent **d2);
 #  endif
 #endif
 
