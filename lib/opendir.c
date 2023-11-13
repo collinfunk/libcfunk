@@ -97,6 +97,8 @@ opendir (const char *dirname)
 
   /* Initialize the allocated directory stream. */
   dirp->handle = INVALID_HANDLE_VALUE;
+  dirp->offset = 0;
+  dirp->state = -1;
   memcpy (dirp->dirname, buffer, buffer_len + 1);
 
   return dirp;

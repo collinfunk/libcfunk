@@ -23,39 +23,60 @@
  * SUCH DAMAGE.
  */
 
-#ifndef DIRENT_INTERNAL_H
-#define DIRENT_INTERNAL_H
-
 #include <config.h>
 
 #include <dirent.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#if HAVE_WINDOWS_H
-#  include <windows.h>
-#endif
+#include "test-help.h"
 
-struct _libcfunk_dirstream
+static size_t pass1 = 0;
+static size_t pass2 = 0;
+
+static DIR *dirp = NULL;
+
+static size_t count_files (void);
+
+/* Test that rewinddir is declared and working. This file assumes the current
+   working directory has files and the number of files does not change during
+   execution. */
+int
+main (void)
 {
-  /* The handle used for 'FindFirstFile', 'FindNextFile', and 'FindClose'. */
-  HANDLE handle;
+  /* Open the current directory. */
+  dirp = opendir (".");
+  ASSERT (dirp != NULL);
 
-  /* Current file from the start of the directory. */
-  size_t offset;
+  /* Count the number of files. */
+  pass1 = count_files ();
+  ASSERT (pass1 > 0);
 
-  /* State variable. -1 if 'opendir' has set the dirname field so that
-     'FindFirstFile' can be called. 0 if the directory is still being read.
-     1 if the stream has reached the last file of the directory. */
-  int state;
+  /* Go to the start of the directory stream. */
+  rewinddir (dirp);
 
-  /* Current dirent struct returned by 'readdir'. */
-  struct dirent current;
+  /* Count the number of files again. */
+  pass2 = count_files ();
+  ASSERT (pass2 > 0);
 
-  /* Data used to store the result of Windows function calls. */
-  WIN32_FIND_DATA find_data;
+  ASSERT (pass1 == pass2);
 
-  /* The initial directory name passed to 'opendir' with wildcard characters
-     appended for use with Windows functions. */
-  char dirname[];
-};
+  return 0;
+}
 
-#endif /* DIRENT_INTERNAL_H */
+static size_t
+count_files (void)
+{
+  struct dirent *curr;
+  size_t count = 0;
+
+  for (;; ++count)
+    {
+      curr = readdir (dirp);
+      if (curr == NULL)
+        break;
+      printf ("%zu: %s\n", count, curr->d_name);
+    }
+
+  return count;
+}

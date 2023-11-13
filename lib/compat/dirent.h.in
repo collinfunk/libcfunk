@@ -43,7 +43,11 @@
 struct dirent
 {
   ino_t d_ino;
+#if @HAVE_WINDOWS_H@
+  char d_name[260];
+#else
   char d_name[255];
+#endif
 };
 #endif
 

@@ -31,5 +31,10 @@
 
 void
 rewinddir (DIR *dirp)
+#undef rewinddir
 {
+  if (dirp->handle != INVALID_HANDLE_VALUE)
+    (void) FindClose (dirp->handle);
+  dirp->offset = 0;
+  dirp->state = -1;
 }

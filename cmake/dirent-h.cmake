@@ -7,6 +7,7 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 set(LIBCFUNK_GENERATE_DIRENT_H "1" CACHE STRING "")
 
 check_include_file("dirent.h" HAVE_DIRENT_H)
+check_include_file("windows.h" HAVE_WINDOWS_H)
 
 set(DIR_SOURCE_HEADER "")
 

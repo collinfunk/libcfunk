@@ -23,39 +23,22 @@
  * SUCH DAMAGE.
  */
 
-#ifndef DIRENT_INTERNAL_H
-#define DIRENT_INTERNAL_H
-
 #include <config.h>
 
 #include <dirent.h>
+#include <limits.h>
+#include <stddef.h>
 
-#if HAVE_WINDOWS_H
-#  include <windows.h>
-#endif
+#include "dirent_internal.h"
 
-struct _libcfunk_dirstream
+long
+telldir (DIR *dirp)
 {
-  /* The handle used for 'FindFirstFile', 'FindNextFile', and 'FindClose'. */
-  HANDLE handle;
-
-  /* Current file from the start of the directory. */
-  size_t offset;
-
-  /* State variable. -1 if 'opendir' has set the dirname field so that
-     'FindFirstFile' can be called. 0 if the directory is still being read.
-     1 if the stream has reached the last file of the directory. */
-  int state;
-
-  /* Current dirent struct returned by 'readdir'. */
-  struct dirent current;
-
-  /* Data used to store the result of Windows function calls. */
-  WIN32_FIND_DATA find_data;
-
-  /* The initial directory name passed to 'opendir' with wildcard characters
-     appended for use with Windows functions. */
-  char dirname[];
-};
-
-#endif /* DIRENT_INTERNAL_H */
+  if (dirp->offset < (size_t) LONG_MAX)
+    return (long) dirp->offset;
+  else
+    {
+      errno = EBADF;
+      return -1;
+    }
+}
