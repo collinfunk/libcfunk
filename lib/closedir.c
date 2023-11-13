@@ -27,30 +27,15 @@
 
 #include <dirent.h>
 
-#include "attributes.h"
+#include "dirent_internal.h"
 
-static void test_struct_dirent_defined (void);
-static void test_DIR_defined (void);
-
-/* Test that 'dirent.h' can be included. */
+/* https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-findclose */
 int
-main (void)
+closedir (DIR *dirp)
+#undef closedir
 {
-  test_struct_dirent_defined ();
-  test_DIR_defined ();
+  if (dirp->handle != INVALID_HANDLE_VALUE)
+    (void) FindClose (dirp->handle);
+  free (dirp);
   return 0;
-}
-
-/* Test that 'struct dirent' is defined. */
-static void
-test_struct_dirent_defined (void)
-{
-  struct dirent value ATTRIBUTE_UNUSED;
-}
-
-/* Test that 'DIR' is defined. This may be an incomplete type. */
-static void
-test_DIR_defined (void)
-{
-  DIR *dirp ATTRIBUTE_UNUSED;
 }

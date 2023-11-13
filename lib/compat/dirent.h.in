@@ -36,7 +36,10 @@
 
 #include <sys/types.h>
 
-#if !@HAVE_STRUCT_DIRENT@
+#if !@HAVE_STRUCT_DIRENT@ || @LIBCFUNK_REPLACE_STRUCT_DIRENT@
+#  if @LIBCFUNK_REPLACE_STRUCT_DIRENT@
+#    define dirent _libcfunk_dirent
+#  endif
 struct dirent
 {
   ino_t d_ino;
@@ -44,8 +47,14 @@ struct dirent
 };
 #endif
 
-#if !@HAVE_DIR@
-/* TODO */
+/* The 'DIR' type is defined to be a type representing a directory stream.
+   POSIX  states that this may be an incomplete type. */
+#if !@HAVE_DIR@ || @LIBCFUNK_REPLACE_DIR@
+struct _libcfunk_dirstream;
+#  if @LIBCFUNK_REPLACE_DIR@
+#    define DIR _libcfunk_DIR
+#  endif
+typedef struct _libcfunk_dirstream DIR;
 #endif
 
 #if @LIBCFUNK_DECLARE_ALPHASORT@

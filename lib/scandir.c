@@ -27,30 +27,9 @@
 
 #include <dirent.h>
 
-#include "attributes.h"
+#include "dirent_internal.h"
 
-static void test_struct_dirent_defined (void);
-static void test_DIR_defined (void);
-
-/* Test that 'dirent.h' can be included. */
-int
-main (void)
-{
-  test_struct_dirent_defined ();
-  test_DIR_defined ();
-  return 0;
-}
-
-/* Test that 'struct dirent' is defined. */
-static void
-test_struct_dirent_defined (void)
-{
-  struct dirent value ATTRIBUTE_UNUSED;
-}
-
-/* Test that 'DIR' is defined. This may be an incomplete type. */
-static void
-test_DIR_defined (void)
-{
-  DIR *dirp ATTRIBUTE_UNUSED;
-}
+/* TODO */
+int scandir (const char *dir, struct dirent ***namelist,
+             int (*sel) (const struct dirent *),
+             int (*compar) (const struct dirent **, const struct dirent **));

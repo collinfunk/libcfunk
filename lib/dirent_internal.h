@@ -23,34 +23,21 @@
  * SUCH DAMAGE.
  */
 
+#ifndef DIRENT_INTERNAL_H
+#define DIRENT_INTERNAL_H
+
 #include <config.h>
 
 #include <dirent.h>
 
-#include "attributes.h"
+#if HAVE_WINDOWS_H
+#  include <windows.h>
+#endif
 
-static void test_struct_dirent_defined (void);
-static void test_DIR_defined (void);
-
-/* Test that 'dirent.h' can be included. */
-int
-main (void)
+struct _libcfunk_dirstream
 {
-  test_struct_dirent_defined ();
-  test_DIR_defined ();
-  return 0;
-}
+  HANDLE handle;
+  char dirname[];
+};
 
-/* Test that 'struct dirent' is defined. */
-static void
-test_struct_dirent_defined (void)
-{
-  struct dirent value ATTRIBUTE_UNUSED;
-}
-
-/* Test that 'DIR' is defined. This may be an incomplete type. */
-static void
-test_DIR_defined (void)
-{
-  DIR *dirp ATTRIBUTE_UNUSED;
-}
+#endif /* DIRENT_INTERNAL_H */

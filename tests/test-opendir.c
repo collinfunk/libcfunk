@@ -26,31 +26,45 @@
 #include <config.h>
 
 #include <dirent.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_struct_dirent_defined (void);
-static void test_DIR_defined (void);
+static void test_opendir_not_exists (void);
+static void test_opendir_current_dir (void);
 
-/* Test that 'dirent.h' can be included. */
 int
 main (void)
 {
-  test_struct_dirent_defined ();
-  test_DIR_defined ();
+  test_opendir_not_exists ();
+  test_opendir_current_dir ();
   return 0;
 }
 
-/* Test that 'struct dirent' is defined. */
+/* Test that calling 'opendir' on a directory doesn't exit results in a NULL
+   pointer being returned. */
 static void
-test_struct_dirent_defined (void)
+test_opendir_not_exists (void)
 {
-  struct dirent value ATTRIBUTE_UNUSED;
+  const char *dir_doesnt_exist = "this_directory_shouldnt_exist";
+  DIR *dirp;
+
+  dirp = opendir (dir_doesnt_exist);
+  ASSERT (dirp == NULL);
 }
 
-/* Test that 'DIR' is defined. This may be an incomplete type. */
+/* Test that calling 'opendir' on the current directory doesn't return a NULL
+   pointer. Make sure to call 'closedir' to make sanitizers and leak checks
+   happy. */
 static void
-test_DIR_defined (void)
+test_opendir_current_dir (void)
 {
-  DIR *dirp ATTRIBUTE_UNUSED;
+  const char *current_dir = ".";
+  DIR *dirp;
+
+  dirp = opendir (current_dir);
+  ASSERT (dirp != NULL);
+
+  ASSERT (closedir (dirp) == 0);
 }
