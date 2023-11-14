@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/signal-h.cmake)
+
 # Generate <sys/wait.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_SYS_WAIT_H "1" CACHE STRING "")
 

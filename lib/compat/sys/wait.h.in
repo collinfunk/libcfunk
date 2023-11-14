@@ -36,35 +36,68 @@
 
 #include <sys/types.h>
 
-#if !@HAVE_WINDOWS_H@
+#include <signal.h>
 
-/* True if the child exited normally. */
+/* Windows only supports the 6 ISO C99 signals. By default all exit with a
+   status code of 3. For WTERMSIG, we just return SIGTERM which should be
+   good enough. */
+#if @HAVE_WINDOWS_H@
+#  ifndef WCOREFLAG
+#    define WCOREFLAG (0)
+#  endif
+#  ifndef WEXITSTATUS
+#    define WEXITSTATUS(x) (x)
+#  endif
+#  ifndef WIFCONTINUED
+/* TODO: XSI extension. */
+#  endif
 #  ifndef WIFEXITED
-#    define WIFEXITED(x) (WTERMSIG (x) == 0)
+#    define WIFEXITED(x) ((x) != 3)
 #  endif
-
-/* True if the child exited due to an uncaught signal. */
 #  ifndef WIFSIGNALED
-#    define WIFSIGNALED(x) (WTERMSIG (x) != 0 && WTERMSIG (x) != 0x7f)
+#    define WIFSIGNALED(x) ((x) == 3)
 #  endif
-
-/* If WIFEXITED (x) is true, returns the exit status. */
+#  ifndef WIFSTOPPED
+#    define WIFSTOPPED(x) (0)
+#  endif
+#  ifndef WSTOPSIG
+#    define WSTOPSIG(x) (0)
+#  endif
+#  ifndef WTERMSIG
+#    define WTERMSIG(x) (SIGTERM)
+#  endif
+#  ifndef WCOREDUMP
+#    define WCOREDUMP(x) (0)
+#  endif
+#else
+#  ifndef WCOREFLAG
+#    define WCOREFLAG 0x80
+#  endif
 #  ifndef WEXITSTATUS
 #    define WEXITSTATUS(x) (((x) >> 8) & 0xff)
 #  endif
-
-/* If WIFSIGNALED (x) is true, returns the signal number that caused the
-   process to stop. */
+#  ifndef WIFCONTINUED
+/* TODO: XSI extension. */
+#  endif
+#  ifndef WIFEXITED
+#    define WIFEXITED(x) (WTERMSIG (x) == 0)
+#  endif
+#  ifndef WIFSIGNALED
+#    define WIFSIGNALED(x) (WTERMSIG (x) != 0x7f && WTERMSIG (x) != 0)
+#  endif
+#  ifndef WIFSTOPPED
+#    define WIFSTOPPED(x) (WTERMSIG (x) == 0x7f)
+#  endif
+#  ifndef WSTOPSIG
+#    define WSTOPSIG(x) (((x) >> 8) & 0x7f)
+#  endif
 #  ifndef WTERMSIG
 #    define WTERMSIG(x) ((x) & 0x7f)
 #  endif
-
-/* True if the child created a core dump. BSD extension. */
 #  ifndef WCOREDUMP
-#    define WCOREDUMP(x) ((x) & 0x80)
+#    define WCOREDUMP(x) ((x) & WCOREFLAG)
 #  endif
-
-#endif /* !HAVE_WINDOWS_H */
+#endif
 
 #if @LIBCFUNK_DECLARE_WAITPID@
 #  if !@HAVE_WAITPID@

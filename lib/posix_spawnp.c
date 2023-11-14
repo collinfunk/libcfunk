@@ -27,8 +27,13 @@
 
 #include <spawn.h>
 
-/* TODO */
-int posix_spawnp (pid_t *pid, const char *file,
-                  const posix_spawn_file_actions_t *file_actions,
-                  const posix_spawnattr_t *attrp, char *const argv[],
-                  char *const envp[]);
+#include "posix_spawn_internal.h"
+
+int
+posix_spawnp (pid_t *pid, const char *file,
+              const posix_spawn_file_actions_t *file_actions,
+              const posix_spawnattr_t *attrp, char *const argv[],
+              char *const envp[])
+{
+  return posix_spawn_internal (pid, file, file_actions, attrp, argv, envp, 1);
+}

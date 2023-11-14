@@ -23,17 +23,21 @@
  * SUCH DAMAGE.
  */
 
+#ifndef POSIX_SPAWN_INTERNAL_H
+#define POSIX_SPAWN_INTERNAL_H
+
 #include <config.h>
+
+#include <sys/types.h>
 
 #include <spawn.h>
 
-#include "posix_spawn_internal.h"
+/* Internal function for implementing 'posix_spawn' and 'posix_spawnp'. The
+   last argument controls whether the users $PATH enviornment variable is used
+   to lookup the given program. */
+int posix_spawn_internal (pid_t *pid, const char *file,
+                          const posix_spawn_file_actions_t *file_actions,
+                          const posix_spawnattr_t *attrp, char *const argv[],
+                          char *const envp[], int use_env_path);
 
-int
-posix_spawn (pid_t *pid, const char *path,
-             const posix_spawn_file_actions_t *file_actions,
-             const posix_spawnattr_t *attrp, char *const argv[],
-             char *const envp[])
-{
-  return posix_spawn_internal (pid, path, file_actions, attrp, argv, envp, 0);
-}
+#endif /* POSIX_SPAWN_INTERNAL_H */

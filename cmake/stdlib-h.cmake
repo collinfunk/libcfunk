@@ -1,6 +1,9 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-wait-h.cmake)
+
 # Generate <stdlib.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STDLIB_H "1" CACHE STRING "")
 
