@@ -29,29 +29,15 @@
 
 #include <netdb.h>
 
-#if LIBCFUNK_REPLACE_GAI_STRERROR
-
-/* Don't call ourselves. */
-#  undef gai_strerror
-
-/* Redefine it to an actual symbol on Windows. */
-#  if HAVE_GAI_STRERRORA
-#    define gai_strerror gai_strerrorA
-#  endif
-
-const char *
-_libcfunk_gai_strerror (int error_code)
-{
-  return (const char *) gai_strerror (error_code);
-}
-
-#elif !HAVE_GAI_STRERROR
-
-/* TODO: Add some common values atleast. */
 const char *
 gai_strerror (int error_code)
+#undef gai_strerror
 {
+#if HAVE_GAI_STRERRORA
+  return (const char *) gai_strerrorA (error_code);
+#elif HAVE_GAI_STRERROR
+  return (const char *) gai_strerror (error_code);
+#else /* TODO */
   return "Unknown error code";
-}
-
 #endif
+}
