@@ -9,6 +9,8 @@ set(LIBCFUNK_GENERATE_SYS_IOCTL_H "1" CACHE STRING "")
 
 check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
 check_include_file("sys/ioctl.h" HAVE_SYS_IOCTL_H)
+check_include_file("stropts.h" HAVE_STROPTS_H)
+check_include_file("unistd.h" HAVE_UNISTD_H)
 
 if (HAVE_SYS_IOCTL_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/ioctl.h")

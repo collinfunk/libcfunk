@@ -460,6 +460,7 @@ if (UNIX)
   include(cmake/daemon.cmake)
   include(cmake/nonblocking.cmake)
   include(cmake/posix_openpt.cmake)
+  include(cmake/ioctl.cmake)
 
   # TODO: Windows
   include(cmake/posix_spawn.cmake)

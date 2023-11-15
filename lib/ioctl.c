@@ -23,46 +23,25 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_IOCTL_H
-#define COMPAT_SYS_IOCTL_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <sys/ioctl.h>
 
-#if @HAVE_SYS_IOCTL_H@
-#  include_next <sys/ioctl.h>
-#endif
+#include <stdarg.h>
 
-#include <sys/types.h>
-
-#if @HAVE_UNISTD_H@
-#  include <unistd.h>
-#endif
-
-#if @HAVE_STROPTS_H@
-#  include <stropts.h>
-#endif
-
-#if !@HAVE_STRUCT_WINSIZE@
-/* Unused for systems without it. */
-struct winsize
+int
+ioctl (int fd, int request, ...)
+#undef ioctl
 {
-  unsigned short int ws_row;
-  unsigned short int ws_col;
-  unsigned short int ws_xpixel;
-  unsigned short int ws_ypixel;
-};
-#endif
+  va_list ap;
+  void *ptr;
 
-#if @LIBCFUNK_DECLARE_IOCTL@
-#  if @LIBCFUNK_REPLACE_IOCTL@
-#    undef ioctl
-#    define ioctl _libcfunk_ioctl
-int ioctl (int fd, int request, ...);
-#  elif !@HAVE_IOCTL@
-int ioctl (int fd, int request, ...);
-#  endif
-#endif
+  /* Get the pointer argument. */
+  va_start (ap, request);
+  ptr = va_arg (ap, void *);
+  va_end (ap);
 
-#endif /* COMPAT_SYS_IOCTL_H */
+  /* All ioctl's are 32-bits. See '/usr/include/sys/ioccom.h' on a
+     BSD system. */
+  return ioctl (fd, (unsigned long int) request, ptr);
+}
