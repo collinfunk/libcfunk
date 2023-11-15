@@ -31,14 +31,8 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-/* This function can be built as euidaccess which is the glibc name or
-   eaccess which is the FreeBSD name. */
-#ifndef EUIDACCESS_FUNCTION_NAME
-#  define EUIDACCESS_FUNCTION_NAME euidaccess
-#endif
-
 int
-EUIDACCESS_FUNCTION_NAME (const char *pathname, int mode)
+euidaccess (const char *pathname, int mode)
 {
 #if HAVE_WINDOWS_H
   return _access (pathname, mode);

@@ -25,5 +25,11 @@
 
 #include <config.h>
 
-#define EUIDACCESS_FUNCTION_NAME eaccess
-#include "euidaccess.c"
+#include <unistd.h>
+
+/* BSD has 'eaccess' and GNU has 'euidaccess' which does the same thing. */
+int
+eaccess (const char *path, int mode)
+{
+  return euidaccess (path, mode);
+}

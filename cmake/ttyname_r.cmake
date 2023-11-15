@@ -5,12 +5,14 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("ttyname_r" "unistd.h" HAVE_TTYNAME_R)
-  check_symbol_exists("ttyname" "unistd.h" HAVE_TTYNAME)
 endif ()
 
 set(LIBCFUNK_DECLARE_TTYNAME_R "1" CACHE STRING "")
 
 if (NOT HAVE_TTYNAME_R)
+  if (HAVE_UNISTD_H)
+    check_symbol_exists("ttyname" "unistd.h" HAVE_TTYNAME)
+  endif ()
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/ttyname_r.c
   )

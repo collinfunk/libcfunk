@@ -8,13 +8,15 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/dup2.cmake)
 
 if (HAVE_UNISTD_H)
   check_symbol_exists("daemon" "unistd.h" HAVE_DAEMON)
-  check_symbol_exists("fork" "unistd.h" HAVE_FORK)
-  check_symbol_exists("setsid" "unistd.h" HAVE_SETSID)
 endif ()
 
 set(LIBCFUNK_DECLARE_DAEMON "1" CACHE STRING "")
 
 if (NOT HAVE_DAEMON)
+  if (HAVE_UNISTD_H)
+    check_symbol_exists("fork" "unistd.h" HAVE_FORK)
+    check_symbol_exists("setsid" "unistd.h" HAVE_SETSID)
+  endif ()
   # This is pretty much just a check to see if the host is Windows.
   # However, just use these functions since we need them anyways and there
   # might be a weird system missing them.

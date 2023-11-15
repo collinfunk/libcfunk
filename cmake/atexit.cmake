@@ -5,12 +5,14 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("atexit" "stdlib.h" HAVE_ATEXIT)
-  check_symbol_exists("on_exit" "stdlib.h" HAVE_ON_EXIT)
 endif ()
 
 set(LIBCFUNK_DECLARE_ATEXIT "1" CACHE STRING "")
 
 if (NOT HAVE_ATEXIT)
+  if (HAVE_STDLIB_H)
+    check_symbol_exists("on_exit" "stdlib.h" HAVE_ON_EXIT)
+  endif ()
   # Shouldn't ever happen but just make sure.
   if (NOT HAVE_ON_EXIT)
     message(FATAL_ERROR "You system does not provide `atexit' and \
