@@ -244,7 +244,11 @@ extern char *_libcfunk_getcwd (char *buffer, size_t size);
 #endif
 
 #if @LIBCFUNK_DECLARE_GETDTABLESIZE@
-#  if !@HAVE_GETDTABLESIZE@
+#  if @LIBCFUNK_REPLACE_GETDTABLESIZE@
+#    undef getdtablesize
+#    define getdtablesize _libcfunk_getdtablesize
+extern int _libcfunk_getdtablesize (void);
+#  elif !@HAVE_GETDTABLESIZE@
 extern int getdtablesize (void);
 #  endif
 #endif

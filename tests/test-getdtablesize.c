@@ -30,11 +30,29 @@
 
 #include "test-help.h"
 
+/* Test that 'getdtablesize' is declared and returns a positive integer. We
+   make two calls to test that the Windows implementation caches the value
+   derived from modifying the number open streams. Assume it doesn't change
+   during execution of this program. */
 int
 main (void)
 {
-  int value = getdtablesize ();
-  ASSERT (value >= 0);
-  printf ("getdtablesize (): %d\n", value);
+  int result1;
+  int result2;
+
+  /* Get the file descriptor table size. */
+  result1 = getdtablesize ();
+  result2 = getdtablesize ();
+
+  /* Make sure both values are equal. */
+  ASSERT (result1 > 0);
+  ASSERT (result2 > 0);
+
+  /* Test that each execution is equal. */
+  ASSERT (result1 == result2);
+
+  /* Print the value for debugging. */
+  printf ("getdtablesize (): %d\n", result1);
+
   return 0;
 }

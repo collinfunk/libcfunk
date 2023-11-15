@@ -386,6 +386,7 @@
 #cmakedefine01 HAVE_LCHOWN
 #cmakedefine01 HAVE_LDIV
 #cmakedefine01 HAVE_LDIV_T
+#cmakedefine01 HAVE_LIBC_PTHREAD
 #cmakedefine01 HAVE_LIBKERN_OSBYTEORDER_H
 #cmakedefine01 HAVE_LIMITS_H
 #cmakedefine01 HAVE_LLABS
