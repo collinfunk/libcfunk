@@ -2,6 +2,7 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 
 # Generate <inttypes.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_INTTYPES_H "1" CACHE STRING "")

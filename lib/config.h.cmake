@@ -329,9 +329,11 @@
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_IMAXDIV
 #cmakedefine01 HAVE_IMAXDIV_T
+#cmakedefine01 HAVE_IN_ADDR_T
 #cmakedefine01 HAVE_INCLUDE_NEXT
 #cmakedefine01 HAVE_INDEX
 #cmakedefine01 HAVE_INO_T
+#cmakedefine01 HAVE_IN_PORT_T
 #cmakedefine01 HAVE_INT16_T
 #cmakedefine01 HAVE_INT32_T
 #cmakedefine01 HAVE___INT64_T
@@ -630,6 +632,8 @@
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_TYPE
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_WHENCE
 #cmakedefine01 HAVE_STRUCT_IF_NAMEINDEX
+#cmakedefine01 HAVE_STRUCT_IN6_ADDR
+#cmakedefine01 HAVE_STRUCT_IN_ADDR
 #cmakedefine01 HAVE_STRUCT_IOVEC
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_ITIMERVAL
@@ -642,6 +646,8 @@
 #cmakedefine01 HAVE_STRUCT_SCHED_PARAM
 #cmakedefine01 HAVE_STRUCT_SIGACTION
 #cmakedefine01 HAVE_STRUCT_SIGEVENT
+#cmakedefine01 HAVE_STRUCT_SOCKADDR_IN
+#cmakedefine01 HAVE_STRUCT_SOCKADDR_IN6
 #cmakedefine01 HAVE_STRUCT_SOCKADDR_UN
 #cmakedefine01 HAVE_STRUCT_STAT
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM

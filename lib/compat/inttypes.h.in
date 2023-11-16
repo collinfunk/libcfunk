@@ -35,77 +35,2162 @@
 #endif
 
 #include <stdint.h>
+#include <limits.h>
 
 #ifndef PRId8
-#  define PRId8 "d"
-#endif
-
-#ifndef PRIi8
-#  define PRIi8 "i"
-#endif
-
-#ifndef PRIo8
-#  define PRIo8 "o"
-#endif
-
-#ifndef PRIu8
-#  define PRIu8 "u"
-#endif
-
-#ifndef PRIx8
-#  define PRIx8 "x"
-#endif
-
-#ifndef PRIX8
-#  define PRIX8 "X"
+#  if INT8_MAX == SCHAR_MAX
+#    define PRId8 "d"
+#  elif INT8_MAX == SHRT_MAX
+#    define PRId8 "d"
+#  elif INT8_MAX == INT_MAX
+#    define PRId8 "d"
+#  elif INT8_MAX == LONG_MAX
+#    define PRId8 "ld"
+#  elif INT8_MAX == LLONG_MAX
+#    define PRId8 "lld"
+#  endif
 #endif
 
 #ifndef PRId16
-#  define PRId16 "d"
-#endif
-
-#ifndef PRIi16
-#  define PRIi16 "i"
-#endif
-
-#ifndef PRIo16
-#  define PRIo16 "o"
-#endif
-
-#ifndef PRIu16
-#  define PRIu16 "u"
-#endif
-
-#ifndef PRIx16
-#  define PRIx16 "x"
-#endif
-
-#ifndef PRIX16
-#  define PRIX16 "X"
+#  if INT16_MAX == SCHAR_MAX
+#    define PRId16 "d"
+#  elif INT16_MAX == SHRT_MAX
+#    define PRId16 "d"
+#  elif INT16_MAX == INT_MAX
+#    define PRId16 "d"
+#  elif INT16_MAX == LONG_MAX
+#    define PRId16 "ld"
+#  elif INT16_MAX == LLONG_MAX
+#    define PRId16 "lld"
+#  endif
 #endif
 
 #ifndef PRId32
-#  define PRId32 "d"
+#  if INT32_MAX == SCHAR_MAX
+#    define PRId32 "d"
+#  elif INT32_MAX == SHRT_MAX
+#    define PRId32 "d"
+#  elif INT32_MAX == INT_MAX
+#    define PRId32 "d"
+#  elif INT32_MAX == LONG_MAX
+#    define PRId32 "ld"
+#  elif INT32_MAX == LLONG_MAX
+#    define PRId32 "lld"
+#  endif
+#endif
+
+#ifndef PRId64
+#  if INT64_MAX == SCHAR_MAX
+#    define PRId64 "d"
+#  elif INT64_MAX == SHRT_MAX
+#    define PRId64 "d"
+#  elif INT64_MAX == INT_MAX
+#    define PRId64 "d"
+#  elif INT64_MAX == LONG_MAX
+#    define PRId64 "ld"
+#  elif INT64_MAX == LLONG_MAX
+#    define PRId64 "lld"
+#  endif
+#endif
+
+#ifndef PRIdLEAST8
+#  if INT_LEAST8_MAX == SCHAR_MAX
+#    define PRIdLEAST8 "d"
+#  elif INT_LEAST8_MAX == SHRT_MAX
+#    define PRIdLEAST8 "d"
+#  elif INT_LEAST8_MAX == INT_MAX
+#    define PRIdLEAST8 "d"
+#  elif INT_LEAST8_MAX == LONG_MAX
+#    define PRIdLEAST8 "ld"
+#  elif INT_LEAST8_MAX == LLONG_MAX
+#    define PRIdLEAST8 "lld"
+#  endif
+#endif
+
+#ifndef PRIdLEAST16
+#  if INT_LEAST16_MAX == SCHAR_MAX
+#    define PRIdLEAST16 "d"
+#  elif INT_LEAST16_MAX == SHRT_MAX
+#    define PRIdLEAST16 "d"
+#  elif INT_LEAST16_MAX == INT_MAX
+#    define PRIdLEAST16 "d"
+#  elif INT_LEAST16_MAX == LONG_MAX
+#    define PRIdLEAST16 "ld"
+#  elif INT_LEAST16_MAX == LLONG_MAX
+#    define PRIdLEAST16 "lld"
+#  endif
+#endif
+
+#ifndef PRIdLEAST32
+#  if INT_LEAST32_MAX == SCHAR_MAX
+#    define PRIdLEAST32 "d"
+#  elif INT_LEAST32_MAX == SHRT_MAX
+#    define PRIdLEAST32 "d"
+#  elif INT_LEAST32_MAX == INT_MAX
+#    define PRIdLEAST32 "d"
+#  elif INT_LEAST32_MAX == LONG_MAX
+#    define PRIdLEAST32 "ld"
+#  elif INT_LEAST32_MAX == LLONG_MAX
+#    define PRIdLEAST32 "lld"
+#  endif
+#endif
+
+#ifndef PRIdLEAST64
+#  if INT_LEAST64_MAX == SCHAR_MAX
+#    define PRIdLEAST64 "d"
+#  elif INT_LEAST64_MAX == SHRT_MAX
+#    define PRIdLEAST64 "d"
+#  elif INT_LEAST64_MAX == INT_MAX
+#    define PRIdLEAST64 "d"
+#  elif INT_LEAST64_MAX == LONG_MAX
+#    define PRIdLEAST64 "ld"
+#  elif INT_LEAST64_MAX == LLONG_MAX
+#    define PRIdLEAST64 "lld"
+#  endif
+#endif
+
+#ifndef PRIdFAST8
+#  if INT_FAST8_MAX == SCHAR_MAX
+#    define PRIdFAST8 "d"
+#  elif INT_FAST8_MAX == SHRT_MAX
+#    define PRIdFAST8 "d"
+#  elif INT_FAST8_MAX == INT_MAX
+#    define PRIdFAST8 "d"
+#  elif INT_FAST8_MAX == LONG_MAX
+#    define PRIdFAST8 "ld"
+#  elif INT_FAST8_MAX == LLONG_MAX
+#    define PRIdFAST8 "lld"
+#  endif
+#endif
+
+#ifndef PRIdFAST16
+#  if INT_FAST16_MAX == SCHAR_MAX
+#    define PRIdFAST16 "d"
+#  elif INT_FAST16_MAX == SHRT_MAX
+#    define PRIdFAST16 "d"
+#  elif INT_FAST16_MAX == INT_MAX
+#    define PRIdFAST16 "d"
+#  elif INT_FAST16_MAX == LONG_MAX
+#    define PRIdFAST16 "ld"
+#  elif INT_FAST16_MAX == LLONG_MAX
+#    define PRIdFAST16 "lld"
+#  endif
+#endif
+
+#ifndef PRIdFAST32
+#  if INT_FAST32_MAX == SCHAR_MAX
+#    define PRIdFAST32 "d"
+#  elif INT_FAST32_MAX == SHRT_MAX
+#    define PRIdFAST32 "d"
+#  elif INT_FAST32_MAX == INT_MAX
+#    define PRIdFAST32 "d"
+#  elif INT_FAST32_MAX == LONG_MAX
+#    define PRIdFAST32 "ld"
+#  elif INT_FAST32_MAX == LLONG_MAX
+#    define PRIdFAST32 "lld"
+#  endif
+#endif
+
+#ifndef PRIdFAST64
+#  if INT_FAST64_MAX == SCHAR_MAX
+#    define PRIdFAST64 "d"
+#  elif INT_FAST64_MAX == SHRT_MAX
+#    define PRIdFAST64 "d"
+#  elif INT_FAST64_MAX == INT_MAX
+#    define PRIdFAST64 "d"
+#  elif INT_FAST64_MAX == LONG_MAX
+#    define PRIdFAST64 "ld"
+#  elif INT_FAST64_MAX == LLONG_MAX
+#    define PRIdFAST64 "lld"
+#  endif
+#endif
+
+#ifndef PRIdMAX
+#  if INTMAX_MAX == SCHAR_MAX
+#    define PRIdMAX "d"
+#  elif INTMAX_MAX == SHRT_MAX
+#    define PRIdMAX "d"
+#  elif INTMAX_MAX == INT_MAX
+#    define PRIdMAX "d"
+#  elif INTMAX_MAX == LONG_MAX
+#    define PRIdMAX "ld"
+#  elif INTMAX_MAX == LLONG_MAX
+#    define PRIdMAX "lld"
+#  endif
+#endif
+
+#ifndef PRIdPTR
+#  if INTPTR_MAX == SCHAR_MAX
+#    define PRIdPTR "d"
+#  elif INTPTR_MAX == SHRT_MAX
+#    define PRIdPTR "d"
+#  elif INTPTR_MAX == INT_MAX
+#    define PRIdPTR "d"
+#  elif INTPTR_MAX == LONG_MAX
+#    define PRIdPTR "ld"
+#  elif INTPTR_MAX == LLONG_MAX
+#    define PRIdPTR "lld"
+#  endif
+#endif
+
+#ifndef PRIi8
+#  if INT8_MAX == SCHAR_MAX
+#    define PRIi8 "i"
+#  elif INT8_MAX == SHRT_MAX
+#    define PRIi8 "i"
+#  elif INT8_MAX == INT_MAX
+#    define PRIi8 "i"
+#  elif INT8_MAX == LONG_MAX
+#    define PRIi8 "li"
+#  elif INT8_MAX == LLONG_MAX
+#    define PRIi8 "lli"
+#  endif
+#endif
+
+#ifndef PRIi16
+#  if INT16_MAX == SCHAR_MAX
+#    define PRIi16 "i"
+#  elif INT16_MAX == SHRT_MAX
+#    define PRIi16 "i"
+#  elif INT16_MAX == INT_MAX
+#    define PRIi16 "i"
+#  elif INT16_MAX == LONG_MAX
+#    define PRIi16 "li"
+#  elif INT16_MAX == LLONG_MAX
+#    define PRIi16 "lli"
+#  endif
 #endif
 
 #ifndef PRIi32
-#  define PRIi32 "i"
+#  if INT32_MAX == SCHAR_MAX
+#    define PRIi32 "i"
+#  elif INT32_MAX == SHRT_MAX
+#    define PRIi32 "i"
+#  elif INT32_MAX == INT_MAX
+#    define PRIi32 "i"
+#  elif INT32_MAX == LONG_MAX
+#    define PRIi32 "li"
+#  elif INT32_MAX == LLONG_MAX
+#    define PRIi32 "lli"
+#  endif
+#endif
+
+#ifndef PRIi64
+#  if INT64_MAX == SCHAR_MAX
+#    define PRIi64 "i"
+#  elif INT64_MAX == SHRT_MAX
+#    define PRIi64 "i"
+#  elif INT64_MAX == INT_MAX
+#    define PRIi64 "i"
+#  elif INT64_MAX == LONG_MAX
+#    define PRIi64 "li"
+#  elif INT64_MAX == LLONG_MAX
+#    define PRIi64 "lli"
+#  endif
+#endif
+
+#ifndef PRIiLEAST8
+#  if INT_LEAST8_MAX == SCHAR_MAX
+#    define PRIiLEAST8 "i"
+#  elif INT_LEAST8_MAX == SHRT_MAX
+#    define PRIiLEAST8 "i"
+#  elif INT_LEAST8_MAX == INT_MAX
+#    define PRIiLEAST8 "i"
+#  elif INT_LEAST8_MAX == LONG_MAX
+#    define PRIiLEAST8 "li"
+#  elif INT_LEAST8_MAX == LLONG_MAX
+#    define PRIiLEAST8 "lli"
+#  endif
+#endif
+
+#ifndef PRIiLEAST16
+#  if INT_LEAST16_MAX == SCHAR_MAX
+#    define PRIiLEAST16 "i"
+#  elif INT_LEAST16_MAX == SHRT_MAX
+#    define PRIiLEAST16 "i"
+#  elif INT_LEAST16_MAX == INT_MAX
+#    define PRIiLEAST16 "i"
+#  elif INT_LEAST16_MAX == LONG_MAX
+#    define PRIiLEAST16 "li"
+#  elif INT_LEAST16_MAX == LLONG_MAX
+#    define PRIiLEAST16 "lli"
+#  endif
+#endif
+
+#ifndef PRIiLEAST32
+#  if INT_LEAST32_MAX == SCHAR_MAX
+#    define PRIiLEAST32 "i"
+#  elif INT_LEAST32_MAX == SHRT_MAX
+#    define PRIiLEAST32 "i"
+#  elif INT_LEAST32_MAX == INT_MAX
+#    define PRIiLEAST32 "i"
+#  elif INT_LEAST32_MAX == LONG_MAX
+#    define PRIiLEAST32 "li"
+#  elif INT_LEAST32_MAX == LLONG_MAX
+#    define PRIiLEAST32 "lli"
+#  endif
+#endif
+
+#ifndef PRIiLEAST64
+#  if INT_LEAST64_MAX == SCHAR_MAX
+#    define PRIiLEAST64 "i"
+#  elif INT_LEAST64_MAX == SHRT_MAX
+#    define PRIiLEAST64 "i"
+#  elif INT_LEAST64_MAX == INT_MAX
+#    define PRIiLEAST64 "i"
+#  elif INT_LEAST64_MAX == LONG_MAX
+#    define PRIiLEAST64 "li"
+#  elif INT_LEAST64_MAX == LLONG_MAX
+#    define PRIiLEAST64 "lli"
+#  endif
+#endif
+
+#ifndef PRIiFAST8
+#  if INT_FAST8_MAX == SCHAR_MAX
+#    define PRIiFAST8 "i"
+#  elif INT_FAST8_MAX == SHRT_MAX
+#    define PRIiFAST8 "i"
+#  elif INT_FAST8_MAX == INT_MAX
+#    define PRIiFAST8 "i"
+#  elif INT_FAST8_MAX == LONG_MAX
+#    define PRIiFAST8 "li"
+#  elif INT_FAST8_MAX == LLONG_MAX
+#    define PRIiFAST8 "lli"
+#  endif
+#endif
+
+#ifndef PRIiFAST16
+#  if INT_FAST16_MAX == SCHAR_MAX
+#    define PRIiFAST16 "i"
+#  elif INT_FAST16_MAX == SHRT_MAX
+#    define PRIiFAST16 "i"
+#  elif INT_FAST16_MAX == INT_MAX
+#    define PRIiFAST16 "i"
+#  elif INT_FAST16_MAX == LONG_MAX
+#    define PRIiFAST16 "li"
+#  elif INT_FAST16_MAX == LLONG_MAX
+#    define PRIiFAST16 "lli"
+#  endif
+#endif
+
+#ifndef PRIiFAST32
+#  if INT_FAST32_MAX == SCHAR_MAX
+#    define PRIiFAST32 "i"
+#  elif INT_FAST32_MAX == SHRT_MAX
+#    define PRIiFAST32 "i"
+#  elif INT_FAST32_MAX == INT_MAX
+#    define PRIiFAST32 "i"
+#  elif INT_FAST32_MAX == LONG_MAX
+#    define PRIiFAST32 "li"
+#  elif INT_FAST32_MAX == LLONG_MAX
+#    define PRIiFAST32 "lli"
+#  endif
+#endif
+
+#ifndef PRIiFAST64
+#  if INT_FAST64_MAX == SCHAR_MAX
+#    define PRIiFAST64 "i"
+#  elif INT_FAST64_MAX == SHRT_MAX
+#    define PRIiFAST64 "i"
+#  elif INT_FAST64_MAX == INT_MAX
+#    define PRIiFAST64 "i"
+#  elif INT_FAST64_MAX == LONG_MAX
+#    define PRIiFAST64 "li"
+#  elif INT_FAST64_MAX == LLONG_MAX
+#    define PRIiFAST64 "lli"
+#  endif
+#endif
+
+#ifndef PRIiMAX
+#  if INTMAX_MAX == SCHAR_MAX
+#    define PRIiMAX "i"
+#  elif INTMAX_MAX == SHRT_MAX
+#    define PRIiMAX "i"
+#  elif INTMAX_MAX == INT_MAX
+#    define PRIiMAX "i"
+#  elif INTMAX_MAX == LONG_MAX
+#    define PRIiMAX "li"
+#  elif INTMAX_MAX == LLONG_MAX
+#    define PRIiMAX "lli"
+#  endif
+#endif
+
+#ifndef PRIiPTR
+#  if INTPTR_MAX == SCHAR_MAX
+#    define PRIiPTR "i"
+#  elif INTPTR_MAX == SHRT_MAX
+#    define PRIiPTR "i"
+#  elif INTPTR_MAX == INT_MAX
+#    define PRIiPTR "i"
+#  elif INTPTR_MAX == LONG_MAX
+#    define PRIiPTR "li"
+#  elif INTPTR_MAX == LLONG_MAX
+#    define PRIiPTR "lli"
+#  endif
+#endif
+
+#ifndef PRIo8
+#  if UINT8_MAX == UCHAR_MAX
+#    define PRIo8 "o"
+#  elif UINT8_MAX == USHRT_MAX
+#    define PRIo8 "o"
+#  elif UINT8_MAX == UINT_MAX
+#    define PRIo8 "o"
+#  elif UINT8_MAX == ULONG_MAX
+#    define PRIo8 "lo"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define PRIo8 "llo"
+#  endif
+#endif
+
+#ifndef PRIo16
+#  if UINT16_MAX == UCHAR_MAX
+#    define PRIo16 "o"
+#  elif UINT16_MAX == USHRT_MAX
+#    define PRIo16 "o"
+#  elif UINT16_MAX == UINT_MAX
+#    define PRIo16 "o"
+#  elif UINT16_MAX == ULONG_MAX
+#    define PRIo16 "lo"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define PRIo16 "llo"
+#  endif
 #endif
 
 #ifndef PRIo32
-#  define PRIo32 "o"
+#  if UINT32_MAX == UCHAR_MAX
+#    define PRIo32 "o"
+#  elif UINT32_MAX == USHRT_MAX
+#    define PRIo32 "o"
+#  elif UINT32_MAX == UINT_MAX
+#    define PRIo32 "o"
+#  elif UINT32_MAX == ULONG_MAX
+#    define PRIo32 "lo"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define PRIo32 "llo"
+#  endif
+#endif
+
+#ifndef PRIo64
+#  if UINT64_MAX == UCHAR_MAX
+#    define PRIo64 "o"
+#  elif UINT64_MAX == USHRT_MAX
+#    define PRIo64 "o"
+#  elif UINT64_MAX == UINT_MAX
+#    define PRIo64 "o"
+#  elif UINT64_MAX == ULONG_MAX
+#    define PRIo64 "lo"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define PRIo64 "llo"
+#  endif
+#endif
+
+#ifndef PRIoLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define PRIoLEAST8 "o"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define PRIoLEAST8 "o"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define PRIoLEAST8 "o"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define PRIoLEAST8 "lo"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define PRIoLEAST8 "llo"
+#  endif
+#endif
+
+#ifndef PRIoLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define PRIoLEAST16 "o"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define PRIoLEAST16 "o"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define PRIoLEAST16 "o"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define PRIoLEAST16 "lo"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define PRIoLEAST16 "llo"
+#  endif
+#endif
+
+#ifndef PRIoLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define PRIoLEAST32 "o"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define PRIoLEAST32 "o"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define PRIoLEAST32 "o"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define PRIoLEAST32 "lo"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define PRIoLEAST32 "llo"
+#  endif
+#endif
+
+#ifndef PRIoLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define PRIoLEAST64 "o"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define PRIoLEAST64 "o"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define PRIoLEAST64 "o"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define PRIoLEAST64 "lo"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define PRIoLEAST64 "llo"
+#  endif
+#endif
+
+#ifndef PRIoFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define PRIoFAST8 "o"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define PRIoFAST8 "o"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define PRIoFAST8 "o"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define PRIoFAST8 "lo"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define PRIoFAST8 "llo"
+#  endif
+#endif
+
+#ifndef PRIoFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define PRIoFAST16 "o"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define PRIoFAST16 "o"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define PRIoFAST16 "o"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define PRIoFAST16 "lo"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define PRIoFAST16 "llo"
+#  endif
+#endif
+
+#ifndef PRIoFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define PRIoFAST32 "o"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define PRIoFAST32 "o"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define PRIoFAST32 "o"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define PRIoFAST32 "lo"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define PRIoFAST32 "llo"
+#  endif
+#endif
+
+#ifndef PRIoFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define PRIoFAST64 "o"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define PRIoFAST64 "o"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define PRIoFAST64 "o"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define PRIoFAST64 "lo"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define PRIoFAST64 "llo"
+#  endif
+#endif
+
+#ifndef PRIoMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define PRIoMAX "o"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define PRIoMAX "o"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define PRIoMAX "o"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define PRIoMAX "lo"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define PRIoMAX "llo"
+#  endif
+#endif
+
+#ifndef PRIoPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define PRIoPTR "o"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define PRIoPTR "o"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define PRIoPTR "o"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define PRIoPTR "lo"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define PRIoPTR "llo"
+#  endif
+#endif
+
+#ifndef PRIu8
+#  if UINT8_MAX == UCHAR_MAX
+#    define PRIu8 "u"
+#  elif UINT8_MAX == USHRT_MAX
+#    define PRIu8 "u"
+#  elif UINT8_MAX == UINT_MAX
+#    define PRIu8 "u"
+#  elif UINT8_MAX == ULONG_MAX
+#    define PRIu8 "lu"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define PRIu8 "llu"
+#  endif
+#endif
+
+#ifndef PRIu16
+#  if UINT16_MAX == UCHAR_MAX
+#    define PRIu16 "u"
+#  elif UINT16_MAX == USHRT_MAX
+#    define PRIu16 "u"
+#  elif UINT16_MAX == UINT_MAX
+#    define PRIu16 "u"
+#  elif UINT16_MAX == ULONG_MAX
+#    define PRIu16 "lu"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define PRIu16 "llu"
+#  endif
 #endif
 
 #ifndef PRIu32
-#  define PRIu32 "u"
+#  if UINT32_MAX == UCHAR_MAX
+#    define PRIu32 "u"
+#  elif UINT32_MAX == USHRT_MAX
+#    define PRIu32 "u"
+#  elif UINT32_MAX == UINT_MAX
+#    define PRIu32 "u"
+#  elif UINT32_MAX == ULONG_MAX
+#    define PRIu32 "lu"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define PRIu32 "llu"
+#  endif
+#endif
+
+#ifndef PRIu64
+#  if UINT64_MAX == UCHAR_MAX
+#    define PRIu64 "u"
+#  elif UINT64_MAX == USHRT_MAX
+#    define PRIu64 "u"
+#  elif UINT64_MAX == UINT_MAX
+#    define PRIu64 "u"
+#  elif UINT64_MAX == ULONG_MAX
+#    define PRIu64 "lu"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define PRIu64 "llu"
+#  endif
+#endif
+
+#ifndef PRIuLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define PRIuLEAST8 "u"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define PRIuLEAST8 "u"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define PRIuLEAST8 "u"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define PRIuLEAST8 "lu"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define PRIuLEAST8 "llu"
+#  endif
+#endif
+
+#ifndef PRIuLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define PRIuLEAST16 "u"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define PRIuLEAST16 "u"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define PRIuLEAST16 "u"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define PRIuLEAST16 "lu"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define PRIuLEAST16 "llu"
+#  endif
+#endif
+
+#ifndef PRIuLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define PRIuLEAST32 "u"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define PRIuLEAST32 "u"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define PRIuLEAST32 "u"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define PRIuLEAST32 "lu"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define PRIuLEAST32 "llu"
+#  endif
+#endif
+
+#ifndef PRIuLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define PRIuLEAST64 "u"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define PRIuLEAST64 "u"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define PRIuLEAST64 "u"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define PRIuLEAST64 "lu"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define PRIuLEAST64 "llu"
+#  endif
+#endif
+
+#ifndef PRIuFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define PRIuFAST8 "u"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define PRIuFAST8 "u"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define PRIuFAST8 "u"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define PRIuFAST8 "lu"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define PRIuFAST8 "llu"
+#  endif
+#endif
+
+#ifndef PRIuFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define PRIuFAST16 "u"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define PRIuFAST16 "u"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define PRIuFAST16 "u"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define PRIuFAST16 "lu"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define PRIuFAST16 "llu"
+#  endif
+#endif
+
+#ifndef PRIuFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define PRIuFAST32 "u"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define PRIuFAST32 "u"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define PRIuFAST32 "u"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define PRIuFAST32 "lu"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define PRIuFAST32 "llu"
+#  endif
+#endif
+
+#ifndef PRIuFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define PRIuFAST64 "u"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define PRIuFAST64 "u"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define PRIuFAST64 "u"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define PRIuFAST64 "lu"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define PRIuFAST64 "llu"
+#  endif
+#endif
+
+#ifndef PRIuMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define PRIuMAX "u"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define PRIuMAX "u"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define PRIuMAX "u"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define PRIuMAX "lu"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define PRIuMAX "llu"
+#  endif
+#endif
+
+#ifndef PRIuPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define PRIuPTR "u"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define PRIuPTR "u"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define PRIuPTR "u"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define PRIuPTR "lu"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define PRIuPTR "llu"
+#  endif
+#endif
+
+#ifndef PRIx8
+#  if UINT8_MAX == UCHAR_MAX
+#    define PRIx8 "x"
+#  elif UINT8_MAX == USHRT_MAX
+#    define PRIx8 "x"
+#  elif UINT8_MAX == UINT_MAX
+#    define PRIx8 "x"
+#  elif UINT8_MAX == ULONG_MAX
+#    define PRIx8 "lx"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define PRIx8 "llx"
+#  endif
+#endif
+
+#ifndef PRIx16
+#  if UINT16_MAX == UCHAR_MAX
+#    define PRIx16 "x"
+#  elif UINT16_MAX == USHRT_MAX
+#    define PRIx16 "x"
+#  elif UINT16_MAX == UINT_MAX
+#    define PRIx16 "x"
+#  elif UINT16_MAX == ULONG_MAX
+#    define PRIx16 "lx"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define PRIx16 "llx"
+#  endif
 #endif
 
 #ifndef PRIx32
-#  define PRIx32 "x"
+#  if UINT32_MAX == UCHAR_MAX
+#    define PRIx32 "x"
+#  elif UINT32_MAX == USHRT_MAX
+#    define PRIx32 "x"
+#  elif UINT32_MAX == UINT_MAX
+#    define PRIx32 "x"
+#  elif UINT32_MAX == ULONG_MAX
+#    define PRIx32 "lx"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define PRIx32 "llx"
+#  endif
+#endif
+
+#ifndef PRIx64
+#  if UINT64_MAX == UCHAR_MAX
+#    define PRIx64 "x"
+#  elif UINT64_MAX == USHRT_MAX
+#    define PRIx64 "x"
+#  elif UINT64_MAX == UINT_MAX
+#    define PRIx64 "x"
+#  elif UINT64_MAX == ULONG_MAX
+#    define PRIx64 "lx"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define PRIx64 "llx"
+#  endif
+#endif
+
+#ifndef PRIxLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define PRIxLEAST8 "x"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define PRIxLEAST8 "x"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define PRIxLEAST8 "x"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define PRIxLEAST8 "lx"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define PRIxLEAST8 "llx"
+#  endif
+#endif
+
+#ifndef PRIxLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define PRIxLEAST16 "x"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define PRIxLEAST16 "x"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define PRIxLEAST16 "x"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define PRIxLEAST16 "lx"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define PRIxLEAST16 "llx"
+#  endif
+#endif
+
+#ifndef PRIxLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define PRIxLEAST32 "x"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define PRIxLEAST32 "x"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define PRIxLEAST32 "x"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define PRIxLEAST32 "lx"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define PRIxLEAST32 "llx"
+#  endif
+#endif
+
+#ifndef PRIxLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define PRIxLEAST64 "x"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define PRIxLEAST64 "x"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define PRIxLEAST64 "x"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define PRIxLEAST64 "lx"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define PRIxLEAST64 "llx"
+#  endif
+#endif
+
+#ifndef PRIxFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define PRIxFAST8 "x"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define PRIxFAST8 "x"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define PRIxFAST8 "x"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define PRIxFAST8 "lx"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define PRIxFAST8 "llx"
+#  endif
+#endif
+
+#ifndef PRIxFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define PRIxFAST16 "x"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define PRIxFAST16 "x"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define PRIxFAST16 "x"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define PRIxFAST16 "lx"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define PRIxFAST16 "llx"
+#  endif
+#endif
+
+#ifndef PRIxFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define PRIxFAST32 "x"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define PRIxFAST32 "x"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define PRIxFAST32 "x"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define PRIxFAST32 "lx"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define PRIxFAST32 "llx"
+#  endif
+#endif
+
+#ifndef PRIxFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define PRIxFAST64 "x"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define PRIxFAST64 "x"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define PRIxFAST64 "x"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define PRIxFAST64 "lx"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define PRIxFAST64 "llx"
+#  endif
+#endif
+
+#ifndef PRIxMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define PRIxMAX "x"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define PRIxMAX "x"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define PRIxMAX "x"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define PRIxMAX "lx"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define PRIxMAX "llx"
+#  endif
+#endif
+
+#ifndef PRIxPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define PRIxPTR "x"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define PRIxPTR "x"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define PRIxPTR "x"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define PRIxPTR "lx"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define PRIxPTR "llx"
+#  endif
+#endif
+
+#ifndef PRIX8
+#  if UINT8_MAX == UCHAR_MAX
+#    define PRIX8 "X"
+#  elif UINT8_MAX == USHRT_MAX
+#    define PRIX8 "X"
+#  elif UINT8_MAX == UINT_MAX
+#    define PRIX8 "X"
+#  elif UINT8_MAX == ULONG_MAX
+#    define PRIX8 "lX"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define PRIX8 "llX"
+#  endif
+#endif
+
+#ifndef PRIX16
+#  if UINT16_MAX == UCHAR_MAX
+#    define PRIX16 "X"
+#  elif UINT16_MAX == USHRT_MAX
+#    define PRIX16 "X"
+#  elif UINT16_MAX == UINT_MAX
+#    define PRIX16 "X"
+#  elif UINT16_MAX == ULONG_MAX
+#    define PRIX16 "lX"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define PRIX16 "llX"
+#  endif
 #endif
 
 #ifndef PRIX32
-#  define PRIX32 "X"
+#  if UINT32_MAX == UCHAR_MAX
+#    define PRIX32 "X"
+#  elif UINT32_MAX == USHRT_MAX
+#    define PRIX32 "X"
+#  elif UINT32_MAX == UINT_MAX
+#    define PRIX32 "X"
+#  elif UINT32_MAX == ULONG_MAX
+#    define PRIX32 "lX"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define PRIX32 "llX"
+#  endif
+#endif
+
+#ifndef PRIX64
+#  if UINT64_MAX == UCHAR_MAX
+#    define PRIX64 "X"
+#  elif UINT64_MAX == USHRT_MAX
+#    define PRIX64 "X"
+#  elif UINT64_MAX == UINT_MAX
+#    define PRIX64 "X"
+#  elif UINT64_MAX == ULONG_MAX
+#    define PRIX64 "lX"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define PRIX64 "llX"
+#  endif
+#endif
+
+#ifndef PRIXLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define PRIXLEAST8 "X"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define PRIXLEAST8 "X"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define PRIXLEAST8 "X"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define PRIXLEAST8 "lX"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define PRIXLEAST8 "llX"
+#  endif
+#endif
+
+#ifndef PRIXLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define PRIXLEAST16 "X"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define PRIXLEAST16 "X"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define PRIXLEAST16 "X"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define PRIXLEAST16 "lX"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define PRIXLEAST16 "llX"
+#  endif
+#endif
+
+#ifndef PRIXLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define PRIXLEAST32 "X"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define PRIXLEAST32 "X"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define PRIXLEAST32 "X"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define PRIXLEAST32 "lX"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define PRIXLEAST32 "llX"
+#  endif
+#endif
+
+#ifndef PRIXLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define PRIXLEAST64 "X"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define PRIXLEAST64 "X"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define PRIXLEAST64 "X"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define PRIXLEAST64 "lX"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define PRIXLEAST64 "llX"
+#  endif
+#endif
+
+#ifndef PRIXFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define PRIXFAST8 "X"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define PRIXFAST8 "X"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define PRIXFAST8 "X"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define PRIXFAST8 "lX"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define PRIXFAST8 "llX"
+#  endif
+#endif
+
+#ifndef PRIXFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define PRIXFAST16 "X"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define PRIXFAST16 "X"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define PRIXFAST16 "X"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define PRIXFAST16 "lX"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define PRIXFAST16 "llX"
+#  endif
+#endif
+
+#ifndef PRIXFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define PRIXFAST32 "X"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define PRIXFAST32 "X"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define PRIXFAST32 "X"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define PRIXFAST32 "lX"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define PRIXFAST32 "llX"
+#  endif
+#endif
+
+#ifndef PRIXFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define PRIXFAST64 "X"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define PRIXFAST64 "X"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define PRIXFAST64 "X"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define PRIXFAST64 "lX"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define PRIXFAST64 "llX"
+#  endif
+#endif
+
+#ifndef PRIXMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define PRIXMAX "X"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define PRIXMAX "X"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define PRIXMAX "X"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define PRIXMAX "lX"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define PRIXMAX "llX"
+#  endif
+#endif
+
+#ifndef PRIXPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define PRIXPTR "X"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define PRIXPTR "X"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define PRIXPTR "X"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define PRIXPTR "lX"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define PRIXPTR "llX"
+#  endif
+#endif
+
+#ifndef SCNd8
+#  if INT8_MAX == SCHAR_MAX
+#    define SCNd8 "hhd"
+#  elif INT8_MAX == SHRT_MAX
+#    define SCNd8 "hd"
+#  elif INT8_MAX == INT_MAX
+#    define SCNd8 "d"
+#  elif INT8_MAX == LONG_MAX
+#    define SCNd8 "ld"
+#  elif INT8_MAX == LLONG_MAX
+#    define SCNd8 "lld"
+#  endif
+#endif
+
+#ifndef SCNd16
+#  if INT16_MAX == SCHAR_MAX
+#    define SCNd16 "hhd"
+#  elif INT16_MAX == SHRT_MAX
+#    define SCNd16 "hd"
+#  elif INT16_MAX == INT_MAX
+#    define SCNd16 "d"
+#  elif INT16_MAX == LONG_MAX
+#    define SCNd16 "ld"
+#  elif INT16_MAX == LLONG_MAX
+#    define SCNd16 "lld"
+#  endif
+#endif
+
+#ifndef SCNd32
+#  if INT32_MAX == SCHAR_MAX
+#    define SCNd32 "hhd"
+#  elif INT32_MAX == SHRT_MAX
+#    define SCNd32 "hd"
+#  elif INT32_MAX == INT_MAX
+#    define SCNd32 "d"
+#  elif INT32_MAX == LONG_MAX
+#    define SCNd32 "ld"
+#  elif INT32_MAX == LLONG_MAX
+#    define SCNd32 "lld"
+#  endif
+#endif
+
+#ifndef SCNd64
+#  if INT64_MAX == SCHAR_MAX
+#    define SCNd64 "hhd"
+#  elif INT64_MAX == SHRT_MAX
+#    define SCNd64 "hd"
+#  elif INT64_MAX == INT_MAX
+#    define SCNd64 "d"
+#  elif INT64_MAX == LONG_MAX
+#    define SCNd64 "ld"
+#  elif INT64_MAX == LLONG_MAX
+#    define SCNd64 "lld"
+#  endif
+#endif
+
+#ifndef SCNdLEAST8
+#  if INT_LEAST8_MAX == SCHAR_MAX
+#    define SCNdLEAST8 "hhd"
+#  elif INT_LEAST8_MAX == SHRT_MAX
+#    define SCNdLEAST8 "hd"
+#  elif INT_LEAST8_MAX == INT_MAX
+#    define SCNdLEAST8 "d"
+#  elif INT_LEAST8_MAX == LONG_MAX
+#    define SCNdLEAST8 "ld"
+#  elif INT_LEAST8_MAX == LLONG_MAX
+#    define SCNdLEAST8 "lld"
+#  endif
+#endif
+
+#ifndef SCNdLEAST16
+#  if INT_LEAST16_MAX == SCHAR_MAX
+#    define SCNdLEAST16 "hhd"
+#  elif INT_LEAST16_MAX == SHRT_MAX
+#    define SCNdLEAST16 "hd"
+#  elif INT_LEAST16_MAX == INT_MAX
+#    define SCNdLEAST16 "d"
+#  elif INT_LEAST16_MAX == LONG_MAX
+#    define SCNdLEAST16 "ld"
+#  elif INT_LEAST16_MAX == LLONG_MAX
+#    define SCNdLEAST16 "lld"
+#  endif
+#endif
+
+#ifndef SCNdLEAST32
+#  if INT_LEAST32_MAX == SCHAR_MAX
+#    define SCNdLEAST32 "hhd"
+#  elif INT_LEAST32_MAX == SHRT_MAX
+#    define SCNdLEAST32 "hd"
+#  elif INT_LEAST32_MAX == INT_MAX
+#    define SCNdLEAST32 "d"
+#  elif INT_LEAST32_MAX == LONG_MAX
+#    define SCNdLEAST32 "ld"
+#  elif INT_LEAST32_MAX == LLONG_MAX
+#    define SCNdLEAST32 "lld"
+#  endif
+#endif
+
+#ifndef SCNdLEAST64
+#  if INT_LEAST64_MAX == SCHAR_MAX
+#    define SCNdLEAST64 "hhd"
+#  elif INT_LEAST64_MAX == SHRT_MAX
+#    define SCNdLEAST64 "hd"
+#  elif INT_LEAST64_MAX == INT_MAX
+#    define SCNdLEAST64 "d"
+#  elif INT_LEAST64_MAX == LONG_MAX
+#    define SCNdLEAST64 "ld"
+#  elif INT_LEAST64_MAX == LLONG_MAX
+#    define SCNdLEAST64 "lld"
+#  endif
+#endif
+
+#ifndef SCNdFAST8
+#  if INT_FAST8_MAX == SCHAR_MAX
+#    define SCNdFAST8 "hhd"
+#  elif INT_FAST8_MAX == SHRT_MAX
+#    define SCNdFAST8 "hd"
+#  elif INT_FAST8_MAX == INT_MAX
+#    define SCNdFAST8 "d"
+#  elif INT_FAST8_MAX == LONG_MAX
+#    define SCNdFAST8 "ld"
+#  elif INT_FAST8_MAX == LLONG_MAX
+#    define SCNdFAST8 "lld"
+#  endif
+#endif
+
+#ifndef SCNdFAST16
+#  if INT_FAST16_MAX == SCHAR_MAX
+#    define SCNdFAST16 "hhd"
+#  elif INT_FAST16_MAX == SHRT_MAX
+#    define SCNdFAST16 "hd"
+#  elif INT_FAST16_MAX == INT_MAX
+#    define SCNdFAST16 "d"
+#  elif INT_FAST16_MAX == LONG_MAX
+#    define SCNdFAST16 "ld"
+#  elif INT_FAST16_MAX == LLONG_MAX
+#    define SCNdFAST16 "lld"
+#  endif
+#endif
+
+#ifndef SCNdFAST32
+#  if INT_FAST32_MAX == SCHAR_MAX
+#    define SCNdFAST32 "hhd"
+#  elif INT_FAST32_MAX == SHRT_MAX
+#    define SCNdFAST32 "hd"
+#  elif INT_FAST32_MAX == INT_MAX
+#    define SCNdFAST32 "d"
+#  elif INT_FAST32_MAX == LONG_MAX
+#    define SCNdFAST32 "ld"
+#  elif INT_FAST32_MAX == LLONG_MAX
+#    define SCNdFAST32 "lld"
+#  endif
+#endif
+
+#ifndef SCNdFAST64
+#  if INT_FAST64_MAX == SCHAR_MAX
+#    define SCNdFAST64 "hhd"
+#  elif INT_FAST64_MAX == SHRT_MAX
+#    define SCNdFAST64 "hd"
+#  elif INT_FAST64_MAX == INT_MAX
+#    define SCNdFAST64 "d"
+#  elif INT_FAST64_MAX == LONG_MAX
+#    define SCNdFAST64 "ld"
+#  elif INT_FAST64_MAX == LLONG_MAX
+#    define SCNdFAST64 "lld"
+#  endif
+#endif
+
+#ifndef SCNdMAX
+#  if INTMAX_MAX == SCHAR_MAX
+#    define SCNdMAX "hhd"
+#  elif INTMAX_MAX == SHRT_MAX
+#    define SCNdMAX "hd"
+#  elif INTMAX_MAX == INT_MAX
+#    define SCNdMAX "d"
+#  elif INTMAX_MAX == LONG_MAX
+#    define SCNdMAX "ld"
+#  elif INTMAX_MAX == LLONG_MAX
+#    define SCNdMAX "lld"
+#  endif
+#endif
+
+#ifndef SCNdPTR
+#  if INTPTR_MAX == SCHAR_MAX
+#    define SCNdPTR "hhd"
+#  elif INTPTR_MAX == SHRT_MAX
+#    define SCNdPTR "hd"
+#  elif INTPTR_MAX == INT_MAX
+#    define SCNdPTR "d"
+#  elif INTPTR_MAX == LONG_MAX
+#    define SCNdPTR "ld"
+#  elif INTPTR_MAX == LLONG_MAX
+#    define SCNdPTR "lld"
+#  endif
+#endif
+
+#ifndef SCNi8
+#  if INT8_MAX == SCHAR_MAX
+#    define SCNi8 "hhi"
+#  elif INT8_MAX == SHRT_MAX
+#    define SCNi8 "hi"
+#  elif INT8_MAX == INT_MAX
+#    define SCNi8 "i"
+#  elif INT8_MAX == LONG_MAX
+#    define SCNi8 "li"
+#  elif INT8_MAX == LLONG_MAX
+#    define SCNi8 "lli"
+#  endif
+#endif
+
+#ifndef SCNi16
+#  if INT16_MAX == SCHAR_MAX
+#    define SCNi16 "hhi"
+#  elif INT16_MAX == SHRT_MAX
+#    define SCNi16 "hi"
+#  elif INT16_MAX == INT_MAX
+#    define SCNi16 "i"
+#  elif INT16_MAX == LONG_MAX
+#    define SCNi16 "li"
+#  elif INT16_MAX == LLONG_MAX
+#    define SCNi16 "lli"
+#  endif
+#endif
+
+#ifndef SCNi32
+#  if INT32_MAX == SCHAR_MAX
+#    define SCNi32 "hhi"
+#  elif INT32_MAX == SHRT_MAX
+#    define SCNi32 "hi"
+#  elif INT32_MAX == INT_MAX
+#    define SCNi32 "i"
+#  elif INT32_MAX == LONG_MAX
+#    define SCNi32 "li"
+#  elif INT32_MAX == LLONG_MAX
+#    define SCNi32 "lli"
+#  endif
+#endif
+
+#ifndef SCNi64
+#  if INT64_MAX == SCHAR_MAX
+#    define SCNi64 "hhi"
+#  elif INT64_MAX == SHRT_MAX
+#    define SCNi64 "hi"
+#  elif INT64_MAX == INT_MAX
+#    define SCNi64 "i"
+#  elif INT64_MAX == LONG_MAX
+#    define SCNi64 "li"
+#  elif INT64_MAX == LLONG_MAX
+#    define SCNi64 "lli"
+#  endif
+#endif
+
+#ifndef SCNiLEAST8
+#  if INT_LEAST8_MAX == SCHAR_MAX
+#    define SCNiLEAST8 "hhi"
+#  elif INT_LEAST8_MAX == SHRT_MAX
+#    define SCNiLEAST8 "hi"
+#  elif INT_LEAST8_MAX == INT_MAX
+#    define SCNiLEAST8 "i"
+#  elif INT_LEAST8_MAX == LONG_MAX
+#    define SCNiLEAST8 "li"
+#  elif INT_LEAST8_MAX == LLONG_MAX
+#    define SCNiLEAST8 "lli"
+#  endif
+#endif
+
+#ifndef SCNiLEAST16
+#  if INT_LEAST16_MAX == SCHAR_MAX
+#    define SCNiLEAST16 "hhi"
+#  elif INT_LEAST16_MAX == SHRT_MAX
+#    define SCNiLEAST16 "hi"
+#  elif INT_LEAST16_MAX == INT_MAX
+#    define SCNiLEAST16 "i"
+#  elif INT_LEAST16_MAX == LONG_MAX
+#    define SCNiLEAST16 "li"
+#  elif INT_LEAST16_MAX == LLONG_MAX
+#    define SCNiLEAST16 "lli"
+#  endif
+#endif
+
+#ifndef SCNiLEAST32
+#  if INT_LEAST32_MAX == SCHAR_MAX
+#    define SCNiLEAST32 "hhi"
+#  elif INT_LEAST32_MAX == SHRT_MAX
+#    define SCNiLEAST32 "hi"
+#  elif INT_LEAST32_MAX == INT_MAX
+#    define SCNiLEAST32 "i"
+#  elif INT_LEAST32_MAX == LONG_MAX
+#    define SCNiLEAST32 "li"
+#  elif INT_LEAST32_MAX == LLONG_MAX
+#    define SCNiLEAST32 "lli"
+#  endif
+#endif
+
+#ifndef SCNiLEAST64
+#  if INT_LEAST64_MAX == SCHAR_MAX
+#    define SCNiLEAST64 "hhi"
+#  elif INT_LEAST64_MAX == SHRT_MAX
+#    define SCNiLEAST64 "hi"
+#  elif INT_LEAST64_MAX == INT_MAX
+#    define SCNiLEAST64 "i"
+#  elif INT_LEAST64_MAX == LONG_MAX
+#    define SCNiLEAST64 "li"
+#  elif INT_LEAST64_MAX == LLONG_MAX
+#    define SCNiLEAST64 "lli"
+#  endif
+#endif
+
+#ifndef SCNiFAST8
+#  if INT_FAST8_MAX == SCHAR_MAX
+#    define SCNiFAST8 "hhi"
+#  elif INT_FAST8_MAX == SHRT_MAX
+#    define SCNiFAST8 "hi"
+#  elif INT_FAST8_MAX == INT_MAX
+#    define SCNiFAST8 "i"
+#  elif INT_FAST8_MAX == LONG_MAX
+#    define SCNiFAST8 "li"
+#  elif INT_FAST8_MAX == LLONG_MAX
+#    define SCNiFAST8 "lli"
+#  endif
+#endif
+
+#ifndef SCNiFAST16
+#  if INT_FAST16_MAX == SCHAR_MAX
+#    define SCNiFAST16 "hhi"
+#  elif INT_FAST16_MAX == SHRT_MAX
+#    define SCNiFAST16 "hi"
+#  elif INT_FAST16_MAX == INT_MAX
+#    define SCNiFAST16 "i"
+#  elif INT_FAST16_MAX == LONG_MAX
+#    define SCNiFAST16 "li"
+#  elif INT_FAST16_MAX == LLONG_MAX
+#    define SCNiFAST16 "lli"
+#  endif
+#endif
+
+#ifndef SCNiFAST32
+#  if INT_FAST32_MAX == SCHAR_MAX
+#    define SCNiFAST32 "hhi"
+#  elif INT_FAST32_MAX == SHRT_MAX
+#    define SCNiFAST32 "hi"
+#  elif INT_FAST32_MAX == INT_MAX
+#    define SCNiFAST32 "i"
+#  elif INT_FAST32_MAX == LONG_MAX
+#    define SCNiFAST32 "li"
+#  elif INT_FAST32_MAX == LLONG_MAX
+#    define SCNiFAST32 "lli"
+#  endif
+#endif
+
+#ifndef SCNiFAST64
+#  if INT_FAST64_MAX == SCHAR_MAX
+#    define SCNiFAST64 "hhi"
+#  elif INT_FAST64_MAX == SHRT_MAX
+#    define SCNiFAST64 "hi"
+#  elif INT_FAST64_MAX == INT_MAX
+#    define SCNiFAST64 "i"
+#  elif INT_FAST64_MAX == LONG_MAX
+#    define SCNiFAST64 "li"
+#  elif INT_FAST64_MAX == LLONG_MAX
+#    define SCNiFAST64 "lli"
+#  endif
+#endif
+
+#ifndef SCNiMAX
+#  if INTMAX_MAX == SCHAR_MAX
+#    define SCNiMAX "hhi"
+#  elif INTMAX_MAX == SHRT_MAX
+#    define SCNiMAX "hi"
+#  elif INTMAX_MAX == INT_MAX
+#    define SCNiMAX "i"
+#  elif INTMAX_MAX == LONG_MAX
+#    define SCNiMAX "li"
+#  elif INTMAX_MAX == LLONG_MAX
+#    define SCNiMAX "lli"
+#  endif
+#endif
+
+#ifndef SCNiPTR
+#  if INTPTR_MAX == SCHAR_MAX
+#    define SCNiPTR "hhi"
+#  elif INTPTR_MAX == SHRT_MAX
+#    define SCNiPTR "hi"
+#  elif INTPTR_MAX == INT_MAX
+#    define SCNiPTR "i"
+#  elif INTPTR_MAX == LONG_MAX
+#    define SCNiPTR "li"
+#  elif INTPTR_MAX == LLONG_MAX
+#    define SCNiPTR "lli"
+#  endif
+#endif
+
+#ifndef SCNo8
+#  if UINT8_MAX == UCHAR_MAX
+#    define SCNo8 "hho"
+#  elif UINT8_MAX == USHRT_MAX
+#    define SCNo8 "ho"
+#  elif UINT8_MAX == UINT_MAX
+#    define SCNo8 "o"
+#  elif UINT8_MAX == ULONG_MAX
+#    define SCNo8 "lo"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define SCNo8 "llo"
+#  endif
+#endif
+
+#ifndef SCNo16
+#  if UINT16_MAX == UCHAR_MAX
+#    define SCNo16 "hho"
+#  elif UINT16_MAX == USHRT_MAX
+#    define SCNo16 "ho"
+#  elif UINT16_MAX == UINT_MAX
+#    define SCNo16 "o"
+#  elif UINT16_MAX == ULONG_MAX
+#    define SCNo16 "lo"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define SCNo16 "llo"
+#  endif
+#endif
+
+#ifndef SCNo32
+#  if UINT32_MAX == UCHAR_MAX
+#    define SCNo32 "hho"
+#  elif UINT32_MAX == USHRT_MAX
+#    define SCNo32 "ho"
+#  elif UINT32_MAX == UINT_MAX
+#    define SCNo32 "o"
+#  elif UINT32_MAX == ULONG_MAX
+#    define SCNo32 "lo"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define SCNo32 "llo"
+#  endif
+#endif
+
+#ifndef SCNo64
+#  if UINT64_MAX == UCHAR_MAX
+#    define SCNo64 "hho"
+#  elif UINT64_MAX == USHRT_MAX
+#    define SCNo64 "ho"
+#  elif UINT64_MAX == UINT_MAX
+#    define SCNo64 "o"
+#  elif UINT64_MAX == ULONG_MAX
+#    define SCNo64 "lo"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define SCNo64 "llo"
+#  endif
+#endif
+
+#ifndef SCNoLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define SCNoLEAST8 "hho"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define SCNoLEAST8 "ho"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define SCNoLEAST8 "o"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define SCNoLEAST8 "lo"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define SCNoLEAST8 "llo"
+#  endif
+#endif
+
+#ifndef SCNoLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define SCNoLEAST16 "hho"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define SCNoLEAST16 "ho"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define SCNoLEAST16 "o"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define SCNoLEAST16 "lo"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define SCNoLEAST16 "llo"
+#  endif
+#endif
+
+#ifndef SCNoLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define SCNoLEAST32 "hho"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define SCNoLEAST32 "ho"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define SCNoLEAST32 "o"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define SCNoLEAST32 "lo"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define SCNoLEAST32 "llo"
+#  endif
+#endif
+
+#ifndef SCNoLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define SCNoLEAST64 "hho"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define SCNoLEAST64 "ho"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define SCNoLEAST64 "o"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define SCNoLEAST64 "lo"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define SCNoLEAST64 "llo"
+#  endif
+#endif
+
+#ifndef SCNoFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define SCNoFAST8 "hho"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define SCNoFAST8 "ho"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define SCNoFAST8 "o"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define SCNoFAST8 "lo"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define SCNoFAST8 "llo"
+#  endif
+#endif
+
+#ifndef SCNoFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define SCNoFAST16 "hho"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define SCNoFAST16 "ho"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define SCNoFAST16 "o"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define SCNoFAST16 "lo"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define SCNoFAST16 "llo"
+#  endif
+#endif
+
+#ifndef SCNoFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define SCNoFAST32 "hho"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define SCNoFAST32 "ho"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define SCNoFAST32 "o"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define SCNoFAST32 "lo"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define SCNoFAST32 "llo"
+#  endif
+#endif
+
+#ifndef SCNoFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define SCNoFAST64 "hho"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define SCNoFAST64 "ho"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define SCNoFAST64 "o"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define SCNoFAST64 "lo"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define SCNoFAST64 "llo"
+#  endif
+#endif
+
+#ifndef SCNoMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define SCNoMAX "hho"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define SCNoMAX "ho"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define SCNoMAX "o"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define SCNoMAX "lo"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define SCNoMAX "llo"
+#  endif
+#endif
+
+#ifndef SCNoPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define SCNoPTR "hho"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define SCNoPTR "ho"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define SCNoPTR "o"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define SCNoPTR "lo"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define SCNoPTR "llo"
+#  endif
+#endif
+
+#ifndef SCNu8
+#  if UINT8_MAX == UCHAR_MAX
+#    define SCNu8 "hhu"
+#  elif UINT8_MAX == USHRT_MAX
+#    define SCNu8 "hu"
+#  elif UINT8_MAX == UINT_MAX
+#    define SCNu8 "u"
+#  elif UINT8_MAX == ULONG_MAX
+#    define SCNu8 "lu"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define SCNu8 "llu"
+#  endif
+#endif
+
+#ifndef SCNu16
+#  if UINT16_MAX == UCHAR_MAX
+#    define SCNu16 "hhu"
+#  elif UINT16_MAX == USHRT_MAX
+#    define SCNu16 "hu"
+#  elif UINT16_MAX == UINT_MAX
+#    define SCNu16 "u"
+#  elif UINT16_MAX == ULONG_MAX
+#    define SCNu16 "lu"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define SCNu16 "llu"
+#  endif
+#endif
+
+#ifndef SCNu32
+#  if UINT32_MAX == UCHAR_MAX
+#    define SCNu32 "hhu"
+#  elif UINT32_MAX == USHRT_MAX
+#    define SCNu32 "hu"
+#  elif UINT32_MAX == UINT_MAX
+#    define SCNu32 "u"
+#  elif UINT32_MAX == ULONG_MAX
+#    define SCNu32 "lu"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define SCNu32 "llu"
+#  endif
+#endif
+
+#ifndef SCNu64
+#  if UINT64_MAX == UCHAR_MAX
+#    define SCNu64 "hhu"
+#  elif UINT64_MAX == USHRT_MAX
+#    define SCNu64 "hu"
+#  elif UINT64_MAX == UINT_MAX
+#    define SCNu64 "u"
+#  elif UINT64_MAX == ULONG_MAX
+#    define SCNu64 "lu"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define SCNu64 "llu"
+#  endif
+#endif
+
+#ifndef SCNuLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define SCNuLEAST8 "hhu"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define SCNuLEAST8 "hu"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define SCNuLEAST8 "u"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define SCNuLEAST8 "lu"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define SCNuLEAST8 "llu"
+#  endif
+#endif
+
+#ifndef SCNuLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define SCNuLEAST16 "hhu"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define SCNuLEAST16 "hu"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define SCNuLEAST16 "u"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define SCNuLEAST16 "lu"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define SCNuLEAST16 "llu"
+#  endif
+#endif
+
+#ifndef SCNuLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define SCNuLEAST32 "hhu"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define SCNuLEAST32 "hu"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define SCNuLEAST32 "u"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define SCNuLEAST32 "lu"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define SCNuLEAST32 "llu"
+#  endif
+#endif
+
+#ifndef SCNuLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define SCNuLEAST64 "hhu"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define SCNuLEAST64 "hu"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define SCNuLEAST64 "u"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define SCNuLEAST64 "lu"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define SCNuLEAST64 "llu"
+#  endif
+#endif
+
+#ifndef SCNuFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define SCNuFAST8 "hhu"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define SCNuFAST8 "hu"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define SCNuFAST8 "u"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define SCNuFAST8 "lu"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define SCNuFAST8 "llu"
+#  endif
+#endif
+
+#ifndef SCNuFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define SCNuFAST16 "hhu"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define SCNuFAST16 "hu"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define SCNuFAST16 "u"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define SCNuFAST16 "lu"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define SCNuFAST16 "llu"
+#  endif
+#endif
+
+#ifndef SCNuFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define SCNuFAST32 "hhu"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define SCNuFAST32 "hu"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define SCNuFAST32 "u"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define SCNuFAST32 "lu"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define SCNuFAST32 "llu"
+#  endif
+#endif
+
+#ifndef SCNuFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define SCNuFAST64 "hhu"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define SCNuFAST64 "hu"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define SCNuFAST64 "u"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define SCNuFAST64 "lu"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define SCNuFAST64 "llu"
+#  endif
+#endif
+
+#ifndef SCNuMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define SCNuMAX "hhu"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define SCNuMAX "hu"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define SCNuMAX "u"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define SCNuMAX "lu"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define SCNuMAX "llu"
+#  endif
+#endif
+
+#ifndef SCNuPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define SCNuPTR "hhu"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define SCNuPTR "hu"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define SCNuPTR "u"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define SCNuPTR "lu"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define SCNuPTR "llu"
+#  endif
+#endif
+
+#ifndef SCNx8
+#  if UINT8_MAX == UCHAR_MAX
+#    define SCNx8 "hhx"
+#  elif UINT8_MAX == USHRT_MAX
+#    define SCNx8 "hx"
+#  elif UINT8_MAX == UINT_MAX
+#    define SCNx8 "x"
+#  elif UINT8_MAX == ULONG_MAX
+#    define SCNx8 "lx"
+#  elif UINT8_MAX == ULLONG_MAX
+#    define SCNx8 "llx"
+#  endif
+#endif
+
+#ifndef SCNx16
+#  if UINT16_MAX == UCHAR_MAX
+#    define SCNx16 "hhx"
+#  elif UINT16_MAX == USHRT_MAX
+#    define SCNx16 "hx"
+#  elif UINT16_MAX == UINT_MAX
+#    define SCNx16 "x"
+#  elif UINT16_MAX == ULONG_MAX
+#    define SCNx16 "lx"
+#  elif UINT16_MAX == ULLONG_MAX
+#    define SCNx16 "llx"
+#  endif
+#endif
+
+#ifndef SCNx32
+#  if UINT32_MAX == UCHAR_MAX
+#    define SCNx32 "hhx"
+#  elif UINT32_MAX == USHRT_MAX
+#    define SCNx32 "hx"
+#  elif UINT32_MAX == UINT_MAX
+#    define SCNx32 "x"
+#  elif UINT32_MAX == ULONG_MAX
+#    define SCNx32 "lx"
+#  elif UINT32_MAX == ULLONG_MAX
+#    define SCNx32 "llx"
+#  endif
+#endif
+
+#ifndef SCNx64
+#  if UINT64_MAX == UCHAR_MAX
+#    define SCNx64 "hhx"
+#  elif UINT64_MAX == USHRT_MAX
+#    define SCNx64 "hx"
+#  elif UINT64_MAX == UINT_MAX
+#    define SCNx64 "x"
+#  elif UINT64_MAX == ULONG_MAX
+#    define SCNx64 "lx"
+#  elif UINT64_MAX == ULLONG_MAX
+#    define SCNx64 "llx"
+#  endif
+#endif
+
+#ifndef SCNxLEAST8
+#  if UINT_LEAST8_MAX == UCHAR_MAX
+#    define SCNxLEAST8 "hhx"
+#  elif UINT_LEAST8_MAX == USHRT_MAX
+#    define SCNxLEAST8 "hx"
+#  elif UINT_LEAST8_MAX == UINT_MAX
+#    define SCNxLEAST8 "x"
+#  elif UINT_LEAST8_MAX == ULONG_MAX
+#    define SCNxLEAST8 "lx"
+#  elif UINT_LEAST8_MAX == ULLONG_MAX
+#    define SCNxLEAST8 "llx"
+#  endif
+#endif
+
+#ifndef SCNxLEAST16
+#  if UINT_LEAST16_MAX == UCHAR_MAX
+#    define SCNxLEAST16 "hhx"
+#  elif UINT_LEAST16_MAX == USHRT_MAX
+#    define SCNxLEAST16 "hx"
+#  elif UINT_LEAST16_MAX == UINT_MAX
+#    define SCNxLEAST16 "x"
+#  elif UINT_LEAST16_MAX == ULONG_MAX
+#    define SCNxLEAST16 "lx"
+#  elif UINT_LEAST16_MAX == ULLONG_MAX
+#    define SCNxLEAST16 "llx"
+#  endif
+#endif
+
+#ifndef SCNxLEAST32
+#  if UINT_LEAST32_MAX == UCHAR_MAX
+#    define SCNxLEAST32 "hhx"
+#  elif UINT_LEAST32_MAX == USHRT_MAX
+#    define SCNxLEAST32 "hx"
+#  elif UINT_LEAST32_MAX == UINT_MAX
+#    define SCNxLEAST32 "x"
+#  elif UINT_LEAST32_MAX == ULONG_MAX
+#    define SCNxLEAST32 "lx"
+#  elif UINT_LEAST32_MAX == ULLONG_MAX
+#    define SCNxLEAST32 "llx"
+#  endif
+#endif
+
+#ifndef SCNxLEAST64
+#  if UINT_LEAST64_MAX == UCHAR_MAX
+#    define SCNxLEAST64 "hhx"
+#  elif UINT_LEAST64_MAX == USHRT_MAX
+#    define SCNxLEAST64 "hx"
+#  elif UINT_LEAST64_MAX == UINT_MAX
+#    define SCNxLEAST64 "x"
+#  elif UINT_LEAST64_MAX == ULONG_MAX
+#    define SCNxLEAST64 "lx"
+#  elif UINT_LEAST64_MAX == ULLONG_MAX
+#    define SCNxLEAST64 "llx"
+#  endif
+#endif
+
+#ifndef SCNxFAST8
+#  if UINT_FAST8_MAX == UCHAR_MAX
+#    define SCNxFAST8 "hhx"
+#  elif UINT_FAST8_MAX == USHRT_MAX
+#    define SCNxFAST8 "hx"
+#  elif UINT_FAST8_MAX == UINT_MAX
+#    define SCNxFAST8 "x"
+#  elif UINT_FAST8_MAX == ULONG_MAX
+#    define SCNxFAST8 "lx"
+#  elif UINT_FAST8_MAX == ULLONG_MAX
+#    define SCNxFAST8 "llx"
+#  endif
+#endif
+
+#ifndef SCNxFAST16
+#  if UINT_FAST16_MAX == UCHAR_MAX
+#    define SCNxFAST16 "hhx"
+#  elif UINT_FAST16_MAX == USHRT_MAX
+#    define SCNxFAST16 "hx"
+#  elif UINT_FAST16_MAX == UINT_MAX
+#    define SCNxFAST16 "x"
+#  elif UINT_FAST16_MAX == ULONG_MAX
+#    define SCNxFAST16 "lx"
+#  elif UINT_FAST16_MAX == ULLONG_MAX
+#    define SCNxFAST16 "llx"
+#  endif
+#endif
+
+#ifndef SCNxFAST32
+#  if UINT_FAST32_MAX == UCHAR_MAX
+#    define SCNxFAST32 "hhx"
+#  elif UINT_FAST32_MAX == USHRT_MAX
+#    define SCNxFAST32 "hx"
+#  elif UINT_FAST32_MAX == UINT_MAX
+#    define SCNxFAST32 "x"
+#  elif UINT_FAST32_MAX == ULONG_MAX
+#    define SCNxFAST32 "lx"
+#  elif UINT_FAST32_MAX == ULLONG_MAX
+#    define SCNxFAST32 "llx"
+#  endif
+#endif
+
+#ifndef SCNxFAST64
+#  if UINT_FAST64_MAX == UCHAR_MAX
+#    define SCNxFAST64 "hhx"
+#  elif UINT_FAST64_MAX == USHRT_MAX
+#    define SCNxFAST64 "hx"
+#  elif UINT_FAST64_MAX == UINT_MAX
+#    define SCNxFAST64 "x"
+#  elif UINT_FAST64_MAX == ULONG_MAX
+#    define SCNxFAST64 "lx"
+#  elif UINT_FAST64_MAX == ULLONG_MAX
+#    define SCNxFAST64 "llx"
+#  endif
+#endif
+
+#ifndef SCNxMAX
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define SCNxMAX "hhx"
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define SCNxMAX "hx"
+#  elif UINTMAX_MAX == UINT_MAX
+#    define SCNxMAX "x"
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define SCNxMAX "lx"
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define SCNxMAX "llx"
+#  endif
+#endif
+
+#ifndef SCNxPTR
+#  if UINTPTR_MAX == UCHAR_MAX
+#    define SCNxPTR "hhx"
+#  elif UINTPTR_MAX == USHRT_MAX
+#    define SCNxPTR "hx"
+#  elif UINTPTR_MAX == UINT_MAX
+#    define SCNxPTR "x"
+#  elif UINTPTR_MAX == ULONG_MAX
+#    define SCNxPTR "lx"
+#  elif UINTPTR_MAX == ULLONG_MAX
+#    define SCNxPTR "llx"
+#  endif
 #endif
 
 #if !@HAVE_IMAXDIV_T@
@@ -115,9 +2200,6 @@ typedef struct
   intmax_t rem;
 } imaxdiv_t;
 #endif
-
-/* TODO: Rest of these. 64-bit types are dependent on
-   architecture. */
 
 #if @LIBCFUNK_DECLARE_IMAXABS@
 #  if !@HAVE_IMAXABS@

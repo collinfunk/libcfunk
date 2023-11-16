@@ -27,9 +27,66 @@
 
 #include <netinet/in.h>
 
+#include "attributes.h"
+
+static void test_in_port_t_defined (void);
+static void test_in_addr_t_defined (void);
+static void test_struct_in_addr_defined (void);
+static void test_struct_sockaddr_in_defined (void);
+static void test_struct_in6_addr_defined (void);
+static void test_struct_sockaddr_in6_defined (void);
+
 /* Test that 'netinet/in.h' can be included. */
 int
 main (void)
 {
+  test_in_port_t_defined ();
+  test_in_addr_t_defined ();
+  test_struct_in_addr_defined ();
+  test_struct_sockaddr_in_defined ();
+  test_struct_in6_addr_defined ();
+  test_struct_sockaddr_in6_defined ();
   return 0;
+}
+
+/* Test that the 'in_port_t' type is defined. */
+static void
+test_in_port_t_defined (void)
+{
+  in_port_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'in_addr_t' type is defined. */
+static void
+test_in_addr_t_defined (void)
+{
+  in_addr_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'struct in_addr' type is defined. */
+static void
+test_struct_in_addr_defined (void)
+{
+  struct in_addr value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'struct sockaddr_in' type is defined. */
+static void
+test_struct_sockaddr_in_defined (void)
+{
+  struct sockaddr_in value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'struct in6_addr' type is defined. */
+static void
+test_struct_in6_addr_defined (void)
+{
+  struct in6_addr value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'struct sockaddr_in6' type is defined. */
+static void
+test_struct_sockaddr_in6_defined (void)
+{
+  struct sockaddr_in6 value ATTRIBUTE_UNUSED;
 }
