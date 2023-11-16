@@ -99,6 +99,7 @@
 #cmakedefine01 HAVE_ABS
 #cmakedefine01 HAVE__ACCESS
 #cmakedefine01 HAVE_ACCESS
+#cmakedefine01 HAVE_AFUNIX_H
 #cmakedefine01 HAVE_ALLOCA_H
 #cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
@@ -571,6 +572,7 @@
 #cmakedefine01 HAVE_SIG_T
 #cmakedefine01 HAVE_SIZE_T
 #cmakedefine01 HAVE_SLEEP
+#cmakedefine01 HAVE_SOCKETLEN_T
 #cmakedefine01 HAVE_SPAWN_H
 #cmakedefine01 HAVE_SSIZE_T
 #cmakedefine01 HAVE_STACK_T
@@ -619,6 +621,7 @@
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
+#cmakedefine01 HAVE_STRUCT_CMSGHDR
 #cmakedefine01 HAVE_STRUCT_DIRENT
 #cmakedefine01 HAVE_STRUCT_FLOCK
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_LEN
@@ -639,6 +642,7 @@
 #cmakedefine01 HAVE_STRUCT_SCHED_PARAM
 #cmakedefine01 HAVE_STRUCT_SIGACTION
 #cmakedefine01 HAVE_STRUCT_SIGEVENT
+#cmakedefine01 HAVE_STRUCT_SOCKADDR_UN
 #cmakedefine01 HAVE_STRUCT_STAT
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_ATIMESPEC
@@ -685,6 +689,7 @@
 #cmakedefine01 HAVE_SYS_TTY_H
 #cmakedefine01 HAVE_SYS_TYPES_H
 #cmakedefine01 HAVE_SYS_UIO_H
+#cmakedefine01 HAVE_SYS_UN_H
 #cmakedefine01 HAVE_SYS_UTIME_H
 #cmakedefine01 HAVE_SYS_UTSNAME_H
 #cmakedefine01 HAVE_SYS_WAIT_H

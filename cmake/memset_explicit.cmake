@@ -12,7 +12,7 @@ set(LIBCFUNK_DECLARE_MEMSET_EXPLICIT "1" CACHE STRING "")
 if (NOT HAVE_MEMSET_EXPLICIT)
   check_symbol_exists("memset_s" "string.h" HAVE_MEMSET_S)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/memset-explicit.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/memset_explicit.c
   )
 endif ()
 
