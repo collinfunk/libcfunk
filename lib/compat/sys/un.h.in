@@ -23,34 +23,31 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef COMPAT_SYS_UN_H
+#define COMPAT_SYS_UN_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_SYS_UN_H@
+#  include_next <sys/un.h>
+#endif
 
 #include <sys/socket.h>
 
-#include "attributes.h"
+/* Keep this after <sys/socket.h> or else Mingw fails to find the
+   'ADDRESS_FAMILY' type. */
+#if @HAVE_AFUNIX_H@
+#  include <afunix.h>
+#endif
 
-static void test_socketlen_t_defined (void);
-static void test_struct_cmsghdr_defined (void);
-
-/* Test that <sys/socket.h> is generated and included correctly. */
-int
-main (void)
+#if !@HAVE_STRUCT_SOCKADDR_UN@
+struct sockaddr_un
 {
-  test_socketlen_t_defined ();
-  test_struct_cmsghdr_defined ();
-  return 0;
-}
+  sa_family_t sun_family;
+  char sun_path[108];
+};
+#endif
 
-/* Test that the 'socklen_t' type is defined. */
-static void
-test_socketlen_t_defined (void)
-{
-  socklen_t value ATTRIBUTE_UNUSED;
-}
-
-/* Test that the 'struct cmsghdr' is defined. */
-static void
-test_struct_cmsghdr_defined (void)
-{
-  struct cmsghdr value ATTRIBUTE_UNUSED;
-}
+#endif /* COMPAT_SYS_UN_H */

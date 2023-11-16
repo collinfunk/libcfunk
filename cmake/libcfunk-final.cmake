@@ -397,6 +397,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_UIO_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_UN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/un.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/un.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_UTSNAME_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/utsname.h.in

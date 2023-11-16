@@ -25,32 +25,23 @@
 
 #include <config.h>
 
-#include <sys/socket.h>
+#include <sys/un.h>
 
 #include "attributes.h"
 
-static void test_socketlen_t_defined (void);
-static void test_struct_cmsghdr_defined (void);
+static void test_struct_sockaddr_un_defined (void);
 
-/* Test that <sys/socket.h> is generated and included correctly. */
+/* Test that 'sys/un.h' can be included. */
 int
 main (void)
 {
-  test_socketlen_t_defined ();
-  test_struct_cmsghdr_defined ();
+  test_struct_sockaddr_un_defined ();
   return 0;
 }
 
-/* Test that the 'socklen_t' type is defined. */
+/* Test that 'struct sockaddr_un' is defined. */
 static void
-test_socketlen_t_defined (void)
+test_struct_sockaddr_un_defined (void)
 {
-  socklen_t value ATTRIBUTE_UNUSED;
-}
-
-/* Test that the 'struct cmsghdr' is defined. */
-static void
-test_struct_cmsghdr_defined (void)
-{
-  struct cmsghdr value ATTRIBUTE_UNUSED;
+  struct sockaddr_un value ATTRIBUTE_UNUSED;
 }
