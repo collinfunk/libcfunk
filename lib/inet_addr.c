@@ -25,8 +25,17 @@
 
 #include <config.h>
 
+#include <sys/socket.h>
+
 #include <arpa/inet.h>
 
 /* Convert an IPv4 dotted decimal notation string to an integer IPv4
    address. */
-in_addr_t inet_addr (const char *cp);
+in_addr_t
+inet_addr (const char *cp)
+#undef inet_addr
+{
+  struct in_addr buffer;
+
+  return inet_aton (cp, &buffer) != 0 ? buffer.s_addr : (in_addr_t) (-1);
+}

@@ -1,0 +1,73 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#include <config.h>
+
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "test-help.h"
+
+int
+main (void)
+{
+  struct in_addr addr1;
+  struct in_addr addr2;
+  struct in_addr addr3;
+
+  ASSERT (inet_aton ("255.255.255.255", &addr1) != 0);
+  ASSERT (inet_aton ("0xff.0xff.0xff.0xff", &addr2) != 0);
+  ASSERT (inet_aton ("0377.0377.0377.0377", &addr3) != 0);
+
+  ASSERT (memcmp (&addr1, &addr2, sizeof (struct in_addr)) == 0);
+  ASSERT (memcmp (&addr1, &addr3, sizeof (struct in_addr)) == 0);
+
+  ASSERT (inet_aton ("127.0.0.1", &addr1) != 0);
+  ASSERT (inet_aton ("0x7f.0x00.0x00.0x01", &addr2) != 0);
+  ASSERT (inet_aton ("0177.0.0.01", &addr3) != 0);
+
+  ASSERT (memcmp (&addr1, &addr2, sizeof (struct in_addr)) == 0);
+  ASSERT (memcmp (&addr1, &addr3, sizeof (struct in_addr)) == 0);
+
+  ASSERT (inet_aton ("256.255.255.255", &addr1) == 0);
+  ASSERT (inet_aton ("0x100.0xff.0xff.0xff", &addr2) == 0);
+  ASSERT (inet_aton ("0400.0377.0377.0377", &addr3) == 0);
+
+  ASSERT (inet_aton ("255.256.255.255", &addr1) == 0);
+  ASSERT (inet_aton ("0xff.0x100.0xff.0xff", &addr2) == 0);
+  ASSERT (inet_aton ("0377.0400.0377.0377", &addr3) == 0);
+
+  ASSERT (inet_aton ("255.255.256.255", &addr1) == 0);
+  ASSERT (inet_aton ("0xff.0xff.0x100.0xff", &addr2) == 0);
+  ASSERT (inet_aton ("0377.0377.0400.0377", &addr3) == 0);
+
+  ASSERT (inet_aton ("255.255.255.256", &addr1) == 0);
+  ASSERT (inet_aton ("0xff.0xff.0xff.0x100", &addr2) == 0);
+  ASSERT (inet_aton ("0377.0377.0377.0400", &addr3) == 0);
+
+  return 0;
+}

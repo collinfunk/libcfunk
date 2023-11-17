@@ -23,58 +23,17 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_ARPA_INET_H
-#define COMPAT_ARPA_INET_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <arpa/inet.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#if @HAVE_ARPA_INET_H@
-#  include_next <arpa/inet.h>
-#endif
+#include "test-help.h"
 
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-
-#if @LIBCFUNK_DECLARE_INET_ADDR@
-#  if @LIBCFUNK_REPLACE_INET_ADDR@
-#    undef inet_addr
-#    define inet_addr _libcfunk_inet_addr
-extern in_addr_t _libcfunk_inet_addr (const char *cp);
-#  elif !@HAVE_INET_ADDR@
-extern in_addr_t inet_addr (const char *cp);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_ATON@
-#  if @LIBCFUNK_REPLACE_INET_ATON@
-#    undef inet_aton
-#    define inet_aton _libcfunk_inet_aton
-extern int _libcfunk_inet_aton (const char *cp, struct in_addr *addr);
-#  elif !@HAVE_INET_ATON@
-extern int inet_aton (const char *cp, struct in_addr *addr);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_NTOA@
-#  if !@HAVE_INET_NTOA@
-extern char *inet_ntoa (struct in_addr in);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_NTOP@
-#  if !@HAVE_INET_NTOP@
-extern const char *inet_ntop (int af, const void *src, char *dst,
-                              socklen_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_PTON@
-#  if !@HAVE_INET_PTON@
-extern int inet_pton (int af, const char *src, void *dst);
-#  endif
-#endif
-
-#endif /* COMPAT_ARPA_INET_H */
+int
+main (void)
+{
+  ASSERT (inet_addr ("127.0.0.1") == (in_addr_t) 0x100007f);
+  return 0;
+}
