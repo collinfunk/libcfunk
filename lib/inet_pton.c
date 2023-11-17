@@ -23,43 +23,9 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_ARPA_INET_H
-#define COMPAT_ARPA_INET_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <arpa/inet.h>
 
-#if @HAVE_ARPA_INET_H@
-#  include_next <arpa/inet.h>
-#endif
-
-#include <sys/types.h>
-#include <sys/socket.h>
-
-#if @LIBCFUNK_DECLARE_INET_ADDR@
-#  if !@HAVE_INET_ADDR@
-extern in_addr_t inet_addr (const char *cp);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_NTOA@
-#  if !@HAVE_INET_NTOA@
-extern char *inet_ntoa (struct in_addr in);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_NTOP@
-#  if !@HAVE_INET_NTOP@
-extern const char *inet_ntop (int af, const void *src, char *dst,
-                              socklen_t size);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_INET_PTON@
-#  if !@HAVE_INET_PTON@
-extern int inet_pton (int af, const char *src, void *dst);
-#  endif
-#endif
-
-#endif /* COMPAT_ARPA_INET_H */
+/* Convert a test string adress into its numeric binary representation. */
+int inet_pton (int af, const char *src, void *dst);
