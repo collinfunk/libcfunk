@@ -59,7 +59,11 @@ extern int inet_aton (const char *cp, struct in_addr *addr);
 #endif
 
 #if @LIBCFUNK_DECLARE_INET_NTOA@
-#  if !@HAVE_INET_NTOA@
+#  if @LIBCFUNK_REPLACE_INET_NTOA@
+#    undef inet_ntoa
+#    define inet_ntoa _libcfunk_inet_ntoa
+extern char *_libcfunk_inet_ntoa (struct in_addr in);
+#  elif !@HAVE_INET_NTOA@
 extern char *inet_ntoa (struct in_addr in);
 #  endif
 #endif

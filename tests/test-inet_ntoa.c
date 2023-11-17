@@ -28,17 +28,24 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-/* Convert a IPv4 address to a dotted decimal notation string. */
-char *
-inet_ntoa (struct in_addr in)
-#undef inet_ntoa
+#include "test-help.h"
+
+int
+main (void)
 {
-  static char buffer[sizeof ("255.255.255.255")];
-  unsigned char *ptr = (unsigned char *) &in;
+  struct in_addr addr1;
+  struct in_addr addr2;
+  struct in_addr addr3;
 
-  (void) snprintf (buffer, sizeof (buffer), "%u.%u.%u.%u", ptr[0], ptr[1],
-                   ptr[2], ptr[3]);
+  ASSERT (inet_aton ("127.0.0.1", &addr1) != 0);
+  ASSERT (inet_aton ("0x7f.0x00.0x00.0x01", &addr2) != 0);
+  ASSERT (inet_aton ("0177.0.0.01", &addr3) != 0);
 
-  return buffer;
+  ASSERT (strcmp (inet_ntoa (addr1), "127.0.0.1") == 0);
+  ASSERT (strcmp (inet_ntoa (addr2), "127.0.0.1") == 0);
+  ASSERT (strcmp (inet_ntoa (addr3), "127.0.0.1") == 0);
+
+  return 0;
 }
