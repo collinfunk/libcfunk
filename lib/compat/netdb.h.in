@@ -35,6 +35,61 @@
 #endif
 
 #include <sys/socket.h>
+#include <netinet/in.h>
+
+#if !@HAVE_STRUCT_HOSTENT@
+struct hostent
+{
+  char *h_name;
+  char **h_aliases;
+  int h_addrtype;
+  int h_length;
+  char **h_addr_list;
+};
+#endif
+
+#if !@HAVE_STRUCT_NETENT@
+struct netent
+{
+  char *n_name;
+  char **n_aliases;
+  int n_addrtype;
+  uint32_t n_net;
+};
+#endif
+
+#if !@HAVE_STRUCT_PROTOENT@
+struct protoent
+{
+  char *p_name;
+  char **p_aliases;
+  int p_proto;
+};
+#endif
+
+#if !@HAVE_STRUCT_SERVENT@
+struct servent
+{
+  char *s_name;
+  char **s_aliases;
+  int s_port;
+  char *s_proto;
+};
+#endif
+
+#if !@HAVE_STRUCT_ADDRINFO@
+struct addrinfo
+{
+  int ai_flags;
+  int ai_family;
+  int ai_socktype;
+  int ai_protocol;
+  socklen_t ai_addrlen;
+  struct sockaddr *ai_addr;
+  char *ai_canonname;
+  struct addrinfo *ai_next;
+};
+#endif
 
 #if @LIBCFUNK_DECLARE_GAI_STRERROR@
 #  if @LIBCFUNK_REPLACE_GAI_STRERROR@

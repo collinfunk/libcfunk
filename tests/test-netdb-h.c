@@ -27,9 +27,52 @@
 
 #include <netdb.h>
 
+#include "attributes.h"
+
+static void struct_hostent_defined (void);
+static void struct_netent_defined (void);
+static void struct_protoent_defined (void);
+static void struct_servent_defined (void);
+static void struct_addrinfo_defined (void);
+
 /* Test that <netdb.h> is generated and included correctly. */
 int
 main (void)
 {
+  struct_hostent_defined ();
+  struct_netent_defined ();
+  struct_protoent_defined ();
+  struct_servent_defined ();
+  struct_addrinfo_defined ();
   return 0;
+}
+
+static void
+struct_hostent_defined (void)
+{
+  struct hostent value ATTRIBUTE_UNUSED;
+}
+
+static void
+struct_netent_defined (void)
+{
+  struct netent value ATTRIBUTE_UNUSED;
+}
+
+static void
+struct_protoent_defined (void)
+{
+  struct protoent value ATTRIBUTE_UNUSED;
+}
+
+static void
+struct_servent_defined (void)
+{
+  struct servent value ATTRIBUTE_UNUSED;
+}
+
+static void
+struct_addrinfo_defined (void)
+{
+  struct addrinfo value ATTRIBUTE_UNUSED;
 }
