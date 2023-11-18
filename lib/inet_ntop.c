@@ -28,4 +28,5 @@
 #include <arpa/inet.h>
 
 /* Convert a numeric address to a text string representation. */
-const char *inet_ntop (int af, const void *src, char *dst, socklen_t size);
+const char *inet_ntop (int af, const void *restrict src, char *restrict dst,
+                       socklen_t size);

@@ -69,15 +69,25 @@ extern char *inet_ntoa (struct in_addr in);
 #endif
 
 #if @LIBCFUNK_DECLARE_INET_NTOP@
-#  if !@HAVE_INET_NTOP@
-extern const char *inet_ntop (int af, const void *src, char *dst,
-                              socklen_t size);
+#  if @LIBCFUNK_REPLACE_INET_NTOP@
+#    undef inet_ntop
+#    define inet_ntop _libcfunk_inet_ntop
+extern const char *_libcfunk_inet_ntop (int af, const void *restrict src,
+                                        char *restrict dst, socklen_t size);
+#  elif !@HAVE_INET_NTOP@
+extern const char *inet_ntop (int af, const void *restrict src,
+                              char *restrict dst, socklen_t size);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_INET_PTON@
-#  if !@HAVE_INET_PTON@
-extern int inet_pton (int af, const char *src, void *dst);
+#  if @LIBCFUNK_REPLACE_INET_PTON@
+#    undef inet_pton
+#    define inet_pton _libcfunk_inet_pton
+extern int _libcfunk_inet_pton (int af, const char *restrict src,
+                                void *restrict dst);
+#  elif !@HAVE_INET_PTON@
+extern int inet_pton (int af, const char *restrict src, void *restrict dst);
 #  endif
 #endif
 

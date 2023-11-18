@@ -858,6 +858,146 @@
 #  endif
 #endif
 
+#ifndef INT8_C
+#  if INT8_MAX == SCHAR_MAX
+#    define INT8_C(x) x
+#  elif INT8_MAX == SHRT_MAX
+#    define INT8_C(x) x
+#  elif INT8_MAX == INT_MAX
+#    define INT8_C(x) x
+#  elif INT8_MAX == LONG_MAX
+#    define INT8_C(x) x ## L
+#  elif INT8_MAX == LLONG_MAX
+#    define INT8_C(x) x ## LL
+#  endif
+#endif
+
+#ifndef INT16_C
+#  if INT16_MAX == SCHAR_MAX
+#    define INT16_C(x) x
+#  elif INT16_MAX == SHRT_MAX
+#    define INT16_C(x) x
+#  elif INT16_MAX == INT_MAX
+#    define INT16_C(x) x
+#  elif INT16_MAX == LONG_MAX
+#    define INT16_C(x) x ## L
+#  elif INT16_MAX == LLONG_MAX
+#    define INT16_C(x) x ## LL
+#  endif
+#endif
+
+#ifndef INT32_C
+#  if INT32_MAX == SCHAR_MAX
+#    define INT32_C(x) x
+#  elif INT32_MAX == SHRT_MAX
+#    define INT32_C(x) x
+#  elif INT32_MAX == INT_MAX
+#    define INT32_C(x) x
+#  elif INT32_MAX == LONG_MAX
+#    define INT32_C(x) x ## L
+#  elif INT32_MAX == LLONG_MAX
+#    define INT32_C(x) x ## LL
+#  endif
+#endif
+
+#ifndef INT64_C
+#  if INT64_MAX == SCHAR_MAX
+#    define INT64_C(x) x
+#  elif INT64_MAX == SHRT_MAX
+#    define INT64_C(x) x
+#  elif INT64_MAX == INT_MAX
+#    define INT64_C(x) x
+#  elif INT64_MAX == LONG_MAX
+#    define INT64_C(x) x ## L
+#  elif INT64_MAX == LLONG_MAX
+#    define INT64_C(x) x ## LL
+#  endif
+#endif
+
+#ifndef UINT8_C
+#  if UINT8_MAX == UCHAR_MAX
+#    define UINT8_C(x) x
+#  elif UINT8_MAX == USHRT_MAX
+#    define UINT8_C(x) x
+#  elif UINT8_MAX == UINT_MAX
+#    define UINT8_C(x) x ## U
+#  elif UINT8_MAX == ULONG_MAX
+#    define UINT8_C(x) x ## UL
+#  elif UINT8_MAX == ULLONG_MAX
+#    define UINT8_C(x) x ## ULL
+#  endif
+#endif
+
+#ifndef UINT16_C
+#  if UINT16_MAX == UCHAR_MAX
+#    define UINT16_C(x) x
+#  elif UINT16_MAX == USHRT_MAX
+#    define UINT16_C(x) x
+#  elif UINT16_MAX == UINT_MAX
+#    define UINT16_C(x) x ## U
+#  elif UINT16_MAX == ULONG_MAX
+#    define UINT16_C(x) x ## UL
+#  elif UINT16_MAX == ULLONG_MAX
+#    define UINT16_C(x) x ## ULL
+#  endif
+#endif
+
+#ifndef UINT32_C
+#  if UINT32_MAX == UCHAR_MAX
+#    define UINT32_C(x) x
+#  elif UINT32_MAX == USHRT_MAX
+#    define UINT32_C(x) x
+#  elif UINT32_MAX == UINT_MAX
+#    define UINT32_C(x) x ## U
+#  elif UINT32_MAX == ULONG_MAX
+#    define UINT32_C(x) x ## UL
+#  elif UINT32_MAX == ULLONG_MAX
+#    define UINT32_C(x) x ## ULL
+#  endif
+#endif
+
+#ifndef UINT64_C
+#  if UINT64_MAX == UCHAR_MAX
+#    define UINT64_C(x) x
+#  elif UINT64_MAX == USHRT_MAX
+#    define UINT64_C(x) x
+#  elif UINT64_MAX == UINT_MAX
+#    define UINT64_C(x) x ## U
+#  elif UINT64_MAX == ULONG_MAX
+#    define UINT64_C(x) x ## UL
+#  elif UINT64_MAX == ULLONG_MAX
+#    define UINT64_C(x) x ## ULL
+#  endif
+#endif
+
+#ifndef INTMAX_C
+#  if INTMAX_MAX == SCHAR_MAX
+#    define INTMAX_C(x) x
+#  elif INTMAX_MAX == SHRT_MAX
+#    define INTMAX_C(x) x
+#  elif INTMAX_MAX == INT_MAX
+#    define INTMAX_C(x) x
+#  elif INTMAX_MAX == LONG_MAX
+#    define INTMAX_C(x) x ## L
+#  elif INTMAX_MAX == LLONG_MAX
+#    define INTMAX_C(x) x ## LL
+#  endif
+#endif
+
+#ifndef UINTMAX_C
+#  if UINTMAX_MAX == UCHAR_MAX
+#    define UINTMAX_C(x) x
+#  elif UINTMAX_MAX == USHRT_MAX
+#    define UINTMAX_C(x) x
+#  elif UINTMAX_MAX == UINT_MAX
+#    define UINTMAX_C(x) x ## U
+#  elif UINTMAX_MAX == ULONG_MAX
+#    define UINTMAX_C(x) x ## UL
+#  elif UINTMAX_MAX == ULLONG_MAX
+#    define UINTMAX_C(x) x ## ULL
+#  endif
+#endif
+
 #if !@HAVE_INT8_T@
 #  if INT8_WIDTH == SCHAR_WIDTH
 typedef signed char int8_t;

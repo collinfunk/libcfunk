@@ -3,6 +3,7 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-socket-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/netinet-in-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
 
 # Generate <arpa/inet.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_ARPA_INET_H "1" CACHE STRING "")

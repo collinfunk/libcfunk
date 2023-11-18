@@ -26,6 +26,71 @@
 #include <config.h>
 
 #include <arpa/inet.h>
+#include <errno.h>
+#include <stdint.h>
+#include <string.h>
+
+static int inet_pton4 (const char *restrict src, void *restrict dst);
 
 /* Convert a test string adress into its numeric binary representation. */
-int inet_pton (int af, const char *src, void *dst);
+int
+inet_pton (int af, const char *restrict src, void *restrict dst)
+#undef inet_pton
+{
+  switch (af)
+    {
+    case AF_INET:
+      return inet_pton4 (src, dst);
+      /* case AF_INET6: TODO */
+    default:
+      errno = EAFNOSUPPORT;
+      return -1;
+    }
+}
+
+static int
+inet_pton4 (const char *restrict src, void *restrict dst)
+{
+  uint8_t parts[4];
+  int num_parts = 0;
+
+  for (;; ++src)
+    {
+      if (*src >= '0' && *src <= '9')
+        {
+          uint8_t value = 0;
+          do
+            {
+              if (value > (UINT8_MAX / 10))
+                return 0;
+              value = value * 10;
+              if (value > (UINT8_MAX - (*src - '0')))
+                return 0;
+              value = value + (*src++ - '0');
+            }
+          while (*src >= '0' && *src <= '9');
+          if (*src == '.')
+            {
+              if (num_parts < 3)
+                parts[num_parts++] = value;
+              else
+                return 0;
+            }
+          else if (*src == '\0')
+            {
+              if (num_parts == 3)
+                {
+                  parts[num_parts++] = value;
+                  memcpy (dst, parts, num_parts);
+                  return 1;
+                }
+              else
+                return 0;
+            }
+          else
+            return 0;
+        }
+      else
+        return 0;
+    }
+}
