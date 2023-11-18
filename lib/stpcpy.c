@@ -25,18 +25,17 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <string.h>
 
 char *
-stpcpy (char *dest, const char *src)
+stpcpy (char *restrict s1, const char *restrict s2)
+#undef stpcpy
 {
-  for (;; ++dest, ++src)
+  for (;; ++s1, ++s2)
     {
-      *dest = *src;
-      if (*dest == '\0')
+      *s1 = *s2;
+      if (*s1 == '\0')
         break;
     }
-
-  return dest;
+  return s1;
 }

@@ -25,18 +25,32 @@
 
 #include <config.h>
 
+#include <stddef.h>
+#include <stdio.h>
 #include <string.h>
 
-char *
-strcpy (char *restrict s1, const char *restrict s2)
-#undef strcpy
+#include "test-help.h"
+
+static unsigned char buffer1[2048];
+static unsigned char buffer2[2048];
+
+/* Test that 'memcpy' is declared. */
+int
+main (void)
 {
-  char *save = s1;
-  for (;; ++s1, ++s2)
-    {
-      *s1 = *s2;
-      if (*s1 == '\0')
-        break;
-    }
-  return save;
+  size_t i;
+
+  ASSERT (sizeof (buffer1) == sizeof (buffer2));
+  ASSERT ((sizeof (buffer1) % 2) == 0);
+
+  for (i = 0; i < sizeof (buffer1); ++i)
+    buffer1[i] = i & 0xff;
+
+  ASSERT (memcpy (buffer2, buffer1, sizeof (buffer1) / 2) == buffer2);
+  ASSERT (memcpy (buffer2 + (sizeof (buffer2) / 2),
+                  buffer1 + (sizeof (buffer2) / 2), sizeof (buffer2) / 2)
+          == buffer2 + (sizeof (buffer2) / 2));
+  ASSERT (memcmp (buffer2, buffer1, sizeof (buffer2)) == 0);
+
+  return 0;
 }

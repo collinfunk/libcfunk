@@ -25,18 +25,37 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char *
-strcpy (char *restrict s1, const char *restrict s2)
-#undef strcpy
+#include "test-help.h"
+
+static char src_buffer[2048];
+static char dest_buffer[2048];
+
+/* Test that 'stpcpy' is defined. */
+int
+main (void)
 {
-  char *save = s1;
-  for (;; ++s1, ++s2)
+  size_t i;
+  char *p;
+
+  ASSERT (sizeof (src_buffer) == sizeof (dest_buffer));
+  ASSERT ((sizeof (src_buffer) % 2) == 0);
+
+  for (i = 0; i < sizeof (src_buffer) - 1; ++i)
     {
-      *s1 = *s2;
-      if (*s1 == '\0')
-        break;
+      src_buffer[i] = i & 0x7f;
+      if (src_buffer[i] == '\0')
+        src_buffer[i]++;
+      src_buffer[i + 1] = '\0';
+      p = stpcpy (dest_buffer, src_buffer);
+      ASSERT (p != NULL);
+      ASSERT (*p == '\0');
+      ASSERT (p == dest_buffer + i + 1);
+      ASSERT (memcmp (dest_buffer, src_buffer, i + 1) == 0);
     }
-  return save;
+
+  return 0;
 }

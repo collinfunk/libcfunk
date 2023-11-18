@@ -47,4 +47,28 @@ typedef struct
 
 /* TODO: Implement. */
 
+#if @LIBCFUNK_DECLARE_GLOB@
+#  if @LIBCFUNK_REPLACE_GLOB@
+#    undef glob
+#    define glob _libcfunk_glob
+extern int _libcfunk_glob (const char *restrict pattern, int flags,
+                           int (*errfunc) (const char *epath, int eerrno),
+                           glob_t *restrict pglob);
+#  elif !@HAVE_GLOB@
+extern int glob (const char *restrict pattern, int flags,
+                 int (*errfunc) (const char *epath, int eerrno),
+                 glob_t *restrict pglob);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GLOBFREE@
+#  if @LIBCFUNK_REPLACE_GLOBFREE@
+#    undef globfree
+#    define globfree _libcfunk_globfree
+extern void _libcfunk_globfree (glob_t *pglob);
+#  elif !@HAVE_GLOBFREE@
+extern void globfree (glob_t *pglob);
+#  endif
+#endif
+
 #endif /* COMPAT_GLOB_H */

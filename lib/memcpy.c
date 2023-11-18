@@ -25,11 +25,11 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <string.h>
 
 void *
-memcpy (void *s1, const void *s2, size_t n)
+memcpy (void *restrict s1, const void *restrict s2, size_t n)
+#undef memcpy
 {
   unsigned char *p1 = (unsigned char *) s1;
   const unsigned char *p2 = (const unsigned char *) s2;
