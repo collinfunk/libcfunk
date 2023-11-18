@@ -355,6 +355,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_RESOURCE_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_SELECT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/select.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/select.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_SOCKET_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/socket.h.in
