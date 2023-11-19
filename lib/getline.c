@@ -31,7 +31,8 @@
 
 /* getline () for Windows which doesn't provide it. */
 ssize_t
-getline (char **lineptr, size_t *n, FILE *stream)
+getline (char **restrict lineptr, size_t *restrict n, FILE *restrict stream)
+#undef getline
 {
   return getdelim (lineptr, n, '\n', stream);
 }

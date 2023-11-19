@@ -3,6 +3,8 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unlocked-stdio.cmake)
 
 if (HAVE_STDIO_H)
@@ -11,7 +13,7 @@ endif ()
 
 set(LIBCFUNK_DECLARE_GETDELIM "1" CACHE STRING "")
 
-if (NOT HAVE_GETDELIM)
+if (NOT HAVE_GETDELIM OR LIBCFUNK_REPLACE_GETDELIM)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/getdelim.c
   )

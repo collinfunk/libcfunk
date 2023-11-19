@@ -102,52 +102,87 @@
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_GETDELIM@
-#  if !@HAVE_GETDELIM@
-extern ssize_t getdelim (char **lineptr, size_t *n, int delimiter,
-                         FILE *stream);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETLINE@
-#  if !@HAVE_GETLINE@
-extern ssize_t getline (char **lineptr, size_t *n, FILE *stream);
+#if @LIBCFUNK_DECLARE_FILENO@
+#  if @LIBCFUNK_REPLACE_FILENO@
+#    undef fileno
+#    define fileno _libcfunk_fileno
+extern int _libcfunk_fileno (FILE *stream);
+#  elif !@HAVE_FILENO@
+extern int fileno (FILE *stream);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FSEEKO@
-#  if !@HAVE_FSEEKO@
+#  if @LIBCFUNK_REPLACE_FSEEKO@
+#    undef fseeko
+#    define fseeko _libcfunk_fseeko
+extern int _libcfunk_fseeko (FILE *stream, off_t offset, int whence);
+#  elif !@HAVE_FSEEKO@
 extern int fseeko (FILE *stream, off_t offset, int whence);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FTELLO@
-#  if !@HAVE_FTELLO@
+#  if @LIBCFUNK_REPLACE_FTELLO@
+#    undef ftello
+#    define ftello _libcfunk_ftello
+extern off_t _libcfunk_ftello (FILE *stream);
+#  elif !@HAVE_FTELLO@
 extern off_t ftello (FILE *stream);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_FILENO@
-#  if !@HAVE_FILENO@
-extern int fileno (FILE *stream);
+#if @LIBCFUNK_DECLARE_GETDELIM@
+#  if @LIBCFUNK_REPLACE_GETDELIM@
+#    undef getdelim
+#    define getdelim _libcfunk_getdelim
+extern ssize_t _libcfunk_getdelim (char **restrict lineptr, size_t *restrict n,
+                                   int delimiter, FILE *restrict stream);
+#  elif !@HAVE_GETDELIM@
+extern ssize_t getdelim (char **restrict lineptr, size_t *restrict n,
+                         int delimiter, FILE *restrict stream);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_REMOVE@
-#  if !@HAVE_REMOVE@
-extern int remove (const char *path);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_POPEN@
-#  if !@HAVE_POPEN@
-extern FILE *popen (const char *command, const char *mode);
+#if @LIBCFUNK_DECLARE_GETLINE@
+#  if @LIBCFUNK_REPLACE_GETLINE@
+#    undef getline
+#    define getline _libcfunk_getline
+extern ssize_t _libcfunk_getline (char **restrict lineptr, size_t *restrict n,
+                                  FILE *restrict stream);
+#  elif !@HAVE_GETLINE@
+extern ssize_t getline (char **restrict lineptr, size_t *restrict n,
+                        FILE *restrict stream);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_PCLOSE@
-#  if !@HAVE_PCLOSE@
+#  if @LIBCFUNK_REPLACE_PCLOSE@
+#    undef pclose
+#    define pclose _libcfunk_pclose
+extern int _libcfunk_pclose (FILE *stream);
+#  elif !@HAVE_PCLOSE@
 extern int pclose (FILE *stream);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_POPEN@
+#  if @LIBCFUNK_REPLACE_POPEN@
+#    undef popen
+#    define popen _libcfunk_popen
+extern FILE *_libcfunk_popen (const char *command, const char *mode);
+#  elif !@HAVE_POPEN@
+extern FILE *popen (const char *command, const char *mode);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_REMOVE@
+#  if @LIBCFUNK_REPLACE_REMOVE@
+#    undef remove
+#    define remove _libcfunk_remove
+extern int _libcfunk_remove (const char *path);
+#  elif !@HAVE_REMOVE@
+extern int remove (const char *path);
 #  endif
 #endif
 

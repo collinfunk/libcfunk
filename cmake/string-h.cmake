@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
 
 # Generate <string.h> at libcfunk-final.cmake

@@ -34,6 +34,10 @@
 #  include_next <string.h>
 #endif
 
+/* For mode_t. */
+#include <sys/types.h>
+
+/* For size_t and NULL. */
 #include <stddef.h>
 
 #if @LIBCFUNK_DECLARE_EXPLICIT_BZERO@

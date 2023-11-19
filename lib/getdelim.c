@@ -36,7 +36,9 @@
 
 /* getdelim () for Windows which doesn't provide it. */
 ssize_t
-getdelim (char **lineptr, size_t *n, int delimiter, FILE *stream)
+getdelim (char **restrict lineptr, size_t *restrict n, int delimiter,
+          FILE *restrict stream)
+#undef getdelim
 {
   int ch;
   size_t bytes_read = 0;
