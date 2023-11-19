@@ -102,6 +102,22 @@
 #  endif
 #endif
 
+/* TODO */
+#if @LIBCFUNK_DECLARE_ASPRINTF@
+#  if @LIBCFUNK_REPLACE_ASPRINTF@
+#  elif !@HAVE_ASPRINTF@
+extern int asprintf (char **restrict strp, const char *restrict format, ...);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_DPRINTF@
+#  if @LIBCFUNK_REPLACE_DPRINTF@
+#  elif !@HAVE_DPRINTF@
+extern int dprintf (int fildes, const char *restrict format, ...);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_FILENO@
 #  if @LIBCFUNK_REPLACE_FILENO@
 #    undef fileno
@@ -109,6 +125,14 @@
 extern int _libcfunk_fileno (FILE *stream);
 #  elif !@HAVE_FILENO@
 extern int fileno (FILE *stream);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_FPRINTF@
+#  if @LIBCFUNK_REPLACE_FPRINTF@
+#  elif !@HAVE_FPRINTF@
+extern int fprintf (FILE *restrict stream, const char *restrict format, ...);
 #  endif
 #endif
 
@@ -183,6 +207,75 @@ extern FILE *popen (const char *command, const char *mode);
 extern int _libcfunk_remove (const char *path);
 #  elif !@HAVE_REMOVE@
 extern int remove (const char *path);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_SNPRINTF@
+#  if @LIBCFUNK_REPLACE_SNPRINTF@
+#  elif !@HAVE_SNPRINTF@
+extern int snprintf (char *restrict s, size_t n,
+                     const char *restrict format, ...);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_SPRINTF@
+#  if @LIBCFUNK_REPLACE_SPRINTF@
+#  elif !@HAVE_SPRINTF@
+extern int sprintf (char *restrict s, const char *restrict format, ...);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_VASPRINTF@
+#  if @LIBCFUNK_REPLACE_VASPRINTF@
+#  elif !@HAVE_VASPRINTF@
+extern int vasprintf (char **restrict strp, const char *restrict format,
+                      va_list ap);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_VDPRINTF@
+#  if @LIBCFUNK_REPLACE_VDPRINTF@
+#  elif !@HAVE_VDPRINTF@
+extern int vdprintf (int fildes, const char *restrict format, va_list ap);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_VFPRINTF@
+#  if @LIBCFUNK_REPLACE_VFPRINTF@
+#  elif !@HAVE_VFPRINTF@
+extern int vfprintf(FILE *restrict stream, const char *restrict format,
+                    va_list ap);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_VPRINTF@
+#  if @LIBCFUNK_REPLACE_VPRINTF@
+#  elif !@HAVE_VPRINTF@
+extern int vprintf (const char *restrict format, va_list ap);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_VSNPRINTF@
+#  if @LIBCFUNK_REPLACE_VSNPRINTF@
+#  elif !@HAVE_VSNPRINTF@
+extern int vsnprintf(char *restrict s, size_t n, const char *restrict format,
+                     va_list ap);
+#  endif
+#endif
+
+/* TODO */
+#if @LIBCFUNK_DECLARE_VSPRINTF@
+#  if @LIBCFUNK_REPLACE_VSPRINTF@
+#  elif !@HAVE_VSPRINTF@
+extern int vsprintf (char *restrict s, const char *restrict format,
+                     va_list ap);
 #  endif
 #endif
 
