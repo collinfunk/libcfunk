@@ -1,0 +1,22 @@
+
+include_guard(GLOBAL)
+
+include($CACHE{LIBCFUNK_MODULE_DIR}/string-h.cmake)
+
+if (HAVE_STRING_H)
+  check_symbol_exists("strtok" "string.h" HAVE_STRTOK)
+endif ()
+
+set(LIBCFUNK_DECLARE_STRTOK "1" CACHE STRING "")
+
+if (NOT HAVE_STRTOK OR LIBCFUNK_REPLACE_STRTOK)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/strtok_r.cmake)
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/strtok.c
+  )
+endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strtok.cmake)
+endif ()
+

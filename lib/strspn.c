@@ -25,11 +25,11 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <string.h>
 
 size_t
 strspn (const char *s1, const char *s2)
+#undef strspn
 {
   const char *p;
   const char *s;

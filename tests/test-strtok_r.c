@@ -25,26 +25,36 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-size_t
-strcspn (const char *s1, const char *s2)
-#undef strcspn
+#include "test-help.h"
+
+static char test_string[]
+    = { '1', '2', ' ', '4', '5', '6', '\t', '\t', ' ', 'a', 'b', 'c', '\0' };
+
+int
+main (void)
 {
-  const char *p;
-  const char *s;
-  size_t count = 0;
-  for (p = s1; *p != '\0'; ++p)
-    {
-      for (s = s2; *s != '\0'; ++s)
-        {
-          if (*p == *s)
-            break;
-        }
-      if (*s != '\0')
-        return count;
-      else
-        ++count;
-    }
-  return count;
+  char *result;
+  char *save;
+  const char delimiters[] = { ' ', '\t', '\0' };
+
+  result = strtok_r (test_string, delimiters, &save);
+  ASSERT (result == test_string);
+  ASSERT (strcmp (result, "12") == 0);
+
+  result = strtok_r (NULL, delimiters, &save);
+  ASSERT (result == test_string + 3);
+  ASSERT (strcmp (result, "456") == 0);
+
+  result = strtok_r (NULL, delimiters, &save);
+  ASSERT (result == test_string + 9);
+  ASSERT (strcmp (result, "abc") == 0);
+
+  result = strtok_r (NULL, delimiters, &save);
+  ASSERT (result == NULL);
+
+  return 0;
 }

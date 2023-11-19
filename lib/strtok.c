@@ -27,24 +27,10 @@
 
 #include <string.h>
 
-size_t
-strcspn (const char *s1, const char *s2)
-#undef strcspn
+char *
+strtok (char *restrict s, const char *restrict sep)
+#undef strtok
 {
-  const char *p;
-  const char *s;
-  size_t count = 0;
-  for (p = s1; *p != '\0'; ++p)
-    {
-      for (s = s2; *s != '\0'; ++s)
-        {
-          if (*p == *s)
-            break;
-        }
-      if (*s != '\0')
-        return count;
-      else
-        ++count;
-    }
-  return count;
+  static char *last;
+  return strtok_r (s, sep, &last);
 }

@@ -27,24 +27,44 @@
 
 #include <string.h>
 
-size_t
-strcspn (const char *s1, const char *s2)
-#undef strcspn
+char *
+strtok_r (char *restrict s, const char *restrict sep, char **restrict state)
+#undef strtok_r
 {
-  const char *p;
-  const char *s;
-  size_t count = 0;
-  for (p = s1; *p != '\0'; ++p)
+  char *end;
+
+  /* If S is NULL, a previous call set the STATE parameter. */
+  if (s == NULL)
+    s = *state;
+
+  /* Check for the easy case where a previous call reached the end of
+     the string. */
+  if (*s == '\0')
     {
-      for (s = s2; *s != '\0'; ++s)
-        {
-          if (*p == *s)
-            break;
-        }
-      if (*s != '\0')
-        return count;
-      else
-        ++count;
+      *state = s;
+      return NULL;
     }
-  return count;
+
+  /* Skip any leading delimiters in S. */
+  s += strspn (s, sep);
+  if (*s == '\0')
+    {
+      *state = s;
+      return NULL;
+    }
+
+  /* Find the end of the current token or string, whichever is first. */
+  end = s + strcspn (s, sep);
+  if (*end == '\0')
+    {
+      *state = end;
+      return s;
+    }
+
+  /* Set the delimiter at the end of the token to NUL and update STATE for
+     the next call. */
+  *end = '\0';
+  *state = end + 1;
+
+  return s;
 }
