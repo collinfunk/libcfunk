@@ -270,8 +270,13 @@ extern char *strrchr (const char *s, int c);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRSEP@
-#  if !@HAVE_STRSEP@
-extern char *strsep (char **stringp, const char *delim);
+#  if @LIBCFUNK_REPLACE_STRSEP@
+#    undef strsep
+#    define strsep _libcfunk_strsep
+extern char *_libcfunk_strsep (char **restrict stringp,
+                               const char *restrict delim);
+#  elif !@HAVE_STRSEP@
+extern char *strsep (char **restrict stringp, const char *restrict delim);
 #  endif
 #endif
 

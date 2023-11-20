@@ -25,46 +25,40 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <string.h>
 
 char *
-strsep (char **stringp, const char *delim)
+strsep (char **restrict stringp, const char *restrict delim)
+#undef strsep
 {
-  char *str_pos;
-  const char *delim_pos;
-  char *ret_token;
-  char ch;
-  char curr_delim;
+  char *str = *stringp;
+  char *end;
 
-  /* If the string pointer is NULL, return NULL. */
-  if (*stringp == NULL)
+  /* If the string pointed to by STRINGP is NULL, return NULL. */
+  if (str == NULL)
     return NULL;
 
-  /* Save our starting position to return as the token. */
-  str_pos = ret_token = *stringp;
-
-  for (;;)
+  /* If DELIM is an empty string, the entire string pointed to by STRINGP is
+     a single token. */
+  if (*delim == '\0')
     {
-      ch = *str_pos++;
-      delim_pos = delim;
-
-      /* For each delimiter character in the DELIM string. */
-      for (;;)
-        {
-          curr_delim = *delim_pos++;
-          if (curr_delim == ch)
-            {
-              /* If we reach the end of the string, set STRINGP to NULL. */
-              if (ch == '\0')
-                str_pos = NULL;
-              else /* Overwrite the delimiter with the NUL byte. */
-                str_pos[-1] = '\0';
-              *stringp = str_pos;
-              return ret_token;
-            }
-          if (curr_delim == '\0')
-            break;
-        }
+      *stringp = NULL;
+      return str;
     }
+
+  /* If DELIM only contains one delimiter we can call strchr and perform less
+     comparisons. */
+  end = (delim[1] == '\0') ? strchr (str, delim[0]) : strpbrk (str, delim);
+  if (end == NULL)
+    {
+      *stringp = NULL;
+      return str;
+    }
+
+  /* Set the delimiter at the end of the token to NUL and update STRINGP for
+     the next call. */
+  *end = '\0';
+  *stringp = end + 1;
+
+  return str;
 }
