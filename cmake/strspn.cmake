@@ -10,7 +10,12 @@ endif ()
 set(LIBCFUNK_DECLARE_STRSPN "1" CACHE STRING "")
 
 if (NOT HAVE_STRSPN OR LIBCFUNK_REPLACE_STRSPN)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/strchr.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/strspn.c
   )
+endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strspn.cmake)
 endif ()

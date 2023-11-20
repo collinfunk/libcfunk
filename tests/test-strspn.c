@@ -25,19 +25,60 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-size_t
-strcspn (const char *s1, const char *s2)
-#undef strcspn
+#include "test-help.h"
+
+static void test_none_accept (void);
+static void test_all_accept (void);
+static void test_some_accept (void);
+
+int
+main (void)
 {
-  size_t count = 0;
-  for (; *s1 != '\0'; ++s1)
-    {
-      if (strchr (s2, *s1) == NULL)
-        ++count;
-      else
-        break;
-    }
-  return count;
+  test_none_accept ();
+  test_all_accept ();
+  test_some_accept ();
+  return 0;
+}
+
+/* Test 'strspn' when none of the string is in the accepted character set. */
+static void
+test_none_accept (void)
+{
+  const char input[] = "abcdefghijkl";
+  const char charset[] = "123456790";
+  size_t result;
+
+  result = strspn (input, charset);
+  ASSERT (result == 0);
+  ASSERT (input[result] == 'a');
+}
+
+/* Test 'strspn' when all of the string is in the accepted character set. */
+static void
+test_all_accept (void)
+{
+  const char input[] = "abcdefghijk";
+  const char charset[] = "kjihgfedcba1234";
+  size_t result;
+
+  result = strspn (input, charset);
+  ASSERT (result == 11);
+  ASSERT (input[result] == '\0');
+}
+
+/* Test 'strspn' when some of the string is in the accepted character set. */
+static void
+test_some_accept (void)
+{
+  const char input[] = "abcdef123456";
+  const char charset[] = "fedcba";
+  size_t result;
+
+  result = strspn (input, charset);
+  ASSERT (result == 6);
+  ASSERT (input[result] == '1');
 }

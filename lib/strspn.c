@@ -31,20 +31,13 @@ size_t
 strspn (const char *s1, const char *s2)
 #undef strspn
 {
-  const char *p;
-  const char *s;
   size_t count = 0;
-  for (p = s1; *p != '\0'; ++p)
+  for (; *s1 != '\0'; ++s1)
     {
-      for (s = s2; *s != '\0'; ++s)
-        {
-          if (*p == *s)
-            break;
-        }
-      if (*s != '\0')
+      if (strchr (s2, *s1) != NULL)
         ++count;
       else
-        return count;
+        break;
     }
   return count;
 }
