@@ -34,6 +34,23 @@
 #  include_next <fnmatch.h>
 #endif
 
+/* TODO: These should be defined.
+FNM_NOMATCH
+FNM_PATHNAME
+FNM_PERIOD
+FNM_NOESCAPE
+*/
+
 /* TODO: Implement. */
+#if @LIBCFUNK_DECLARE_FNMATCH@
+#  if @LIBCFUNK_REPLACE_FNMATCH@
+#    undef fnmatch
+#    define fnmatch _libcfunk_fnmatch
+extern int _libcfunk_fnmatch (const char *pattern, const char *string,
+                              int flags);
+#  elif !@HAVE_FNMATCH@
+extern int fnmatch (const char *pattern, const char *string, int flags);
+#  endif
+#endif
 
 #endif /* COMPAT_FNMATCH_H */

@@ -27,9 +27,56 @@
 
 #include <threads.h>
 
+static void test_thrd_status_codes_defined (void);
+static void test_mtx_types_defined (void);
+
 /* Test that 'threads.h' can be included. */
 int
 main (void)
 {
+  test_thrd_status_codes_defined ();
+  test_mtx_types_defined ();
   return 0;
+}
+
+/* Test that the thread exit codes are defined to unique values so that
+   functions can properly be checked for errors. */
+static void
+test_thrd_status_codes_defined (void)
+{
+  switch (0)
+    {
+    case thrd_success:
+      break;
+    case thrd_timedout:
+      break;
+    case thrd_busy:
+      break;
+    case thrd_nomem:
+      break;
+    case thrd_error:
+      break;
+    default:
+      break;
+    }
+}
+
+/* Test that all the different mutex types accepted by 'mtx_init' map to
+   unique values. */
+static void
+test_mtx_types_defined (void)
+{
+  switch (0)
+    {
+    case mtx_plain:
+      break;
+    case mtx_timed:
+      break;
+    case (mtx_plain | mtx_recursive):
+      break;
+    case (mtx_timed | mtx_recursive):
+      break;
+    default:
+      break;
+    }
 }
