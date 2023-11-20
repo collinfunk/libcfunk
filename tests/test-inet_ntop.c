@@ -25,48 +25,52 @@
 
 #include <config.h>
 
+#include <sys/socket.h>
+
 #include <arpa/inet.h>
-#include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-static const char *inet_ntop4 (const void *restrict src, char *restrict dst,
-                               socklen_t size);
+#include "test-help.h"
 
-/* Convert a numeric address to a text string representation. */
-const char *
-inet_ntop (int af, const void *restrict src, char *restrict dst,
-           socklen_t size)
+int
+main (void)
 {
-  switch (af)
-    {
-    case AF_INET:
-      return inet_ntop4 (src, dst, size);
-      /* case AF_INET6: TODO */
-    default:
-      errno = EAFNOSUPPORT;
-      return NULL;
-    }
-}
+  struct in_addr addr;
+  char buffer[16];
 
-static const char *
-inet_ntop4 (const void *restrict src, char *restrict dst, socklen_t size)
-{
-  char temp[sizeof ("255.255.255.255")];
-  int result;
-  const unsigned char *ptr = (const unsigned char *) src;
+  addr.s_addr = htonl (0x00000000U);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "0.0.0.0") == 0);
 
-  result = snprintf (temp, sizeof (temp), "%u.%u.%u.%u", ptr[0], ptr[1],
-                     ptr[2], ptr[3]);
-  if (result < 0)
-    return NULL;
+  addr.s_addr = htonl (0xff000000U);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "255.0.0.0") == 0);
 
-  /* Ignore '-Wsign-compare', we know result >= 0. */
-  if ((socklen_t) result > size)
-    {
-      errno = ENOSPC;
-      return NULL;
-    }
+  addr.s_addr = htonl (0x00ff0000U);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "0.255.0.0") == 0);
 
-  return memcpy (dst, temp, result + 1);
+  addr.s_addr = htonl (0x0000ff00U);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "0.0.255.0") == 0);
+
+  addr.s_addr = htonl (0x000000ffU);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "0.0.0.255") == 0);
+
+  addr.s_addr = htonl (0x0000ffffU);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "0.0.255.255") == 0);
+
+  addr.s_addr = htonl (0x00ffffffU);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "0.255.255.255") == 0);
+
+  addr.s_addr = htonl (0xffffffffU);
+  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+  ASSERT (strcmp (buffer, "255.255.255.255") == 0);
+
+  return 0;
 }
