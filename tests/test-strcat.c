@@ -25,13 +25,26 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char *
-stpncpy (char *restrict s1, const char *restrict s2, size_t n)
-#undef stpncpy
+#include "test-help.h"
+
+int
+main (void)
 {
-  size_t len = strnlen (s2, n);
-  s1 = (char *) memcpy (s1, s2, len) + len;
-  return len == n ? s1 : (char *) memset (s1, '\0', n - len);
+  {
+    char str1[] = "Test";
+    char str2[] = "";
+    ASSERT (strcat (str1, str2) == str1);
+    ASSERT (strcmp (str1, "Test") == 0);
+  }
+  {
+    char str1[sizeof ("Test string")] = "Test ";
+    char str2[] = "string";
+    ASSERT (strcat (str1, str2) == str1);
+    ASSERT (strcmp (str1, "Test string") == 0);
+  }
+  return 0;
 }

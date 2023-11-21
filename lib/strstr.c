@@ -25,11 +25,11 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <string.h>
 
 char *
 strstr (const char *s1, const char *s2)
+#undef strstr
 {
   size_t s2_len;
 

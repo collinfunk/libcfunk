@@ -25,20 +25,12 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <string.h>
 
 char *
-strcat (char *s1, const char *s2)
+strcat (char *restrict s1, const char *restrict s2)
+#undef strcat
 {
-  char *p = s1;
-  for (; *p != '\0'; ++p)
-    ;
-  for (;; ++p)
-    {
-      *p = *s2++;
-      if (*p == '\0')
-        break;
-    }
+  strcpy (s1 + strlen (s1), s2);
   return s1;
 }

@@ -25,13 +25,44 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char *
-stpncpy (char *restrict s1, const char *restrict s2, size_t n)
-#undef stpncpy
+#include "test-help.h"
+
+static char src_buffer[2048];
+static char dest_buffer[2048];
+
+/* Test that 'stpcpy' is defined. */
+int
+main (void)
 {
-  size_t len = strnlen (s2, n);
-  s1 = (char *) memcpy (s1, s2, len) + len;
-  return len == n ? s1 : (char *) memset (s1, '\0', n - len);
+  size_t i;
+  char *p;
+
+  /* Make sure any changes to the buffer size don't break these conditions. */
+  ASSERT (sizeof (src_buffer) == sizeof (dest_buffer));
+  ASSERT ((sizeof (src_buffer) % 2) == 0);
+
+  /* Poison the destination buffer. */
+  memset (dest_buffer, 0xff, sizeof (dest_buffer));
+
+  for (i = 0; i < sizeof (src_buffer) - 1; ++i)
+    {
+      src_buffer[i] = i & 0x7f;
+      if (src_buffer[i] == '\0')
+        src_buffer[i]++;
+      src_buffer[i + 1] = '\0';
+      p = stpncpy (dest_buffer, src_buffer, sizeof (dest_buffer));
+      ASSERT (p != NULL);
+      ASSERT (*p == '\0');
+      ASSERT (p == dest_buffer + i + 1);
+      ASSERT (memcmp (dest_buffer, src_buffer, i + 1) == 0);
+      for (; p < dest_buffer + sizeof (dest_buffer); ++p)
+        ASSERT (*p == '\0');
+      memset (dest_buffer, 0xff, sizeof (dest_buffer));
+    }
+
+  return 0;
 }
