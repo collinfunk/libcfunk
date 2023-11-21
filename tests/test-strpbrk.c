@@ -25,12 +25,34 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-char *
-strpbrk (const char *s1, const char *s2)
-#undef strpbrk
+#include "test-help.h"
+
+int
+main (void)
 {
-  const char *ptr = s1 + strcspn (s1, s2);
-  return *ptr != '\0' ? (char *) ptr : NULL;
+  {
+    const char input[] = "abcdefg";
+    const char accept[] = "cg";
+    ASSERT (strpbrk (input, accept) == input + 2);
+  }
+  {
+    const char input[] = "abcdefg";
+    const char accept[] = "ghijklmonp";
+    ASSERT (strpbrk (input, accept) == input + 6);
+  }
+  {
+    const char input[] = "abcdefg";
+    const char accept[] = "hijklmonpg";
+    ASSERT (strpbrk (input, accept) == input + 6);
+  }
+  {
+    const char input[] = "abcdefg";
+    const char accept[] = "";
+    ASSERT (strpbrk (input, accept) == NULL);
+  }
+  return 0;
 }

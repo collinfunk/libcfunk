@@ -254,8 +254,12 @@ extern size_t strnlen (const char *str, size_t maxlen);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRPBRK@
-#  if !@HAVE_STRPBRK@
-extern char *strpbrk (const char *str, const char *charset);
+#  if @LIBCFUNK_REPLACE_STRPBRK@
+#    undef strpbrk
+#    define strpbrk _libcfunk_strpbrk
+extern char *_libcfunk_strpbrk (const char *s1, const char *s2);
+#  elif !@HAVE_STRPBRK@
+extern char *strpbrk (const char *s1, const char *s2);
 #  endif
 #endif
 
