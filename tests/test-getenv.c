@@ -28,39 +28,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 #include "test-help.h"
 
-/* Make sure that 'environ' is declared in 'unistd.h'. */
+/* Test that 'getenv' is defined and works. */
 int
 main (void)
 {
-  char **envp = environ;
-  char *curr;
-  int found = 0;
-
-  /* Search for the environment variable 'TEST_ENVIRON_VALUE' which is set to
-     the value 'ok' by CTest. Don't depend on the users actual environment
-     which may not be set. */
-  for (;;)
-    {
-      curr = *envp++;
-      if (curr == NULL)
-        break;
-      if (strcmp (curr, "TEST_ENVIRON_VALUE=ok") == 0)
-        found = 1;
-    }
-
-  /* Check that we found the variable set by CTest. If not return failure but
-     print a message in case this program is run by the user in a shell. */
-  if (found)
+  char *ptr = getenv ("TEST_GETENV_VALUE");
+  /* Print an error message instead of just aborting incase this is run from
+     a users shell and not from CTest. */
+  if (ptr != NULL && strcmp (ptr, "ok") == 0)
     return 0;
   else
     {
       fprintf (stderr,
                "This test expects to be run automatically from CTest "
-               "or a shell script which sets 'TEST_ENVIRON_VALUE=ok'.\n");
+               "or a shell script which sets 'TEST_GETENV_VALUE=ok'.\n");
       return 1;
     }
 }

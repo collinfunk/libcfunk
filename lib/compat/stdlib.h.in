@@ -152,6 +152,16 @@ extern void _libcfunk_free (void *ptr);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GETENV@
+#  if @LIBCFUNK_REPLACE_GETENV@
+#    undef getenv
+#    define getenv _libcfunk_getenv
+extern char *_libcfunk_getenv (const char *name);
+#  elif !@HAVE_GETENV@
+extern char *getenv (const char *name);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_GETLOADAVG@
 #  if !@HAVE_GETLOADAVG@
 extern int getloadavg (double loadavg[], int nelem);
