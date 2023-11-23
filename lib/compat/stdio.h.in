@@ -136,6 +136,16 @@ extern int fprintf (FILE *restrict stream, const char *restrict format, ...);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_FSEEK@
+#  if @LIBCFUNK_REPLACE_FSEEK@
+#    undef fseek
+#    define fseek _libcfunk_fseek
+extern int _libcfunk_fseek (FILE *stream, long offset, int whence);
+#  elif !@HAVE_FSEEK@
+extern int fseek (FILE *stream, long offset, int whence);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_FSEEKO@
 #  if @LIBCFUNK_REPLACE_FSEEKO@
 #    undef fseeko

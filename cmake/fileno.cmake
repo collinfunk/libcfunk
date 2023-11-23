@@ -5,7 +5,9 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdio-h.cmake)
 
 if (HAVE_STDIO_H)
   check_symbol_exists("fileno" "stdio.h" HAVE_FILENO)
-  check_symbol_exists("_fileno" "stdio.h" HAVE__FILENO)
+  if (NOT HAVE_FILENO)
+    check_symbol_exists("_fileno" "stdio.h" HAVE__FILENO)
+  endif ()
 endif ()
 
 set(LIBCFUNK_DECLARE_FILENO "1" CACHE STRING "")

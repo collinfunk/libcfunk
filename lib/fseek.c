@@ -28,41 +28,12 @@
 #include <sys/types.h>
 
 #include <stdio.h>
-#include <unistd.h>
 
+/* Replacement function for 'fseek'. Since 'fseeko' is this function but
+   improved, just handle all the work there. */
 int
-fseeko (FILE *stream, off_t offset, int whence)
-#undef fseeko
+fseek (FILE *stream, long offset, int whence)
+#undef fseek
 {
-#if HAVE_WINDOWS_H
-  {
-    /* Return failures on pipes on Windows. */
-    int fd = fileno (stream);
-    if (fd == -1)
-      return -1;
-    if (lseek (fd, 0, SEEK_CUR) == -1)
-      return -1;
-  }
-#endif
-
-  /* Clear the end-of-file marker. Would be nice to use clearerr here but it
-     would mess with other flags. */
-#if HAVE_FILE__FLAGS && defined(_IOEOF)
-  stream->_flags &= ~_IOEOF;
-#elif HAVE_FILE__FLAG && defined(_IOEOF)
-  stream->_flag &= ~_IOEOF;
-#elif HAVE_FILE__FLAGS && defined(__SEOF)
-  stream->_flags &= ~__SEOF;
-#endif
-
-#if HAVE_FSEEKO
-  return fseeko (stream, offset, whence);
-#elif HAVE__FSEEKI64
-  return _fseeki64 (stream, offset, whence);
-#elif HAVE_FSEEK
-  return fseek (stream, (long int) offset, whence);
-#else
-#  error "Don't have an implementation of fseeko for your system."
-  return -1;
-#endif
+  return fseeko (stream, (off_t) offset, whence);
 }

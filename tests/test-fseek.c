@@ -31,23 +31,23 @@
 #include "test-help.h"
 
 #undef TEST_FILE_NAME
-#define TEST_FILE_NAME "test-fseeko.tmp"
+#define TEST_FILE_NAME "test-fseek.tmp"
 
-static void test_fseeko_clears_eof (void);
-static void test_fseeko_undo_ungetc (void);
+static void test_fseek_clears_eof (void);
+static void test_fseek_undo_ungetc (void);
 
 int
 main (void)
 {
-  test_fseeko_clears_eof ();
-  test_fseeko_undo_ungetc ();
+  test_fseek_clears_eof ();
+  test_fseek_undo_ungetc ();
   return 0;
 }
 
-/* Test that the 'fseeko' function resets the end-of-file indicator on the
+/* Test that the 'fseek' function resets the end-of-file indicator on the
    stream. */
 static void
-test_fseeko_clears_eof (void)
+test_fseek_clears_eof (void)
 {
   FILE *fp;
   char buffer[] = "test";
@@ -63,9 +63,9 @@ test_fseeko_clears_eof (void)
   while (fgetc (fp) != EOF)
     ;
 
-  /* Check that fseeko resets the end-of-file indicator for the stream. */
+  /* Check that fseek resets the end-of-file indicator for the stream. */
   ASSERT (feof (fp));
-  ASSERT (fseeko (fp, 0, SEEK_END) == 0);
+  ASSERT (fseek (fp, 0, SEEK_END) == 0);
   ASSERT (!feof (fp));
 
   /* Close the stream and cleanup the file. */
@@ -73,9 +73,9 @@ test_fseeko_clears_eof (void)
   ASSERT (unlink (TEST_FILE_NAME) == 0);
 }
 
-/* Tests that 'fseeko' discards the effect of 'ungetc' on the same stream. */
+/* Tests that 'fseek' discards the effect of 'ungetc' on the same stream. */
 static void
-test_fseeko_undo_ungetc (void)
+test_fseek_undo_ungetc (void)
 {
   FILE *fp;
   char buffer[] = "test";
@@ -89,7 +89,7 @@ test_fseeko_undo_ungetc (void)
   ASSERT (fwrite (buffer, 1, sizeof (buffer), fp) == sizeof (buffer));
 
   /* Seek to the start of the file. */
-  ASSERT (fseeko (fp, 0, SEEK_SET) == 0);
+  ASSERT (fseek (fp, 0, SEEK_SET) == 0);
 
   /* Get a character. */
   ch = fgetc (fp);
@@ -97,7 +97,7 @@ test_fseeko_undo_ungetc (void)
 
   /* Unget the character and then seek to the following character. */
   ASSERT (ungetc (ch, fp) == ch);
-  ASSERT (fseeko (fp, 1, SEEK_SET) == 0);
+  ASSERT (fseek (fp, 1, SEEK_SET) == 0);
 
   /* Make sure that the 'ungetc' character was discarded. */
   ch = fgetc (fp);

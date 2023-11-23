@@ -22,16 +22,20 @@ build-all: init
 
 init: $(BUILD_DIR)
 
+# Configure twice since sometimes headers don't generate the first time.
 init-mingw:
 	if test -d $(BUILD_DIR); then \
 	  rm -r $(BUILD_DIR); \
 	fi;
 	$(CMAKE) -S . -B $(BUILD_DIR) -G $(CMAKE_GENERATOR) \
 	  -DCMAKE_TOOLCHAIN_FILE=./cmake/x86_64-w64-mingw32.cmake
+	$(CMAKE) -S . -B build
 
+# Configure twice since sometimes headers don't generate the first time.
 $(BUILD_DIR):
 	$(CMAKE) -S . -B $(BUILD_DIR) -G $(CMAKE_GENERATOR) \
 	  -DCMAKE_C_COMPILER=$(CC)
+	$(CMAKE) -S . -B build
 
 clean:
 	$(CMAKE) --build $(BUILD_DIR) -t clean
