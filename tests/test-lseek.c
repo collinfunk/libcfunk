@@ -25,26 +25,111 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "test-help.h"
 
+#undef TEST_FILE_NAME
+#define TEST_FILE_NAME "test-lseek.tmp"
+
+static void test_lseek_bad_fd (void);
+static void test_lseek_regular_file (void);
+static void test_lseek_pipe (void);
+
 int
-main (int argc, char **argv)
+main (void)
 {
-  int fd;
+  /* Remove any previous files and clear errno. */
+  unlink (TEST_FILE_NAME);
+  errno = 0;
 
-  /* Get rid of unused parameter warnings. */
-  ASSERT (argc >= 1);
+  /* Perform tests. */
+  test_lseek_bad_fd ();
+  test_lseek_regular_file ();
+  test_lseek_pipe ();
 
-  fd = open (argv[0], O_RDONLY);
-  ASSERT (fd >= 0);
-  ASSERT (lseek (fd, 1, SEEK_SET) == 1);
-  ASSERT (lseek (fd, 1, SEEK_CUR) == 2);
-  ASSERT (lseek (fd, 0, SEEK_END) > 0);
-  ASSERT (close (fd) == 0);
+  /* Cleanup any created files. */
+  unlink (TEST_FILE_NAME);
 
   return 0;
+}
+
+static void
+test_lseek_bad_fd (void)
+{
+  /* Test seeking on a negative invalid file descriptor. */
+  errno = 0;
+  ASSERT (lseek (-1, (off_t) 0, SEEK_CUR) == (off_t) -1);
+  ASSERT (errno == EBADF);
+
+  /* Test seeking on a positive but closed file descriptor. */
+  close (4);
+  errno = 0;
+  ASSERT (lseek (4, (off_t) 0, SEEK_CUR) == (off_t) -1);
+  ASSERT (errno == EBADF);
+}
+
+static void
+test_lseek_regular_file (void)
+{
+  int fd;
+  char buffer[] = "test";
+
+  /* Create a test file. */
+  fd = open (TEST_FILE_NAME, O_CREAT | O_TRUNC | O_RDWR, 0600);
+  ASSERT (fd >= 0);
+
+  /* Get the current offset of an empty file. */
+  errno = 0;
+  ASSERT (lseek (fd, (off_t) 0, SEEK_CUR) == (off_t) 0);
+  ASSERT (errno == 0);
+
+  /* Write some data to the file. */
+  ASSERT ((size_t) write (fd, buffer, sizeof (buffer)) == sizeof (buffer));
+
+  /* Seek to the end of the file. */
+  errno = 0;
+  ASSERT (lseek (fd, sizeof (buffer), SEEK_SET) == (off_t) sizeof (buffer));
+  ASSERT (errno == 0);
+
+  /* Test rewinding to the start of the file. */
+  errno = 0;
+  ASSERT (lseek (fd, (off_t) 0, SEEK_SET) == (off_t) 0);
+  ASSERT (errno == 0);
+
+  /* Cleanup the file. */
+  ASSERT (close (fd) == 0);
+  ASSERT (unlink (TEST_FILE_NAME) == 0);
+}
+
+static void
+test_lseek_pipe (void)
+{
+  int fds[2];
+
+  /* Poison both file descriptors. */
+  fds[0] = -1;
+  fds[1] = -1;
+
+  /* Create a pipe. */
+  ASSERT (pipe (fds) == 0);
+
+  /* Validate the file descriptors. */
+  ASSERT (fds[0] >= 0);
+  ASSERT (fds[1] >= 0);
+
+  /* Test that seeking on the pipes fails with ESPIPE. */
+  errno = 0;
+  ASSERT (lseek (fds[0], (off_t) 0, SEEK_CUR) == -1);
+  ASSERT (errno == ESPIPE);
+  errno = 0;
+  ASSERT (lseek (fds[1], (off_t) 0, SEEK_CUR) == -1);
+  ASSERT (errno == ESPIPE);
+
+  /* Cleanup the file descriptors. */
+  ASSERT (close (fds[0]) == 0);
+  ASSERT (close (fds[1]) == 0);
 }

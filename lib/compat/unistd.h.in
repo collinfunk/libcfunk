@@ -320,7 +320,11 @@ extern int lchown (const char *path, uid_t owner, gid_t group);
 #endif
 
 #if @LIBCFUNK_DECLARE_LSEEK@
-#  if !@HAVE_LSEEK@
+#  if @LIBCFUNK_REPLACE_LSEEK@
+#    undef lseek
+#    define lseek _libcfunk_lseek
+extern off_t _libcfunk_lseek (int fd, off_t offset, int whence);
+#  elif !@HAVE_LSEEK@
 extern off_t lseek (int fd, off_t offset, int whence);
 #  endif
 #endif

@@ -27,10 +27,41 @@
 
 #include <sys/types.h>
 
+#include <errno.h>
 #include <unistd.h>
 
+#if HAVE_WINDOWS_H
+#  include <windows.h>
+#endif
+
+/* Replacement function for 'lseek'. Fail with ESPIPE on pipes, sockets, and
+   terminal devices on Windows. */
 off_t
 lseek (int fd, off_t offset, int whence)
+#undef lseek
 {
-  return _lseeki64 (fd, offset, whence);
+#if HAVE_WINDOWS_H
+  {
+    HANDLE fd_handle;
+
+    fd_handle = (HANDLE) _get_osfhandle (fd);
+    if (fd_handle == INVALID_HANDLE_VALUE)
+      {
+        errno = EBADF;
+        return -1;
+      }
+    if (GetFileType (fd_handle) != FILE_TYPE_DISK)
+      {
+        errno = ESPIPE;
+        return -1;
+      }
+#  if HAVE__LSEEKI64
+    return _lseeki64 (fd, offset, whence);
+#  else /* HAVE__LSEEK */
+    return _lseek (fd, offset, whence);
+#  endif
+  }
+#else /* !HAVE_WINDOWS_H */
+  return lseek (fd, offset, whence)
+#endif
 }
