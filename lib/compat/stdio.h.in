@@ -156,6 +156,16 @@ extern int fseeko (FILE *stream, off_t offset, int whence);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_FTELL@
+#  if @LIBCFUNK_REPLACE_FTELL@
+#    undef ftell
+#    define ftell _libcfunk_ftell
+extern long int _libcfunk_ftell (FILE *stream);
+#  elif !@HAVE_FTELL@
+extern long int ftell (FILE *stream);
+# endif
+#endif
+
 #if @LIBCFUNK_DECLARE_FTELLO@
 #  if @LIBCFUNK_REPLACE_FTELLO@
 #    undef ftello

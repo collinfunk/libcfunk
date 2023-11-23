@@ -31,25 +31,25 @@
 #include "test-help.h"
 
 #undef TEST_FILE_NAME
-#define TEST_FILE_NAME "test-ftello.tmp"
+#define TEST_FILE_NAME "test-ftell.tmp"
 
-static void test_ftello (void);
+static void test_ftell (void);
 
 int
 main (void)
 {
-  test_ftello ();
+  test_ftell ();
   return 0;
 }
 
 static void
-test_ftello (void)
+test_ftell (void)
 {
   FILE *fp;
   char buffer[] = "test";
 
   /* Open a file for reading and writing. Use binary mode since Windows
-     'ftello' is inconsistent on text mode streams. */
+     'ftell' is inconsistent on text mode streams. */
   fp = fopen (TEST_FILE_NAME, "w+b");
   ASSERT (fp != NULL);
 
@@ -57,13 +57,13 @@ test_ftello (void)
   ASSERT (fwrite (buffer, 1, sizeof (buffer), fp) == sizeof (buffer));
 
   /* Check that we are at the end of the file. */
-  ASSERT ((size_t) ftello (fp) == sizeof (buffer));
+  ASSERT ((size_t) ftell (fp) == sizeof (buffer));
 
   /* Seek to the start of the file. */
   ASSERT (fseeko (fp, 0, SEEK_SET) == 0);
 
-  /* Check the result of 'ftello'. */
-  ASSERT ((size_t) ftello (fp) == 0);
+  /* Check the result of 'ftell'. */
+  ASSERT ((size_t) ftell (fp) == 0);
 
   /* Close the stream and cleanup the file. */
   ASSERT (fclose (fp) == 0);

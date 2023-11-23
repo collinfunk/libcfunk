@@ -25,47 +25,24 @@
 
 #include <config.h>
 
+#include <sys/types.h>
+
+#include <errno.h>
+#include <limits.h>
 #include <stdio.h>
-#include <stdlib.h>
 
-#include "test-help.h"
-
-#undef TEST_FILE_NAME
-#define TEST_FILE_NAME "test-ftello.tmp"
-
-static void test_ftello (void);
-
-int
-main (void)
+/* Replacement function for 'ftell'. Since 'ftello' is this function but
+   improved, just handle all the work there. */
+long int
+ftell (FILE *stream)
+#undef ftell
 {
-  test_ftello ();
-  return 0;
-}
-
-static void
-test_ftello (void)
-{
-  FILE *fp;
-  char buffer[] = "test";
-
-  /* Open a file for reading and writing. Use binary mode since Windows
-     'ftello' is inconsistent on text mode streams. */
-  fp = fopen (TEST_FILE_NAME, "w+b");
-  ASSERT (fp != NULL);
-
-  /* Write some data to the file. */
-  ASSERT (fwrite (buffer, 1, sizeof (buffer), fp) == sizeof (buffer));
-
-  /* Check that we are at the end of the file. */
-  ASSERT ((size_t) ftello (fp) == sizeof (buffer));
-
-  /* Seek to the start of the file. */
-  ASSERT (fseeko (fp, 0, SEEK_SET) == 0);
-
-  /* Check the result of 'ftello'. */
-  ASSERT ((size_t) ftello (fp) == 0);
-
-  /* Close the stream and cleanup the file. */
-  ASSERT (fclose (fp) == 0);
-  ASSERT (unlink (TEST_FILE_NAME) == 0);
+  off_t offset = ftello (stream);
+  if (offset >= LONG_MIN && offset <= LONG_MAX)
+    return offset;
+  else /* Overflow. :( */
+    {
+      errno = EOVERFLOW;
+      return -1L;
+    }
 }

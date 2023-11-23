@@ -11,8 +11,16 @@ include(CheckIncludeFiles)
 include(CheckCSourceCompiles)
 include(CheckCSourceRuns)
 
+# These set the following variables if the programs are installed. May be
+# useful for running tests and such.
+# CVS_EXECUTABLE
+# GIT_EXECUTABLE
+# Python3_EXECUTABLE
+# PERL_EXECUTABLE
 find_package(Git)
 find_package(CVS)
+find_package(Python3 COMPONENTS Interpreter)
+find_package(Perl)
 
 # These variables should be set before including this file. They can be
 # defined in a CMakeLists.txt or as a command line option.

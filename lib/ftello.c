@@ -28,16 +28,27 @@
 #include <sys/types.h>
 
 #include <stdio.h>
+#include <unistd.h>
 
 off_t
 ftello (FILE *stream)
+#undef ftello
 {
-#if HAVE__FTELLI64
+#if HAVE_WINDOWS_H
+  {
+    /* Return failures on pipes on Windows. */
+    int fd = fileno (stream);
+    if (fd == -1)
+      return -1;
+    if (lseek (fd, 0, SEEK_CUR) == -1)
+      return -1;
+  }
+#endif
+#if HAVE_FTELLO
+  return ftello (stream);
+#elif HAVE__FTELLI64
   return _ftelli64 (stream);
-#elif HAVE_FTELL
+#else /* HAVE_FTELL */
   return ftell (stream);
-#else
-#  error "Don't have an implementation of ftello for your system."
-  return -1;
 #endif
 }

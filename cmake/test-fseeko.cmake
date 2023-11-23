@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
+
 add_executable(test-fseeko)
 
 target_link_libraries(test-fseeko PRIVATE

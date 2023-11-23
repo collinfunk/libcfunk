@@ -77,7 +77,7 @@
 #endif
 
 #ifndef __has_extension
-#  define __has_extension(x) __has_feature
+#  define __has_extension __has_feature
 #endif
 
 #ifndef __has_feature
@@ -889,7 +889,9 @@
 #cmakedefine01 LIBCFUNK_REPLACE_FNMATCH
 #cmakedefine01 LIBCFUNK_REPLACE_FPRINTF
 #cmakedefine01 LIBCFUNK_REPLACE_FREE
+#cmakedefine01 LIBCFUNK_REPLACE_FSEEK
 #cmakedefine01 LIBCFUNK_REPLACE_FSEEKO
+#cmakedefine01 LIBCFUNK_REPLACE_FTELL
 #cmakedefine01 LIBCFUNK_REPLACE_FTELLO
 #cmakedefine01 LIBCFUNK_REPLACE_FTRUNCATE
 #cmakedefine01 LIBCFUNK_REPLACE_GAI_STRERROR

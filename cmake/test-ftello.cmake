@@ -1,6 +1,9 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/fseeko.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
+
 add_executable(test-ftello)
 
 target_link_libraries(test-ftello PRIVATE
