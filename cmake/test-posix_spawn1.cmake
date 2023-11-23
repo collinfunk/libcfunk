@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/stat.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)

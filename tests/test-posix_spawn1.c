@@ -35,6 +35,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "attributes.h"
 #include "test-help.h"
 
 #undef TEST_FILE_NAME
@@ -78,7 +79,7 @@ child_main (int argc, char **argv)
 
 /* Parent program that spawns a child. */
 static int
-parent_main (int argc, char **argv)
+parent_main (int argc ATTRIBUTE_UNUSED, char **argv)
 {
   pid_t child_pid;
   int child_status;
