@@ -29,6 +29,9 @@ set(LIBCFUNK_DECLARE_UNSETENV "1" CACHE STRING "")
 
 if (NOT HAVE_UNSETENV OR LIBCFUNK_REPLACE_UNSETENV)
   include($CACHE{LIBCFUNK_MODULE_DIR}/environ.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/strchr.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/getenv.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/strncmp.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/unsetenv.c
   )

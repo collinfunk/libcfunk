@@ -25,7 +25,63 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
-int unsetenv (const char *name);
+int
+unsetenv (const char *name)
+#undef unsetenv
+{
+  if (name == NULL || *name == '\0' || strchr (name, '=') != NULL)
+    {
+      errno = EINVAL;
+      return -1;
+    }
+#if HAVE_UNSETENV
+  {
+    int result = 0;
+
+    /* Remove all occurrences of NAME in the environment. */
+    for (;;)
+      {
+        /* Check if NAME is in the current environment. */
+        if (getenv (name) == NULL)
+          break;
+          /* Keep track of the return value if 'unsetenv' is declared
+           correctly. */
+#  if UNSETENV_HAS_POSIX_PROTOTYPE
+        result = unsetenv (name);
+#  else /* !UNSETENV_HAS_POSIX_PROTOTYPE */
+        unsetenv (name);
+#  endif
+      }
+    return result;
+  }
+#else /* !HAVE_UNSETENV */
+  {
+    char **envp;
+    size_t name_len;
+
+    name_len = strlen (name);
+    for (envp = environ; *envp != NULL; ++envp)
+      {
+        /* Check if the current variable is NAME terminated by a '='. */
+        if (strncmp (*envp, name, name_len) == 0 && (*envp)[name_len] == '=')
+          {
+            char **temp_ptr = envp;
+
+            /* Move all subsequent variables back one place. */
+            for (;;)
+              {
+                *temp_ptr = temp_ptr[1];
+                if (*temp_ptr++ == NULL)
+                  break;
+              }
+          }
+      }
+    return 0;
+  }
+#endif
+}

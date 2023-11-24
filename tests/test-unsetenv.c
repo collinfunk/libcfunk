@@ -25,38 +25,88 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "test-help.h"
 
+/* Set by CTest. */
 #undef TEST_ENV_VAR
-#define TEST_ENV_VAR "TEST_UNSETENV_VAR"
+#define TEST_ENV_VAR "TEST_UNSETENV_VALUE"
+
+static void test_unsetenv_null_name (void);
+static void test_unsetenv_empty_name (void);
+static void test_unsetenv_equal_name (void);
+static void test_unsetenv_works (void);
 
 int
 main (void)
 {
-  char *ptr;
+  test_unsetenv_null_name ();
+  test_unsetenv_empty_name ();
+  test_unsetenv_equal_name ();
+  test_unsetenv_works ();
+  return 0;
+}
 
-  /* Make sure the enviornment variable is NULL. */
-  ptr = getenv (TEST_ENV_VAR);
-  ASSERT (ptr == NULL);
+/* Test that calling 'unsetenv' with a NULL pointer returns failure with
+   EINVAL. */
+static void
+test_unsetenv_null_name (void)
+{
+  errno = 0;
+  ASSERT (unsetenv (NULL) == -1);
+  ASSERT (errno == EINVAL);
+  errno = 0;
+}
 
-  /* Add the enviornment variable. */
-  ASSERT (putenv (TEST_ENV_VAR "=ok") == 0);
+/* Test that calling 'unsetenv' with an empty string returns failure with
+   EINVAL. */
+static void
+test_unsetenv_empty_name (void)
+{
+  errno = 0;
+  ASSERT (unsetenv ("") == -1);
+  ASSERT (errno == EINVAL);
+  errno = 0;
+}
 
-  /* Make sure the enviornment variable was added. */
-  ptr = getenv (TEST_ENV_VAR);
-  ASSERT (ptr != NULL);
-  ASSERT (strcmp (ptr, "ok") == 0);
+/* Test that calling 'unsetenv' with a string containing '=' returns failure
+   with EINVAL. */
+static void
+test_unsetenv_equal_name (void)
+{
+  errno = 0;
+  ASSERT (unsetenv (TEST_ENV_VAR "=") == -1);
+  ASSERT (errno == EINVAL);
+  errno = 0;
+  ASSERT (unsetenv (TEST_ENV_VAR "=value") == -1);
+  ASSERT (errno == EINVAL);
+  errno = 0;
+}
 
-  /* Unset the enviornment variable. */
+/* Test that 'unsetenv' properly clears an environment variable. */
+static void
+test_unsetenv_works (void)
+{
+  char *ptr = getenv (TEST_ENV_VAR);
+
+  /* Print a message incase this was run manually and the variable is not
+     set. */
+  if (ptr == NULL)
+    {
+      fprintf (stderr,
+               "This test expects to be run from CTest or a shell which sets "
+               "the environment variable 'TEST_UNSETENV_VALUE=ok'.\n");
+      exit (1);
+    }
+
+  /* Unset the environment variable. */
   ASSERT (unsetenv (TEST_ENV_VAR) == 0);
 
-  /* Make sure the enviornment variable was removed. */
+  /* Make sure it was removed. */
   ptr = getenv (TEST_ENV_VAR);
   ASSERT (ptr == NULL);
-
-  return 0;
 }

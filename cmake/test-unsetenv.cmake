@@ -2,8 +2,6 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/getenv.cmake)
-include($CACHE{LIBCFUNK_MODULE_DIR}/putenv.cmake)
-include($CACHE{LIBCFUNK_MODULE_DIR}/strcmp.cmake)
 
 add_executable(test-unsetenv)
 
@@ -20,3 +18,6 @@ set_target_properties(test-unsetenv PROPERTIES
 )
 
 add_test(NAME "test-unsetenv" COMMAND test-unsetenv)
+
+# Set an environment variable.
+set_tests_properties("test-unsetenv" PROPERTIES ENVIRONMENT "TEST_UNSETENV_VALUE=ok")
