@@ -224,6 +224,16 @@ extern int posix_openpt (int flags);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_PUTENV@
+#  if @LIBCFUNK_REPLACE_PUTENV@
+#    undef putenv
+#    define putenv _libcfunk_putenv
+extern int _libcfunk_putenv (char *string);
+#  elif !@HAVE_PUTENV@
+extern int putenv (char *string);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_REALLOC@
 #  if @LIBCFUNK_REPLACE_REALLOC@
 #    undef realloc
@@ -278,6 +288,16 @@ extern unsigned long long int strtoull (const char *str, char **endptr,
 #if @LIBCFUNK_DECLARE_UNLOCKPT@
 #  if !@HAVE_UNLOCKPT@
 extern int unlockpt (int fd);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_UNSETENV@
+#  if @LIBCFUNK_REPLACE_UNSETENV@
+#    undef unsetenv
+#    define unsetenv _libcfunk_unsetenv
+extern int _libcfunk_unsetenv (const char *name);
+#  elif !@HAVE_UNSETENV@
+extern int unsetenv (const char *name);
 #  endif
 #endif
 
