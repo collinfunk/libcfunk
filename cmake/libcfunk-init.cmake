@@ -137,30 +137,28 @@ list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D__STDC_WANT_IEC_60559_TYPES_EXT__=1")
 list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D__STDC_WANT_LIB_EXT2__=1")
 list(APPEND CMAKE_REQUIRED_DEFINITIONS "-D_TIME_BITS=64")
 
+# Check for some headers.
 check_include_file("windows.h" HAVE_WINDOWS_H)
 check_include_file("features.h" HAVE_FEATURES_H)
+check_include_file("assert.h" HAVE_ASSERT_H)
+check_include_file("stdbool.h" HAVE_STDBOOL_H)
+
+# Check for the size of basic C types.
+check_type_size("char" SIZEOF_CHAR)
+check_type_size("short" SIZEOF_SHORT)
+check_type_size("int" SIZEOF_INT)
+check_type_size("long" SIZEOF_LONG)
+check_type_size("long long" SIZEOF_LONG_LONG)
 
 # Make sure the host is two's complement.
 check_c_source_compiles("
 int
 main(void)
 {
-#if -1 & 3 == 1
-  /* 10000001 & 00000011 == 1 */
-  /* sign-magnitude is unsupported. */
-  int array[-1];
-#elif -1 & 3 == 2
-  /* 11111110 & 00000011 == 2 */
-  /* one's complement is unsupported. */
-  int array[-1];
-#elif -1 & 3 == 3
-  /* 01111111 & 00000011 == 3 */
+  int verify_twos_complement[(-1 & 3) == 3 ? 1 : -1];
   return 0;
-#else
-  /* Unknown signed number representation. */
-  int array[-1];
-#endif
-}" IS_TWOS_COMPLEMENT)
+}
+" IS_TWOS_COMPLEMENT)
 
 # Don't build unless manually overridden.
 if (NOT IS_TWOS_COMPLEMENT)
@@ -174,26 +172,16 @@ int
 main (void)
 {
   int array[1 - 2 * (((unsigned char) -1) != 255)];
-  array[0] = 0;
-  return array[0];
-}" CHAR_IS_8_BITS)
+  return 0;
+}
+" CHAR_IS_8_BITS)
 
 if (NOT CHAR_IS_8_BITS)
   message(FATAL_ERROR "This library assumes that `char' is 8-bits wide. \
 This is required by the POSIX standard.")
 endif ()
 
-# Make sure `int' is atleast 32-bits and `long long' is atleast 64-bits.
-# POSIX requires the minimum value of INT_MAX is 2147483647, or 2^31 - 1.
-# The minimum value of LLONG_MAX is 9223372036854775807, or 2^63 - 1.
-# C99 requires long long is 64-bits but check anyways since we don't place
-# a language standard requirement on the target.
-# This check is only valid if char is 8-bits and if signed integers use
-# two's complement representation.
-check_type_size("int" SIZEOF_INT)
-check_type_size("long long" SIZEOF_LONG_LONG)
-
-# Check int is 32-bits.
+# Check int is 32 bits or greater.
 if ("${SIZEOF_INT}" STREQUAL "" OR "${SIZEOF_INT}" LESS "4")
   if ("${SIZEOF_INT}" STREQUAL "")
     set(SIZEOF_INT "0")
@@ -204,6 +192,7 @@ On your system `int' is ${BITWIDTH_INT} bits.")
   unset(BITWIDTH_INT)
 endif ()
 
+# Check that long long is 64 bits or greater.
 if ("${SIZEOF_LONG_LONG}" STREQUAL "" OR "${SIZEOF_LONG_LONG}" LESS "8")
   if ("${SIZEOF_LONG_LONG}" STREQUAL "")
     set(SIZEOF_LONG_LONG "0")
@@ -232,3 +221,67 @@ if (NOT HAVE_INCLUDE_NEXT)
 `#include_next' C preprocessor directive. This is supported by most compilers \
 other than MSVC.")
 endif ()
+
+# Check for the C23 'bool', 'true', and 'false' keywords.
+check_c_source_compiles("
+int
+main (void)
+{
+  bool value;
+  int verify_true[(true == 1) ? 1 : -1];
+  int verify_false[(false == 0) ? 1 : -1];
+  return 0;
+}
+" HAVE_C23_BOOL)
+
+# Check for the C99 '_Bool' keyword.
+check_c_source_compiles("
+int
+main (void)
+{
+  _Bool a = 1;
+  _Bool b = 0;
+  return 0;
+}
+" HAVE_C99_BOOL)
+
+# Check for C23 static_assert.
+check_c_source_compiles("
+int
+main (void)
+{
+  static_assert (5 * 5 == 25, \"Checking for C23 static assert.\");
+  static_assert (5 * 5 == 25);
+  return 0;
+}
+" HAVE_C23_STATIC_ASSERT)
+
+# Check for C11 _Static_assert.
+check_c_source_compiles("
+int
+main (void)
+{
+  _Static_assert (5 * 5 == 25, \"Checking for C11 static assert.\");
+  _Static_assert (5 * 5 == 25);
+  return 0;
+}
+" HAVE_C11_STATIC_ASSERT)
+
+# Check for C11 _Noreturn.
+check_c_source_compiles("
+#include <stdlib.h>
+
+_Noreturn void exit_program (void);
+
+int
+main (void)
+{
+  exit_program ();
+}
+
+_Noreturn void
+exit_program (void)
+{
+  exit (0);
+}
+" HAVE_C11__NORETURN)

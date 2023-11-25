@@ -25,22 +25,32 @@
 
 #include <config.h>
 
-#include <stddef.h>
-#include <stdlib.h>
+static void test_static_assert_message (void);
+static void test_static_assert_no_message (void);
 
-#include "_Noreturn.h"
-
-/* Make sure _Noreturn is supported by the compiler or is defined otherwise. */
-_Noreturn void exit_program (void);
-
+/* Test that '_Static_assert' works without needing to include <assert.h>. */
 int
 main (void)
 {
-  exit_program ();
+  test_static_assert_message ();
+  test_static_assert_no_message ();
+  return 0;
 }
 
-_Noreturn void
-exit_program (void)
+/* Test that '_Static_assert' works with a second message parameter. */
+static void
+test_static_assert_message (void)
 {
-  exit (0);
+  _Static_assert (1, "Static assert message test 1");
+  _Static_assert (5 * 5 == 25, "Static assert message test 2");
+  _Static_assert (sizeof (char) == 1, "Static assert message test 3");
+}
+
+/* Test that '_Static_assert' works without a second message parameter. */
+static void
+test_static_assert_no_message (void)
+{
+  _Static_assert (1);
+  _Static_assert (5 * 5 == 25);
+  _Static_assert (sizeof (char) == 1);
 }

@@ -23,7 +23,34 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_STDBOOL_H
-#define COMPAT_STDBOOL_H
+#include <config.h>
 
-#endif /* COMPAT_STDBOOL_H */
+static void test_static_assert_message (void);
+static void test_static_assert_no_message (void);
+
+/* Test that 'static_assert' works without needing to include <assert.h>. */
+int
+main (void)
+{
+  test_static_assert_message ();
+  test_static_assert_no_message ();
+  return 0;
+}
+
+/* Test that 'static_assert' works with a second message parameter. */
+static void
+test_static_assert_message (void)
+{
+  static_assert (1, "Static assert message test 1");
+  static_assert (5 * 5 == 25, "Static assert message test 2");
+  static_assert (sizeof (char) == 1, "Static assert message test 3");
+}
+
+/* Test that 'static_assert' works without a second message parameter. */
+static void
+test_static_assert_no_message (void)
+{
+  static_assert (1);
+  static_assert (5 * 5 == 25);
+  static_assert (sizeof (char) == 1);
+}

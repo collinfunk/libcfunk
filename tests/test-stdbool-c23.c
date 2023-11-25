@@ -23,27 +23,33 @@
  * SUCH DAMAGE.
  */
 
-#ifndef C11__NORETURN_H
-#define C11__NORETURN_H
-
 #include <config.h>
 
-#include "__has_attribute.h"
-#include "__has_declspec_attribute.h"
+#include "attributes.h"
 
-/* _Noreturn is part of C11. This file requires `_Noreturn.cmake' is used to
-   check if it is supported by the compiler or not. If it is not supported and
-   HAVE_C11__NORETURN is set to 0, we define it to a builtin if avaliable. */
-#ifndef _Noreturn
-#  if !HAVE_C11__NORETURN
-#    if __has_attribute(__noreturn__)
-#      define _Noreturn __attribute__ ((__noreturn__))
-#    elif __has_declspec_attribute(noreturn)
-#      define _Noreturn __declspec (noreturn)
-#    else /* No builtins. */
-#      define _Noreturn
-#    endif /* __has_attribute(__noreturn__) */
-#  endif   /* !HAVE_C11__NORETURN */
-#endif     /* _Noreturn */
+static void verify_fase_equal0 (void);
+static void verify_true_equal1 (void);
 
-#endif /* C11__NORETURN_H */
+/* Test that 'bool', 'true', and 'false' can be used without actually including
+   <stdbool.h>. If the compiler is not C23, these are defined in <config.h>. */
+int
+main (void)
+{
+  verify_fase_equal0 ();
+  verify_true_equal1 ();
+  return 0;
+}
+
+/* Compile time check that 'false' is equivalent to 0. */
+static void
+verify_fase_equal0 (void)
+{
+  int value[(false == 0) ? 1 : -1] ATTRIBUTE_UNUSED;
+}
+
+/* Compile time check that 'true' is equivalent to 1. */
+static void
+verify_true_equal1 (void)
+{
+  int value[(true == 1) ? 1 : -1] ATTRIBUTE_UNUSED;
+}

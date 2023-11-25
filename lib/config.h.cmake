@@ -1005,4 +1005,38 @@
 #cmakedefine01 LIBCFUNK_REPLACE_VSPRINTF
 #cmakedefine01 LIBCFUNK_REPLACE_WMEMSET
 
+/* Make sure 'bool', 'true', and 'false' can be used as if the compiler
+   was C23. */
+#if !HAVE_C23_BOOL
+#  if HAVE_STDBOOL_H
+#    include <stdbool.h>
+#  else
+#    define true 1
+#    define false 0
+#  endif
+#endif
+
+/* Make sure 'static_assert' could be used as if the compiler was C23. */
+#if !HAVE_C23_STATIC_ASSERT
+#  if HAVE_ASSERT_H
+#    include <assert.h>
+#  endif
+#  if !defined(static_assert) && HAVE_C11_STATIC_ASSERT
+#    define static_assert _Static_assert
+#  endif
+#else
+#  if !HAVE_C11_STATIC_ASSERT && !defined(_Static_assert)
+#    define _Static_assert static_assert
+#  endif
+#endif
+
+/* Make sure '_Noreturn' could be used as if the compiler was C23. */
+#if !HAVE_C11__NORETURN
+#  if defined(__GNUC__) || defined(__clang__)
+#    define _Noreturn __attribute__ ((__noreturn__))
+#  else
+#    define _Noreturn
+#  endif
+#endif
+
 #endif /* CONFIG_H */
