@@ -50,24 +50,27 @@
 #endif
 
 #if !@HAVE_PTRDIFF_T@
-#ifndef __PTRDIFF_TYPE__
-#  define __PTRDIFF_TYPE__ long int
-#endif
-typedef __PTRDIFF_TYPE__ ptrdiff_t;
-#endif
-
-#if !@HAVE_WCHAR_T@
-#ifndef __WCHAR_TYPE__
-#  define __WCHAR_TYPE__ int
-#endif
-typedef __WCHAR_TYPE__ wchar_t;
 #endif
 
 #if !@HAVE_SIZE_T@
-#ifndef __SIZE_TYPE__
-#  define __SIZE_TYPE__ unsigned long int
 #endif
-typedef __SIZE_TYPE__ size_t;
+
+#if !@HAVE_MAX_ALIGN_T@
+#endif
+
+#if !@HAVE_WCHAR_T@
+typedef int wchar_t;
+#endif
+
+/* C23 Section 7.21.4 */
+#ifndef unreachable
+#  if __has_builtin(__builtin_unreachable)
+#    define unreachable() (__builtin_unreachable ())
+#  else
+/* C23 Section 7.24.4.1 declares abort with [[noreturn]]. */
+extern _Noreturn void abort (void);
+#    define unreachable() (abort ())
+#  endif
 #endif
 
 #endif /* COMPAT_STDDEF_H */

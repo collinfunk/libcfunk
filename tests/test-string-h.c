@@ -27,9 +27,30 @@
 
 #include <string.h>
 
+#include "attributes.h"
+
+static void test_size_t_defined (void);
+static void test_NULL_defined (void);
+
 /* Test that 'string.h' can be included. */
 int
 main (void)
 {
+  test_size_t_defined ();
+  test_NULL_defined ();
   return 0;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_NULL_defined (void)
+{
+  char *ptr ATTRIBUTE_UNUSED;
+
+  ptr = NULL;
 }

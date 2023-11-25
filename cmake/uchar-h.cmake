@@ -2,16 +2,12 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/wchar-h.cmake)
 
 # Generate <uchar.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_UCHAR_H "1" CACHE STRING "")
 
 check_include_file("uchar.h" HAVE_UCHAR_H)
-check_include_file("wchar.h" HAVE_WCHAR_H)
-
-if (HAVE_WCHAR_H)
-  list(APPEND CMAKE_EXTRA_INCLUDE_FILES "wchar.h")
-endif ()
 
 if (HAVE_UCHAR_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "uchar.h")

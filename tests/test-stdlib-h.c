@@ -27,9 +27,62 @@
 
 #include <stdlib.h>
 
+#include "attributes.h"
+
+static void test_size_t_defined (void);
+static void test_wchar_t_defined (void);
+static void test_div_t_defined (void);
+static void test_ldiv_t_defined (void);
+static void test_lldiv_t_defined (void);
+static void test_NULL_defined (void);
+
 /* Test that 'stdlib.h' can be included. */
 int
 main (void)
 {
-  return EXIT_SUCCESS;
+  test_size_t_defined ();
+  test_wchar_t_defined ();
+  test_div_t_defined ();
+  test_ldiv_t_defined ();
+  test_lldiv_t_defined ();
+  test_NULL_defined ();
+  return 0;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_wchar_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_div_t_defined (void)
+{
+  div_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_ldiv_t_defined (void)
+{
+  ldiv_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_lldiv_t_defined (void)
+{
+  lldiv_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_NULL_defined (void)
+{
+  char *ptr ATTRIBUTE_UNUSED;
+
+  ptr = NULL;
 }

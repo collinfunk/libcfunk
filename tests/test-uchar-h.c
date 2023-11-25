@@ -29,12 +29,50 @@
 
 #include "attributes.h"
 
+static void test_char8_t_defined (void);
+static void test_char16_t_defined (void);
+static void test_char32_t_defined (void);
+static void test_mbstate_t_defined (void);
+static void test_size_t_defined (void);
+
 /* Test that 'uchar.h' defines types. */
 int
 main (void)
 {
-  char8_t a ATTRIBUTE_UNUSED;
-  char16_t b ATTRIBUTE_UNUSED;
-  char32_t c ATTRIBUTE_UNUSED;
+  test_char8_t_defined ();
+  test_char16_t_defined ();
+  test_char32_t_defined ();
+  test_mbstate_t_defined ();
+  test_size_t_defined ();
   return 0;
+}
+
+static void
+test_char8_t_defined (void)
+{
+  char8_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_char16_t_defined (void)
+{
+  char16_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_char32_t_defined (void)
+{
+  char32_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_mbstate_t_defined (void)
+{
+  mbstate_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
 }

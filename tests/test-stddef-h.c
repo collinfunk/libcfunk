@@ -27,9 +27,66 @@
 
 #include <stddef.h>
 
+#include "attributes.h"
+
+static void test_ptrdiff_t_defined (void);
+static void test_size_t_defined (void);
+static void test_max_align_t_defined (void);
+static void test_wchar_t_defined (void);
+static int test_unreachable_defined (int value);
+static void test_NULL_defined (void);
+
 /* Check that 'stddef.h' can be included. */
 int
 main (void)
 {
+  test_ptrdiff_t_defined ();
+  test_size_t_defined ();
+  test_max_align_t_defined ();
+  test_wchar_t_defined ();
+  (void) test_unreachable_defined (100);
+  test_NULL_defined ();
   return 0;
+}
+
+static void
+test_ptrdiff_t_defined (void)
+{
+  ptrdiff_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_max_align_t_defined (void)
+{
+  max_align_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_wchar_t_defined (void)
+{
+  wchar_t value ATTRIBUTE_UNUSED;
+}
+
+static int
+test_unreachable_defined (int value)
+{
+  /* The 'unreachable ()' macro invokes undefined behavior if executed. Make
+     sure it is defined. It typically should be optimized out. */
+  if (value < 0)
+    unreachable ();
+  return value * 2;
+}
+
+static void
+test_NULL_defined (void)
+{
+  char *ptr ATTRIBUTE_UNUSED;
+
+  ptr = NULL;
 }

@@ -34,7 +34,11 @@
 #  include_next <uchar.h>
 #endif
 
+/* Make sure uint_least16_t and uint_least32_t are defined. */
 #include <stdint.h>
+
+/* Make sure mbstate_t and size_t are defined. */
+#include <wchar.h>
 
 #if !@HAVE_CHAR8_T@
 typedef unsigned char char8_t;
