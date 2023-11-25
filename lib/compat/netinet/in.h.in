@@ -39,6 +39,14 @@
 
 #include <stdint.h>
 
+#ifndef INET_ADDRSTRLEN
+#  define INET_ADDRSTRLEN 16
+#endif
+
+#ifndef INET6_ADDRSTRLEN
+#  define INET6_ADDRSTRLEN 46
+#endif
+
 #if !@HAVE_IN_PORT_T@
 typedef uint16_t in_port_t;
 #endif

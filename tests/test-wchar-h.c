@@ -27,9 +27,64 @@
 
 #include <wchar.h>
 
+#include "attributes.h"
+
+static void test_mbstate_t_defined (void);
+static void test_size_t_defined (void);
+static void test_wchar_t_defined (void);
+static void test_wint_t_defined (void);
+static void test_WEOF_defined (void);
+static void test_NULL_defined (void);
+
 /* Test that 'wchar.h' can be included. */
 int
 main (void)
 {
+  test_mbstate_t_defined ();
+  test_size_t_defined ();
+  test_wchar_t_defined ();
+  test_wint_t_defined ();
+  test_WEOF_defined ();
+  test_NULL_defined ();
   return 0;
+}
+
+static void
+test_mbstate_t_defined (void)
+{
+  mbstate_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_wchar_t_defined (void)
+{
+  wchar_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_wint_t_defined (void)
+{
+  wint_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_WEOF_defined (void)
+{
+  wint_t value ATTRIBUTE_UNUSED;
+
+  value = WEOF;
+}
+
+static void
+test_NULL_defined (void)
+{
+  char *ptr ATTRIBUTE_UNUSED;
+
+  ptr = NULL;
 }

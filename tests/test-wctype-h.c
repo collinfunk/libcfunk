@@ -27,9 +27,46 @@
 
 #include <wctype.h>
 
+#include "attributes.h"
+
+static void test_wint_t_defined (void);
+static void test_wctrans_t_defined (void);
+static void test_wctype_t_defined (void);
+static void test_WEOF_defined (void);
+
 /* Test that 'wctype.h' can be included. */
 int
 main (void)
 {
+  test_wint_t_defined ();
+  test_wctrans_t_defined ();
+  test_wctype_t_defined ();
+  test_WEOF_defined ();
   return 0;
+}
+
+static void
+test_wint_t_defined (void)
+{
+  wint_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_wctrans_t_defined (void)
+{
+  wctrans_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_wctype_t_defined (void)
+{
+  wctype_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_WEOF_defined (void)
+{
+  wint_t value ATTRIBUTE_UNUSED;
+
+  value = WEOF;
 }

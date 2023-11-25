@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
+
 # Generate <wchar.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_WCHAR_H "1" CACHE STRING "")
 
