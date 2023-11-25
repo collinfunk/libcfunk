@@ -104,6 +104,7 @@
 #cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
 #cmakedefine01 HAVE___ARGV
+#cmakedefine01 HAVE_AR_H
 #cmakedefine01 HAVE_ARPA_INET_H
 #cmakedefine01 HAVE_ASPRINTF
 #cmakedefine01 HAVE_ASSERT_H
@@ -648,6 +649,7 @@
 #cmakedefine01 HAVE_STRTOULL
 #cmakedefine01 HAVE_STRTOUMAX
 #cmakedefine01 HAVE_STRUCT_ADDRINFO
+#cmakedefine01 HAVE_STRUCT_AR_HDR
 #cmakedefine01 HAVE_STRUCT_CMSGHDR
 #cmakedefine01 HAVE_STRUCT_DIRENT
 #cmakedefine01 HAVE_STRUCT_FLOCK

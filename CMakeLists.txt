@@ -17,6 +17,7 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 include(cmake/libcfunk-init.cmake)
 
 include(cmake/abs.cmake)
+include(cmake/ar-h.cmake)
 include(cmake/accept.cmake)
 include(cmake/access.cmake)
 include(cmake/alignas.cmake)

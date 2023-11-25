@@ -1,0 +1,80 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_AR_H
+#define COMPAT_AR_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_AR_H@
+#  include_next <ar.h>
+#endif
+
+/* Old 'ar' magic value. */
+#ifndef OARMAG1
+#  define OARMAG1 0177555
+#endif
+
+/* Old 'ar' magic value. */
+#ifndef OARMAG2
+#  define OARMAG2 0177545
+#endif
+
+/* Magic string located at the start of an 'ar' archive. */
+#ifndef ARMAG
+#  define ARMAG "!<arch>\n"
+#endif
+
+/* Length of the 'ARMAG' string. */
+#ifndef SARMAG
+#  define SARMAG 8
+#endif
+
+/* 4.4BSD extended format #1. */
+#ifndef AR_EFMT1
+#  define AR_EFMT1 "#1/"
+#endif
+
+/* String contained in the 'ar_fmag' field of each header. */
+#ifndef ARFMAG
+#  define ARFMAG "`\n"
+#endif
+
+#if !@HAVE_STRUCT_AR_HDR@
+struct ar_hdr
+{
+  char ar_name[16]; /* File name. */
+  char ar_date[12]; /* File modification timestamp. */
+  char ar_uid[6];   /* User ID in ASCII decimal. */
+  char ar_gid[6];   /* Group ID in ASCII decimal. */
+  char ar_mode[8];  /* File mode in ASCII octal. */
+  char ar_size[10]; /* File size in ASCII decimal. */
+  char ar_fmag[2];  /* Contains ARFMAG. */
+};
+#endif
+
+#endif /* COMPAT_AR_H */
