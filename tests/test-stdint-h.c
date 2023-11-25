@@ -25,279 +25,167 @@
 
 #include <config.h>
 
-#include <limits.h>
-#include <stddef.h>
 #include <stdint.h>
 
 #include "test-help.h"
 
 #undef TYPE_WIDTH
-#undef TYPE_MAX_UNSIGNED
-#undef TYPE_MAX_SIGNED
-#undef TYPE_MIN_SIGNED
+#undef TYPE_MAX
+#undef TYPE_MIN
 
 #define TYPE_WIDTH(type) ((type) (sizeof (type) * CHAR_BIT))
-#define TYPE_MAX_UNSIGNED(type) ((type) -1)
-#define TYPE_MAX_SIGNED(type)                                                 \
-  ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1)
-#define TYPE_MIN_SIGNED(type) (~TYPE_MAX_SIGNED (type))
+#define TYPE_MAX(type)                                                        \
+  (((type) (-1) > 0)                                                          \
+       ? ((type) (-1))                                                        \
+       : ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1))
+#define TYPE_MIN(type) (~TYPE_MAX (type))
 
-static void test_intn_width (void);
-static void test_uintn_width (void);
-static void test_int_fastn_width (void);
-static void test_uint_fastn_width (void);
-static void test_int_leastn_width (void);
-static void test_uint_leastn_width (void);
-static void test_intptr_width (void);
-static void test_uintptr_width (void);
-static void test_intmax_width (void);
-static void test_uintmax_width (void);
-static void test_intn_max (void);
-static void test_uintn_max (void);
-static void test_intn_min (void);
-static void test_int_fastn_max (void);
-static void test_uint_fastn_max (void);
-static void test_int_fastn_min (void);
-static void test_int_leastn_max (void);
-static void test_uint_leastn_max (void);
-static void test_int_leastn_min (void);
-static void test_intptr_max (void);
-static void test_uintptr_max (void);
-static void test_intptr_min (void);
-static void test_intmax_max (void);
-static void test_uintmax_max (void);
-static void test_intmax_min (void);
-static void test_size_max (void);
+/* C23 widths for int8_t, int16_t, int32_t, and int64_t. */
+static_assert (TYPE_WIDTH (int8_t) == INT8_WIDTH);
+static_assert (TYPE_WIDTH (int16_t) == INT16_WIDTH);
+static_assert (TYPE_WIDTH (int32_t) == INT32_WIDTH);
+static_assert (TYPE_WIDTH (int64_t) == INT64_WIDTH);
+
+/* C23 widths for uint8_t, uint16_t, uint32_t, and uint64_t. */
+static_assert (TYPE_WIDTH (uint8_t) == UINT8_WIDTH);
+static_assert (TYPE_WIDTH (uint16_t) == UINT16_WIDTH);
+static_assert (TYPE_WIDTH (uint32_t) == UINT32_WIDTH);
+static_assert (TYPE_WIDTH (uint64_t) == UINT64_WIDTH);
+
+/* C23 widths for int_fast8_t, int_fast16_t, int_fast32_t, and int_fast64_t. */
+static_assert (TYPE_WIDTH (int_fast8_t) == INT_FAST8_WIDTH);
+static_assert (TYPE_WIDTH (int_fast16_t) == INT_FAST16_WIDTH);
+static_assert (TYPE_WIDTH (int_fast32_t) == INT_FAST32_WIDTH);
+static_assert (TYPE_WIDTH (int_fast64_t) == INT_FAST64_WIDTH);
+
+/* C23 widths for uint_fast8_t, uint_fast16_t, uint_fast32_t, and
+   uint_fast64_t. */
+static_assert (TYPE_WIDTH (uint_fast8_t) == UINT_FAST8_WIDTH);
+static_assert (TYPE_WIDTH (uint_fast16_t) == UINT_FAST16_WIDTH);
+static_assert (TYPE_WIDTH (uint_fast32_t) == UINT_FAST32_WIDTH);
+static_assert (TYPE_WIDTH (uint_fast64_t) == UINT_FAST64_WIDTH);
+
+/* C23 widths for int_least8_t, int_least16_t, int_least32_t, and
+   int_least64_t. */
+static_assert (TYPE_WIDTH (int_least8_t) == INT_LEAST8_WIDTH);
+static_assert (TYPE_WIDTH (int_least16_t) == INT_LEAST16_WIDTH);
+static_assert (TYPE_WIDTH (int_least32_t) == INT_LEAST32_WIDTH);
+static_assert (TYPE_WIDTH (int_least64_t) == INT_LEAST64_WIDTH);
+
+/* C23 widths for uint_least8_t, uint_least16_t, uint_least32_t, and
+   uint_least64_t. */
+static_assert (TYPE_WIDTH (uint_least8_t) == UINT_LEAST8_WIDTH);
+static_assert (TYPE_WIDTH (uint_least16_t) == UINT_LEAST16_WIDTH);
+static_assert (TYPE_WIDTH (uint_least32_t) == UINT_LEAST32_WIDTH);
+static_assert (TYPE_WIDTH (uint_least64_t) == UINT_LEAST64_WIDTH);
+
+/* C23 width for intptr_t. */
+static_assert (TYPE_WIDTH (intptr_t) == INTPTR_WIDTH);
+
+/* C23 width for uintptr_t. */
+static_assert (TYPE_WIDTH (uintptr_t) == UINTPTR_WIDTH);
+
+/* C23 width for intmax_t. */
+static_assert (TYPE_WIDTH (intmax_t) == INTMAX_WIDTH);
+
+/* C23 width for uintmax_t. */
+static_assert (TYPE_WIDTH (uintmax_t) == UINTMAX_WIDTH);
+
+/* Maximum value which can be held by int8_t, int16_t, int32_t, and int64_t. */
+static_assert (TYPE_MAX (int8_t) == INT8_MAX);
+static_assert (TYPE_MAX (int16_t) == INT16_MAX);
+static_assert (TYPE_MAX (int32_t) == INT32_MAX);
+static_assert (TYPE_MAX (int64_t) == INT64_MAX);
+
+/* Maximum value which can be held by uint8_t, uint16_t, uint32_t, and
+   uint64_t. */
+static_assert (TYPE_MAX (uint8_t) == UINT8_MAX);
+static_assert (TYPE_MAX (uint16_t) == UINT16_MAX);
+static_assert (TYPE_MAX (uint32_t) == UINT32_MAX);
+static_assert (TYPE_MAX (uint64_t) == UINT64_MAX);
+
+/* Maximum value which can be held by int_fast8_t, int_fast16_t, int_fast32_t,
+   and int_fast64_t. */
+static_assert (TYPE_MAX (int_fast8_t) == INT_FAST8_MAX);
+static_assert (TYPE_MAX (int_fast16_t) == INT_FAST16_MAX);
+static_assert (TYPE_MAX (int_fast32_t) == INT_FAST32_MAX);
+static_assert (TYPE_MAX (int_fast64_t) == INT_FAST64_MAX);
+
+/* Maximum value which can be held by uint_fast8_t, uint_fast16_t,
+   uint_fast32_t, and uint_fast64_t. */
+static_assert (TYPE_MAX (uint_fast8_t) == UINT_FAST8_MAX);
+static_assert (TYPE_MAX (uint_fast16_t) == UINT_FAST16_MAX);
+static_assert (TYPE_MAX (uint_fast32_t) == UINT_FAST32_MAX);
+static_assert (TYPE_MAX (uint_fast64_t) == UINT_FAST64_MAX);
+
+/* Maximum value which can be held by int_least8_t, int_least16_t,
+   int_least32_t, and int_least64_t. */
+static_assert (TYPE_MAX (int_least8_t) == INT_LEAST8_MAX);
+static_assert (TYPE_MAX (int_least16_t) == INT_LEAST16_MAX);
+static_assert (TYPE_MAX (int_least32_t) == INT_LEAST32_MAX);
+static_assert (TYPE_MAX (int_least64_t) == INT_LEAST64_MAX);
+
+/* Maximum value which can be held by uint_least8_t, uint_least16_t,
+   uint_least32_t, and uint_least64_t. */
+static_assert (TYPE_MAX (uint_least8_t) == UINT_LEAST8_MAX);
+static_assert (TYPE_MAX (uint_least16_t) == UINT_LEAST16_MAX);
+static_assert (TYPE_MAX (uint_least32_t) == UINT_LEAST32_MAX);
+static_assert (TYPE_MAX (uint_least64_t) == UINT_LEAST64_MAX);
+
+/* Maximum value which can be held by intptr_t. */
+static_assert (TYPE_MAX (intptr_t) == INTPTR_MAX);
+
+/* Maximum value which can be held by uintptr_t. */
+static_assert (TYPE_MAX (uintptr_t) == UINTPTR_MAX);
+
+/* Maximum value which can be held by intmax_t. */
+static_assert (TYPE_MAX (intmax_t) == INTMAX_MAX);
+
+/* Maximum value which can be held by uintmax_t. */
+static_assert (TYPE_MAX (uintmax_t) == UINTMAX_MAX);
+
+/* Minimum value which can be held by int8_t, int16_t, int32_t, and int64_t. */
+static_assert (TYPE_MIN (int8_t) == INT8_MIN);
+static_assert (TYPE_MIN (int16_t) == INT16_MIN);
+static_assert (TYPE_MIN (int32_t) == INT32_MIN);
+static_assert (TYPE_MIN (int64_t) == INT64_MIN);
+
+/* Minimum value which can be held by int_fast8_t, int_fast16_t, int_fast32_t,
+   and int_fast64_t. */
+static_assert (TYPE_MIN (int_fast8_t) == INT_FAST8_MIN);
+static_assert (TYPE_MIN (int_fast16_t) == INT_FAST16_MIN);
+static_assert (TYPE_MIN (int_fast32_t) == INT_FAST32_MIN);
+static_assert (TYPE_MIN (int_fast64_t) == INT_FAST64_MIN);
+
+/* Minimum value which can be held by int_least8_t, int_least16_t,
+   int_least32_t, and int_least64_t. */
+static_assert (TYPE_MIN (int_least8_t) == INT_LEAST8_MIN);
+static_assert (TYPE_MIN (int_least16_t) == INT_LEAST16_MIN);
+static_assert (TYPE_MIN (int_least32_t) == INT_LEAST32_MIN);
+static_assert (TYPE_MIN (int_least64_t) == INT_LEAST64_MIN);
+
+/* Minimum value which can be held by intptr_t. */
+static_assert (TYPE_MIN (intptr_t) == INTPTR_MIN);
+
+/* Minimum value which can be held by intmax_t. */
+static_assert (TYPE_MIN (intmax_t) == INTMAX_MIN);
+
+/* Signed cast macros. */
+static_assert (INT8_C (0) == INT8_C (0));
+static_assert (INT16_C (0) == INT16_C (0));
+static_assert (INT32_C (0) == INT32_C (0));
+static_assert (INT64_C (0) == INT64_C (0));
+static_assert (INTMAX_C (0) == INTMAX_C (0));
+
+/* Unsigned cast macros. */
+static_assert (UINT8_C (0) == UINT8_C (0));
+static_assert (UINT16_C (0) == UINT16_C (0));
+static_assert (UINT32_C (0) == UINT32_C (0));
+static_assert (UINT64_C (0) == UINT64_C (0));
+static_assert (UINTMAX_C (0) == UINTMAX_C (0));
 
 int
 main (void)
 {
-  test_intn_width ();
-  test_uintn_width ();
-  test_int_fastn_width ();
-  test_uint_fastn_width ();
-  test_int_leastn_width ();
-  test_uint_leastn_width ();
-  test_intptr_width ();
-  test_uintptr_width ();
-  test_intmax_width ();
-  test_uintmax_width ();
-  test_intn_max ();
-  test_uintn_max ();
-  test_intn_min ();
-  test_int_fastn_max ();
-  test_uint_fastn_max ();
-  test_int_fastn_min ();
-  test_int_leastn_max ();
-  test_uint_leastn_max ();
-  test_int_leastn_min ();
-  test_intptr_max ();
-  test_uintptr_max ();
-  test_intptr_min ();
-  test_intmax_max ();
-  test_uintmax_max ();
-  test_intmax_min ();
-  test_size_max ();
   return 0;
-}
-
-static void
-test_intn_width (void)
-{
-  ASSERT (TYPE_WIDTH (int8_t) == INT8_WIDTH);
-  ASSERT (TYPE_WIDTH (int16_t) == INT16_WIDTH);
-  ASSERT (TYPE_WIDTH (int32_t) == INT32_WIDTH);
-  ASSERT (TYPE_WIDTH (int64_t) == INT64_WIDTH);
-}
-
-static void
-test_uintn_width (void)
-{
-  ASSERT (TYPE_WIDTH (uint8_t) == UINT8_WIDTH);
-  ASSERT (TYPE_WIDTH (uint16_t) == UINT16_WIDTH);
-  ASSERT (TYPE_WIDTH (uint32_t) == UINT32_WIDTH);
-  ASSERT (TYPE_WIDTH (uint64_t) == UINT64_WIDTH);
-}
-
-static void
-test_int_fastn_width (void)
-{
-  ASSERT (TYPE_WIDTH (int_fast8_t) == INT_FAST8_WIDTH);
-  ASSERT (TYPE_WIDTH (int_fast16_t) == INT_FAST16_WIDTH);
-  ASSERT (TYPE_WIDTH (int_fast32_t) == INT_FAST32_WIDTH);
-  ASSERT (TYPE_WIDTH (int_fast64_t) == INT_FAST64_WIDTH);
-}
-
-static void
-test_uint_fastn_width (void)
-{
-  ASSERT (TYPE_WIDTH (uint_fast8_t) == UINT_FAST8_WIDTH);
-  ASSERT (TYPE_WIDTH (uint_fast16_t) == UINT_FAST16_WIDTH);
-  ASSERT (TYPE_WIDTH (uint_fast32_t) == UINT_FAST32_WIDTH);
-  ASSERT (TYPE_WIDTH (uint_fast64_t) == UINT_FAST64_WIDTH);
-}
-
-static void
-test_int_leastn_width (void)
-{
-  ASSERT (TYPE_WIDTH (int_least8_t) == INT_LEAST8_WIDTH);
-  ASSERT (TYPE_WIDTH (int_least16_t) == INT_LEAST16_WIDTH);
-  ASSERT (TYPE_WIDTH (int_least32_t) == INT_LEAST32_WIDTH);
-  ASSERT (TYPE_WIDTH (int_least64_t) == INT_LEAST64_WIDTH);
-}
-
-static void
-test_uint_leastn_width (void)
-{
-  ASSERT (TYPE_WIDTH (uint_least8_t) == UINT_LEAST8_WIDTH);
-  ASSERT (TYPE_WIDTH (uint_least16_t) == UINT_LEAST16_WIDTH);
-  ASSERT (TYPE_WIDTH (uint_least32_t) == UINT_LEAST32_WIDTH);
-  ASSERT (TYPE_WIDTH (uint_least64_t) == UINT_LEAST64_WIDTH);
-}
-
-static void
-test_intptr_width (void)
-{
-  ASSERT (TYPE_WIDTH (intptr_t) == INTPTR_WIDTH);
-}
-
-static void
-test_uintptr_width (void)
-{
-  ASSERT (TYPE_WIDTH (uintptr_t) == UINTPTR_WIDTH);
-}
-
-static void
-test_intmax_width (void)
-{
-  ASSERT (TYPE_WIDTH (intmax_t) == INTMAX_WIDTH);
-}
-
-static void
-test_uintmax_width (void)
-{
-  ASSERT (TYPE_WIDTH (uintmax_t) == UINTMAX_WIDTH);
-}
-
-static void
-test_intn_max (void)
-{
-  ASSERT (TYPE_MAX_SIGNED (int8_t) == INT8_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int16_t) == INT16_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int32_t) == INT32_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int64_t) == INT64_MAX);
-}
-
-static void
-test_uintn_max (void)
-{
-  ASSERT (TYPE_MAX_UNSIGNED (uint8_t) == UINT8_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint16_t) == UINT16_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint32_t) == UINT32_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint64_t) == UINT64_MAX);
-}
-
-static void
-test_intn_min (void)
-{
-  ASSERT (TYPE_MIN_SIGNED (int8_t) == INT8_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int16_t) == INT16_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int32_t) == INT32_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int64_t) == INT64_MIN);
-}
-
-static void
-test_int_fastn_max (void)
-{
-  ASSERT (TYPE_MAX_SIGNED (int_fast8_t) == INT_FAST8_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int_fast16_t) == INT_FAST16_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int_fast32_t) == INT_FAST32_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int_fast64_t) == INT_FAST64_MAX);
-}
-
-static void
-test_uint_fastn_max (void)
-{
-  ASSERT (TYPE_MAX_UNSIGNED (uint_fast8_t) == UINT_FAST8_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint_fast16_t) == UINT_FAST16_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint_fast32_t) == UINT_FAST32_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint_fast64_t) == UINT_FAST64_MAX);
-}
-
-static void
-test_int_fastn_min (void)
-{
-  ASSERT (TYPE_MIN_SIGNED (int_fast8_t) == INT_FAST8_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int_fast16_t) == INT_FAST16_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int_fast32_t) == INT_FAST32_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int_fast64_t) == INT_FAST64_MIN);
-}
-
-static void
-test_int_leastn_max (void)
-{
-  ASSERT (TYPE_MAX_SIGNED (int_least8_t) == INT_LEAST8_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int_least16_t) == INT_LEAST16_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int_least32_t) == INT_LEAST32_MAX);
-  ASSERT (TYPE_MAX_SIGNED (int_least64_t) == INT_LEAST64_MAX);
-}
-
-static void
-test_uint_leastn_max (void)
-{
-  ASSERT (TYPE_MAX_UNSIGNED (uint_least8_t) == UINT_LEAST8_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint_least16_t) == UINT_LEAST16_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint_least32_t) == UINT_LEAST32_MAX);
-  ASSERT (TYPE_MAX_UNSIGNED (uint_least64_t) == UINT_LEAST64_MAX);
-}
-
-static void
-test_int_leastn_min (void)
-{
-  ASSERT (TYPE_MIN_SIGNED (int_least8_t) == INT_LEAST8_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int_least16_t) == INT_LEAST16_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int_least32_t) == INT_LEAST32_MIN);
-  ASSERT (TYPE_MIN_SIGNED (int_least64_t) == INT_LEAST64_MIN);
-}
-
-static void
-test_intptr_max (void)
-{
-  ASSERT (TYPE_MAX_SIGNED (intptr_t) == INTPTR_MAX);
-}
-
-static void
-test_uintptr_max (void)
-{
-  ASSERT (TYPE_MAX_UNSIGNED (uintptr_t) == UINTPTR_MAX);
-}
-
-static void
-test_intptr_min (void)
-{
-  ASSERT (TYPE_MIN_SIGNED (intptr_t) == INTPTR_MIN);
-}
-
-static void
-test_intmax_max (void)
-{
-  ASSERT (TYPE_MAX_SIGNED (intmax_t) == INTMAX_MAX);
-}
-
-static void
-test_uintmax_max (void)
-{
-  ASSERT (TYPE_MAX_UNSIGNED (uintmax_t) == UINTMAX_MAX);
-}
-
-static void
-test_intmax_min (void)
-{
-  ASSERT (TYPE_MIN_SIGNED (intmax_t) == INTMAX_MIN);
-}
-
-static void
-test_size_max (void)
-{
-  ASSERT (TYPE_MAX_UNSIGNED (size_t) == SIZE_MAX);
 }

@@ -1,0 +1,137 @@
+/*-
+ * Copyright (c) 2023, Collin Funk
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHORS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+
+#ifndef COMPAT_TAR_H
+#define COMPAT_TAR_H
+
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
+
+#if @HAVE_TAR_H@
+#  include_next <tar.h>
+#endif
+
+#ifndef TMAGIC
+#  define TMAGIC "ustar"
+#endif
+
+#ifndef TMAGLEN
+#  define TMAGLEN 6
+#endif
+
+#ifndef TVERSION
+#  define TVERSION "00"
+#endif
+
+#ifndef TVERSLEN
+#  define TVERSLEN 2
+#endif
+
+#ifndef REGTYPE
+#  define REGTYPE '0'
+#endif
+
+#ifndef AREGTYPE
+#  define AREGTYPE '\0'
+#endif
+
+#ifndef LNKTYPE
+#  define LNKTYPE '1'
+#endif
+
+#ifndef SYMTYPE
+#  define SYMTYPE '2'
+#endif
+
+#ifndef CHRTYPE
+#  define CHRTYPE '3'
+#endif
+
+#ifndef BLKTYPE
+#  define BLKTYPE '4'
+#endif
+
+#ifndef DIRTYPE
+#  define DIRTYPE '5'
+#endif
+
+#ifndef FIFOTYPE
+#  define FIFOTYPE '6'
+#endif
+
+#ifndef CONTTYPE
+#  define CONTTYPE '7'
+#endif
+
+#ifndef TSUID
+#  define TSUID 04000
+#endif
+
+#ifndef TSGID
+#  define TSGID 02000
+#endif
+
+#ifndef TSVTX
+#  define TSVTX 01000
+#endif
+
+#ifndef TUREAD
+#  define TUREAD 00400
+#endif
+
+#ifndef TUWRITE
+#  define TUWRITE 00200
+#endif
+
+#ifndef TUEXEC
+#  define TUEXEC 00100
+#endif
+
+#ifndef TGREAD
+#  define TGREAD 00040
+#endif
+
+#ifndef TGWRITE
+#  define TGWRITE 00020
+#endif
+
+#ifndef TGEXEC
+#  define TGEXEC 00010
+#endif
+
+#ifndef TOREAD
+#  define TOREAD 00004
+#endif
+
+#ifndef TOWRITE
+#  define TOWRITE 00002
+#endif
+
+#ifndef TOEXEC
+#  define TOEXEC 00001
+#endif
+
+#endif /* COMPAT_TAR_H */

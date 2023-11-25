@@ -27,119 +27,79 @@
 
 #include <limits.h>
 
-#include "test-help.h"
+#undef TYPE_WIDTH
+#undef TYPE_MAX
+#undef TYPE_MIN
 
-#undef TYPE_MAX_SIGNED
-#undef TYPE_MIN_SIGNED
+#define TYPE_WIDTH(type) ((type) (sizeof (type) * CHAR_BIT))
+#define TYPE_MAX(type)                                                        \
+  (((type) (-1) > 0)                                                          \
+       ? ((type) (-1))                                                        \
+       : ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1))
+#define TYPE_MIN(type) (~TYPE_MAX (type))
 
-#define TYPE_MAX_SIGNED(type)                                                 \
-  ((((((type) 1) << ((sizeof (type) * CHAR_BIT) - 2)) - 1) * 2) + 1)
+/* POSIX bit widths. */
+static_assert (TYPE_WIDTH (char) == CHAR_BIT);
+static_assert (TYPE_WIDTH (int) == WORD_BIT);
+static_assert (TYPE_WIDTH (long int) == LONG_BIT);
 
-#define TYPE_MIN_SIGNED(type) (~TYPE_MAX_SIGNED (type))
+/* C23 signed type widths. */
+static_assert (TYPE_WIDTH (signed char) == SCHAR_WIDTH);
+static_assert (TYPE_WIDTH (short int) == SHRT_WIDTH);
+static_assert (TYPE_WIDTH (int) == INT_WIDTH);
+static_assert (TYPE_WIDTH (long int) == LONG_WIDTH);
+static_assert (TYPE_WIDTH (long long int) == LLONG_WIDTH);
 
-static void test_sane_widths (void);
-static void test_signed_unsigned_widths_equal (void);
-static void test_signed_type_max (void);
-static void test_signed_type_min (void);
-static void test_unsigned_type_max (void);
-static void test_maybe_unsigned_char (void);
-static void test_old_gnu_long_long (void);
+/* C23 unsigned type widths. */
+static_assert (TYPE_WIDTH (unsigned char) == UCHAR_WIDTH);
+static_assert (TYPE_WIDTH (unsigned short int) == USHRT_WIDTH);
+static_assert (TYPE_WIDTH (unsigned int) == UINT_WIDTH);
+static_assert (TYPE_WIDTH (unsigned long int) == ULONG_WIDTH);
+static_assert (TYPE_WIDTH (unsigned long long int) == ULLONG_WIDTH);
+
+/* Signed type maximums. */
+static_assert (TYPE_MAX (signed char) == SCHAR_MAX);
+static_assert (TYPE_MAX (short int) == SHRT_MAX);
+static_assert (TYPE_MAX (int) == INT_MAX);
+static_assert (TYPE_MAX (long int) == LONG_MAX);
+static_assert (TYPE_MAX (long long int) == LLONG_MAX);
+
+/* Unsigned type maximums. */
+static_assert (TYPE_MAX (unsigned char) == UCHAR_MAX);
+static_assert (TYPE_MAX (unsigned short int) == USHRT_MAX);
+static_assert (TYPE_MAX (unsigned int) == UINT_MAX);
+static_assert (TYPE_MAX (unsigned long int) == ULONG_MAX);
+static_assert (TYPE_MAX (unsigned long long int) == ULLONG_MAX);
+
+/* Signed type minimums. */
+static_assert (TYPE_MIN (signed char) == SCHAR_MIN);
+static_assert (TYPE_MIN (short int) == SHRT_MIN);
+static_assert (TYPE_MIN (int) == INT_MIN);
+static_assert (TYPE_MIN (long int) == LONG_MIN);
+static_assert (TYPE_MIN (long long int) == LLONG_MIN);
+
+/* Plain char macros. */
+static_assert (TYPE_WIDTH (char) == CHAR_WIDTH);
+static_assert (TYPE_MAX (char) == CHAR_MAX);
+static_assert (TYPE_MIN (char) == CHAR_MIN);
+
+/* Old GNU macros for 'long long int'. */
+static_assert (LONG_LONG_MAX == LLONG_MAX);
+static_assert (LONG_LONG_MIN == LLONG_MIN);
+static_assert (ULONG_LONG_MAX == ULLONG_MAX);
+
+/* Make sure 'HOST_NAME_MAX' is defined to a positive integer. */
+static_assert (HOST_NAME_MAX > 0);
+
+/* Make sure 'MB_LEN_MAX' is defined to a positive integer. */
+static_assert (MB_LEN_MAX > 0);
+
+/* Make sure 'SSIZE_MAX' is defined to a positive integer. It would be
+   nice to check this here but that would require including <sys/types.h>. */
+static_assert (SSIZE_MAX > 0);
 
 int
 main (void)
 {
-  test_sane_widths ();
-  test_signed_unsigned_widths_equal ();
-  test_signed_type_max ();
-  test_signed_type_min ();
-  test_unsigned_type_max ();
-  test_maybe_unsigned_char ();
-  test_old_gnu_long_long ();
   return 0;
-}
-
-/* This should pass on any common architecture. */
-static void
-test_sane_widths (void)
-{
-  ASSERT (CHAR_WIDTH == 8);
-  ASSERT (SHRT_WIDTH == 16);
-  ASSERT (INT_WIDTH == 32);
-  ASSERT (LONG_WIDTH == 32 || LONG_WIDTH == 64);
-  ASSERT (LLONG_WIDTH == 64);
-
-  /* Check for the POSIX <TYPE>_BIT macros. */
-  ASSERT (CHAR_BIT == CHAR_WIDTH);
-  ASSERT (WORD_BIT == INT_WIDTH);
-  ASSERT (LONG_BIT == LONG_WIDTH);
-}
-
-/* Make sure signed and unsigned types have the same width. */
-static void
-test_signed_unsigned_widths_equal (void)
-{
-  ASSERT (CHAR_WIDTH == SCHAR_WIDTH);
-  ASSERT (CHAR_WIDTH == UCHAR_WIDTH);
-  ASSERT (SHRT_WIDTH == USHRT_WIDTH);
-  ASSERT (INT_WIDTH == UINT_WIDTH);
-  ASSERT (LONG_WIDTH == ULONG_WIDTH);
-  ASSERT (LLONG_WIDTH == ULLONG_WIDTH);
-}
-
-static void
-test_signed_type_max (void)
-{
-  ASSERT (SCHAR_MAX == TYPE_MAX_SIGNED (signed char));
-  ASSERT (SHRT_MAX == TYPE_MAX_SIGNED (short int));
-  ASSERT (INT_MAX == TYPE_MAX_SIGNED (int));
-  ASSERT (LONG_MAX == TYPE_MAX_SIGNED (long int));
-  ASSERT (LLONG_MAX == TYPE_MAX_SIGNED (long long int));
-}
-
-static void
-test_signed_type_min (void)
-{
-  ASSERT (SCHAR_MIN == TYPE_MIN_SIGNED (signed char));
-  ASSERT (SHRT_MIN == TYPE_MIN_SIGNED (short int));
-  ASSERT (INT_MIN == TYPE_MIN_SIGNED (int));
-  ASSERT (LONG_MIN == TYPE_MIN_SIGNED (long int));
-  ASSERT (LLONG_MIN == TYPE_MIN_SIGNED (long long int));
-}
-
-static void
-test_unsigned_type_max (void)
-{
-  ASSERT (UCHAR_MAX == ((unsigned char) -1));
-  ASSERT (USHRT_MAX == ((unsigned short) -1));
-  ASSERT (UINT_MAX == ((unsigned int) -1));
-  ASSERT (ULONG_MAX == ((unsigned long int) -1));
-  ASSERT (ULLONG_MAX == ((unsigned long long int) -1));
-}
-
-/* Check `char' which may be signed or unsigned. This can be checked using
-   the __CHAR_UNSIGNED__ macro. If it is defined, `char' is unsigned. */
-static void
-test_maybe_unsigned_char (void)
-{
-#ifdef __CHAR_UNSIGNED__
-#  if SCHAR_MAX == INT_MAX
-  ASSERT (CHAR_MIN == 0U);
-#  else
-  ASSERT (CHAR_MIN == 0);
-#  endif
-  ASSERT (CHAR_MAX == SCHAR_MAX);
-#else
-  ASSERT (CHAR_MIN == SCHAR_MIN);
-  ASSERT (CHAR_MAX == SCHAR_MAX);
-#endif
-}
-
-/* Some old versions of the GNU C library used different names for `long long'
-   limit macros. Check that they are defined correctly for compatability. */
-static void
-test_old_gnu_long_long (void)
-{
-  ASSERT (LONG_LONG_MIN == LLONG_MIN);
-  ASSERT (LONG_LONG_MAX == LLONG_MAX);
-  ASSERT (ULONG_LONG_MAX == ULLONG_MAX);
 }

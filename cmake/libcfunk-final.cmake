@@ -54,6 +54,13 @@ if ($CACHE{LIBCFUNK_GENERATE_BYTESWAP_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_CPIO_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/cpio.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/cpio.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_CTYPE_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ctype.h.in
@@ -422,6 +429,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_WAIT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/wait.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/wait.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_TAR_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/tar.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/tar.h
   )
 endif ()
 

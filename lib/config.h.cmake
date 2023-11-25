@@ -174,6 +174,7 @@
 #cmakedefine01 HAVE_COPYSIGN
 #cmakedefine01 HAVE_COPYSIGNF
 #cmakedefine01 HAVE_COPYSIGNL
+#cmakedefine01 HAVE_CPIO_H
 #cmakedefine01 HAVE_CREAT
 #cmakedefine01 HAVE_CRTDBG_H
 #cmakedefine01 HAVE_CRT_EXTERNS_H
@@ -418,6 +419,7 @@
 #cmakedefine01 HAVE_MALLOC
 #cmakedefine01 HAVE_MALLOC_H
 #cmakedefine01 HAVE_MATH_H
+#cmakedefine01 HAVE_MAX_ALIGN_T
 #cmakedefine01 HAVE_MBLEN
 #cmakedefine01 HAVE_MBRLEN
 #cmakedefine01 HAVE_MBRTOWC
@@ -727,6 +729,7 @@
 #cmakedefine01 HAVE_SYS_UTIME_H
 #cmakedefine01 HAVE_SYS_UTSNAME_H
 #cmakedefine01 HAVE_SYS_WAIT_H
+#cmakedefine01 HAVE_TAR_H
 #cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TELLDIR
 #cmakedefine01 HAVE_TERMIOS_H
