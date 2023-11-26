@@ -25,31 +25,53 @@
 
 #include <config.h>
 
+#include <stdio.h>
 #include <stdlib.h>
 
-void *
-bsearch (const void *key, const void *base, size_t nel, size_t width,
-         int (*compar) (const void *, const void *))
-#undef bsearch
+#include "test-help.h"
+
+struct item
 {
-  size_t low, high, mid, offset;
-  int result;
-  const void *ptr;
+  int value;
+  char *string;
+};
 
-  for (low = 0, high = nel; low < high;)
+static const struct item items[10]
+    = { { 0, "zero" },  { 1, "one" },  { 2, "two" }, { 3, "three" },
+        { 4, "four" },  { 5, "five" }, { 6, "six" }, { 7, "seven" },
+        { 8, "eight" }, { 9, "nine" } };
+
+static int item_compare (const void *a_ptr, const void *b_ptr);
+
+int
+main (void)
+{
+  size_t i;
+  struct item key;
+  struct item *ptr;
+
+  for (i = 0; i < ARRAY_SIZE (items) * 2; ++i)
     {
-      mid = (low + high) / 2;
-      offset = mid * width;
-      ptr = (const char *) base + offset;
-
-      result = (*compar) (key, ptr);
-      if (result == 0)
-        return (void *) ptr;
-      if (result < 0)
-        high = mid;
-      else /* result > 0 */
-        low = mid + 1;
+      key.value = (int) i;
+      ptr = bsearch (&key, items, ARRAY_SIZE (items), sizeof (struct item),
+                     item_compare);
+      if (i < ARRAY_SIZE (items))
+        {
+          ASSERT (ptr != NULL);
+          ASSERT (ptr->value == key.value);
+        }
+      else
+        ASSERT (ptr == NULL);
     }
 
-  return NULL;
+  return 0;
+}
+
+static int
+item_compare (const void *a_ptr, const void *b_ptr)
+{
+  const struct item *a = (const struct item *) a_ptr;
+  const struct item *b = (const struct item *) b_ptr;
+
+  return a->value - b->value;
 }

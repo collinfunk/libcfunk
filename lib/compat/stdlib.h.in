@@ -117,7 +117,13 @@ extern long long int atoll (const char *str);
 #endif
 
 #if @LIBCFUNK_DECLARE_BSEARCH@
-#  if !@HAVE_BSEARCH@
+#  if @LIBCFUNK_REPLACE_BSEARCH@
+#    undef bsearch
+#    define bsearch _libcfunk_bsearch
+extern void *_libcfunk_bsearch (const void *key, const void *base, size_t nel,
+                                size_t width, int (*compar) (const void *,
+                                                             const void *));
+#  elif !@HAVE_BSEARCH@
 extern void *bsearch (const void *key, const void *base, size_t nel,
                       size_t width, int (*compar) (const void *,
                                                    const void *));
