@@ -27,17 +27,124 @@
 
 #include <sys/types.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "attributes.h"
 
-#include "test-help.h"
+static void test_blkcnt_t_defined (void);
+static void test_blksize_t_defined (void);
+static void test_dev_t_defined (void);
+static void test_gid_t_defined (void);
+static void test_ino_t_defined (void);
+static void test_mode_t_defined (void);
+static void test_nlink_t_defined (void);
+static void test_off_t_defined (void);
+static void test_pid_t_defined (void);
+static void test_size_t_defined (void);
+static void test_ssize_t_defined (void);
+static void test_suseconds_t_defined (void);
+static void test_uid_t_defined (void);
+static void test_useconds_t_defined (void);
 
+/* Make sure that 'sys/types.h' can be included. */
 int
 main (void)
 {
-  /* Make sure macros in config.h cause these to be greater than 32-bits. */
-  ASSERT (sizeof (off_t) >= 8);
-  ASSERT (sizeof (time_t) >= 8);
+  test_blkcnt_t_defined ();
+  test_blksize_t_defined ();
+  test_dev_t_defined ();
+  test_gid_t_defined ();
+  test_ino_t_defined ();
+  test_mode_t_defined ();
+  test_nlink_t_defined ();
+  test_off_t_defined ();
+  test_pid_t_defined ();
+  test_size_t_defined ();
+  test_ssize_t_defined ();
+  test_suseconds_t_defined ();
+  test_uid_t_defined ();
+  test_useconds_t_defined ();
   return 0;
+}
+
+static void
+test_blkcnt_t_defined (void)
+{
+  blkcnt_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_blksize_t_defined (void)
+{
+  blksize_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_dev_t_defined (void)
+{
+  dev_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_gid_t_defined (void)
+{
+  gid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_ino_t_defined (void)
+{
+  ino_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_mode_t_defined (void)
+{
+  mode_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_nlink_t_defined (void)
+{
+  nlink_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_off_t_defined (void)
+{
+  off_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_ssize_t_defined (void)
+{
+  ssize_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_suseconds_t_defined (void)
+{
+  suseconds_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_uid_t_defined (void)
+{
+  uid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_useconds_t_defined (void)
+{
+  useconds_t value ATTRIBUTE_UNUSED;
 }

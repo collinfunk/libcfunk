@@ -29,11 +29,34 @@
 
 #include "attributes.h"
 
-/* Test that 'sys/uio.h' can be included and that 'struct iovec' is
-   declared. */
+static void test_struct_iovec_defined (void);
+static void test_size_t_defined (void);
+static void test_ssize_t_defined (void);
+
+/* Test that 'sys/uio.h' can be included. */
 int
 main (void)
 {
-  struct iovec iov ATTRIBUTE_UNUSED;
+  test_struct_iovec_defined ();
+  test_size_t_defined ();
+  test_ssize_t_defined ();
   return 0;
+}
+
+static void
+test_struct_iovec_defined (void)
+{
+  struct iovec value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_ssize_t_defined (void)
+{
+  ssize_t value ATTRIBUTE_UNUSED;
 }

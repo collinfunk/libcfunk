@@ -1,8 +1,7 @@
 
 include_guard(GLOBAL)
 
-# Windows might define 'time.h' here instead of sys/types.h.
-include($CACHE{LIBCFUNK_MODULE_DIR}/time-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
 
 add_executable(test-sys-types-h)
 

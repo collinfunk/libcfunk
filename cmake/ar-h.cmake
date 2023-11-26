@@ -9,7 +9,6 @@ check_include_file("ar.h" HAVE_AR_H)
 if (HAVE_AR_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "ar.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
-  message("${CMAKE_EXTRA_INCLUDE_FILES}")
   check_type_size("struct ar_hdr" STRUCT_AR_HDR)
 endif ()
 

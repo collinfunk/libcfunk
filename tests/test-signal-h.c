@@ -29,12 +29,50 @@
 
 #include "attributes.h"
 
+static void test_sig_atomic_t_defined (void);
+static void test_sigset_t_defined (void);
+static void test_pid_t_defined (void);
+static void test_union_sigval_defined (void);
+static void test_struct_sigaction_defined (void);
+
 /* Test that <signal.h> is generated and included correctly. */
 int
 main (void)
 {
-  sigset_t set ATTRIBUTE_UNUSED;
-  union sigval sig_val ATTRIBUTE_UNUSED;
-  struct sigaction sig_action ATTRIBUTE_UNUSED;
+  test_sig_atomic_t_defined ();
+  test_sigset_t_defined ();
+  test_pid_t_defined ();
+  test_union_sigval_defined ();
+  test_struct_sigaction_defined ();
   return 0;
+}
+
+static void
+test_sig_atomic_t_defined (void)
+{
+  sig_atomic_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_sigset_t_defined (void)
+{
+  sigset_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_union_sigval_defined (void)
+{
+  union sigval value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_struct_sigaction_defined (void)
+{
+  struct sigaction value ATTRIBUTE_UNUSED;
 }
