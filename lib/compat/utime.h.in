@@ -39,12 +39,19 @@
 #  include <sys/utime.h>
 #endif
 
+#include <sys/types.h>
+
 /* Windows. */
 #if !@HAVE_STRUCT_UTIMBUF@
 #  if @HAVE_STRUCT__UTIMBUF@
 #    define utimbuf _utimbuf
+#  else
+struct utimbuf
+{
+  time_t actime;
+  time_t modtime;
+};
 #  endif
 #endif
-
 
 #endif /* COMPAT_UTIME_H */

@@ -2,6 +2,9 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/mkdir.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
 
 add_executable(test-rmdir)
 

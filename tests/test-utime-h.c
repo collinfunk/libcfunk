@@ -29,9 +29,28 @@
 
 #include "attributes.h"
 
+static void test_time_t_defined (void);
+static void test_struct_utimbuf_defined (void);
+
+/* Test that 'utime.h' can be included. */
 int
 main (void)
 {
-  struct utimbuf buffer ATTRIBUTE_UNUSED;
+  test_time_t_defined ();
+  test_struct_utimbuf_defined ();
   return 0;
+}
+
+/* Test that the inclusion of <utime.h> allows time_t to be used. */
+static void
+test_time_t_defined (void)
+{
+  time_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the inclusion of <utime.h> allows struct utimbuf to be used. */
+static void
+test_struct_utimbuf_defined (void)
+{
+  struct utimbuf value ATTRIBUTE_UNUSED;
 }

@@ -27,6 +27,8 @@
 
 #include <sys/stat.h>
 
+#include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -36,16 +38,81 @@
 #undef TEST_DIRECTORY_NAME
 #define TEST_DIRECTORY_NAME "test-rmdir.tmp"
 
+static void test_rmdir_bad_dirname (void);
+static void test_rmdir_dirname_is_filename (void);
+static void test_rmdir_nonempty_directory (void);
+
 int
 main (void)
 {
-  /* Make sure any leftover directories from previous tests are deleted. */
-  rmdir (TEST_DIRECTORY_NAME);
+  /* Try to remove any leftovers from previous tests. Hope rmdir works... */
+  (void) rmdir (TEST_DIRECTORY_NAME);
+  errno = 0;
 
-  /* Check the directory is created and then remove. */
-  ASSERT (mkdir (TEST_DIRECTORY_NAME, 0600) == 0);
-  ASSERT (rmdir (TEST_DIRECTORY_NAME) == 0);
-  ASSERT (rmdir (TEST_DIRECTORY_NAME) == -1);
+  test_rmdir_bad_dirname ();
+  test_rmdir_dirname_is_filename ();
+  test_rmdir_nonempty_directory ();
+
+  /* Make sure to cleanup the directory. */
+  (void) rmdir (TEST_DIRECTORY_NAME);
 
   return 0;
+}
+
+/* Test that 'rmdir' works as expected on a directory that does not exist. */
+static void
+test_rmdir_bad_dirname (void)
+{
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME) == -1);
+  ASSERT (errno == ENOENT);
+  errno = 0;
+}
+
+/* Test that 'rmdir' works as expected on names of files. */
+static void
+test_rmdir_dirname_is_filename (void)
+{
+  int fd;
+
+  /* Create a file and close the file descriptor. */
+  fd = creat (TEST_DIRECTORY_NAME, 0600);
+  ASSERT (close (fd) == 0);
+
+  /* Test calling 'rmdir' on the file. */
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/") == -1);
+  ASSERT (errno == ENOTDIR);
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME) == -1);
+  ASSERT (errno == ENOTDIR);
+  errno = 0;
+
+  /* Remove the file. */
+  ASSERT (unlink (TEST_DIRECTORY_NAME) == 0);
+}
+
+/* Test that 'rmdir' works as expected on non-empty directories. */
+static void
+test_rmdir_nonempty_directory (void)
+{
+  int fd;
+
+  /* Create a directory. */
+  ASSERT (mkdir (TEST_DIRECTORY_NAME, 0700) == 0);
+
+  /* Create a file inside the directory and close the descriptor. */
+  fd = creat (TEST_DIRECTORY_NAME "/file.tmp", 0600);
+  ASSERT (fd >= 0);
+  ASSERT (close (fd) == 0);
+
+  /* Test 'rmdir' on the non-empty directory. */
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME) == -1);
+  ASSERT (errno == EEXIST || errno == ENOTEMPTY);
+  errno = 0;
+
+  /* Remove the file and then the directory. */
+  ASSERT (unlink (TEST_DIRECTORY_NAME "/file.tmp") == 0);
+  ASSERT (rmdir (TEST_DIRECTORY_NAME) == 0);
 }

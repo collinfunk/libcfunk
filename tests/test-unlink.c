@@ -36,25 +36,57 @@
 #undef TEST_FILE_NAME
 #define TEST_FILE_NAME "test-unlink.tmp"
 
+static void test_unlink_bad_filename (void);
+static void test_unlink_filename_slash (void);
+
 int
 main (void)
 {
+
+  /* Remove the file from previous tests. Hope unlink works... */
+  (void) unlink (TEST_FILE_NAME);
+  errno = 0;
+
+  test_unlink_bad_filename ();
+  test_unlink_filename_slash ();
+
+  /* Make sure to cleanup any files. */
+  (void) unlink (TEST_FILE_NAME);
+
+  return 0;
+}
+
+/* Test the 'unlink' function on a file that does not exist. */
+static void
+test_unlink_bad_filename (void)
+{
+  errno = 0;
+  ASSERT (unlink (TEST_FILE_NAME) == -1);
+  ASSERT (errno == ENOENT);
+  errno = 0;
+}
+
+/* Test the 'unlink' function on a valid filename but with a '/' character
+   appended. */
+static void
+test_unlink_filename_slash (void)
+{
   int fd;
 
-  /* Remove the leftovers from any previous test. */
-  remove (TEST_FILE_NAME);
-
-  /* Create a file. */
+  /* Create a file and cleanup the file descriptor. */
   fd = creat (TEST_FILE_NAME, 0600);
   ASSERT (fd >= 0);
   ASSERT (close (fd) == 0);
 
-  /* Delete the file. */
+  /* Make sure 'unlink' works correctly with '/' appended to the file name. */
+  errno = 0;
+  ASSERT (unlink (TEST_FILE_NAME "/") == -1);
+  ASSERT (errno = ENOTDIR);
+  errno = 0;
+  ASSERT (unlink (TEST_FILE_NAME "//") == -1);
+  ASSERT (errno = ENOTDIR);
+  errno = 0;
+
+  /* Cleanup the file. */
   ASSERT (unlink (TEST_FILE_NAME) == 0);
-
-  /* Make sure it is deleted. */
-  ASSERT (unlink (TEST_FILE_NAME) == -1);
-  ASSERT (errno == ENOENT);
-
-  return 0;
 }
