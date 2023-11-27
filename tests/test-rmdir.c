@@ -41,6 +41,7 @@
 static void test_rmdir_bad_dirname (void);
 static void test_rmdir_dirname_is_filename (void);
 static void test_rmdir_nonempty_directory (void);
+static void test_rmdir_single_dot (void);
 
 int
 main (void)
@@ -52,6 +53,7 @@ main (void)
   test_rmdir_bad_dirname ();
   test_rmdir_dirname_is_filename ();
   test_rmdir_nonempty_directory ();
+  test_rmdir_single_dot ();
 
   /* Make sure to cleanup the directory. */
   (void) rmdir (TEST_DIRECTORY_NAME);
@@ -77,6 +79,7 @@ test_rmdir_dirname_is_filename (void)
 
   /* Create a file and close the file descriptor. */
   fd = creat (TEST_DIRECTORY_NAME, 0600);
+  ASSERT (fd >= 0);
   ASSERT (close (fd) == 0);
 
   /* Test calling 'rmdir' on the file. */
@@ -114,5 +117,39 @@ test_rmdir_nonempty_directory (void)
 
   /* Remove the file and then the directory. */
   ASSERT (unlink (TEST_DIRECTORY_NAME "/file.tmp") == 0);
+  ASSERT (rmdir (TEST_DIRECTORY_NAME) == 0);
+}
+
+/* Test that 'rmdir' works as expected when the last path component is a single
+   dot. */
+static void
+test_rmdir_single_dot (void)
+{
+  errno = 0;
+  ASSERT (rmdir (".") == -1);
+  /* Could fail with any of these depending on order the system checks. */
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EEXIST
+          || errno == ENOTEMPTY);
+
+  /* Create a directory. */
+  ASSERT (mkdir (TEST_DIRECTORY_NAME, 0700) == 0);
+
+  /* Do tests with '.' as the last path component. Test it with various numbers
+     of trailing slashes. */
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/.") == -1);
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EEXIST
+          || errno == ENOTEMPTY);
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/./") == -1);
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EEXIST
+          || errno == ENOTEMPTY);
+  errno = 0;
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/.//") == -1);
+  ASSERT (errno == EINVAL || errno == EBUSY || errno == EEXIST
+          || errno == ENOTEMPTY);
+  errno = 0;
+
+  /* Remove the directory. */
   ASSERT (rmdir (TEST_DIRECTORY_NAME) == 0);
 }

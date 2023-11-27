@@ -39,6 +39,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdint.h>
 
 /* Windows gethostname declaration. */
 #if @HAVE_WINSOCK2_H@

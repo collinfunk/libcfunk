@@ -27,9 +27,72 @@
 
 #include <unistd.h>
 
+#include "attributes.h"
+
+static_assert (STDIN_FILENO == 0);
+static_assert (STDOUT_FILENO == 1);
+static_assert (STDERR_FILENO == 2);
+
+static void test_size_t_defined (void);
+static void test_ssize_t_defined (void);
+static void test_uid_t_defined (void);
+static void test_gid_t_defined (void);
+static void test_off_t_defined (void);
+static void test_pid_t_defined (void);
+static void test_intptr_t_defined (void);
+
 /* Test that 'unistd.h' can be included. */
 int
 main (void)
 {
+  test_size_t_defined ();
+  test_ssize_t_defined ();
+  test_uid_t_defined ();
+  test_gid_t_defined ();
+  test_off_t_defined ();
+  test_pid_t_defined ();
+  test_intptr_t_defined ();
   return 0;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_ssize_t_defined (void)
+{
+  ssize_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_uid_t_defined (void)
+{
+  uid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_gid_t_defined (void)
+{
+  gid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_off_t_defined (void)
+{
+  off_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_intptr_t_defined (void)
+{
+  intptr_t value ATTRIBUTE_UNUSED;
 }

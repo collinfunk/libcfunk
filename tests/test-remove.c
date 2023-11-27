@@ -25,6 +25,8 @@
 
 #include <config.h>
 
+#include <sys/stat.h>
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -36,25 +38,63 @@
 #undef TEST_FILE_NAME
 #define TEST_FILE_NAME "test-remove.tmp"
 
+static void test_remove_file (void);
+static void test_remove_empty_directory (void);
+static void test_remove_nonempty_directory (void);
+
 int
 main (void)
 {
+  test_remove_file ();
+  test_remove_empty_directory ();
+  test_remove_nonempty_directory ();
+  return 0;
+}
+
+static void
+test_remove_file (void)
+{
   int fd;
 
-  /* Remove the leftovers from any previous test. */
-  remove (TEST_FILE_NAME);
-
-  /* Create a file. */
+  /* Create a file and close the file descriptor. */
   fd = creat (TEST_FILE_NAME, 0600);
   ASSERT (fd >= 0);
   ASSERT (close (fd) == 0);
 
-  /* Delete the file. */
+  /* Remove the file. */
   ASSERT (remove (TEST_FILE_NAME) == 0);
+}
 
-  /* Make sure it is deleted. */
+static void
+test_remove_empty_directory (void)
+{
+  /* Create a directory. */
+  ASSERT (mkdir (TEST_FILE_NAME, 0700) == 0);
+
+  /* Remove the directory. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
+
+static void
+test_remove_nonempty_directory (void)
+{
+  int fd;
+
+  /* Create a directory. */
+  ASSERT (mkdir (TEST_FILE_NAME, 0700) == 0);
+
+  /* Create a file and close the file descriptor. */
+  fd = creat (TEST_FILE_NAME "/" TEST_FILE_NAME, 0600);
+  ASSERT (fd >= 0);
+  ASSERT (close (fd) == 0);
+
+  /* Test 'remove' on the non-empty directory. */
+  errno = 0;
   ASSERT (remove (TEST_FILE_NAME) == -1);
-  ASSERT (errno == ENOENT);
+  ASSERT (errno == EEXIST || ENOTEMPTY);
+  errno = 0;
 
-  return 0;
+  /* Remove the file and then the directory. */
+  ASSERT (remove (TEST_FILE_NAME "/" TEST_FILE_NAME) == 0);
+  ASSERT (remove (TEST_FILE_NAME) == 0);
 }
