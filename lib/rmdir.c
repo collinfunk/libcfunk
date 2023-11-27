@@ -25,10 +25,41 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <string.h>
 #include <unistd.h>
+
+#include "filename.h"
 
 int
 rmdir (const char *path)
+#undef rmdir
+#if HAVE__RMDIR
+#  define rmdir _rmdir
+#endif
 {
-  return _rmdir (path);
+  size_t path_len = strlen (path);
+  int result;
+
+  /* Find the last path component. */
+  for (; path_len > 0 && FILENAME_IS_DIRSEP (path[path_len - 1]); --path_len)
+    ;
+  /* Check if the last path component is "." or "..". */
+  if (path_len > 0 && path[path_len - 1] == '.')
+    {
+      if (path_len == 1
+          || (FILENAME_IS_DIRSEP (path[path_len - 2])
+              || (path[path_len - 2] == '.'
+                  && (path_len == 2
+                      || FILENAME_IS_DIRSEP (path[path_len - 3])))))
+        {
+          errno = EINVAL;
+          return -1;
+        }
+    }
+  result = rmdir (path);
+  /* Windows fails with EINVAL when removing a file with trailing slashes. */
+  if (result == -1 && errno == EINVAL)
+    errno = ENOTDIR;
+  return result;
 }

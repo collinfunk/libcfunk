@@ -26,9 +26,30 @@
 #include <config.h>
 
 #include <stdio.h>
+#include <unistd.h>
+#include <errno.h>
 
 int
 remove (const char *path)
+#undef remove
 {
-  return _remove (path);
+  int saved_errno = errno;
+  int result;
+
+  /* Call rmdir on PATH. If it fails because PATH refers to a file, call
+     unlink. If unlink fails it will set errno for us. If it is successful
+     restore errno for the caller. */
+  result = rmdir (path);
+  if (result == 0)
+    return 0;
+  else if (errno == ENOTDIR)
+    {
+      result = unlink (path);
+      if (result == 0)
+        {
+          errno = saved_errno;
+          return 0;
+        }
+    }
+  return -1;
 }

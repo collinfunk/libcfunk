@@ -42,6 +42,7 @@ static void test_rmdir_bad_dirname (void);
 static void test_rmdir_dirname_is_filename (void);
 static void test_rmdir_nonempty_directory (void);
 static void test_rmdir_single_dot (void);
+static void test_rmdir_double_dot (void);
 
 int
 main (void)
@@ -54,6 +55,7 @@ main (void)
   test_rmdir_dirname_is_filename ();
   test_rmdir_nonempty_directory ();
   test_rmdir_single_dot ();
+  test_rmdir_double_dot ();
 
   /* Make sure to cleanup the directory. */
   (void) rmdir (TEST_DIRECTORY_NAME);
@@ -149,6 +151,27 @@ test_rmdir_single_dot (void)
   ASSERT (errno == EINVAL || errno == EBUSY || errno == EEXIST
           || errno == ENOTEMPTY);
   errno = 0;
+
+  /* Remove the directory. */
+  ASSERT (rmdir (TEST_DIRECTORY_NAME) == 0);
+}
+
+/* Test that 'rmdir' fails when the last path component is two '.' characters.
+   Don't check errno since it is too varied depending on the system. */
+static void
+test_rmdir_double_dot (void)
+{
+  /* Test rmdir with ".." as the path name. */
+  ASSERT (rmdir ("..") == -1);
+
+  /* Create a directory. */
+  ASSERT (mkdir (TEST_DIRECTORY_NAME, 0700) == 0);
+
+  /* Do tests with ".." as the last path component. Test it with various
+     numbers of trailing slashes. */
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/..") == -1);
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/../") == -1);
+  ASSERT (rmdir (TEST_DIRECTORY_NAME "/..//") == -1);
 
   /* Remove the directory. */
   ASSERT (rmdir (TEST_DIRECTORY_NAME) == 0);

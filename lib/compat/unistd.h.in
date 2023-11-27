@@ -361,7 +361,11 @@ extern ssize_t readlink (const char *path, char *buffer, size_t bufsize);
 #endif
 
 #if @LIBCFUNK_DECLARE_RMDIR@
-#  if !@HAVE_RMDIR@
+#  if @LIBCFUNK_REPLACE_RMDIR@
+#    undef rmdir
+#    define rmdir _libcfunk_rmdir
+extern int _libcfunk_rmdir (const char *path);
+#  elif !@HAVE_RMDIR@
 extern int rmdir (const char *path);
 #  endif
 #endif

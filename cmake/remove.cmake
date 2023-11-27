@@ -16,12 +16,20 @@ if (HAVE_IO_H OR HAVE_STDIO_H)
   unset(REMOVE_INCLUDES)
 endif ()
 
+# Windows does not remove empty directories.
+check_include_file("windows.h" HAVE_WINDOWS_H)
+if (HAVE_WINDOWS_H)
+  set(LIBCFUNK_REPLACE_REMOVE "1" CACHE STRING "")
+endif ()
+
 set(LIBCFUNK_DECLARE_REMOVE "1" CACHE STRING "")
 
-if (NOT HAVE_REMOVE)
-  if (NOT HAVE__REMOVE)
+if (NOT HAVE_REMOVE OR LIBCFUNK_REPLACE_REMOVE)
+  if (NOT HAVE_REMOVE AND NOT HAVE__REMOVE)
     message(FATAL_ERROR "No implementation of remove on your system.")
   endif ()
+  include($CACHE{LIBCFUNK_MODULE_DIR}/rmdir.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/remove.c
   )
