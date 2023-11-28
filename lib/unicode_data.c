@@ -36,6 +36,18 @@ struct unicode_character
 {
   char *name;
   char *category;
+  char *combining;
+  char *bidi;
+  char *decomp;
+  char *decimal;
+  char *digit;
+  char *numeric;
+  bool mirrored;
+  char *old_name;
+  char *comment;
+  unsigned long int uppercase;
+  unsigned long int lowercase;
+  unsigned long int titlecase;
 };
 
 /* Table of Unicode characters indexed by code point. */
@@ -84,6 +96,29 @@ static bool is_category_Cs (unsigned long int index);
 static bool is_category_Co (unsigned long int index);
 static bool is_category_Cn (unsigned long int index);
 static bool is_category_C (unsigned long int index);
+static bool is_bidi_L (unsigned long int index);
+static bool is_bidi_R (unsigned long int index);
+static bool is_bidi_AL (unsigned long int index);
+static bool is_bidi_EN (unsigned long int index);
+static bool is_bidi_ES (unsigned long int index);
+static bool is_bidi_ET (unsigned long int index);
+static bool is_bidi_AN (unsigned long int index);
+static bool is_bidi_CS (unsigned long int index);
+static bool is_bidi_NSM (unsigned long int index);
+static bool is_bidi_BN (unsigned long int index);
+static bool is_bidi_B (unsigned long int index);
+static bool is_bidi_S (unsigned long int index);
+static bool is_bidi_WS (unsigned long int index);
+static bool is_bidi_ON (unsigned long int index);
+static bool is_bidi_LRE (unsigned long int index);
+static bool is_bidi_LRO (unsigned long int index);
+static bool is_bidi_RLE (unsigned long int index);
+static bool is_bidi_RLO (unsigned long int index);
+static bool is_bidi_PDF (unsigned long int index);
+static bool is_bidi_LRI (unsigned long int index);
+static bool is_bidi_RLI (unsigned long int index);
+static bool is_bidi_FSI (unsigned long int index);
+static bool is_bidi_PDI (unsigned long int index);
 
 int
 main (int argc, char **argv)
@@ -100,8 +135,9 @@ main (int argc, char **argv)
 
   for (i = 0; i < ARRAY_SIZE (unicode_characters); ++i)
     {
-      if (is_category_Zp (i))
-        printf ("%s\n", unicode_characters[i].name);
+      struct unicode_character *p = &unicode_characters[i];
+      if (p->lowercase)
+        printf ("%lu\n", p->lowercase);
     }
 
   return 0;
@@ -180,6 +216,18 @@ fill_unicode_character (unsigned long int index, char **fields)
   struct unicode_character *curr;
   char *name;
   char *category;
+  char *combining;
+  char *bidi;
+  char *decomp;
+  char *decimal;
+  char *digit;
+  char *numeric;
+  char *mirrored;
+  char *old_name;
+  char *comment;
+  char *uppercase;
+  char *lowercase;
+  char *titlecase;
 
   if ((size_t) index > ARRAY_SIZE (unicode_characters))
     {
@@ -192,9 +240,33 @@ fill_unicode_character (unsigned long int index, char **fields)
 
   name = fields[1];
   category = fields[2];
+  combining = fields[3];
+  bidi = fields[4];
+  decomp = fields[5];
+  decimal = fields[6];
+  digit = fields[7];
+  numeric = fields[8];
+  mirrored = fields[9];
+  old_name = fields[10];
+  comment = fields[11];
+  uppercase = fields[12];
+  lowercase = fields[13];
+  titlecase = fields[14];
 
   curr->name = *name == '\0' ? "" : xstrdup (name);
   curr->category = *category == '\0' ? "" : xstrdup (category);
+  curr->combining = *combining == '\0' ? "" : xstrdup (combining);
+  curr->bidi = *bidi == '\0' ? "" : xstrdup (bidi);
+  curr->decomp = *decomp == '\0' ? "" : xstrdup (decomp);
+  curr->decimal = *decimal == '\0' ? "" : xstrdup (decimal);
+  curr->digit = *digit == '\0' ? "" : xstrdup (digit);
+  curr->numeric = *numeric == '\0' ? "" : xstrdup (numeric);
+  curr->mirrored = *mirrored == 'Y';
+  curr->old_name = *old_name == '\0' ? "" : xstrdup (old_name);
+  curr->comment = *comment == '\0' ? "" : xstrdup (comment);
+  curr->uppercase = *uppercase == '\0' ? 0 : xstrtoul (uppercase, NULL, 16);
+  curr->lowercase = *lowercase == '\0' ? 0 : xstrtoul (lowercase, NULL, 16);
+  curr->titlecase = *titlecase == '\0' ? 0 : xstrtoul (titlecase, NULL, 16);
 }
 
 /* Fill the unicode_characters table from FILE_NAME. */
@@ -778,4 +850,286 @@ is_category_C (unsigned long int index)
              || unicode_characters[index].category[1] == 'o'
              || unicode_characters[index].category[1] == 'n')
          && unicode_characters[index].category[2] == '\0';
+}
+
+/* Returns true if INDEX is a strong left-to-right character. */
+static bool
+is_bidi_L (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'L'
+         && unicode_characters[index].bidi[1] == '\0';
+}
+
+/* Returns true if INDEX is a strong right-to-left character. */
+static bool
+is_bidi_R (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'R'
+         && unicode_characters[index].bidi[1] == '\0';
+}
+
+/* Returns true if INDEX is a strong right-to-left (Arabic-type) character. */
+static bool
+is_bidi_AL (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'A'
+         && unicode_characters[index].bidi[1] == 'L'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is an ASCII digit or Eastern Arabic-Indic digit. */
+static bool
+is_bidi_EN (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'E'
+         && unicode_characters[index].bidi[1] == 'N'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is a plus or minus sign.  */
+static bool
+is_bidi_ES (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'E'
+         && unicode_characters[index].bidi[1] == 'S'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is a terminator in numeric format context. */
+static bool
+is_bidi_ET (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'E'
+         && unicode_characters[index].bidi[1] == 'T'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is an Arabic-Indic digit. */
+static bool
+is_bidi_AN (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'A'
+         && unicode_characters[index].bidi[1] == 'N'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is a common separator. */
+static bool
+is_bidi_CS (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'C'
+         && unicode_characters[index].bidi[1] == 'S'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is a nonspacing mark. */
+static bool
+is_bidi_NSM (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'N'
+         && unicode_characters[index].bidi[1] == 'S'
+         && unicode_characters[index].bidi[2] == 'M'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* Returns true if INDEX is boundary neutral. */
+static bool
+is_bidi_BN (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'B'
+         && unicode_characters[index].bidi[1] == 'N'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is a paragraph separator. */
+static bool
+is_bidi_B (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'B'
+         && unicode_characters[index].bidi[1] == '\0';
+}
+
+/* Returns true if INDEX is a segment separator. */
+static bool
+is_bidi_S (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'S'
+         && unicode_characters[index].bidi[1] == '\0';
+}
+
+/* Returns true if INDEX is a whitespace character. */
+static bool
+is_bidi_WS (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'W'
+         && unicode_characters[index].bidi[1] == 'S'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* Returns true if INDEX is an other neutral character. */
+static bool
+is_bidi_ON (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'O'
+         && unicode_characters[index].bidi[1] == 'N'
+         && unicode_characters[index].bidi[2] == '\0';
+}
+
+/* U+202A */
+static bool
+is_bidi_LRE (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'L'
+         && unicode_characters[index].bidi[1] == 'R'
+         && unicode_characters[index].bidi[2] == 'E'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+202D */
+static bool
+is_bidi_LRO (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'L'
+         && unicode_characters[index].bidi[1] == 'R'
+         && unicode_characters[index].bidi[2] == 'O'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+202B */
+static bool
+is_bidi_RLE (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'R'
+         && unicode_characters[index].bidi[1] == 'L'
+         && unicode_characters[index].bidi[2] == 'E'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+202E */
+static bool
+is_bidi_RLO (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'R'
+         && unicode_characters[index].bidi[1] == 'L'
+         && unicode_characters[index].bidi[2] == 'O'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+202C */
+static bool
+is_bidi_PDF (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'P'
+         && unicode_characters[index].bidi[1] == 'D'
+         && unicode_characters[index].bidi[2] == 'F'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+2066 */
+static bool
+is_bidi_LRI (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'L'
+         && unicode_characters[index].bidi[1] == 'R'
+         && unicode_characters[index].bidi[2] == 'I'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+2067 */
+static bool
+is_bidi_RLI (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'R'
+         && unicode_characters[index].bidi[1] == 'L'
+         && unicode_characters[index].bidi[2] == 'I'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+2068 */
+static bool
+is_bidi_FSI (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'F'
+         && unicode_characters[index].bidi[1] == 'S'
+         && unicode_characters[index].bidi[2] == 'I'
+         && unicode_characters[index].bidi[3] == '\0';
+}
+
+/* U+2069 */
+static bool
+is_bidi_PDI (unsigned long int index)
+{
+  if ((size_t) index >= ARRAY_SIZE (unicode_characters))
+    abort ();
+  return unicode_characters[index].bidi != NULL
+         && unicode_characters[index].bidi[0] == 'P'
+         && unicode_characters[index].bidi[1] == 'D'
+         && unicode_characters[index].bidi[2] == 'I'
+         && unicode_characters[index].bidi[3] == '\0';
 }
