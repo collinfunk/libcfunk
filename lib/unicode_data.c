@@ -50,11 +50,23 @@ struct unicode_character
   unsigned long int titlecase;
 };
 
+struct unicode_block
+{
+  unsigned long int low;
+  unsigned long int high;
+  char *name;
+};
+
 /* Table of Unicode characters indexed by code point. */
 static struct unicode_character unicode_characters[0x10ffff];
 
+static struct unicode_block unicode_blocks[400];
+static size_t unicode_block_count = 0;
+
 static char *xstrdup (const char *s);
 static unsigned long int xstrtoul (const char *nptr, char **endptr, int base);
+
+/* UnicodeData.txt */
 static int read_unicode_data_line (FILE *fp, char *buffer, size_t buffer_size);
 static int fill_unicode_character (unsigned long int index, char **fields);
 static void read_unicode_data_file (const char *file_name);
@@ -120,24 +132,33 @@ static bool is_bidi_RLI (unsigned long int index);
 static bool is_bidi_FSI (unsigned long int index);
 static bool is_bidi_PDI (unsigned long int index);
 
+/* Blocks.txt */
+static void read_blocks_file (const char *file_name);
+
 int
 main (int argc, char **argv)
 {
-  size_t i;
+  const char *unicodedata_file;
+  const char *blocks_file;
 
-  if (argc < 2)
+  if (argc < 3)
     {
-      fprintf (stderr, "Expected UnicodeData.txt\n");
+      fprintf (stderr, "Expected arguments:\n");
+      fprintf (stderr, "  argv[1]: UnicodeData.txt\n");
+      fprintf (stderr, "  argv[2]: Blocks.txt\n");
       exit (1);
     }
 
-  read_unicode_data_file (argv[1]);
+  unicodedata_file = argv[1];
+  blocks_file = argv[2];
 
-  for (i = 0; i < ARRAY_SIZE (unicode_characters); ++i)
+  read_unicode_data_file (unicodedata_file);
+  read_blocks_file (blocks_file);
+
+  for (size_t i = 0; i < unicode_block_count; ++i)
     {
-      struct unicode_character *p = &unicode_characters[i];
-      if (p->lowercase)
-        printf ("%lu\n", p->lowercase);
+      struct unicode_block *curr = &unicode_blocks[i];
+      printf ("%lx..%lx; %s\n", curr->low, curr->high, curr->name);
     }
 
   return 0;
@@ -1132,4 +1153,65 @@ is_bidi_PDI (unsigned long int index)
          && unicode_characters[index].bidi[1] == 'D'
          && unicode_characters[index].bidi[2] == 'I'
          && unicode_characters[index].bidi[3] == '\0';
+}
+
+static void
+read_blocks_file (const char *file_name)
+{
+  FILE *fp;
+  char buffer[1024];
+  char *ptr;
+
+  fp = fopen (file_name, "rb");
+  if (fp == NULL)
+    {
+      fprintf (stderr, "Failed to open Blocks.txt\n");
+      exit (1);
+    }
+
+  while (fgets (buffer, (int) sizeof (buffer), fp) != NULL)
+    {
+      char *low_start;
+      char *high_start;
+      char *name_start;
+      struct unicode_block *curr;
+
+      if (buffer[0] == '#' || buffer[0] == '\0' || buffer[0] == '\n')
+        continue;
+      low_start = buffer;
+      ptr = strchr (buffer, '.');
+      if (ptr == NULL || ptr[1] != '.')
+        continue;
+      *ptr = '\0';
+      high_start = ptr + 2;
+      ptr = strchr (high_start, ';');
+      if (ptr == NULL || ptr[1] == '\0' || ptr[2] == '\0')
+        continue;
+      name_start = ptr + 2;
+      if (strlen (name_start) >= 1
+          && name_start[strlen (name_start) - 1] == '\n')
+        name_start[strlen (name_start) - 1] = '\0';
+      if (unicode_block_count >= sizeof (unicode_blocks))
+        {
+          fprintf (stderr, "Increase the size of 'unicode_blocks'.\n");
+          exit (1);
+        }
+      curr = &unicode_blocks[unicode_block_count];
+      curr->low = xstrtoul (low_start, NULL, 16);
+      curr->high = xstrtoul (high_start, NULL, 16);
+      curr->name = name_start[0] == '\0' ? "" : xstrdup (name_start);
+      if ((curr->low >= curr->high)
+          || (unicode_block_count > 0 && curr[0].low <= curr[-1].high))
+        {
+          fprintf (stderr, "Invalid block ranges.\n");
+          exit (1);
+        }
+      unicode_block_count++;
+    }
+
+  if (ferror (fp) != 0 || fclose (fp) != 0)
+    {
+      fprintf (stderr, "Failed to close Blocks.txt\n");
+      exit (1);
+    }
 }
