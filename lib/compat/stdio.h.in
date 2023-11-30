@@ -43,31 +43,109 @@
 #endif
 
 #if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_CLEARERR_UNLOCKED@
+#    define clearerr_unlocked clearerr
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FEOF_UNLOCKED@
+#    define feof_unlocked feof
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FERROR_UNLOCKED@
+#    define ferror_unlocked ferror
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FFLUSH_UNLOCKED@
+#    if @HAVE__FFLUSH_NOLOCK@
+#      define fflush_unlocked _fflush_nolock
+#    else
+#      define fflush_unlocked fflush
+#    endif
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FGETC_UNLOCKED@
+#    if @HAVE__FGETC_NOLOCK@
+#      define fgetc_unlocked _fgetc_nolock
+#    else
+#      define fgetc_unlocked fgetc
+#    endif
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FGETS_UNLOCKED@
+#    define fgets_unlocked fgets
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FILENO_UNLOCKED@
+#    define fileno_unlocked fileno
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
 #  if !@HAVE_FLOCKFILE@
 #    if @HAVE__LOCK_FILE@
-#      define flockfile(stream) _lock_file ((stream))
+#      define flockfile _lock_file
 #    else
-#      define flockfile(stream)
+#      define flockfile(stream) ((void) stream)
 #    endif
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FPUTC_UNLOCKED@
+#    define fputc_unlocked fputc
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FPUTS_UNLOCKED@
+#    define fputs_unlocked fputs
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FREAD_UNLOCKED@
+#    if @HAVE__FREAD_NOLOCK@
+#      define fread_unlocked _fread_nolock
+#    else
+#      define fread_unlocked fread
+#    endif
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_FTRYLOCKFILE@
+#    define ftrylockfile(stream) ((void) stream)
 #  endif
 #endif
 
 #if @LIBCFUNK_UNLOCKED_STDIO@
 #  if !@HAVE_FUNLOCKFILE@
 #    if @HAVE__UNLOCK_FILE@
-#      define funlockfile(stream) _unlock_file ((stream))
+#      define funlockfile _unlock_file
 #    else
-#      define funlockfile(stream)
+#      define funlockfile(stream) ((void) stream)
 #    endif
 #  endif
 #endif
 
 #if @LIBCFUNK_UNLOCKED_STDIO@
-#  if !@HAVE_GETC_UNLOCKED@
-#    if @HAVE__GETC_NOLOCK@
-#      define getc_unlocked(stream) _getc_nolock ((stream))
+#  if !@HAVE_FWRITE_UNLOCKED@
+#    if @HAVE__FWRITE_NOLOCK@
+#      define fwrite_unlocked _fwrite_nolock
 #    else
-#      define getc_unlocked(stream) getc ((stream))
+#      define fwrite_unlocked fwrite
 #    endif
 #  endif
 #endif
@@ -75,19 +153,19 @@
 #if @LIBCFUNK_UNLOCKED_STDIO@
 #  if !@HAVE_GETCHAR_UNLOCKED@
 #    if @HAVE__GETCHAR_NOLOCK@
-#      define getchar_unlocked() _getchar_nolock ()
+#      define getchar_unlocked _getchar_nolock
 #    else
-#      define getchar_unlocked() getchar ()
+#      define getchar_unlocked getchar
 #    endif
 #  endif
 #endif
 
 #if @LIBCFUNK_UNLOCKED_STDIO@
-#  if !@HAVE_PUTC_UNLOCKED@
-#    if @HAVE__PUTC_NOLOCK@
-#      define putc_unlocked(ch, stream) _putc_nolock ((ch), (stream))
+#  if !@HAVE_GETC_UNLOCKED@
+#    if @HAVE__GETC_NOLOCK@
+#      define getc_unlocked _getc_nolock
 #    else
-#      define putc_unlocked(ch, stream) putc ((ch), (stream))
+#      define getc_unlocked getc
 #    endif
 #  endif
 #endif
@@ -95,9 +173,19 @@
 #if @LIBCFUNK_UNLOCKED_STDIO@
 #  if !@HAVE_PUTCHAR_UNLOCKED@
 #    if @HAVE__PUTCHAR_NOLOCK@
-#      define putchar_unlocked(ch) _putchar_nolock ((ch))
+#      define putchar_unlocked _putchar_nolock
 #    else
-#      define putchar_unlocked(ch) putchar ((ch))
+#      define putchar_unlocked putchar
+#    endif
+#  endif
+#endif
+
+#if @LIBCFUNK_UNLOCKED_STDIO@
+#  if !@HAVE_PUTC_UNLOCKED@
+#    if @HAVE__PUTC_NOLOCK@
+#      define putc_unlocked _putc_nolock
+#    else
+#      define putc_unlocked putc
 #    endif
 #  endif
 #endif

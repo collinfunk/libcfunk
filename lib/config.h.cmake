@@ -156,6 +156,7 @@
 #cmakedefine01 HAVE__CHMOD
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
+#cmakedefine01 HAVE_CLEARERR_UNLOCKED
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME
@@ -240,9 +241,16 @@
 #cmakedefine01 HAVE_FDOPENDIR
 #cmakedefine01 HAVE_FEATURES_H
 #cmakedefine01 HAVE_FENV_H
+#cmakedefine01 HAVE_FEOF_UNLOCKED
+#cmakedefine01 HAVE_FERROR_UNLOCKED
+#cmakedefine01 HAVE__FFLUSH_NOLOCK
+#cmakedefine01 HAVE_FFLUSH_UNLOCKED
 #cmakedefine01 HAVE_FFS
 #cmakedefine01 HAVE_FFSL
 #cmakedefine01 HAVE_FFSLL
+#cmakedefine01 HAVE__FGETC_NOLOCK
+#cmakedefine01 HAVE_FGETC_UNLOCKED
+#cmakedefine01 HAVE_FGETS_UNLOCKED
 #cmakedefine01 HAVE_FILE__BASE
 #cmakedefine01 HAVE_FILE__BF
 #cmakedefine01 HAVE_FILE__BF__BASE
@@ -257,6 +265,7 @@
 #cmakedefine01 HAVE_FILE__IO_WRITE_PTR
 #cmakedefine01 HAVE__FILENO
 #cmakedefine01 HAVE_FILENO
+#cmakedefine01 HAVE_FILENO_UNLOCKED
 #cmakedefine01 HAVE_FILE__P
 #cmakedefine01 HAVE_FILE__PTR
 #cmakedefine01 HAVE___FLBF
@@ -272,8 +281,12 @@
 #cmakedefine01 HAVE___FPENDING
 #cmakedefine01 HAVE_FPRINTF
 #cmakedefine01 HAVE___FPURGE
+#cmakedefine01 HAVE_FPUTC_UNLOCKED
+#cmakedefine01 HAVE_FPUTS_UNLOCKED
 #cmakedefine01 HAVE___FREADABLE
 #cmakedefine01 HAVE___FREADING
+#cmakedefine01 HAVE__FREAD_NOLOCK
+#cmakedefine01 HAVE_FREAD_UNLOCKED
 #cmakedefine01 HAVE_FREE
 #cmakedefine01 HAVE_FSEEK
 #cmakedefine01 HAVE__FSEEKI64
@@ -286,8 +299,11 @@
 #cmakedefine01 HAVE__FTELLI64
 #cmakedefine01 HAVE_FTELLO
 #cmakedefine01 HAVE_FTRUNCATE
+#cmakedefine01 HAVE_FTRYLOCKFILE
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE___FWRITABLE
+#cmakedefine01 HAVE__FWRITE_NOLOCK
+#cmakedefine01 HAVE_FWRITE_UNLOCKED
 #cmakedefine01 HAVE___FWRITING
 #cmakedefine01 HAVE_GAI_STRERROR
 #cmakedefine01 HAVE_GAI_STRERRORA
