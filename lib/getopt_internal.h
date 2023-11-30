@@ -23,15 +23,13 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef GETOPT_INTERNAL_H
+#define GETOPT_INTERNAL_H
 
 #include <getopt.h>
 
-#include "getopt_internal.h"
+int getopt_internal (int argc, char **argv, const char *optstring,
+                     const struct option *longopts, int *longindex,
+                     int long_only);
 
-int
-getopt (int argc, char *const argv[], const char *optstring)
-#undef getopt
-{
-  return getopt_internal (argc, (char **) argv, optstring, NULL, NULL, 0);
-}
+#endif /* GETOPT_INTERNAL_H */

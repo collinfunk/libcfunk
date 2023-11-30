@@ -26,12 +26,56 @@
 #include <config.h>
 
 #include <getopt.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include "getopt_internal.h"
+#include "test-help.h"
 
+static int verbose_flag = 0;
+
+/* Simple test program for 'getopt_long_only'. */
 int
-getopt (int argc, char *const argv[], const char *optstring)
-#undef getopt
+main (int argc, char **argv)
 {
-  return getopt_internal (argc, (char **) argv, optstring, NULL, NULL, 0);
+  int ch;
+  int option_index = 0;
+  int seen_options = 0;
+
+  static const struct option long_options[] = {
+    { "verbose", no_argument, &verbose_flag, 1 },
+    { "quiet", no_argument, &verbose_flag, 0 },
+    { "create", required_argument, NULL, 'c' },
+    { "delete", required_argument, NULL, 'd' },
+    { NULL, 0, NULL, 0 },
+  };
+
+  for (;;)
+    {
+      ch = getopt_long_only (argc, argv, "c:d:", long_options, &option_index);
+
+      if (ch == -1)
+        break;
+
+      switch (ch)
+        {
+        case 0:
+          seen_options++;
+          break;
+        case 'c':
+          printf ("Option %d: --create %s\n", seen_options, optarg);
+          seen_options++;
+          break;
+        case 'd':
+          printf ("Option %d: --delete %s\n", seen_options, optarg);
+          seen_options++;
+          break;
+        case '?':
+          break;
+        default:
+          exit (1);
+        }
+    }
+
+  return 0;
 }

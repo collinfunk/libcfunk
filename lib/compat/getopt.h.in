@@ -81,17 +81,41 @@ extern int optopt;
 #endif
 
 #if @LIBCFUNK_DECLARE_GETOPT@
-#  if !@HAVE_GETOPT@
+#  if @LIBCFUNK_REPLACE_GETOPT@
+#    undef getopt
+#    define getopt _libcfunk_getopt
+extern int getopt (int argc, char *const argv[], const char *optstring);
+#  elif !@HAVE_GETOPT@
+extern int getopt (int argc, char *const argv[], const char *optstring);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_GETOPT_LONG@
-#  if !@HAVE_GETOPT_LONG@
+#  if @LIBCFUNK_REPLACE_GETOPT_LONG@
+#    undef getopt_long
+#    define getopt_long _libcfunk_getopt_long
+extern int _libcfunk_getopt_long (int argc, char *const argv[],
+                                  const char *optstring,
+                                  const struct option *longopts,
+                                  int *longindex);
+#  elif !@HAVE_GETOPT_LONG@
+extern int getopt_long (int argc, char *const argv[], const char *optstring,
+                        const struct option *longopts, int *longindex);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_GETOPT_LONG_ONLY@
-#  if !@HAVE_GETOPT_LONG_ONLY@
+#  if @LIBCFUNK_REPLACE_GETOPT_LONG_ONLY@
+#    undef getopt_long_only
+#    define getopt_long_only _libcfunk_getopt_long_only
+extern int _libcfunk_getopt_long_only (int argc, char *const argv[],
+                                       const char *optstring,
+                                       const struct option *longopts,
+                                       int *longindex);
+#  elif !@HAVE_GETOPT_LONG_ONLY@
+extern int getopt_long_only (int argc, char *const argv[],
+                             const char *optstring,
+                             const struct option *longopts, int *longindex);
 #  endif
 #endif
 

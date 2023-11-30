@@ -30,8 +30,10 @@
 #include "getopt_internal.h"
 
 int
-getopt (int argc, char *const argv[], const char *optstring)
-#undef getopt
+getopt_long (int argc, char *const argv[], const char *optstring,
+             const struct option *longopts, int *longindex)
+#undef getopt_long
 {
-  return getopt_internal (argc, (char **) argv, optstring, NULL, NULL, 0);
+  return getopt_internal (argc, (char **) argv, optstring, longopts, longindex,
+                          0);
 }

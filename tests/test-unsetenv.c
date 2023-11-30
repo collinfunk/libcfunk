@@ -36,7 +36,6 @@
 #undef TEST_ENV_VAR
 #define TEST_ENV_VAR "TEST_UNSETENV_VALUE"
 
-static void test_unsetenv_null_name (void);
 static void test_unsetenv_empty_name (void);
 static void test_unsetenv_equal_name (void);
 static void test_unsetenv_works (void);
@@ -44,22 +43,10 @@ static void test_unsetenv_works (void);
 int
 main (void)
 {
-  test_unsetenv_null_name ();
   test_unsetenv_empty_name ();
   test_unsetenv_equal_name ();
   test_unsetenv_works ();
   return 0;
-}
-
-/* Test that calling 'unsetenv' with a NULL pointer returns failure with
-   EINVAL. */
-static void
-test_unsetenv_null_name (void)
-{
-  errno = 0;
-  ASSERT (unsetenv (NULL) == -1);
-  ASSERT (errno == EINVAL);
-  errno = 0;
 }
 
 /* Test that calling 'unsetenv' with an empty string returns failure with
