@@ -30,94 +30,27 @@
 #include <limits.h>
 #include <stdlib.h>
 
-/* The name of this function. */
-#ifndef STRTOL_FUNC_NAME
-#  define STRTOL_FUNC_NAME strtol
-#endif
-
-/* The integer type that this function returns. May be signed or unsigned. */
-#ifndef STRTOL_INT_TYPE
-#  define STRTOL_INT_TYPE long int
-#endif
-
-/* The signed integer representation of the return type. */
-#ifndef STRTOL_SIGNED_INT_TYPE
-#  define STRTOL_SIGNED_INT_TYPE signed long int
-#endif
-
-/* The unsigned integer representation of the return type. */
-#ifndef STRTOL_UNSIGNED_INT_TYPE
-#  define STRTOL_UNSIGNED_INT_TYPE unsigned long int
-#endif
-
-/* The maximum value that can be represented in the return type. */
-#ifndef STRTOL_INT_MAX
-#  define STRTOL_INT_MAX LONG_MAX
-#endif
-
-/* The minimum value that can be represented in the return type. */
-#ifndef STRTOL_INT_MIN
-#  define STRTOL_INT_MIN LONG_MIN
-#endif
-
-/* The maximum value that can be held in the signed representation of the
-   return type. */
-#ifndef STRTOL_SIGNED_INT_MAX
-#  define STRTOL_SIGNED_INT_MAX LONG_MAX
-#endif
-
-/* The minimum value that can be held in the signed representation of the
-   return type. */
-#ifndef STRTOL_SIGNED_INT_MIN
-#  define STRTOL_SIGNED_INT_MIN LONG_MIN
-#endif
-
-/* The maximum value that can be held in the unsigned representation of the
-   return type. */
-#ifndef STRTOL_UNSIGNED_INT_MAX
-#  define STRTOL_UNSIGNED_INT_MAX ULONG_MAX
-#endif
-
-/* The minimum value that can be held in the unsigned representation of the
-   return type. */
-#ifndef STRTOL_UNSIGNED_INT_MIN
-#  define STRTOL_UNSIGNED_INT_MIN 0UL
-#endif
-
-/* Defined to 1 if this function is returning an unsigned integer or 0 if it
-   is returning a signed integer. */
-#ifndef STRTOL_RETURN_UNSIGNED
-#  define STRTOL_RETURN_UNSIGNED 0
-#endif
-
-/* This should be defined to 1 if the resulting function should recognize
-   base 2 integers with the '0b' or '0B' prefix. */
-#ifndef STRTOL_SUPPORT_C23
-#  define STRTOL_SUPPORT_C23 1
-#endif
-
-STRTOL_INT_TYPE
-STRTOL_FUNC_NAME (const char *str, char **endptr, int base)
+long int
+strtol (const char *restrict nptr, char **restrict endptr, int base)
+#undef strtol
 {
   const char *p;
   const char *start;
-  STRTOL_UNSIGNED_INT_TYPE value;
-  unsigned char ch;
+  unsigned long int value;
+  unsigned long int mul_max;
+  unsigned long int add_max;
   int negative;
   int overflow;
 
-  /* If a non-zero base is given it must be between 2 and 36. */
   if (base < 0 || base == 1 || base > 36)
     {
       errno = EINVAL;
       return 0;
     }
 
-  /* Skip leading whitespace characters. */
-  for (p = str; isspace ((unsigned char) *p); ++p)
+  for (p = nptr; isspace ((unsigned char) *p); ++p)
     ;
 
-  /* Check for a sign character. */
   switch (*p)
     {
     case '-':
@@ -128,171 +61,95 @@ STRTOL_FUNC_NAME (const char *str, char **endptr, int base)
       negative = 0;
       p++;
       break;
-    case '\0':
-      /* Empty string. */
-      if (endptr != NULL)
-        *endptr = (char *) str;
-      return 0;
     default:
       negative = 0;
       break;
     }
 
-  /* Check for a prefix only if the first character is '0'. */
-  if (*p != '0')
+  if (p[0] != '0')
     {
-      /* Default to a base 10 integer. */
       if (base == 0)
         base = 10;
     }
-  else /* *p == '0' */
+  else
     {
-      switch (p[1])
+      if (p[1] == 'X' || p[1] == 'x')
         {
-        case 'x':
-          /* Fallthrough */
-        case 'X':
-          /* Hexadecimal constant. */
           if (base == 0 || base == 16)
             {
               p += 2;
               base = 16;
             }
-          break;
-#if STRTOL_SUPPORT_C23
-        case 'b':
-          /* Fallthrough */
-        case 'B':
-          /* Binary constant. */
+        }
+      else if (p[1] == 'B' || p[1] == 'b')
+        {
           if (base == 0 || base == 2)
             {
               p += 2;
               base = 2;
             }
-          break;
-#endif
-        default:
-          /* Octal constant. */
-          base = 8;
-          break;
         }
+      else
+        base = 8;
     }
 
-  /* Save the starting position. Note that START refers to the start of the
-     digit sequence (after any whitespace), while STR refers to the start of
-     the string passed by the user. This is used to check whether any
-     conversion was performed. If none was performed ENDPTR must be set
-     to STR. */
+  mul_max = ULONG_MAX / (unsigned long int) base;
+  add_max = ULONG_MAX % (unsigned long int) base;
+
   start = p;
 
-  value = 0;
+  value = 0UL;
   overflow = 0;
   for (;; ++p)
     {
-      ch = *p;
-
+      unsigned char ch = (unsigned char) *p;
       if (ch == '\0')
         break;
-
       if (isdigit (ch))
         ch -= '0';
       else if (isalpha (ch))
-        ch = isupper (ch) ? ch - 55 : ch - 87;
-
-      /* Check if the current character exceeds our base. */
+        ch = isupper (ch) ? ch - 'A' : ch - 'a';
       if ((int) ch >= base)
         break;
-
-      /* Check if VALUE * BASE would overflow unsigned long int. */
-      if (value > STRTOL_UNSIGNED_INT_MAX / (STRTOL_UNSIGNED_INT_TYPE) base)
-        {
-          overflow = 1;
-          break;
-        }
+      if (value > mul_max
+          || (value == mul_max && (unsigned long int) ch > add_max))
+        overflow = 1;
       else
         {
-          value *= (STRTOL_UNSIGNED_INT_TYPE) base;
-
-          /* Check if VALUE + CH would overflow unsigned long int. */
-          if (value > STRTOL_UNSIGNED_INT_MAX - (STRTOL_UNSIGNED_INT_TYPE) ch)
-            {
-              overflow = 1;
-              break;
-            }
-          value += (STRTOL_UNSIGNED_INT_TYPE) ch;
+          value *= (unsigned long int) base;
+          value += (unsigned long int) ch;
         }
     }
 
   if (p == start)
     {
-      /* FIXME: I don't think the else case (no prefix) is possible since we
-         check for an empty string after whitespace in the switch statement.
-         Also maybe set EINVAL here? */
       if (endptr != NULL)
         {
-          /* Return the last character of the prefix if we have one. */
-          if (p - str >= 2 && p[-2] == '0')
-            {
-              if (p[-1] == 'x' || p[-1] == 'X')
-                *endptr = (char *) p - 1;
-#if STRTOL_SUPPORT_C23
-              if (p[-1] == 'b' || p[-1] == 'B')
-                *endptr = (char *) p - 1;
-#endif
-              else
-                *endptr = (char *) str;
-            }
+          if (p - nptr >= 2 && p[-2] == '0'
+              && ((p[-1] == 'X' || p[-1] == 'x')
+                  || (p[-1] == 'B' || p[-1] == 'b')))
+            *endptr = (char *) p - 1;
           else
-            *endptr = (char *) str;
+            *endptr = (char *) nptr;
         }
-      return 0;
+      return 0L;
     }
 
-  /* If ENDPTR isn't NULL, set it to the character that caused the loop
-     to break. */
   if (endptr != NULL)
     *endptr = (char *) p;
 
-#if STRTOL_RETURN_UNSIGNED
-  if (overflow)
-    {
-      errno = ERANGE;
-      return STRTOL_INT_MAX;
-    }
-#else
-  /* Check for overflow that did not terminate the loop. */
   if (!overflow)
     {
-      if (!negative)
-        overflow = value > (STRTOL_UNSIGNED_INT_TYPE) STRTOL_INT_MAX;
-      else
-        {
-          overflow = value > (STRTOL_UNSIGNED_INT_TYPE)
-                                 - (STRTOL_INT_MIN + STRTOL_INT_MAX)
-                                 + STRTOL_INT_MAX;
-        }
+      if (value
+          > (negative ? -((unsigned long int) (LONG_MIN + 1)) + 1 : LONG_MAX))
+        overflow = 1;
     }
 
-  /* Actually check for overflow. */
   if (overflow)
     {
       errno = ERANGE;
-      return negative ? STRTOL_INT_MIN : STRTOL_INT_MAX;
+      return negative ? LONG_MIN : LONG_MAX;
     }
-#endif
 
-  return negative ? (STRTOL_INT_TYPE) -value : (STRTOL_INT_TYPE) value;
+  return negative ? -((long int) value) : (long int) value;
 }
-
-#undef STRTOL_FUNC_NAME
-#undef STRTOL_INT_TYPE
-#undef STRTOL_SIGNED_INT_TYPE
-#undef STRTOL_UNSIGNED_INT_TYPE
-#undef STRTOL_INT_MAX
-#undef STRTOL_INT_MIN
-#undef STRTOL_SIGNED_INT_MAX
-#undef STRTOL_SIGNED_INT_MIN
-#undef STRTOL_UNSIGNED_INT_MAX
-#undef STRTOL_UNSIGNED_INT_MIN
-#undef STRTOL_RETURN_UNSIGNED
-#undef STRTOL_SUPPORT_C23

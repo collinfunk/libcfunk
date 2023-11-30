@@ -25,17 +25,124 @@
 
 #include <config.h>
 
-#define STRTOL_FUNC_NAME strtoul
-#define STRTOL_INT_TYPE unsigned long int
-#define STRTOL_SIGNED_INT_TYPE signed long int
-#define STRTOL_UNSIGNED_INT_TYPE unsigned long int
-#define STRTOL_INT_MAX ULONG_MAX
-#define STRTOL_INT_MIN 0UL
-#define STRTOL_SIGNED_INT_MAX LONG_MAX
-#define STRTOL_SIGNED_INT_MIN LONG_MIN
-#define STRTOL_UNSIGNED_INT_MAX ULONG_MAX
-#define STRTOL_UNSIGNED_INT_MIN 0UL
-#define STRTOL_RETURN_UNSIGNED 1
-#define STRTOL_SUPPORT_C23 1
+#include <ctype.h>
+#include <errno.h>
+#include <limits.h>
+#include <stdlib.h>
 
-#include "strtol.c"
+unsigned long int
+strtoul (const char *restrict str, char **restrict endptr, int base)
+#undef strtoul
+{
+  const char *p;
+  const char *start;
+  unsigned long int value;
+  unsigned long int mul_max;
+  unsigned long int add_max;
+  int negative;
+  int overflow;
+
+  if (base < 0 || base == 1 || base > 36)
+    {
+      errno = EINVAL;
+      return 0;
+    }
+
+  for (p = str; isspace ((unsigned char) *p); ++p)
+    ;
+
+  switch (*p)
+    {
+    case '-':
+      negative = 1;
+      p++;
+      break;
+    case '+':
+      negative = 0;
+      p++;
+      break;
+    default:
+      negative = 0;
+      break;
+    }
+
+  if (p[0] != '0')
+    {
+      if (base == 0)
+        base = 10;
+    }
+  else
+    {
+      if (p[1] == 'X' || p[1] == 'x')
+        {
+          if (base == 0 || base == 16)
+            {
+              p += 2;
+              base = 16;
+            }
+        }
+      else if (p[1] == 'B' || p[1] == 'b')
+        {
+          if (base == 0 || base == 2)
+            {
+              p += 2;
+              base = 2;
+            }
+        }
+      else
+        base = 8;
+    }
+
+  mul_max = ULONG_MAX / (unsigned long int) base;
+  add_max = ULONG_MAX % (unsigned long int) base;
+
+  start = p;
+
+  value = 0UL;
+  overflow = 0;
+  for (;; ++p)
+    {
+      unsigned char ch = (unsigned char) *p;
+      if (ch == '\0')
+        break;
+      if (isdigit (ch))
+        ch -= '0';
+      else if (isalpha (ch))
+        ch = isupper (ch) ? ch - 'A' : ch - 'a';
+      if ((int) ch >= base)
+        break;
+      if (value > mul_max
+          || (value == mul_max && (unsigned long int) ch > add_max))
+        overflow = 1;
+      else
+        {
+          value *= (unsigned long int) base;
+          value += (unsigned long int) ch;
+        }
+    }
+
+  if (p == start)
+    {
+      if (endptr != NULL)
+        {
+          if (p - str >= 2 && p[-2] == '0'
+              && ((p[-1] == 'X' || p[-1] == 'x')
+                  || (p[-1] == 'B' || p[-1] == 'b')))
+            *endptr = (char *) p - 1;
+          else
+            *endptr = (char *) str;
+        }
+      return 0UL;
+    }
+
+  if (endptr != NULL)
+    *endptr = (char *) p;
+
+  if (overflow)
+    {
+      errno = ERANGE;
+      return ULONG_MAX;
+    }
+
+  return negative ? -value : value;
+}

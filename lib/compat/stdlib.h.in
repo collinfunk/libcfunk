@@ -267,27 +267,51 @@ extern char *secure_getenv (const char *name);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRTOL@
-#  if !@HAVE_STRTOL@
-extern long int strtol (const char *str, char **endptr, int base);
+#  if @LIBCFUNK_REPLACE_STRTOL@
+#    undef strtol
+#    define strtol _libcfunk_strtol
+extern long int _libcfunk_strtol (const char *restrict nptr,
+                                  char **restrict endptr, int base);
+#  elif !@HAVE_STRTOL@
+extern long int strtol (const char *restrict nptr, char **restrict endptr,
+                        int base);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRTOLL@
-#  if !@HAVE_STRTOLL@
-extern long long int strtoll (const char *str, char **endptr, int base);
+#  if @LIBCFUNK_REPLACE_STRTOLL@
+#    undef strtoll
+#    define strtoll _libcfunk_strtoll
+extern long long int _libcfunk_strtoll (const char *restrict nptr,
+                                        char **restrict endptr, int base);
+#  elif !@HAVE_STRTOLL@
+extern long long int strtoll (const char *restrict nptr,
+                              char **restrict endptr, int base);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRTOUL@
-#  if !@HAVE_STRTOUL@
-extern unsigned long int strtoul (const char *str, char **endptr, int base);
+#  if @LIBCFUNK_REPLACE_STRTOUL@
+#    undef strtoul
+#    define strtoul _libcfunk_strtoul
+extern unsigned long int _libcfunk_strtoul (const char *restrict str,
+                                            char **restrict endptr, int base);
+#  elif !@HAVE_STRTOUL@
+extern unsigned long int strtoul (const char *restrict str,
+                                  char **restrict endptr, int base);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRTOULL@
-#  if !@HAVE_STRTOULL@
-extern unsigned long long int strtoull (const char *str, char **endptr,
-                                        int base);
+#  if @LIBCFUNK_REPLACE_STRTOULL@
+#    undef strtoull
+#    define strtoull _libcfunk_strtoull
+extern unsigned long long int _libcfunk_strtoull (const char *restrict str,
+                                                  char **restrict endptr,
+                                                  int base);
+#  elif !@HAVE_STRTOULL@
+extern unsigned long long int strtoull (const char *restrict str,
+                                        char **restrict endptr, int base);
 #  endif
 #endif
 

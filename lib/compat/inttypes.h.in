@@ -2214,14 +2214,26 @@ extern imaxdiv_t imaxdiv (intmax_t numer, intmax_t denom);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRTOIMAX@
-#  if !@HAVE_STRTOIMAX@
-extern intmax_t strtoimax (const char *str, char **endptr, int base);
+#  if @LIBCFUNK_REPLACE_STRTOIMAX@
+#    undef strtoimax
+#    define strtoimax _libcfunk_strtoimax
+extern intmax_t _libcfunk_strtoimax (const char *restrict nptr,
+                                     char **restrict endptr, int base);
+#  elif !@HAVE_STRTOIMAX@
+extern intmax_t strtoimax (const char *restrict nptr, char **restrict endptr,
+                           int base);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_STRTOUMAX@
-#  if !@HAVE_STRTOUMAX@
-extern uintmax_t strtoumax (const char *str, char **endptr, int base);
+#  if @LIBCFUNK_REPLACE_STRTOUMAX@
+#    undef strtoumax
+#    define strtoumax _libcfunk_strtoumax
+extern uintmax_t _libcfunk_strtoumax (const char *restrict nptr,
+                                      char **restrict endptr, int base);
+#  elif !@HAVE_STRTOUMAX@
+extern uintmax_t strtoumax (const char *restrict nptr, char **restrict endptr,
+                            int base);
 #  endif
 #endif
 
