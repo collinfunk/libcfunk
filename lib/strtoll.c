@@ -151,5 +151,5 @@ strtoll (const char *restrict nptr, char **restrict endptr, int base)
       return negative ? LLONG_MIN : LLONG_MAX;
     }
 
-  return negative ? -((long long int) value) : (long long int) value;
+  return negative ? (long long int) -value : (long long int) value;
 }

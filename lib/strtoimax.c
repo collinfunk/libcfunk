@@ -150,5 +150,5 @@ strtoimax (const char *restrict nptr, char **restrict endptr, int base)
       return negative ? INTMAX_MIN : INTMAX_MAX;
     }
 
-  return negative ? -((intmax_t) value) : (intmax_t) value;
+  return negative ? (intmax_t) -value : (intmax_t) value;
 }
