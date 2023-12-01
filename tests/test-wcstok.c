@@ -25,19 +25,36 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <wchar.h>
 
-size_t
-wcsspn (const wchar_t *ws1, const wchar_t *ws2)
-#undef wcsspn
+#include "test-help.h"
+
+static wchar_t test_string[] = { L'1',  L'2', L' ', L'4', L'5', L'6', L'\t',
+                                 L'\t', L' ', L'a', L'b', L'c', L'\0' };
+
+int
+main (void)
 {
-  size_t count = 0;
-  for (; *ws1 != '\0'; ++ws1)
-    {
-      if (wcschr (ws2, *ws1) != NULL)
-        ++count;
-      else
-        break;
-    }
-  return count;
+  wchar_t *result;
+  wchar_t *ptr;
+  const wchar_t delimiters[] = { L' ', L'\t', L'\0' };
+
+  result = wcstok (test_string, delimiters, &ptr);
+  ASSERT (result == test_string);
+  ASSERT (wcscmp (result, L"12") == 0);
+
+  result = wcstok (NULL, delimiters, &ptr);
+  ASSERT (result == test_string + 3);
+  ASSERT (wcscmp (result, L"456") == 0);
+
+  result = wcstok (NULL, delimiters, &ptr);
+  ASSERT (result == test_string + 9);
+  ASSERT (wcscmp (result, L"abc") == 0);
+
+  result = wcstok (NULL, delimiters, &ptr);
+  ASSERT (result == NULL);
+
+  return 0;
 }

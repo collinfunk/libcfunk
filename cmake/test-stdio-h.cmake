@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/attributes.cmake)
+
 add_executable(test-stdio-h)
 
 target_link_libraries(test-stdio-h PRIVATE

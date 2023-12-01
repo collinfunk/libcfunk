@@ -25,26 +25,19 @@
 
 #include <config.h>
 
-#include <stddef.h>
 #include <wchar.h>
 
 size_t
 wcscspn (const wchar_t *ws1, const wchar_t *ws2)
+#undef wcscspn
 {
-  const wchar_t *p;
-  const wchar_t *s;
   size_t count = 0;
-  for (p = ws1; *p != L'\0'; ++p)
+  for (; *ws1 != '\0'; ++ws1)
     {
-      for (s = ws2; *s != L'\0'; ++s)
-        {
-          if (*p == *s)
-            break;
-        }
-      if (*s != L'\0')
-        return count;
-      else
+      if (wcschr (ws2, *ws1) == NULL)
         ++count;
+      else
+        break;
     }
   return count;
 }

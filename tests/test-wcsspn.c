@@ -25,19 +25,60 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <wchar.h>
 
-size_t
-wcsspn (const wchar_t *ws1, const wchar_t *ws2)
-#undef wcsspn
+#include "test-help.h"
+
+static void test_none_accept (void);
+static void test_all_accept (void);
+static void test_some_accept (void);
+
+int
+main (void)
 {
-  size_t count = 0;
-  for (; *ws1 != '\0'; ++ws1)
-    {
-      if (wcschr (ws2, *ws1) != NULL)
-        ++count;
-      else
-        break;
-    }
-  return count;
+  test_none_accept ();
+  test_all_accept ();
+  test_some_accept ();
+  return 0;
+}
+
+/* Test 'wcsspn' when none of the string is in the accepted character set. */
+static void
+test_none_accept (void)
+{
+  const wchar_t input[] = L"abcdefghijkl";
+  const wchar_t charset[] = L"123456790";
+  size_t result;
+
+  result = wcsspn (input, charset);
+  ASSERT (result == 0);
+  ASSERT (input[result] == L'a');
+}
+
+/* Test 'wcsspn' when all of the string is in the accepted character set. */
+static void
+test_all_accept (void)
+{
+  const wchar_t input[] = L"abcdefghijk";
+  const wchar_t charset[] = L"kjihgfedcba1234";
+  size_t result;
+
+  result = wcsspn (input, charset);
+  ASSERT (result == 11);
+  ASSERT (input[result] == L'\0');
+}
+
+/* Test 'wcsspn' when some of the string is in the accepted character set. */
+static void
+test_some_accept (void)
+{
+  const wchar_t input[] = L"abcdef123456";
+  const wchar_t charset[] = L"fedcba";
+  size_t result;
+
+  result = wcsspn (input, charset);
+  ASSERT (result == 6);
+  ASSERT (input[result] == L'1');
 }

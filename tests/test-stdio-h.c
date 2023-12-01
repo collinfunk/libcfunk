@@ -27,9 +27,70 @@
 
 #include <stdio.h>
 
+#include "attributes.h"
+
+static void test_fpos_t_defined (void);
+static void test_off_t_defined (void);
+static void test_size_t_defined (void);
+static void test_ssize_t_defined (void);
+static void test_va_list_defined (void);
+static void test_seek_macros_defined (void);
+
 /* Test that 'stdio.h' can be included. */
 int
 main (void)
 {
+  test_fpos_t_defined ();
+  test_off_t_defined ();
+  test_size_t_defined ();
+  test_ssize_t_defined ();
+  test_va_list_defined ();
+  test_seek_macros_defined ();
   return 0;
+}
+
+static void
+test_fpos_t_defined (void)
+{
+  fpos_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_off_t_defined (void)
+{
+  off_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_ssize_t_defined (void)
+{
+  ssize_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_va_list_defined (void)
+{
+  va_list value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_seek_macros_defined (void)
+{
+  switch (0)
+    {
+    case SEEK_CUR:
+      break;
+    case SEEK_END:
+      break;
+    case SEEK_SET:
+      break;
+    default:
+      break;
+    }
 }

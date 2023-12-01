@@ -109,7 +109,11 @@ extern wchar_t *wcscpy (wchar_t *ws1, const wchar_t *ws2);
 #endif
 
 #if @LIBCFUNK_DECLARE_WCSCSPN@
-#  if !@HAVE_WCSCSPN@
+#  if @LIBCFUNK_REPLACE_WCSCSPN@
+#    undef wcscspn
+#    define wcscspn _libcfunk_wcscspn
+extern size_t _libcfunk_wcscspn (const wchar_t *ws1, const wchar_t *ws2);
+#  elif !@HAVE_WCSCSPN@
 extern size_t wcscspn (const wchar_t *ws1, const wchar_t *ws2);
 #  endif
 #endif
@@ -163,8 +167,25 @@ extern wchar_t *wcspbrk (const wchar_t *ws1, const wchar_t *ws2);
 #endif
 
 #if @LIBCFUNK_DECLARE_WCSSPN@
-#  if !@HAVE_WCSSPN@
+#  if @LIBCFUNK_REPLACE_WCSSPN@
+#    undef wcsspn
+#    define wcsspn _libcfunk_wcsspn
+extern size_t _libcfunk_wcsspn (const wchar_t *ws1, const wchar_t *ws2);
+#  elif !@HAVE_WCSSPN@
 extern size_t wcsspn (const wchar_t *ws1, const wchar_t *ws2);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_WCSTOK@
+#  if @LIBCFUNK_REPLACE_WCSTOK@
+#    undef wcstok
+#    define wcstok _libcfunk_wcstok
+extern wchar_t *_libcfunk_wcstok (wchar_t *restrict ws1,
+                                  const wchar_t *restrict ws2,
+                                  wchar_t **restrict ptr);
+#  elif !@HAVE_WCSTOK@
+extern wchar_t *wcstok (wchar_t *restrict ws1, const wchar_t *restrict ws2,
+                        wchar_t **restrict ptr);
 #  endif
 #endif
 

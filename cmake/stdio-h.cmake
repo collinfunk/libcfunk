@@ -1,6 +1,10 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdarg-h.cmake)
+
 # Generate <stdio.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STDIO_H "1" CACHE STRING "")
 

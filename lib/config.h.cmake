@@ -855,6 +855,7 @@
 #cmakedefine01 HAVE_WCSNLEN
 #cmakedefine01 HAVE_WCSPBRK
 #cmakedefine01 HAVE_WCSSPN
+#cmakedefine01 HAVE_WCSTOK
 #cmakedefine01 HAVE_WCSTOMBS
 #cmakedefine01 HAVE_WCSWIDTH
 #cmakedefine01 HAVE_WCTOMB
@@ -886,6 +887,7 @@
 #cmakedefine01 MALLOC_0_RETURNS_NONNULL
 #cmakedefine01 REALLOC_NULL_0_RETURNS_NONNULL
 #cmakedefine01 UNSETENV_HAS_POSIX_PROTOTYPE
+#cmakedefine01 WCSTOK_HAS_POSIX_PROTOTYPE
 
 #cmakedefine01 LIBCFUNK_REPLACE_ACCEPT
 #cmakedefine01 LIBCFUNK_REPLACE_ALPHASORT
@@ -1035,6 +1037,9 @@
 #cmakedefine01 LIBCFUNK_REPLACE_VPRINTF
 #cmakedefine01 LIBCFUNK_REPLACE_VSNPRINTF
 #cmakedefine01 LIBCFUNK_REPLACE_VSPRINTF
+#cmakedefine01 LIBCFUNK_REPLACE_WCSCSPN
+#cmakedefine01 LIBCFUNK_REPLACE_WCSSPN
+#cmakedefine01 LIBCFUNK_REPLACE_WCSTOK
 #cmakedefine01 LIBCFUNK_REPLACE_WMEMSET
 
 /* Make sure 'bool', 'true', and 'false' can be used as if the compiler

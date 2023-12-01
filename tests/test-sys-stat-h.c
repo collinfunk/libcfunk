@@ -27,43 +27,30 @@
 
 #include <sys/stat.h>
 
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "attributes.h"
-#include "test-help.h"
+
+static_assert (S_IXOTH == 00001);
+static_assert (S_IWOTH == 00002);
+static_assert (S_IROTH == 00004);
+static_assert (S_IRWXO == 00007);
+static_assert (S_IXGRP == 00010);
+static_assert (S_IWGRP == 00020);
+static_assert (S_IRGRP == 00040);
+static_assert (S_IRWXG == 00070);
+static_assert (S_IWUSR == 00200);
+static_assert (S_IRUSR == 00400);
+static_assert (S_IRWXU == 00700);
+static_assert (S_IXUSR == 00100);
+static_assert (S_ISVTX == 01000);
+static_assert (S_ISGID == 02000);
+static_assert (S_ISUID == 04000);
 
 static void test_struct_stat_defined (void);
 
 int
 main (void)
 {
-  /* Other. */
-  printf ("S_IXOTH: %04o\n", (unsigned int) S_IXOTH);
-  printf ("S_IWOTH: %04o\n", (unsigned int) S_IWOTH);
-  printf ("S_IROTH: %04o\n", (unsigned int) S_IROTH);
-  printf ("S_IRWXO: %04o\n", (unsigned int) S_IRWXO);
-
-  /* Group. */
-  printf ("S_IXGRP: %04o\n", (unsigned int) S_IXGRP);
-  printf ("S_IWGRP: %04o\n", (unsigned int) S_IWGRP);
-  printf ("S_IRGRP: %04o\n", (unsigned int) S_IRGRP);
-  printf ("S_IRWXG: %04o\n", (unsigned int) S_IRWXG);
-
-  /* User. */
-  printf ("S_IXUSR: %04o\n", (unsigned int) S_IXUSR);
-  printf ("S_IWUSR: %04o\n", (unsigned int) S_IWUSR);
-  printf ("S_IRUSR: %04o\n", (unsigned int) S_IRUSR);
-  printf ("S_IRWXU: %04o\n", (unsigned int) S_IRWXU);
-
-  /* Other. */
-  printf ("S_ISVTX: %04o\n", (unsigned int) S_ISVTX);
-  printf ("S_ISGID: %04o\n", (unsigned int) S_ISGID);
-  printf ("S_ISUID: %04o\n", (unsigned int) S_ISUID);
-
   test_struct_stat_defined ();
-
   return 0;
 }
 
