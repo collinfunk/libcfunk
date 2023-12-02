@@ -124,7 +124,7 @@
 #  endif
 #endif
 
-#ifndef UINT_ULEAST64_WIDTH
+#ifndef UINT_LEAST64_WIDTH
 #  if @HAVE_UINT_LEAST64_T@
 #    define UINT_LEAST64_WIDTH (@UINT_LEAST64_T@ * CHAR_BIT)
 #  else
@@ -188,7 +188,7 @@
 #  endif
 #endif
 
-#ifndef UINT_UFAST64_WIDTH
+#ifndef UINT_FAST64_WIDTH
 #  if @HAVE_UINT_FAST64_T@
 #    define UINT_FAST64_WIDTH (@UINT_FAST64_T@ * CHAR_BIT)
 #  else

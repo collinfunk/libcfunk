@@ -161,7 +161,11 @@ extern size_t wcsnlen (const wchar_t *ws, size_t maxlen);
 #endif
 
 #if @LIBCFUNK_DECLARE_WCSPBRK@
-#  if !@HAVE_WCSPBRK@
+#  if @LIBCFUNK_REPLACE_WCSPBRK@
+#    undef wcspbrk
+#    define wcspbrk _libcfunk_wcspbrk
+extern wchar_t *_libcfunk_wcspbrk (const wchar_t *ws1, const wchar_t *ws2);
+#  elif !@HAVE_WCSPBRK@
 extern wchar_t *wcspbrk (const wchar_t *ws1, const wchar_t *ws2);
 #  endif
 #endif

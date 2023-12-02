@@ -25,12 +25,34 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <wchar.h>
 
-wchar_t *
-wcspbrk (const wchar_t *ws1, const wchar_t *ws2)
-#undef wcspbrk
+#include "test-help.h"
+
+int
+main (void)
 {
-  const wchar_t *ptr = ws1 + wcscspn (ws1, ws2);
-  return *ptr != L'\0' ? (wchar_t *) ptr : NULL;
+  {
+    const wchar_t input[] = L"abcdefg";
+    const wchar_t accept[] = L"cg";
+    ASSERT (wcspbrk (input, accept) == input + 2);
+  }
+  {
+    const wchar_t input[] = L"abcdefg";
+    const wchar_t accept[] = L"ghijklmonp";
+    ASSERT (wcspbrk (input, accept) == input + 6);
+  }
+  {
+    const wchar_t input[] = L"abcdefg";
+    const wchar_t accept[] = L"hijklmonpg";
+    ASSERT (wcspbrk (input, accept) == input + 6);
+  }
+  {
+    const wchar_t input[] = L"abcdefg";
+    const wchar_t accept[] = L"";
+    ASSERT (wcspbrk (input, accept) == NULL);
+  }
+  return 0;
 }
