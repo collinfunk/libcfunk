@@ -52,6 +52,7 @@
 #  include <io.h>
 #endif
 
+/* Windows. */
 #if @HAVE_DIRECT_H@
 #  include <direct.h>
 #endif

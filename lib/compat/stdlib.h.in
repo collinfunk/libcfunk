@@ -38,6 +38,7 @@
 #include <sys/wait.h>
 
 #include <stddef.h>
+#include <stdint.h>
 
 /* Solaris. */
 #if @HAVE_SYS_LOADAVG_H@
@@ -68,22 +69,31 @@ typedef struct
 } lldiv_t;
 #endif
 
-#ifndef EXIT_FAILURE
-#  define EXIT_FAILURE 1
-#else
-#  if EXIT_FAILURE != 1
-#    undef EXIT_FAILURE
-#    define EXIT_FAILURE 1
-#  endif
+#if !@HAVE_STRUCT_RANDOM_DATA@
+struct random_data
+{
+  int32_t *fptr;
+  int32_t *rptr;
+  int32_t *state;
+  int rand_type;
+  int rand_deg;
+  int rand_sep;
+  int32_t *end_ptr;
+};
 #endif
 
 #ifndef EXIT_SUCCESS
 #  define EXIT_SUCCESS 0
-#else
-#  if EXIT_SUCCESS != 0
-#    undef EXIT_SUCCESS
-#    define EXIT_SUCCESS 0
-#  endif
+#elif EXIT_SUCCESS != 0
+#  undef EXIT_SUCCESS
+#  define EXIT_SUCCESS 0
+#endif
+
+#ifndef EXIT_FAILURE
+#  define EXIT_FAILURE 1
+#elif EXIT_FAILURE != 1
+#  undef EXIT_FAILURE
+#  define EXIT_FAILURE 1
 #endif
 
 #if @LIBCFUNK_DECLARE_ABS@

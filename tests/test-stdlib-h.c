@@ -29,6 +29,10 @@
 
 #include "attributes.h"
 
+static_assert (EXIT_SUCCESS == 0);
+static_assert (EXIT_FAILURE == 1);
+
+static void test_struct_random_data_defined (void);
 static void test_size_t_defined (void);
 static void test_wchar_t_defined (void);
 static void test_div_t_defined (void);
@@ -40,6 +44,7 @@ static void test_NULL_defined (void);
 int
 main (void)
 {
+  test_struct_random_data_defined ();
   test_size_t_defined ();
   test_wchar_t_defined ();
   test_div_t_defined ();
@@ -47,6 +52,12 @@ main (void)
   test_lldiv_t_defined ();
   test_NULL_defined ();
   return 0;
+}
+
+static void
+test_struct_random_data_defined (void)
+{
+  struct random_data value ATTRIBUTE_UNUSED;
 }
 
 static void

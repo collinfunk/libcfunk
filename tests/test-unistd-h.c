@@ -40,6 +40,8 @@ static void test_gid_t_defined (void);
 static void test_off_t_defined (void);
 static void test_pid_t_defined (void);
 static void test_intptr_t_defined (void);
+static void test_seek_macros_defined (void);
+static void test_access_macros_defined (void);
 
 /* Test that 'unistd.h' can be included. */
 int
@@ -52,6 +54,8 @@ main (void)
   test_off_t_defined ();
   test_pid_t_defined ();
   test_intptr_t_defined ();
+  test_seek_macros_defined ();
+  test_access_macros_defined ();
   return 0;
 }
 
@@ -95,4 +99,44 @@ static void
 test_intptr_t_defined (void)
 {
   intptr_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_seek_macros_defined (void)
+{
+  switch (0)
+    {
+    case SEEK_CUR:
+      break;
+    case SEEK_END:
+      break;
+    case SEEK_SET:
+      break;
+    default:
+      break;
+    }
+}
+
+static void
+test_access_macros_defined (void)
+{
+  switch (0)
+    {
+    case F_OK:
+      break;
+    case R_OK:
+      break;
+    case W_OK:
+      break;
+    case X_OK:
+      break;
+    case (R_OK | W_OK):
+      break;
+    case (R_OK | X_OK):
+      break;
+    case (R_OK | W_OK | X_OK):
+      break;
+    default:
+      break;
+    }
 }
