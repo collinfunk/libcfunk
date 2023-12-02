@@ -1,6 +1,10 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
 add_executable(test-mkdir)
 
 target_link_libraries(test-mkdir PRIVATE

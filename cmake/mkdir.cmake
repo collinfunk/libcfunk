@@ -5,7 +5,6 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/sys-stat-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
 
 check_include_file("direct.h" HAVE_DIRECT_H)
-check_include_file("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_SYS_STAT_H OR HAVE_DIRECT_H)
   set(MKDIR_INCLUDES "")
@@ -22,6 +21,7 @@ endif ()
 
 set(LIBCFUNK_DECLARE_MKDIR "1" CACHE STRING "")
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
 if (HAVE_WINDOWS_H)
   set(LIBCFUNK_REPLACE_MKDIR "1" CACHE STRING "")
 endif ()

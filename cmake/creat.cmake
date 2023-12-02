@@ -14,3 +14,8 @@ if (NOT HAVE_CREAT)
     $CACHE{LIBCFUNK_SOURCE_DIR}/creat.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-creat.cmake)
+endif ()
+
