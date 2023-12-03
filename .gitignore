@@ -10,6 +10,9 @@ tags
 TAGS
 
 *.core
+vgcore
+vgcore.*
+
 *.diff
 *.patch
 

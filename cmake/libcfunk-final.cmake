@@ -33,6 +33,13 @@ if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_ARGZ_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/argz.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/argz.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_AR_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ar.h.in
