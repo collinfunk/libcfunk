@@ -96,6 +96,10 @@ struct random_data
 #  define EXIT_FAILURE 1
 #endif
 
+#ifndef RAND_MAX
+#  define RAND_MAX 2147483647
+#endif
+
 #if @LIBCFUNK_DECLARE_ABS@
 #  if !@HAVE_ABS@
 extern int abs (int value);
@@ -247,6 +251,26 @@ extern int posix_openpt (int flags);
 extern int _libcfunk_putenv (char *string);
 #  elif !@HAVE_PUTENV@
 extern int putenv (char *string);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RAND@
+#  if @LIBCFUNK_REPLACE_RAND@
+#    undef rand
+#    define rand _libcfunk_rand
+extern int rand (void);
+#  elif !@HAVE_RAND@
+extern int rand (void);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RANDOM@
+#  if @LIBCFUNK_REPLACE_RANDOM@
+#    undef random
+#    define random _libcfunk_random
+extern long int _libcfunk_random (void);
+#  elif !@HAVE_RANDOM@
+extern long int random (void);
 #  endif
 #endif
 
