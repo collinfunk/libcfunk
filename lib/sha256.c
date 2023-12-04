@@ -83,19 +83,28 @@ sha224_final (void *digest, struct sha256_ctx *ctx)
 #  define sigma1(x) (rotr32 ((x), 17) ^ rotr32 ((x), 19) ^ ((x) >> 10))
 
 static const uint32_t sha256_ktable[64]
-    = { 0x428a2f98UL, 0x71374491UL, 0xb5c0fbcfUL, 0xe9b5dba5UL, 0x3956c25bUL,
-        0x59f111f1UL, 0x923f82a4UL, 0xab1c5ed5UL, 0xd807aa98UL, 0x12835b01UL,
-        0x243185beUL, 0x550c7dc3UL, 0x72be5d74UL, 0x80deb1feUL, 0x9bdc06a7UL,
-        0xc19bf174UL, 0xe49b69c1UL, 0xefbe4786UL, 0x0fc19dc6UL, 0x240ca1ccUL,
-        0x2de92c6fUL, 0x4a7484aaUL, 0x5cb0a9dcUL, 0x76f988daUL, 0x983e5152UL,
-        0xa831c66dUL, 0xb00327c8UL, 0xbf597fc7UL, 0xc6e00bf3UL, 0xd5a79147UL,
-        0x06ca6351UL, 0x14292967UL, 0x27b70a85UL, 0x2e1b2138UL, 0x4d2c6dfcUL,
-        0x53380d13UL, 0x650a7354UL, 0x766a0abbUL, 0x81c2c92eUL, 0x92722c85UL,
-        0xa2bfe8a1UL, 0xa81a664bUL, 0xc24b8b70UL, 0xc76c51a3UL, 0xd192e819UL,
-        0xd6990624UL, 0xf40e3585UL, 0x106aa070UL, 0x19a4c116UL, 0x1e376c08UL,
-        0x2748774cUL, 0x34b0bcb5UL, 0x391c0cb3UL, 0x4ed8aa4aUL, 0x5b9cca4fUL,
-        0x682e6ff3UL, 0x748f82eeUL, 0x78a5636fUL, 0x84c87814UL, 0x8cc70208UL,
-        0x90befffaUL, 0xa4506cebUL, 0xbef9a3f7UL, 0xc67178f2UL };
+    = { UINT32_C (0x428a2f98), UINT32_C (0x71374491), UINT32_C (0xb5c0fbcf),
+        UINT32_C (0xe9b5dba5), UINT32_C (0x3956c25b), UINT32_C (0x59f111f1),
+        UINT32_C (0x923f82a4), UINT32_C (0xab1c5ed5), UINT32_C (0xd807aa98),
+        UINT32_C (0x12835b01), UINT32_C (0x243185be), UINT32_C (0x550c7dc3),
+        UINT32_C (0x72be5d74), UINT32_C (0x80deb1fe), UINT32_C (0x9bdc06a7),
+        UINT32_C (0xc19bf174), UINT32_C (0xe49b69c1), UINT32_C (0xefbe4786),
+        UINT32_C (0x0fc19dc6), UINT32_C (0x240ca1cc), UINT32_C (0x2de92c6f),
+        UINT32_C (0x4a7484aa), UINT32_C (0x5cb0a9dc), UINT32_C (0x76f988da),
+        UINT32_C (0x983e5152), UINT32_C (0xa831c66d), UINT32_C (0xb00327c8),
+        UINT32_C (0xbf597fc7), UINT32_C (0xc6e00bf3), UINT32_C (0xd5a79147),
+        UINT32_C (0x06ca6351), UINT32_C (0x14292967), UINT32_C (0x27b70a85),
+        UINT32_C (0x2e1b2138), UINT32_C (0x4d2c6dfc), UINT32_C (0x53380d13),
+        UINT32_C (0x650a7354), UINT32_C (0x766a0abb), UINT32_C (0x81c2c92e),
+        UINT32_C (0x92722c85), UINT32_C (0xa2bfe8a1), UINT32_C (0xa81a664b),
+        UINT32_C (0xc24b8b70), UINT32_C (0xc76c51a3), UINT32_C (0xd192e819),
+        UINT32_C (0xd6990624), UINT32_C (0xf40e3585), UINT32_C (0x106aa070),
+        UINT32_C (0x19a4c116), UINT32_C (0x1e376c08), UINT32_C (0x2748774c),
+        UINT32_C (0x34b0bcb5), UINT32_C (0x391c0cb3), UINT32_C (0x4ed8aa4a),
+        UINT32_C (0x5b9cca4f), UINT32_C (0x682e6ff3), UINT32_C (0x748f82ee),
+        UINT32_C (0x78a5636f), UINT32_C (0x84c87814), UINT32_C (0x8cc70208),
+        UINT32_C (0x90befffa), UINT32_C (0xa4506ceb), UINT32_C (0xbef9a3f7),
+        UINT32_C (0xc67178f2) };
 
 /* Internal function used by sha256_final () and sha224_final (). Pads the
    final block with zero's and appends the 64-bit count. The caller will
@@ -126,15 +135,15 @@ sha256_pad (struct sha256_ctx *ctx)
 void
 sha256_init (struct sha256_ctx *ctx)
 {
-  ctx->state[0] = 0x6a09e667UL;
-  ctx->state[1] = 0xbb67ae85UL;
-  ctx->state[2] = 0x3c6ef372UL;
-  ctx->state[3] = 0xa54ff53aUL;
-  ctx->state[4] = 0x510e527fUL;
-  ctx->state[5] = 0x9b05688cUL;
-  ctx->state[6] = 0x1f83d9abUL;
-  ctx->state[7] = 0x5be0cd19UL;
-  ctx->count = 0;
+  ctx->state[0] = UINT32_C (0x6a09e667);
+  ctx->state[1] = UINT32_C (0xbb67ae85);
+  ctx->state[2] = UINT32_C (0x3c6ef372);
+  ctx->state[3] = UINT32_C (0xa54ff53a);
+  ctx->state[4] = UINT32_C (0x510e527f);
+  ctx->state[5] = UINT32_C (0x9b05688c);
+  ctx->state[6] = UINT32_C (0x1f83d9ab);
+  ctx->state[7] = UINT32_C (0x5be0cd19);
+  ctx->count = UINT64_C (0);
 }
 
 void
@@ -245,15 +254,15 @@ sha256_final (void *digest, struct sha256_ctx *ctx)
 void
 sha224_init (struct sha256_ctx *ctx)
 {
-  ctx->state[0] = 0xc1059ed8UL;
-  ctx->state[1] = 0x367cd507UL;
-  ctx->state[2] = 0x3070dd17UL;
-  ctx->state[3] = 0xf70e5939UL;
-  ctx->state[4] = 0xffc00b31UL;
-  ctx->state[5] = 0x68581511UL;
-  ctx->state[6] = 0x64f98fa7UL;
-  ctx->state[7] = 0xbefa4fa4UL;
-  ctx->count = 0;
+  ctx->state[0] = UINT32_C (0xc1059ed8);
+  ctx->state[1] = UINT32_C (0x367cd507);
+  ctx->state[2] = UINT32_C (0x3070dd17);
+  ctx->state[3] = UINT32_C (0xf70e5939);
+  ctx->state[4] = UINT32_C (0xffc00b31);
+  ctx->state[5] = UINT32_C (0x68581511);
+  ctx->state[6] = UINT32_C (0x64f98fa7);
+  ctx->state[7] = UINT32_C (0xbefa4fa4);
+  ctx->count = UINT64_C (0);
 }
 
 void

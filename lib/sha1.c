@@ -68,20 +68,20 @@ sha1_final (void *digest, struct sha1_ctx *ctx)
 #  define F3(b, c, d) (((b) & (c)) | ((b) & (d)) | ((c) & (d)))
 #  define F4(b, c, d) ((b) ^ (c) ^ (d))
 
-#  define K1 0x5a827999UL
-#  define K2 0x6ed9eba1UL
-#  define K3 0x8f1bbcdcUL
-#  define K4 0xca62c1d6UL
+#  define K1 UINT32_C (0x5a827999)
+#  define K2 UINT32_C (0x6ed9eba1)
+#  define K3 UINT32_C (0x8f1bbcdc)
+#  define K4 UINT32_C (0xca62c1d6)
 
 void
 sha1_init (struct sha1_ctx *ctx)
 {
-  ctx->state[0] = 0x67452301UL;
-  ctx->state[1] = 0xefcdab89UL;
-  ctx->state[2] = 0x98badcfeUL;
-  ctx->state[3] = 0x10325476UL;
-  ctx->state[4] = 0xc3d2e1f0UL;
-  ctx->count = 0;
+  ctx->state[0] = UINT32_C (0x67452301);
+  ctx->state[1] = UINT32_C (0xefcdab89);
+  ctx->state[2] = UINT32_C (0x98badcfe);
+  ctx->state[3] = UINT32_C (0x10325476);
+  ctx->state[4] = UINT32_C (0xc3d2e1f0);
+  ctx->count = UINT64_C (0);
 }
 
 void

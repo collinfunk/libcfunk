@@ -33,6 +33,11 @@
 
 #include "test-help.h"
 
+static_assert (LITTLE_ENDIAN == __LITTLE_ENDIAN);
+static_assert (BIG_ENDIAN == __BIG_ENDIAN);
+static_assert (PDP_ENDIAN == __PDP_ENDIAN);
+static_assert (BYTE_ORDER == __BYTE_ORDER);
+
 #define VAL16 ((uint16_t) 0x1234U)
 #define VAL32 ((uint32_t) 0x12345678UL)
 #define VAL64 ((uint64_t) 0x1234567890abcdefULL)

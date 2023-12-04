@@ -78,11 +78,11 @@ md4_final (void *digest, struct md4_ctx *ctx)
 void
 md4_init (struct md4_ctx *ctx)
 {
-  ctx->state[0] = 0x67452301UL;
-  ctx->state[1] = 0xefcdab89UL;
-  ctx->state[2] = 0x98badcfeUL;
-  ctx->state[3] = 0x10325476UL;
-  ctx->count = 0;
+  ctx->state[0] = UINT32_C (0x67452301);
+  ctx->state[1] = UINT32_C (0xefcdab89);
+  ctx->state[2] = UINT32_C (0x98badcfe);
+  ctx->state[3] = UINT32_C (0x10325476);
+  ctx->count = UINT64_C (0);
 }
 
 void
@@ -116,39 +116,39 @@ md4_transform (struct md4_ctx *ctx, const void *buffer)
   MD4_STEP (F1, c, d, a, b, w[14], 11);
   MD4_STEP (F1, b, c, d, a, w[15], 19);
 
-  MD4_STEP (F2, a, b, c, d, w[0] + 0x5a827999UL, 3);
-  MD4_STEP (F2, d, a, b, c, w[4] + 0x5a827999UL, 5);
-  MD4_STEP (F2, c, d, a, b, w[8] + 0x5a827999UL, 9);
-  MD4_STEP (F2, b, c, d, a, w[12] + 0x5a827999UL, 13);
-  MD4_STEP (F2, a, b, c, d, w[1] + 0x5a827999UL, 3);
-  MD4_STEP (F2, d, a, b, c, w[5] + 0x5a827999UL, 5);
-  MD4_STEP (F2, c, d, a, b, w[9] + 0x5a827999UL, 9);
-  MD4_STEP (F2, b, c, d, a, w[13] + 0x5a827999UL, 13);
-  MD4_STEP (F2, a, b, c, d, w[2] + 0x5a827999UL, 3);
-  MD4_STEP (F2, d, a, b, c, w[6] + 0x5a827999UL, 5);
-  MD4_STEP (F2, c, d, a, b, w[10] + 0x5a827999UL, 9);
-  MD4_STEP (F2, b, c, d, a, w[14] + 0x5a827999UL, 13);
-  MD4_STEP (F2, a, b, c, d, w[3] + 0x5a827999UL, 3);
-  MD4_STEP (F2, d, a, b, c, w[7] + 0x5a827999UL, 5);
-  MD4_STEP (F2, c, d, a, b, w[11] + 0x5a827999UL, 9);
-  MD4_STEP (F2, b, c, d, a, w[15] + 0x5a827999UL, 13);
+  MD4_STEP (F2, a, b, c, d, w[0] + UINT32_C (0x5a827999), 3);
+  MD4_STEP (F2, d, a, b, c, w[4] + UINT32_C (0x5a827999), 5);
+  MD4_STEP (F2, c, d, a, b, w[8] + UINT32_C (0x5a827999), 9);
+  MD4_STEP (F2, b, c, d, a, w[12] + UINT32_C (0x5a827999), 13);
+  MD4_STEP (F2, a, b, c, d, w[1] + UINT32_C (0x5a827999), 3);
+  MD4_STEP (F2, d, a, b, c, w[5] + UINT32_C (0x5a827999), 5);
+  MD4_STEP (F2, c, d, a, b, w[9] + UINT32_C (0x5a827999), 9);
+  MD4_STEP (F2, b, c, d, a, w[13] + UINT32_C (0x5a827999), 13);
+  MD4_STEP (F2, a, b, c, d, w[2] + UINT32_C (0x5a827999), 3);
+  MD4_STEP (F2, d, a, b, c, w[6] + UINT32_C (0x5a827999), 5);
+  MD4_STEP (F2, c, d, a, b, w[10] + UINT32_C (0x5a827999), 9);
+  MD4_STEP (F2, b, c, d, a, w[14] + UINT32_C (0x5a827999), 13);
+  MD4_STEP (F2, a, b, c, d, w[3] + UINT32_C (0x5a827999), 3);
+  MD4_STEP (F2, d, a, b, c, w[7] + UINT32_C (0x5a827999), 5);
+  MD4_STEP (F2, c, d, a, b, w[11] + UINT32_C (0x5a827999), 9);
+  MD4_STEP (F2, b, c, d, a, w[15] + UINT32_C (0x5a827999), 13);
 
-  MD4_STEP (F3, a, b, c, d, w[0] + 0x6ed9eba1UL, 3);
-  MD4_STEP (F3, d, a, b, c, w[8] + 0x6ed9eba1UL, 9);
-  MD4_STEP (F3, c, d, a, b, w[4] + 0x6ed9eba1UL, 11);
-  MD4_STEP (F3, b, c, d, a, w[12] + 0x6ed9eba1UL, 15);
-  MD4_STEP (F3, a, b, c, d, w[2] + 0x6ed9eba1UL, 3);
-  MD4_STEP (F3, d, a, b, c, w[10] + 0x6ed9eba1UL, 9);
-  MD4_STEP (F3, c, d, a, b, w[6] + 0x6ed9eba1UL, 11);
-  MD4_STEP (F3, b, c, d, a, w[14] + 0x6ed9eba1UL, 15);
-  MD4_STEP (F3, a, b, c, d, w[1] + 0x6ed9eba1UL, 3);
-  MD4_STEP (F3, d, a, b, c, w[9] + 0x6ed9eba1UL, 9);
-  MD4_STEP (F3, c, d, a, b, w[5] + 0x6ed9eba1UL, 11);
-  MD4_STEP (F3, b, c, d, a, w[13] + 0x6ed9eba1UL, 15);
-  MD4_STEP (F3, a, b, c, d, w[3] + 0x6ed9eba1UL, 3);
-  MD4_STEP (F3, d, a, b, c, w[11] + 0x6ed9eba1UL, 9);
-  MD4_STEP (F3, c, d, a, b, w[7] + 0x6ed9eba1UL, 11);
-  MD4_STEP (F3, b, c, d, a, w[15] + 0x6ed9eba1UL, 15);
+  MD4_STEP (F3, a, b, c, d, w[0] + UINT32_C (0x6ed9eba1), 3);
+  MD4_STEP (F3, d, a, b, c, w[8] + UINT32_C (0x6ed9eba1), 9);
+  MD4_STEP (F3, c, d, a, b, w[4] + UINT32_C (0x6ed9eba1), 11);
+  MD4_STEP (F3, b, c, d, a, w[12] + UINT32_C (0x6ed9eba1), 15);
+  MD4_STEP (F3, a, b, c, d, w[2] + UINT32_C (0x6ed9eba1), 3);
+  MD4_STEP (F3, d, a, b, c, w[10] + UINT32_C (0x6ed9eba1), 9);
+  MD4_STEP (F3, c, d, a, b, w[6] + UINT32_C (0x6ed9eba1), 11);
+  MD4_STEP (F3, b, c, d, a, w[14] + UINT32_C (0x6ed9eba1), 15);
+  MD4_STEP (F3, a, b, c, d, w[1] + UINT32_C (0x6ed9eba1), 3);
+  MD4_STEP (F3, d, a, b, c, w[9] + UINT32_C (0x6ed9eba1), 9);
+  MD4_STEP (F3, c, d, a, b, w[5] + UINT32_C (0x6ed9eba1), 11);
+  MD4_STEP (F3, b, c, d, a, w[13] + UINT32_C (0x6ed9eba1), 15);
+  MD4_STEP (F3, a, b, c, d, w[3] + UINT32_C (0x6ed9eba1), 3);
+  MD4_STEP (F3, d, a, b, c, w[11] + UINT32_C (0x6ed9eba1), 9);
+  MD4_STEP (F3, c, d, a, b, w[7] + UINT32_C (0x6ed9eba1), 11);
+  MD4_STEP (F3, b, c, d, a, w[15] + UINT32_C (0x6ed9eba1), 15);
 
   ctx->state[0] += a;
   ctx->state[1] += b;
