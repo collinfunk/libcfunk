@@ -104,6 +104,9 @@
 #cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
 #cmakedefine01 HAVE___ARGV
+#cmakedefine01 HAVE_ARGZ_COUNT
+#cmakedefine01 HAVE_ARGZ_H
+#cmakedefine01 HAVE_ARGZ_NEXT
 #cmakedefine01 HAVE_AR_H
 #cmakedefine01 HAVE_ARPA_INET_H
 #cmakedefine01 HAVE_ASPRINTF
@@ -894,6 +897,8 @@
 
 #cmakedefine01 LIBCFUNK_REPLACE_ACCEPT
 #cmakedefine01 LIBCFUNK_REPLACE_ALPHASORT
+#cmakedefine01 LIBCFUNK_REPLACE_ARGZ_COUNT
+#cmakedefine01 LIBCFUNK_REPLACE_ARGZ_NEXT
 #cmakedefine01 LIBCFUNK_REPLACE_ASPRINTF
 #cmakedefine01 LIBCFUNK_REPLACE_BCMP
 #cmakedefine01 LIBCFUNK_REPLACE_BCOPY

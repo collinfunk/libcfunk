@@ -23,43 +23,26 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_ARGZ_H
-#define COMPAT_ARGZ_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <argz.h>
+#include <string.h>
 
-#if @HAVE_ARGZ_H@
-#  include_next <argz.h>
-#endif
-
-/* Define 'error_t'. */
-#include <errno.h>
-
-/* Define 'size_t'. */
-#include <stddef.h>
-
-#if @LIBCFUNK_DECLARE_ARGZ_COUNT@
-#  if @LIBCFUNK_REPLACE_ARGZ_COUNT@
-#    undef argz_count
-#    define argz_count _libcfunk_argz_count
-extern size_t _libcfunk_argz_count (const char *argz, size_t argz_len);
-#  elif !@HAVE_ARGZ_COUNT@
-extern size_t argz_count (const char *argz, size_t argz_len);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_ARGZ_NEXT@
-#  if @LIBCFUNK_REPLACE_ARGZ_NEXT@
-#    undef argz_next
-#    define argz_next _libcfunk_argz_next
-extern char *_libcfunk_argz_next (const char *restrict argz, size_t argz_len,
-                                  const char *restrict entry);
-#  elif !@HAVE_ARGZ_NEXT@
-extern char *argz_next (const char *restrict argz, size_t argz_len,
-                        const char *restrict entry);
-#  endif
-#endif
-
-#endif /* COMPAT_ARGZ_H */
+char *
+argz_next (const char *restrict argz, size_t argz_len,
+           const char *restrict entry)
+#undef argz_next
+{
+  if (entry == NULL)
+    return (argz_len > 0) ? (char *) argz : NULL;
+  else
+    {
+      if (entry >= argz + argz_len)
+        return NULL;
+      else
+        {
+          entry = strchr (entry, '\0') + 1;
+          return (entry >= argz + argz_len) ? NULL : (char *) entry;
+        }
+    }
+}
