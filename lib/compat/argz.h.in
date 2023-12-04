@@ -50,6 +50,18 @@ extern size_t argz_count (const char *argz, size_t argz_len);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_ARGZ_EXTRACT@
+#  if @LIBCFUNK_REPLACE_ARGZ_EXTRACT@
+#    undef argz_extract
+#    define argz_extract _libcfunk_argz_extract
+extern void _libcfunk_argz_extract (const char *restrict argz, size_t argz_len,
+                                    char **restrict argv);
+#  elif !@HAVE_ARGZ_EXTRACT@
+extern void argz_extract (const char *restrict argz, size_t argz_len,
+                          char **restrict argv);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ARGZ_NEXT@
 #  if @LIBCFUNK_REPLACE_ARGZ_NEXT@
 #    undef argz_next
@@ -59,6 +71,16 @@ extern char *_libcfunk_argz_next (const char *restrict argz, size_t argz_len,
 #  elif !@HAVE_ARGZ_NEXT@
 extern char *argz_next (const char *restrict argz, size_t argz_len,
                         const char *restrict entry);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ARGZ_STRINGIFY@
+#  if @LIBCFUNK_REPLACE_ARGZ_STRINGIFY@
+#    undef argz_stringify
+#    define argz_stringify _libcfunk_argz_stringify
+extern void _libcfunk_argz_stringify (char *argz, size_t len, int sep);
+#  elif !@HAVE_ARGZ_STRINGIFY@
+extern void argz_stringify (char *argz, size_t len, int sep);
 #  endif
 #endif
 
