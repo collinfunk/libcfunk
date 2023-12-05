@@ -28,13 +28,35 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-static uint32_t next = 1;
+/* initstate (1, (char *) random_table, 128); */
+static int32_t random_table[32]
+    = { INT32_C (3),           INT32_C (-1726662223), INT32_C (379960547),
+        INT32_C (1735697613),  INT32_C (1040273694),  INT32_C (1313901226),
+        INT32_C (1627687941),  INT32_C (-179304937),  INT32_C (-2073333483),
+        INT32_C (1780058412),  INT32_C (-1989503057), INT32_C (-615974602),
+        INT32_C (344556628),   INT32_C (939512070),   INT32_C (-1249116260),
+        INT32_C (1507946756),  INT32_C (-812545463),  INT32_C (154635395),
+        INT32_C (1388815473),  INT32_C (-1926676823), INT32_C (525320961),
+        INT32_C (-1009028674), INT32_C (968117788),   INT32_C (-123449607),
+        INT32_C (1284210865),  INT32_C (435012392),   INT32_C (-2017506339),
+        INT32_C (-911064859),  INT32_C (-370259173),  INT32_C (1132637927),
+        INT32_C (1398500161),  INT32_C (-205601318) };
+
+static struct random_data internal_state = { .fptr = &random_table[4],
+                                             .rptr = &random_table[1],
+                                             .state = &random_table[1],
+                                             .rand_type = 3,
+                                             .rand_deg = 31,
+                                             .rand_sep = 3,
+                                             .end_ptr = &random_table[32] };
 
 /* FIXME: Doesn't conform to POSIX requirements for the 'random' function. */
 long int
 random (void)
 #undef random
 {
-  next = ((next * UINT32_C (1103515245)) + UINT32_C (12345)) & INT32_MAX;
-  return (long int) next;
+  int32_t result;
+
+  (void) random_r (&internal_state, &result);
+  return (long int) result;
 }

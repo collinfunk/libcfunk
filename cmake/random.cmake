@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/rand.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
 if (HAVE_STDLIB_H)
   check_symbol_exists("random" "stdlib.h" HAVE_RANDOM)
@@ -11,6 +11,7 @@ set(LIBCFUNK_DECLARE_RANDOM "1" CACHE STRING "")
 
 if (NOT HAVE_RANDOM OR LIBCFUNK_REPLACE_RANDOM)
   include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/random_r.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/random.c
   )

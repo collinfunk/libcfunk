@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/memcmp.cmake)
+
 add_executable(test-random)
 
 target_link_libraries(test-random PRIVATE

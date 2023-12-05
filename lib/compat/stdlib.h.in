@@ -274,6 +274,18 @@ extern long int random (void);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_RANDOM_R@
+#  if @LIBCFUNK_REPLACE_RANDOM_R@
+#    undef random_r
+#    define random_r _libcfunk_random_r
+extern int _libcfunk_random_r (struct random_data *restrict buf,
+                               int32_t *restrict result);
+#  elif !@HAVE_RANDOM_R@
+extern int random_r (struct random_data *restrict buf,
+                     int32_t *restrict result);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_REALLOC@
 #  if @LIBCFUNK_REPLACE_REALLOC@
 #    undef realloc
