@@ -43,6 +43,7 @@
 
 int
 flock (int fd, int operation)
+#  undef flock
 {
   struct flock file_lock;
 

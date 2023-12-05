@@ -30,12 +30,14 @@
 #include "attributes.h"
 
 static void test_struct_option_defined (void);
+static void test_long_option_argument_unique (void);
 
 /* Test that 'getopt.h' can be included. */
 int
 main (void)
 {
   test_struct_option_defined ();
+  test_long_option_argument_unique ();
   return 0;
 }
 
@@ -43,4 +45,21 @@ static void
 test_struct_option_defined (void)
 {
   struct option value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the flags for 'option.has_arg' are unique. */
+static void
+test_long_option_argument_unique (void)
+{
+  switch (0)
+    {
+    case no_argument:
+      break;
+    case required_argument:
+      break;
+    case optional_argument:
+      break;
+    default:
+      break;
+    }
 }

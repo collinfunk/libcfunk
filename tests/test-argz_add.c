@@ -23,45 +23,51 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_FILE_H
-#define COMPAT_SYS_FILE_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <argz.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#if @HAVE_SYS_FILE_H@
-#  include_next <sys/file.h>
-#endif
+#include "test-help.h"
 
-/* Shared file lock. */
-#ifndef LOCK_SH
-#  define LOCK_SH 1
-#endif
+static void test_argz_add1 (void);
 
-/* Exclusive file lock. */
-#ifndef LOCK_EX
-#  define LOCK_EX 2
-#endif
+int
+main (void)
+{
+  test_argz_add1 ();
+  return 0;
+}
 
-/* Do not block when locking. */
-#ifndef LOCK_NB
-#  define LOCK_NB 4
-#endif
+static void
+test_argz_add1 (void)
+{
+  char *buffer;
+  size_t buffer_size;
+  int i;
 
-/* Unlock file. */
-#ifndef LOCK_UN
-#  define LOCK_UN 8
-#endif
+  buffer = (char *) malloc (2);
+  ASSERT (buffer != NULL);
+  buffer_size = 2;
+  buffer[0] = 'A';
+  buffer[1] = '\0';
 
-#if @LIBCFUNK_DECLARE_FLOCK@
-#  if @LIBCFUNK_REPLACE_FLOCK@
-#    undef flock
-#    define flock _libcfunk_flock
-extern int _libcfunk_flock (int fd, int operation);
-#  elif !@HAVE_FLOCK@
-extern int flock (int fd, int operation);
-#  endif
-#endif
+  for (i = 'B'; i <= 'Z'; ++i)
+    {
+      int result;
+      char temp[2] = { (char) i, '\0' };
 
-#endif /* COMPAT_SYS_FILE_H */
+      result = (int) argz_add (&buffer, &buffer_size, temp);
+      ASSERT (result == 0);
+      ASSERT (buffer_size == (size_t) (((i - 'A') * 2) + 2));
+    }
+
+  for (i = 0; i <= 'Z' - 'A'; ++i)
+    {
+      ASSERT (buffer[(i * 2)] == 'A' + i);
+      ASSERT (buffer[(i * 2) + 1] == '\0');
+    }
+
+  free (buffer);
+}

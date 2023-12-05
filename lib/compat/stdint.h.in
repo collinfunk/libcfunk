@@ -53,19 +53,19 @@
 #endif
 
 #ifndef UINT8_WIDTH
-#  define UINT8_WIDTH INT8_WIDTH
+#  define UINT8_WIDTH 8
 #endif
 
 #ifndef UINT16_WIDTH
-#  define UINT16_WIDTH INT16_WIDTH
+#  define UINT16_WIDTH 16
 #endif
 
 #ifndef UINT32_WIDTH
-#  define UINT32_WIDTH INT32_WIDTH
+#  define UINT32_WIDTH 32
 #endif
 
 #ifndef UINT64_WIDTH
-#  define UINT64_WIDTH INT64_WIDTH
+#  define UINT64_WIDTH 64
 #endif
 
 #ifndef INT_LEAST8_WIDTH
@@ -225,6 +225,46 @@
 #    define UINTMAX_WIDTH (@UINTMAX_T@ * CHAR_BIT)
 #  else
 #    define UINTMAX_WIDTH INTMAX_WIDTH
+#  endif
+#endif
+
+#ifndef PTRDIFF_WIDTH
+#  if @HAVE_PTRDIFF_T@
+#    define PTRDIFF_WIDTH (@PTRDIFF_T@ * CHAR_BIT)
+#  else
+/* TODO */
+#  endif
+#endif
+
+#ifndef SIG_ATOMIC_WIDTH
+#  if @HAVE_SIG_ATOMIC_T@
+#    define SIG_ATOMIC_WIDTH (@SIG_ATOMIC_T@ * CHAR_BIT)
+#  else
+/* TODO */
+#  endif
+#endif
+
+#ifndef SIZE_WIDTH
+#  if @HAVE_SIZE_T@
+#    define SIZE_WIDTH (@SIZE_T@ * CHAR_BIT)
+#  else
+/* TODO */
+#  endif
+#endif
+
+#ifndef WCHAR_WIDTH
+#  if @HAVE_WCHAR_T@
+#    define WCHAR_WIDTH (@WCHAR_T@ * CHAR_BIT)
+#  else
+/* TODO */
+#  endif
+#endif
+
+#ifndef WINT_WIDTH
+#  if @HAVE_WINT_T@
+#    define WINT_WIDTH (@WINT_T@ * CHAR_BIT)
+#  else
+/* TODO */
 #  endif
 #endif
 

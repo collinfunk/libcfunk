@@ -23,45 +23,16 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_FILE_H
-#define COMPAT_SYS_FILE_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <argz.h>
+#include <errno.h>
+#include <string.h>
 
-#if @HAVE_SYS_FILE_H@
-#  include_next <sys/file.h>
-#endif
-
-/* Shared file lock. */
-#ifndef LOCK_SH
-#  define LOCK_SH 1
-#endif
-
-/* Exclusive file lock. */
-#ifndef LOCK_EX
-#  define LOCK_EX 2
-#endif
-
-/* Do not block when locking. */
-#ifndef LOCK_NB
-#  define LOCK_NB 4
-#endif
-
-/* Unlock file. */
-#ifndef LOCK_UN
-#  define LOCK_UN 8
-#endif
-
-#if @LIBCFUNK_DECLARE_FLOCK@
-#  if @LIBCFUNK_REPLACE_FLOCK@
-#    undef flock
-#    define flock _libcfunk_flock
-extern int _libcfunk_flock (int fd, int operation);
-#  elif !@HAVE_FLOCK@
-extern int flock (int fd, int operation);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_FILE_H */
+error_t
+argz_add (char **restrict argz, size_t *restrict argz_len,
+          const char *restrict str)
+#undef argz_add
+{
+  return argz_append (argz, argz_len, str, strlen (str) + 1);
+}

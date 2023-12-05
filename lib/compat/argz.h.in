@@ -40,6 +40,33 @@
 /* Define 'size_t'. */
 #include <stddef.h>
 
+#if @LIBCFUNK_DECLARE_ARGZ_ADD@
+#  if @LIBCFUNK_REPLACE_ARGZ_ADD@
+#    undef argz_add
+#    define argz_add _libcfunk_argz_add
+extern error_t _libcfunk_argz_add (char **restrict argz,
+                                   size_t *restrict argz_len,
+                                   const char *restrict str);
+#  elif !@HAVE_ARGZ_ADD@
+extern error_t argz_add (char **restrict argz, size_t *restrict argz_len,
+                         const char *restrict str);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_ARGZ_APPEND@
+#  if @LIBCFUNK_REPLACE_ARGZ_APPEND@
+#    undef argz_append
+#    define argz_append _libcfunk_argz_append
+extern error_t _libcfunk_argz_append (char **restrict argz,
+                                      size_t *restrict argz_len,
+                                      const char *restrict buf,
+                                      size_t buf_len);
+#  elif !@HAVE_ARGZ_APPEND@
+extern error_t argz_append (char **restrict argz, size_t *restrict argz_len,
+                            const char *restrict buf, size_t buf_len);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ARGZ_COUNT@
 #  if @LIBCFUNK_REPLACE_ARGZ_COUNT@
 #    undef argz_count

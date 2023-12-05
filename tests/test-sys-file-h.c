@@ -27,22 +27,31 @@
 
 #include <sys/file.h>
 
-/* Test that macros for 'flock' are defined to unique non-zero values. */
+static void test_flock_macros_unique (void);
+
+/* Test that 'sys/file.h' can be included. */
 int
 main (void)
+{
+  test_flock_macros_unique ();
+  return 0;
+}
+
+/* Test that the operation macros for 'flock' are unique values. */
+static void
+test_flock_macros_unique (void)
 {
   switch (0)
     {
     case LOCK_SH:
-      return 1;
+      break;
     case LOCK_EX:
-      return 1;
+      break;
     case LOCK_NB:
-      return 1;
+      break;
     case LOCK_UN:
-      return 1;
+      break;
     default:
       break;
     }
-  return 0;
 }

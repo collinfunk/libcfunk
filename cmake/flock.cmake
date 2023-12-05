@@ -9,7 +9,7 @@ endif ()
 
 set(LIBCFUNK_DECLARE_FLOCK "1" CACHE STRING "")
 
-if (NOT HAVE_FLOCK)
+if (NOT HAVE_FLOCK OR LIBCFUNK_REPLACE_FLOCK)
   check_include_file("fcntl.h" HAVE_FCNTL_H)
   check_include_file("unistd.h" HAVE_UNISTD_H)
   if (HAVE_FCNTL_H)

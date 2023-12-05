@@ -2,6 +2,9 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/wchar-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/signal-h.cmake)
 
 # Generate <stdint.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_STDINT_H "1" CACHE STRING "")

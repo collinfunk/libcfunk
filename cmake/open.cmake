@@ -21,3 +21,7 @@ if (NOT HAVE_OPEN)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-open.cmake)
+endif ()
+

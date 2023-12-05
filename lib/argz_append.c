@@ -23,45 +23,27 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_FILE_H
-#define COMPAT_SYS_FILE_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <argz.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
 
-#if @HAVE_SYS_FILE_H@
-#  include_next <sys/file.h>
-#endif
-
-/* Shared file lock. */
-#ifndef LOCK_SH
-#  define LOCK_SH 1
-#endif
-
-/* Exclusive file lock. */
-#ifndef LOCK_EX
-#  define LOCK_EX 2
-#endif
-
-/* Do not block when locking. */
-#ifndef LOCK_NB
-#  define LOCK_NB 4
-#endif
-
-/* Unlock file. */
-#ifndef LOCK_UN
-#  define LOCK_UN 8
-#endif
-
-#if @LIBCFUNK_DECLARE_FLOCK@
-#  if @LIBCFUNK_REPLACE_FLOCK@
-#    undef flock
-#    define flock _libcfunk_flock
-extern int _libcfunk_flock (int fd, int operation);
-#  elif !@HAVE_FLOCK@
-extern int flock (int fd, int operation);
-#  endif
-#endif
-
-#endif /* COMPAT_SYS_FILE_H */
+error_t
+argz_append (char **restrict argz, size_t *restrict argz_len,
+             const char *restrict buf, size_t buf_len)
+#undef argz_append
+{
+  size_t new_argz_len = *argz_len + buf_len;
+  char *new_argz = (char *) realloc (*argz, new_argz_len);
+  if (new_argz == NULL)
+    return ENOMEM;
+  else
+    {
+      memcpy (&new_argz[*argz_len], buf, buf_len);
+      *argz = new_argz;
+      *argz_len = new_argz_len;
+      return 0;
+    }
+}
