@@ -19,3 +19,7 @@ if (NOT HAVE_POPEN)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-popen.cmake)
+endif ()
+
