@@ -2202,7 +2202,11 @@ typedef struct
 #endif
 
 #if @LIBCFUNK_DECLARE_IMAXABS@
-#  if !@HAVE_IMAXABS@
+#  if @LIBCFUNK_REPLACE_IMAXABS@
+#    undef imaxabs
+#    define imaxabs _libcfunk_imaxabs
+extern intmax_t _libcfunk_imaxabs (intmax_t value);
+#  elif !@HAVE_IMAXABS@
 extern intmax_t imaxabs (intmax_t value);
 #  endif
 #endif

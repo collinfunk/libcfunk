@@ -101,7 +101,11 @@ struct random_data
 #endif
 
 #if @LIBCFUNK_DECLARE_ABS@
-#  if !@HAVE_ABS@
+#  if @LIBCFUNK_REPLACE_ABS@
+#    undef abs
+#    define abs _libcfunk_abs
+extern int _libcfunk_abs (int value);
+#  elif !@HAVE_ABS@
 extern int abs (int value);
 #  endif
 #endif
@@ -189,7 +193,11 @@ extern int getloadavg (double loadavg[], int nelem);
 #endif
 
 #if @LIBCFUNK_DECLARE_LABS@
-#  if !@HAVE_LABS@
+#  if @LIBCFUNK_REPLACE_LABS@
+#    undef labs
+#    define labs _libcfunk_labs
+extern long int _libcfunk_labs (long int value);
+#  elif !@HAVE_LABS@
 extern long int labs (long int value);
 #  endif
 #endif
@@ -201,7 +209,11 @@ extern ldiv_t ldiv (long int numer, long int denom);
 #endif
 
 #if @LIBCFUNK_DECLARE_LLABS@
-#  if !@HAVE_LLABS@
+#  if @LIBCFUNK_REPLACE_LLABS@
+#    undef llabs
+#    define llabs _libcfunk_llabs
+extern long long int _libcfunk_llabs (long long int value);
+#  elif !@HAVE_LLABS@
 extern long long int llabs (long long int value);
 #  endif
 #endif

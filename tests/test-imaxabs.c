@@ -26,10 +26,17 @@
 #include <config.h>
 
 #include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-intmax_t
-imaxabs (intmax_t value)
-#undef imaxabs
+#include "test-help.h"
+
+/* Test that 'imaxabs' is defined. */
+int
+main (void)
 {
-  return value < INTMAX_C (0) ? -value : value;
+  ASSERT (imaxabs (INTMAX_C (0)) == INTMAX_C (0));
+  ASSERT (imaxabs (INTMAX_C (1)) == INTMAX_C (1));
+  ASSERT (imaxabs (-INTMAX_C (1)) == INTMAX_C (1));
+  return 0;
 }

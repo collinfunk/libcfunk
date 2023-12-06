@@ -25,11 +25,17 @@
 
 #include <config.h>
 
-#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-intmax_t
-imaxabs (intmax_t value)
-#undef imaxabs
+#include "test-help.h"
+
+/* Test that 'abs' is defined. */
+int
+main (void)
 {
-  return value < INTMAX_C (0) ? -value : value;
+  ASSERT (abs (0) == 0);
+  ASSERT (abs (1) == 1);
+  ASSERT (abs (-1) == 1);
+  return 0;
 }

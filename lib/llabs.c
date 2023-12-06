@@ -29,6 +29,7 @@
 
 long long int
 llabs (long long int value)
+#undef llabs
 {
-  return value < 0 ? -value : value;
+  return value < 0LL ? -value : value;
 }

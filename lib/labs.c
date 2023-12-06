@@ -29,6 +29,7 @@
 
 long int
 labs (long int value)
+#undef labs
 {
-  return value < 0 ? -value : value;
+  return value < 0L ? -value : value;
 }

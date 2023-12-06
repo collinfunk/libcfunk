@@ -29,6 +29,7 @@
 
 int
 abs (int value)
+#undef abs
 {
   return value < 0 ? -value : value;
 }

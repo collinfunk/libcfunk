@@ -25,11 +25,17 @@
 
 #include <config.h>
 
-#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-intmax_t
-imaxabs (intmax_t value)
-#undef imaxabs
+#include "test-help.h"
+
+/* Test that 'llabs' is defined. */
+int
+main (void)
 {
-  return value < INTMAX_C (0) ? -value : value;
+  ASSERT (llabs (0LL) == 0LL);
+  ASSERT (llabs (1LL) == 1LL);
+  ASSERT (llabs (-1LL) == 1LL);
+  return 0;
 }
