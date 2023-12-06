@@ -250,6 +250,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SCHED_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SEARCH_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/search.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/search.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SPAWN_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/spawn.h.in
