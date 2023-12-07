@@ -324,6 +324,17 @@ extern char *secure_getenv (const char *name);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_SETENV@
+#  if @LIBCFUNK_REPLACE_SETENV@
+#    undef setenv
+#    define setenv _libcfunk_setenv
+extern int _libcfunk_setenv (const char *envname, const char *envval,
+                             int overwrite);
+#  elif !@HAVE_SETENV@
+extern int setenv (const char *envname, const char *envval, int overwrite);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_STRTOL@
 #  if @LIBCFUNK_REPLACE_STRTOL@
 #    undef strtol
