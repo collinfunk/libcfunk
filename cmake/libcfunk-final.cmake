@@ -201,6 +201,13 @@ if ($CACHE{LIBCFUNK_GENERATE_MATH_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_MONETARY_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/monetary.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/monetary.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_NETDB_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/netdb.h.in
