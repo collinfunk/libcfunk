@@ -25,37 +25,37 @@
 
 #include <config.h>
 
-#include <argz.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
+#include <grp.h>
 
-error_t
-argz_create (char *const argv[], char **restrict argz,
-             size_t *restrict argz_len)
-#undef argz_create
+#include "attributes.h"
+
+static void test_gid_t_defined (void);
+static void test_size_t_defined (void);
+static void test_struct_group_defined (void);
+
+int
+main (void)
 {
-  int argc;
-  size_t total_len = 0;
-
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    total_len += strlen (argv[argc]) + 1;
-  if (total_len == 0)
-    {
-      *argz = NULL;
-      *argz_len = 0;
-    }
-  else
-    {
-      int i;
-      char *p;
-
-      *argz = (char *) malloc (total_len);
-      if (*argz == NULL)
-        return ENOMEM;
-      for (i = 0, p = *argz; i < argc; ++i, ++p)
-        p = stpcpy (p, argv[i]);
-      *argz_len = total_len;
-    }
+  test_gid_t_defined ();
+  test_size_t_defined ();
+  test_struct_group_defined ();
   return 0;
+}
+
+static void
+test_gid_t_defined (void)
+{
+  gid_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_struct_group_defined (void)
+{
+  struct group value ATTRIBUTE_UNUSED;
 }

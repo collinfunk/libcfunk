@@ -23,39 +23,30 @@
  * SUCH DAMAGE.
  */
 
-#include <config.h>
+#ifndef COMPAT_GRP_H
+#define COMPAT_GRP_H
 
-#include <argz.h>
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
+#ifdef __GNUC__
+#  pragma GCC system_header
+#endif
 
-error_t
-argz_create (char *const argv[], char **restrict argz,
-             size_t *restrict argz_len)
-#undef argz_create
+#if @HAVE_GRP_H@
+#  include_next <grp.h>
+#endif
+
+/* Define 'gid_t'. */
+#include <sys/types.h>
+
+/* Define 'size_t'. */
+#include <stddef.h>
+
+#if !@HAVE_STRUCT_GROUP@
+struct group
 {
-  int argc;
-  size_t total_len = 0;
+  char *gr_name;
+  gid_t gr_gid;
+  char **gr_mem;
+};
+#endif
 
-  for (argc = 0; argv[argc] != NULL; ++argc)
-    total_len += strlen (argv[argc]) + 1;
-  if (total_len == 0)
-    {
-      *argz = NULL;
-      *argz_len = 0;
-    }
-  else
-    {
-      int i;
-      char *p;
-
-      *argz = (char *) malloc (total_len);
-      if (*argz == NULL)
-        return ENOMEM;
-      for (i = 0, p = *argz; i < argc; ++i, ++p)
-        p = stpcpy (p, argv[i]);
-      *argz_len = total_len;
-    }
-  return 0;
-}
+#endif /* COMPAT_GRP_H */

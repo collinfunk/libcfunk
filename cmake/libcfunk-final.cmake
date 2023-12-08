@@ -159,6 +159,13 @@ if ($CACHE{LIBCFUNK_GENERATE_GLOB_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_GRP_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/grp.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/grp.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in

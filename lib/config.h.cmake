@@ -360,6 +360,7 @@
 #cmakedefine01 HAVE_GMTIME_R
 #cmakedefine01 HAVE_GNUC___THREAD
 #cmakedefine01 HAVE_GROUP_MEMBER
+#cmakedefine01 HAVE_GRP_H
 #cmakedefine01 HAVE_HAVE_DIRECT_H
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_IMAXDIV
@@ -691,6 +692,7 @@
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_START
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_TYPE
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_WHENCE
+#cmakedefine01 HAVE_STRUCT_GROUP
 #cmakedefine01 HAVE_STRUCT_HOSTENT
 #cmakedefine01 HAVE_STRUCT_IF_NAMEINDEX
 #cmakedefine01 HAVE_STRUCT_IN6_ADDR
