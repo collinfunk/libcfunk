@@ -16,8 +16,6 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 
 include(cmake/libcfunk-init.cmake)
 
-include(cmake/setenv.cmake)
-
 include(cmake/abs.cmake)
 include(cmake/accept.cmake)
 include(cmake/access.cmake)
@@ -122,6 +120,7 @@ include(cmake/ffsll.cmake)
 include(cmake/filename.cmake)
 include(cmake/fileno.cmake)
 include(cmake/float-h.cmake)
+include(cmake/flock.cmake)
 include(cmake/fls.cmake)
 include(cmake/flsl.cmake)
 include(cmake/flsll.cmake)
@@ -325,6 +324,7 @@ include(cmake/secure_getenv.cmake)
 include(cmake/seekdir.cmake)
 include(cmake/send.cmake)
 include(cmake/sendto.cmake)
+include(cmake/setenv.cmake)
 include(cmake/sethostname.cmake)
 include(cmake/setlocale.cmake)
 include(cmake/setsockopt.cmake)
@@ -499,9 +499,6 @@ if (UNIX)
   # TODO: Windows
   include(cmake/posix_spawn.cmake)
   include(cmake/posix_spawnp.cmake)
-
-  # FIXME: Add implementation using Windows fileapi.h
-  include(cmake/flock.cmake)
 
   # These two rely on minimal functionality of fcntl which can probably
   # be easily emulated on Windows.

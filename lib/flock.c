@@ -25,8 +25,10 @@
 
 #include <config.h>
 
-#include <errno.h>
 #include <sys/file.h>
+
+#include <errno.h>
+#include <string.h>
 
 #if HAVE_FCNTL_H
 #  include <fcntl.h>
@@ -34,6 +36,16 @@
 
 #if HAVE_UNISTD_H
 #  include <unistd.h>
+#endif
+
+#if HAVE_WINDOWS_H
+#  include <windows.h>
+#  ifndef LOCKFILE_FAIL_IMMEDIATELY
+#    define LOCKFILE_FAIL_IMMEDIATELY 1
+#  endif
+#  ifndef LOCKFILE_EXCLUSIVE_LOCK
+#    define LOCKFILE_EXCLUSIVE_LOCK 2
+#  endif
 #endif
 
 #if HAVE_STRUCT_FLOCK && HAVE_STRUCT_FLOCK_L_LEN && HAVE_STRUCT_FLOCK_L_START \
@@ -72,6 +84,98 @@ flock (int fd, int operation)
   return fcntl (fd, (operation & LOCK_NB) ? F_SETLK : F_SETLKW, &file_lock);
 }
 
-#else /* TODO: Windows fileapi.h implementation. */
-#  error "No implementation for flock for your system."
+#else /* HAVE_WINDOWS_H */
+
+/* Windows does not document the return value for 'GetLastError ()'. The error
+   numbers returned by these functions is probably incorrect. If any Windows
+   fileapi function fails, we just set errno to 'EBADF'. */
+static int win32_flock_lock (int fd, int nonblocking, int exclusive);
+static int win32_flock_unlock (int fd);
+
+int
+flock (int fd, int operation)
+#  undef flock
+{
+  /* Get the command ignoring the nonblocking flag. */
+  switch (operation & ~LOCK_NB)
+    {
+    case LOCK_SH:
+      return win32_flock_lock (fd, (operation & LOCK_NB), 0);
+    case LOCK_EX:
+      return win32_flock_lock (fd, (operation & LOCK_NB), 1);
+    case LOCK_UN:
+      return win32_flock_unlock (fd);
+    default:
+      errno = EINVAL;
+      return -1;
+    }
+}
+
+static int
+win32_flock_lock (int fd, int nonblocking, int exclusive)
+{
+  HANDLE fd_handle;
+  LARGE_INTEGER file_size;
+  OVERLAPPED overlapped;
+  BOOL result;
+  DWORD flags = 0;
+
+  fd_handle = (HANDLE) _get_osfhandle (fd);
+  if (fd_handle == INVALID_HANDLE_VALUE)
+    {
+      errno = EBADF;
+      return -1;
+    }
+  result = GetFileSizeEx (fd_handle, &file_size);
+  if (!result)
+    {
+      errno = EBADF;
+      return -1;
+    }
+  memset (&overlapped, '\0', sizeof (OVERLAPPED));
+  if (nonblocking)
+    flags |= LOCKFILE_FAIL_IMMEDIATELY;
+  if (exclusive)
+    flags |= LOCKFILE_EXCLUSIVE_LOCK;
+  result = LockFileEx (fd_handle, flags, 0, file_size.LowPart,
+                       file_size.HighPart, &overlapped);
+  if (!result)
+    {
+      errno = EBADF;
+      return -1;
+    }
+  return 0;
+}
+
+static int
+win32_flock_unlock (int fd)
+{
+  HANDLE fd_handle;
+  LARGE_INTEGER file_size;
+  OVERLAPPED overlapped;
+  BOOL result;
+
+  fd_handle = (HANDLE) _get_osfhandle (fd);
+  if (fd_handle == INVALID_HANDLE_VALUE)
+    {
+      errno = EBADF;
+      return -1;
+    }
+  result = GetFileSizeEx (fd_handle, &file_size);
+  if (!result)
+    {
+      errno = EBADF;
+      return -1;
+    }
+  memset (&overlapped, '\0', sizeof (OVERLAPPED));
+  result = UnlockFileEx (fd_handle, 0, file_size.LowPart, file_size.HighPart,
+                         &overlapped);
+  if (!result)
+    {
+      errno = EBADF;
+      return -1;
+    }
+  return 0;
+}
+
 #endif

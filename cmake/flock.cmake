@@ -10,6 +10,8 @@ endif ()
 set(LIBCFUNK_DECLARE_FLOCK "1" CACHE STRING "")
 
 if (NOT HAVE_FLOCK OR LIBCFUNK_REPLACE_FLOCK)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/memset.cmake)
+  check_include_file("windows.h" HAVE_WINDOWS_H)
   check_include_file("fcntl.h" HAVE_FCNTL_H)
   check_include_file("unistd.h" HAVE_UNISTD_H)
   if (HAVE_FCNTL_H)
