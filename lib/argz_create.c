@@ -25,16 +25,36 @@
 
 #include <config.h>
 
-#include <stdlib.h>
+#include <argz.h>
+#include <errno.h>
+#include <string.h>
 
-ldiv_t
-ldiv (long int numer, long int denom)
-#undef ldiv
+error_t
+argz_create (char *const argv[], char **restrict argz,
+             size_t *restrict argz_len)
+#undef argz_create
 {
-  ldiv_t result;
+  int argc;
+  size_t total_len = 0;
 
-  result.quot = numer / denom;
-  result.rem = numer % denom;
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    total_len += strlen (argv[argc]) + 1;
+  if (total_len == 0)
+    {
+      *argz = NULL;
+      *argz_len = 0;
+    }
+  else
+    {
+      int i;
+      char *p;
 
-  return result;
+      *argz = (char *) malloc (total_len);
+      if (*argz == NULL)
+        return ENOMEM;
+      for (i = 0, p = *argz; i < argc; ++i, ++p)
+        p = stpcpy (p, argv[i]);
+      *argz_len = total_len;
+    }
+  return 0;
 }

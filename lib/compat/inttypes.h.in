@@ -2212,7 +2212,11 @@ extern intmax_t imaxabs (intmax_t value);
 #endif
 
 #if @LIBCFUNK_DECLARE_IMAXDIV@
-#  if !@HAVE_IMAXDIV@
+#  if @LIBCFUNK_REPLACE_IMAXDIV@
+#    undef imaxdiv
+#    define imaxdiv _libcfunk_imaxdiv
+extern imaxdiv_t _libcfunk_imaxdiv (intmax_t numer, intmax_t denom);
+#  elif !@HAVE_IMAXDIV@
 extern imaxdiv_t imaxdiv (intmax_t numer, intmax_t denom);
 #  endif
 #endif

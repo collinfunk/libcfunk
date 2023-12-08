@@ -25,16 +25,42 @@
 
 #include <config.h>
 
+#include <argz.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-ldiv_t
-ldiv (long int numer, long int denom)
-#undef ldiv
+#include "test-help.h"
+
+int
+main (void)
 {
-  ldiv_t result;
+  char *ptr;
+  size_t len;
+  int result;
 
-  result.quot = numer / denom;
-  result.rem = numer % denom;
+  {
+    char *input[] = { NULL };
 
-  return result;
+    ptr = NULL;
+    len = 1;
+    result = (int) argz_create (input, &ptr, &len);
+    ASSERT (result == 0);
+    ASSERT (ptr == NULL);
+    ASSERT (len == 0);
+  }
+  {
+    char *input[] = { "a", "bb", "ccc", NULL };
+    char expect[] = { 'a', '\0', 'b', 'b', '\0', 'c', 'c', 'c', '\0' };
+
+    ptr = NULL;
+    len = 0;
+    result = (int) argz_create (input, &ptr, &len);
+    ASSERT (result == 0);
+    ASSERT (ptr != NULL);
+    ASSERT (len == sizeof (expect));
+    ASSERT (memcmp (ptr, expect, sizeof (expect)) == 0);
+    free (ptr);
+  }
+  return 0;
 }

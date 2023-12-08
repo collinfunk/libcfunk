@@ -77,6 +77,18 @@ extern size_t argz_count (const char *argz, size_t argz_len);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_ARGZ_CREATE@
+#  if @LIBCFUNK_REPLACE_ARGZ_CREATE@
+#    undef argz_create
+#    define argz_create _libcfunk_argz_create
+extern error_t _libcfunk_argz_create (char *const argv[], char **restrict argz,
+                                      size_t *restrict argz_len);
+#  elif !@HAVE_ARGZ_CREATE@
+extern error_t argz_create (char *const argv[], char **restrict argz,
+                            size_t *restrict argz_len);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ARGZ_EXTRACT@
 #  if @LIBCFUNK_REPLACE_ARGZ_EXTRACT@
 #    undef argz_extract

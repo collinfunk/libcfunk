@@ -29,6 +29,7 @@
 
 lldiv_t
 lldiv (long long int numer, long long int denom)
+#undef lldiv
 {
   lldiv_t result;
 

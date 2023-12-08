@@ -29,6 +29,7 @@
 
 div_t
 div (int numer, int denom)
+#undef div
 {
   div_t result;
 

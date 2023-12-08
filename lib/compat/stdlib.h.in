@@ -163,7 +163,11 @@ extern void *_libcfunk_calloc (size_t nelem, size_t elsize);
 #endif
 
 #if @LIBCFUNK_DECLARE_DIV@
-#  if !@HAVE_DIV@
+#  if @LIBCFUNK_REPLACE_DIV@
+#    undef div
+#    define div _libcfunk_div
+extern div_t _libcfunk_div (int numer, int denom);
+#  elif !@HAVE_DIV@
 extern div_t div (int numer, int denom);
 #  endif
 #endif
@@ -203,7 +207,11 @@ extern long int labs (long int value);
 #endif
 
 #if @LIBCFUNK_DECLARE_LDIV@
-#  if !@HAVE_LDIV@
+#  if @LIBCFUNK_REPLACE_LDIV@
+#    undef ldiv
+#    define ldiv _libcfunk_ldiv
+extern ldiv_t _libcfunk_ldiv (long int numer, long int denom);
+#  elif !@HAVE_LDIV@
 extern ldiv_t ldiv (long int numer, long int denom);
 #  endif
 #endif
@@ -219,7 +227,11 @@ extern long long int llabs (long long int value);
 #endif
 
 #if @LIBCFUNK_DECLARE_LLDIV@
-#  if !@HAVE_LLDIV@
+#  if @LIBCFUNK_REPLACE_LLDIV@
+#    undef lldiv
+#    define lldiv _libcfunk_lldiv
+extern lldiv_t _libcfunk_lldiv (long long int numer, long long int denom);
+#  elif !@HAVE_LLDIV@
 extern lldiv_t lldiv (long long int numer, long long int denom);
 #  endif
 #endif
