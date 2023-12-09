@@ -237,6 +237,16 @@ extern int ftruncate (int fd, off_t length);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GET_CURRENT_DIR_NAME@
+#  if @LIBCFUNK_REPLACE_GET_CURRENT_DIR_NAME@
+#    undef get_current_dir_name
+#    define get_current_dir_name _libcfunk_get_current_dir_name
+extern char *_libcfunk_get_current_dir_name (void);
+#  elif !@HAVE_GET_CURRENT_DIR_NAME@
+extern char *get_current_dir_name (void);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_GETCWD@
 #  if @LIBCFUNK_REPLACE_GETCWD@
 #    undef getcwd

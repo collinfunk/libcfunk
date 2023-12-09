@@ -34,7 +34,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "same-file.h"
+#include "same_inode.h"
 #include "test-help.h"
 
 /* Use a static buffer for getcwd(3). Many implementations will allocate memory
@@ -42,36 +42,42 @@
    NULL argument is "unspecified". */
 static char buffer[4096];
 
-static void test_dot_cwd_same (void);
-static void test_prev_dir (void);
-
+/* Checks that getcwd and "." have the same inode. */
 int
 main (void)
 {
-  test_dot_cwd_same ();
-  test_prev_dir ();
-  return 0;
-}
+  struct stat cwd_stat;
+  struct stat dot_stat;
 
-static void
-test_dot_cwd_same (void)
-{
   if (getcwd (buffer, sizeof (buffer)) == NULL)
     {
-      fprintf (stderr, "test-same-file failed with error: %s.\n",
+      fprintf (stderr, "test-same-inode failed with error: %s.\n",
                strerror (errno));
       /* Should never happen but print a message just in case. */
-      fprintf (stderr, "test-same-file must be run in a path under 4096 "
+      fprintf (stderr, "test-same-inode must be run in a path under 4096 "
                        "characters in length.\n");
       abort ();
     }
 
-  ASSERT (same_file (buffer, "."));
-}
+  if (stat (buffer, &cwd_stat) < 0)
+    {
+      fprintf (stderr, "Failed to stat `%s'. Failed with error: %s.\n", buffer,
+               strerror (errno));
+      abort ();
+    }
 
-/* call test_dot_cwd_same first. */
-static void
-test_prev_dir (void)
-{
-  ASSERT (!same_file (buffer, "../"));
+  if (stat (".", &dot_stat) < 0)
+    {
+      fprintf (stderr, "Failed to stat `.'. Failed with error: %s.\n",
+               strerror (errno));
+      abort ();
+    }
+
+    /* see same_inode.h */
+#ifdef _WIN32
+  ASSERT (!SAME_INODE (cwd_stat, dot_stat));
+#else
+  ASSERT (SAME_INODE (cwd_stat, dot_stat));
+#endif
+  return 0;
 }

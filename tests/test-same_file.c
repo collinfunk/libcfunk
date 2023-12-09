@@ -25,15 +25,53 @@
 
 #include <config.h>
 
-#include <stdlib.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
+#include <errno.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <string.h>
+#include <unistd.h>
 
-char *
-strdup (const char *s)
-#undef strdup
+#include "same_file.h"
+#include "test-help.h"
+
+/* Use a static buffer for getcwd(3). Many implementations will allocate memory
+   for the path if the pointer is NULL, but POSIX states the behavior with a
+   NULL argument is "unspecified". */
+static char buffer[4096];
+
+static void test_dot_cwd_same (void);
+static void test_prev_dir (void);
+
+int
+main (void)
 {
-  size_t len = strlen (s) + 1;
-  char *copy = (char *) malloc (len);
+  test_dot_cwd_same ();
+  test_prev_dir ();
+  return 0;
+}
 
-  return (copy == NULL) ? NULL : (char *) memcpy (copy, s, len);
+static void
+test_dot_cwd_same (void)
+{
+  if (getcwd (buffer, sizeof (buffer)) == NULL)
+    {
+      fprintf (stderr, "test-same-file failed with error: %s.\n",
+               strerror (errno));
+      /* Should never happen but print a message just in case. */
+      fprintf (stderr, "test-same-file must be run in a path under 4096 "
+                       "characters in length.\n");
+      abort ();
+    }
+
+  ASSERT (same_file (buffer, "."));
+}
+
+/* call test_dot_cwd_same first. */
+static void
+test_prev_dir (void)
+{
+  ASSERT (!same_file (buffer, "../"));
 }

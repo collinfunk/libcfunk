@@ -25,15 +25,29 @@
 
 #include <config.h>
 
+#include <sys/stat.h>
+
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+
+#include "same_inode.h"
 
 char *
-strdup (const char *s)
-#undef strdup
+get_current_dir_name (void)
+#undef get_current_dir_name
 {
-  size_t len = strlen (s) + 1;
-  char *copy = (char *) malloc (len);
+  char *ptr;
 
-  return (copy == NULL) ? NULL : (char *) memcpy (copy, s, len);
+  ptr = getenv ("PWD");
+  if (ptr != NULL)
+    {
+      struct stat pwd_st;
+      struct stat dot_st;
+
+      if (stat (ptr, &pwd_st) == 0 && stat (".", &dot_st) == 0
+          && SAME_INODE (pwd_st, dot_st))
+        return strdup (ptr);
+    }
+  return getcwd (NULL, 0);
 }

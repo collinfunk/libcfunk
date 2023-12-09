@@ -195,7 +195,11 @@ extern size_t strcspn (const char *s1, const char *s2);
 #endif
 
 #if @LIBCFUNK_DECLARE_STRDUP@
-#  if !@HAVE_STRDUP@
+#  if @LIBCFUNK_REPLACE_STRDUP@
+#    undef strdup
+#    define strdup _libcfunk_strdup
+extern char *_libcfunk_strdup (const char *s);
+#  elif !@HAVE_STRDUP@
 extern char *strdup (const char *s);
 #  endif
 #endif

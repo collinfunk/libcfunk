@@ -25,59 +25,33 @@
 
 #include <config.h>
 
-#include <sys/stat.h>
-#include <sys/types.h>
-
-#include <errno.h>
-#include <stddef.h>
-#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
-#include "same-inode.h"
 #include "test-help.h"
 
-/* Use a static buffer for getcwd(3). Many implementations will allocate memory
-   for the path if the pointer is NULL, but POSIX states the behavior with a
-   NULL argument is "unspecified". */
-static char buffer[4096];
+static char buffer[2048];
 
-/* Checks that getcwd and "." have the same inode. */
 int
 main (void)
 {
-  struct stat cwd_stat;
-  struct stat dot_stat;
+  size_t i;
+  char *ptr;
 
-  if (getcwd (buffer, sizeof (buffer)) == NULL)
+  /* Make sure BUFFER is a valid size. */
+  ASSERT (sizeof (buffer) > 1);
+
+  for (i = 0; i < sizeof (buffer) - 1; ++i)
     {
-      fprintf (stderr, "test-same-inode failed with error: %s.\n",
-               strerror (errno));
-      /* Should never happen but print a message just in case. */
-      fprintf (stderr, "test-same-inode must be run in a path under 4096 "
-                       "characters in length.\n");
-      abort ();
+      ptr = NULL;
+      buffer[i] = (i & 0xff) == 0 ? (i & 0xff) + 1 : (i & 0xff);
+      buffer[i + 1] = '\0';
+      ptr = strdup (buffer);
+      ASSERT (ptr != NULL);
+      ASSERT (strcmp (ptr, buffer) == 0);
+      free (ptr);
     }
 
-  if (stat (buffer, &cwd_stat) < 0)
-    {
-      fprintf (stderr, "Failed to stat `%s'. Failed with error: %s.\n", buffer,
-               strerror (errno));
-      abort ();
-    }
-
-  if (stat (".", &dot_stat) < 0)
-    {
-      fprintf (stderr, "Failed to stat `.'. Failed with error: %s.\n",
-               strerror (errno));
-      abort ();
-    }
-
-    /* see same-inode.h */
-#ifdef _WIN32
-  ASSERT (!SAME_INODE (cwd_stat, dot_stat));
-#else
-  ASSERT (SAME_INODE (cwd_stat, dot_stat));
-#endif
   return 0;
 }
