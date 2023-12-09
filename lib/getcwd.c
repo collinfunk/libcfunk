@@ -26,62 +26,97 @@
 #include <config.h>
 
 #include <errno.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-/* Don't call ourselves. */
-#undef getcwd
-
-/* The original system declaration. */
-static char *
-_system_getcwd (char *buffer, size_t size)
-{
-#if HAVE__GETCWD
-  return _getcwd (buffer, size);
-#else
-  return getcwd (buffer, size);
-#endif
-}
-
 char *
-_libcfunk_getcwd (char *buffer, size_t size)
+getcwd (char *buf, size_t size)
+#undef getcwd
+#if HAVE_WINDOWS_H && HAVE__GETCWD
+#  define getcwd _getcwd
+#endif
 {
-  char *return_value;
-  char *ptr;
-  char stack_buffer[2048];
-
-  /* If BUFFER isn't NULL assume it points to a valid block of SIZE bytes. */
-  if (buffer != NULL)
+  if (size == 0)
     {
-      if (size > 0)
-        return _system_getcwd (buffer, size);
-      else /* Buffer is not NULL and size is 0. */
+      if (buf != NULL)
         {
           errno = EINVAL;
           return NULL;
         }
     }
-
-  /* If BUFFER is NULL and SIZE isn't 0, assume that is the number of bytes the
-     caller wants allocated. */
-  if (size > 0)
+  else if (size == 1)
     {
-      buffer = malloc (size);
-      if (buffer == NULL)
-        return NULL;
-      return_value = _system_getcwd (buffer, size);
-      if (return_value == NULL)
-        {
-          free (buffer);
-          buffer = NULL;
-        }
-      return return_value;
+      errno = ERANGE;
+      return NULL;
     }
+  else if (buf != NULL)
+    return getcwd (buf, size);
+  else /* buf == NULL && size > 1 */
+    {
+      buf = (char *) malloc (size);
+      if (buf == NULL)
+        {
+          errno = ENOMEM;
+          return NULL;
+        }
+      else
+        {
+          char *result = getcwd (buf, size);
+          if (result == NULL)
+            free (buf);
+          return result;
+        }
+    }
+  /* BUF is a null pointer and SIZE is zero. */
+  {
+    char stack_buf[2048];
+    char *ptr;
+    char *result;
 
-  /* TODO: Fails on directory names over 2048 bytes long... */
-  ptr = _system_getcwd (stack_buffer, sizeof (stack_buffer));
-  if (ptr == NULL)
-    return NULL;
-  return strdup (ptr);
+    ptr = getcwd (stack_buf, sizeof (stack_buf));
+    if (ptr == NULL)
+      {
+        if (errno != ERANGE)
+          return NULL;
+      }
+    else
+      {
+        result = strdup (stack_buf);
+        if (result == NULL)
+          errno = ENOMEM;
+        return result;
+      }
+    /* Path is longer than 2048 bytes. */
+    size = sizeof (stack_buf) * 2;
+    buf = (char *) malloc (size);
+    if (buf == NULL)
+      {
+        errno = ENOMEM;
+        return NULL;
+      }
+    /* Increase the size of BUF until it is large enough. */
+    for (;;)
+      {
+        result = getcwd (buf, size);
+        if (result != NULL)
+          break;
+        else if (errno != ERANGE || (size > (SIZE_MAX / 2)))
+          {
+            free (buf);
+            return NULL;
+          }
+        size *= 2;
+        ptr = (char *) realloc (buf, size);
+        if (ptr == NULL)
+          {
+            free (buf);
+            errno = ENOMEM;
+            return NULL;
+          }
+        buf = ptr;
+      }
+    return result;
+  }
 }

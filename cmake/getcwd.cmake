@@ -3,6 +3,8 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 
+check_include_file("windows.h" HAVE_WINDOWS_H)
+
 if (HAVE_UNISTD_H)
   check_symbol_exists("getcwd" "unistd.h" HAVE_GETCWD)
   check_symbol_exists("_getcwd" "unistd.h" HAVE__GETCWD)
@@ -48,7 +50,9 @@ if (NOT GETCWD_NULL_0_ALLOCATES_MEMORY)
   set(LIBCFUNK_REPLACE_GETCWD "1" CACHE STRING "")
 endif ()
 
-if (LIBCFUNK_REPLACE_GETCWD)
+if (NOT HAVE_GETCWD OR LIBCFUNK_REPLACE_GETCWD)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/strdup.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/limits-h.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/getcwd.c
   )

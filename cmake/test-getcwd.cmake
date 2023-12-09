@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/strlen.cmake)
+
 add_executable(test-getcwd)
 
 target_link_libraries(test-getcwd PRIVATE
