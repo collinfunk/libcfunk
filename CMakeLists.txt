@@ -16,9 +16,6 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 
 include(cmake/libcfunk-init.cmake)
 
-include(cmake/get_current_dir_name.cmake)
-include(cmake/fnmatch.cmake)
-
 include(cmake/abs.cmake)
 include(cmake/accept.cmake)
 include(cmake/access.cmake)
@@ -140,6 +137,7 @@ include(cmake/ftruncate.cmake)
 include(cmake/__func__.cmake)
 include(cmake/gai_strerror.cmake)
 include(cmake/gcd.cmake)
+include(cmake/get_current_dir_name.cmake)
 include(cmake/getcwd.cmake)
 include(cmake/getdelim.cmake)
 include(cmake/getdtablesize.cmake)
@@ -513,7 +511,7 @@ if (UNIX)
   include(cmake/safe-open.cmake)
 endif ()
 
-# Don't leave enabled, have portability problems.
+# Don't leave enabled, have portability problems or unfinished.
 # include(cmake/getppidof.cmake)
 # include(cmake/getprognameof.cmake)
 # include(cmake/int-overflow.cmake)
@@ -528,5 +526,6 @@ endif ()
 # include(cmake/__fwritable.cmake)
 # include(cmake/__fwriting.cmake)
 # include(cmake/__freading.cmake)
+# include(cmake/fnmatch.cmake)
 
 include(cmake/libcfunk-final.cmake)

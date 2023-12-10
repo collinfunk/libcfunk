@@ -14,3 +14,7 @@ if (NOT HAVE_CHOWN)
     $CACHE{LIBCFUNK_SOURCE_DIR}/chown.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-chown.cmake)
+endif ()

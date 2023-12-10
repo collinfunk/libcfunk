@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
 add_executable(test-unlockpt)
 
 target_link_libraries(test-unlockpt PRIVATE
@@ -16,3 +18,4 @@ set_target_properties(test-unlockpt PROPERTIES
 )
 
 add_test(NAME "test-unlockpt" COMMAND test-unlockpt)
+set_tests_properties("test-unlockpt" PROPERTIES SKIP_RETURN_CODE 77)

@@ -31,22 +31,32 @@
 
 #include "test-help.h"
 
+static void test_unlockpt_invalid_fd (void);
+
+/* Test that 'unlockpt' is declared. */
 int
 main (void)
 {
+  test_unlockpt_invalid_fd ();
+  return 0;
+}
+
+/* Test that 'unlockpt' behaves correctly on invalid file descriptors. */
+static void test_unlockpt_invalid_fd (void)
+{
+  errno = 0;
   ASSERT (unlockpt (-1) == -1);
   if (errno == ENOSYS)
     {
       fprintf (stderr, "unlockpt not supported on your system.\n");
-      return 1;
+      exit (77);
     }
-  else
-    {
-      if (errno != EINVAL && errno != EBADF)
-        {
-          fprintf (stderr, "unlockpt returned a bad value for errno.\n");
-          return 1;
-        }
-    }
-  return 0;
+  ASSERT (errno == EBADF || errno == EINVAL);
+
+  /* Make sure file descriptor 10 is closed. */
+  (void) close (10);
+
+  errno = 0;
+  ASSERT (unlockpt (10) == -1);
+  ASSERT (errno == EBADF ||  errno == EINVAL);
 }

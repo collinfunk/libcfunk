@@ -30,7 +30,6 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "test-help.h"
@@ -39,41 +38,52 @@
 
 #define TEST_FILE_NAME "test-mknod.tmp"
 
-/* Test that 'mknod' works on systems that support it. On Windows, make sure
-   that it fails with errno == ENOSYS. */
+static void test_mknod_supported (void);
+static void test_mknod_empty_string (void);
+
+/* Test that 'mknod' is declared and works properly. POSIX states that the only
+   portable use of 'mknod' is for creating a FIFO-special file. Therefore, all
+   tests are the essentially the same as 'mkfifo'. */
 int
 main (void)
+{
+  /* Make sure the test file is removed and errno is zero before testing. */
+  (void) remove (TEST_FILE_NAME);
+  errno = 0;
+
+  test_mknod_supported ();
+  test_mknod_empty_string ();
+
+  /* Make sure the file is removed. */
+  (void) remove (TEST_FILE_NAME);
+
+  return 0;
+}
+
+/* Test that 'mknod' is supported before testing its behavior. */
+static void
+test_mknod_supported (void)
 {
   int result;
   struct stat st;
 
-  /* Remove the file existing because of a failed test. */
-  remove (TEST_FILE_NAME);
-
-  /* POSIX states that "The only portable use of mknod() is to create a
-     FIFO-special file. If mode is not S_IFIFO or dev is not 0, the behavior
-     of mknod() is unspecified." Therefore we only test creating a FIFO. */
-  result = mknod (TEST_FILE_NAME, S_IFIFO | 0600, 0);
-  if (result != 0)
+  result = mknod (TEST_FILE_NAME, 0600 | S_IFIFO, 0);
+  if (result == -1 && errno == ENOSYS)
     {
-      if (errno == ENOSYS)
-        {
-          fprintf (stderr, "mknod is unsupported by your system.\n");
-          exit (1);
-        }
-      else
-        {
-          fprintf (stderr, "mknod failed: %s\n", strerror (errno));
-          abort ();
-        }
+      fprintf (stderr, "mknod is not supported on your system.\n");
+      exit (77);
     }
-
-  /* Check S_ISFIFO. */
+  ASSERT (result == 0);
   ASSERT (stat (TEST_FILE_NAME, &st) == 0);
   ASSERT (S_ISFIFO (st.st_mode));
-
-  /* Cleanup the file. */
   ASSERT (remove (TEST_FILE_NAME) == 0);
+}
 
-  return 0;
+/* Test 'mknod' when given an empty string as the file name. */
+static void
+test_mknod_empty_string (void)
+{
+  errno = 0;
+  ASSERT (mknod ("", 0600 | S_IFIFO, 0) == -1);
+  ASSERT (errno == ENOENT);
 }

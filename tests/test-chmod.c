@@ -25,62 +25,67 @@
 
 #include <config.h>
 
-#include <stddef.h>
+#include <sys/stat.h>
+
+#include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "term-size.h"
 #include "test-help.h"
+
+#undef TEST_FILE_NAME
+#define TEST_FILE_NAME "test-chmod.tmp"
+
+static void test_chmod_no_entry (void);
+static void test_chmod_trailing_slash (void);
 
 int
 main (void)
 {
-  int height1, height2;
-  int width1, width2;
+  /* Make sure the test file is removed and errno is zero. */
+  (void) remove (TEST_FILE_NAME);
+  errno = 0;
 
-  if (!isatty (STDOUT_FILENO))
-    {
-      fprintf (stderr, "Skipping test. This function is not reliable when "
-                       "stdout is not a tty.\n");
-      exit (77);
-    }
+  test_chmod_no_entry ();
+  test_chmod_trailing_slash ();
 
-  /* Assume terminal size won't change during these calls. */
-  height1 = term_get_height ();
-  width1 = term_get_width ();
-  if (term_get_size (&height2, &width2) < 0)
-    {
-      fprintf (stderr, "term_get_size () failed.\n");
-      abort ();
-    }
-
-  if (height2 < 0)
-    {
-      fprintf (stderr, "term_get_height () failed.\n");
-      abort ();
-    }
-
-  if (width2 < 0)
-    {
-      fprintf (stderr, "term_get_width () failed.\n");
-      abort ();
-    }
-
-  if (height1 != height2)
-    {
-      fprintf (stderr, "term_get_size (height, NULL) != term_get_height ()\n");
-      abort ();
-    }
-
-  if (width1 != width2)
-    {
-      fprintf (stderr, "term_get_size (NULL, width) != term_get_width ()\n");
-      abort ();
-    }
-
-  printf ("height ($LINES):  %d\n", height1);
-  printf ("width ($COLUMNS): %d\n", width2);
-
+  /* Cleanup the test file just in case. */
+  (void) remove (TEST_FILE_NAME);
   return 0;
+}
+
+/* Test that 'chmod' fails on files that do not exist. */
+static void
+test_chmod_no_entry (void)
+{
+  errno = 0;
+  ASSERT (chmod (TEST_FILE_NAME, 0600) == -1);
+  ASSERT (errno == ENOENT);
+}
+
+/* Test 'chmod' on a file that exists but with a trailing slash character. */
+static void
+test_chmod_trailing_slash (void)
+{
+  int fd;
+
+  /* Create a file and close the file descriptor. */
+  fd = creat (TEST_FILE_NAME, 0600);
+  ASSERT (fd >= 0);
+  ASSERT (close (fd) == 0);
+
+  /* Test 'chmod' on the file with a single trailing slash. */
+  errno = 0;
+  ASSERT (chmod (TEST_FILE_NAME "/", 0600) == -1);
+  ASSERT (errno == ENOTDIR);
+
+  /* Test 'chmod' on the file with two trailing slashes. */
+  errno = 0;
+  ASSERT (chmod (TEST_FILE_NAME "//", 0600) == -1);
+  ASSERT (errno == ENOTDIR);
+
+  /* Remove the file. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
 }

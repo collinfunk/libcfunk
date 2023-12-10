@@ -30,7 +30,6 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "test-help.h"
@@ -39,38 +38,50 @@
 
 #define TEST_FILE_NAME "test-mkfifo.tmp"
 
-/* Test that 'mkfifo' works on systems that support it. On Windows, make sure
-   that it fails with errno == ENOSYS. */
+static void test_mkfifo_supported (void);
+static void test_mkfifo_empty_string (void);
+
+/* Test that 'mkfifo' is declared and works properly. */
 int
 main (void)
 {
-  int fd;
-  struct stat st;
+  /* Make sure the test file is removed and errno is zero before testing. */
+  (void) remove (TEST_FILE_NAME);
+  errno = 0;
 
-  /* Remove the file existing because of a failed test. */
-  remove (TEST_FILE_NAME);
+  test_mkfifo_supported ();
+  test_mkfifo_empty_string ();
 
-  fd = mkfifo (TEST_FILE_NAME, 0600);
-  if (fd < 0)
-    {
-      if (errno == ENOSYS)
-        {
-          fprintf (stderr, "mkfifo is unsupported by your system.\n");
-          exit (1);
-        }
-      else
-        {
-          fprintf (stderr, "mkfifo failed: %s\n", strerror (errno));
-          abort ();
-        }
-    }
-
-  /* Check S_ISFIFO. */
-  ASSERT (stat (TEST_FILE_NAME, &st) == 0);
-  ASSERT (S_ISFIFO (st.st_mode));
-
-  /* Cleanup the file. */
-  ASSERT (remove (TEST_FILE_NAME) == 0);
+  /* Make sure the file is removed. */
+  (void) remove (TEST_FILE_NAME);
 
   return 0;
+}
+
+/* Test that 'mkfifo' is supported before testing its behavior. */
+static void
+test_mkfifo_supported (void)
+{
+  int result;
+  struct stat st;
+
+  result = mkfifo (TEST_FILE_NAME, 0600);
+  if (result == -1 && errno == ENOSYS)
+    {
+      fprintf (stderr, "mkfifo is not supported on your system.\n");
+      exit (77);
+    }
+  ASSERT (result == 0);
+  ASSERT (stat (TEST_FILE_NAME, &st) == 0);
+  ASSERT (S_ISFIFO (st.st_mode));
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
+
+/* Test 'mkfifo' when given an empty string as the file name. */
+static void
+test_mkfifo_empty_string (void)
+{
+  errno = 0;
+  ASSERT (mkfifo ("", 0600) == -1);
+  ASSERT (errno == ENOENT);
 }

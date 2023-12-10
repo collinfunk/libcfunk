@@ -1,6 +1,9 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/stat.cmake)
+
 add_executable(test-mknod)
 
 target_link_libraries(test-mknod PRIVATE
@@ -16,3 +19,4 @@ set_target_properties(test-mknod PROPERTIES
 )
 
 add_test(NAME "test-mknod" COMMAND test-mknod)
+set_tests_properties("test-mknod" PROPERTIES SKIP_RETURN_CODE 77)

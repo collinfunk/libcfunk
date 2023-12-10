@@ -18,3 +18,8 @@ if (NOT HAVE_CHMOD)
     $CACHE{LIBCFUNK_SOURCE_DIR}/chmod.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-chmod.cmake)
+endif ()
+

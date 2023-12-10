@@ -39,35 +39,66 @@
 #define TEST_FILE_NAME "test-symlink.tmp"
 #define TEST_LINK_NAME "test-symlink.link.tmp"
 
+static void test_symlink_nonexistent_file (void);
+static void test_symlink_empty_string (void);
+static void test_symlink_existing_link (void);
+
 int
 main (void)
 {
-  int fd;
+  /* Make sure any files from previous tests are removed. */
+  (void) remove (TEST_FILE_NAME);
+  (void) remove (TEST_LINK_NAME);
+  errno = 0;
 
-  /* Remove any leftovers from previous tests. */
-  remove (TEST_FILE_NAME);
-  remove (TEST_LINK_NAME);
+  test_symlink_nonexistent_file ();
+  test_symlink_empty_string ();
+  test_symlink_existing_link ();
 
-  /* Check if symlink is avaliable. */
-  ASSERT (symlink ("", TEST_LINK_NAME) == -1);
-  if (errno != ENOSYS)
-    ASSERT (errno == ENOENT);
-  else
+  /* Make sure any files are removed. */
+  (void) remove (TEST_FILE_NAME);
+  (void) remove (TEST_LINK_NAME);
+  return 0;
+}
+
+/* Test that a symbolic link can be created even if the original file does not
+   exist. */
+static void
+test_symlink_nonexistent_file (void)
+{
+  int result;
+
+  result = symlink (TEST_FILE_NAME, TEST_LINK_NAME);
+  if (result != 0 && errno == ENOSYS)
     {
-      fprintf (stderr, "symlink () not supported on your system.\n");
-      exit (1);
+      fprintf (stderr, "Symbolic links not supported on your system.\n");
+      exit (77);
     }
+  ASSERT (result == 0);
+  ASSERT (remove (TEST_LINK_NAME) == 0);
+}
 
-  /* Create a file. */
-  fd = open (TEST_FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0600);
-  ASSERT (fd >= 0);
-  ASSERT (close (fd) == 0);
+/* Test that 'symlink' fails when the link is an empty string. */
+static void
+test_symlink_empty_string (void)
+{
+  errno = 0;
+  ASSERT (symlink (TEST_FILE_NAME, "") == -1);
+  ASSERT (errno == ENOENT);
+}
 
+/* Test that 'symlink' fails when the link is an existing symbolic link. */
+static void
+test_symlink_existing_link (void)
+{
+  /* Create a symbolic link. */
   ASSERT (symlink (TEST_FILE_NAME, TEST_LINK_NAME) == 0);
 
-  /* Cleanup test files and links. */
-  ASSERT (remove (TEST_FILE_NAME) == 0);
-  ASSERT (remove (TEST_LINK_NAME) == 0);
+  /* Try to create the symbolic link again. */
+  errno = 0;
+  ASSERT (symlink (TEST_FILE_NAME, TEST_LINK_NAME) == -1);
+  ASSERT (errno == EEXIST);
 
-  return 0;
+  /* Remove the link. */
+  ASSERT (remove (TEST_LINK_NAME) == 0);
 }

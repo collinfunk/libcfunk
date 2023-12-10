@@ -1,6 +1,9 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+
 add_executable(test-symlink)
 
 target_link_libraries(test-symlink PRIVATE
@@ -16,3 +19,4 @@ set_target_properties(test-symlink PROPERTIES
 )
 
 add_test(NAME "test-symlink" COMMAND test-symlink)
+set_tests_properties("test-symlink" PROPERTIES SKIP_RETURN_CODE 77)
