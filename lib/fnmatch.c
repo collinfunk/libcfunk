@@ -23,53 +23,14 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_FNMATCH_H
-#define COMPAT_FNMATCH_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <ctype.h>
+#include <fnmatch.h>
+#include <string.h>
 
-#if @HAVE_FNMATCH_H@
-#  include_next <fnmatch.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_FNMATCH@ && (!@HAVE_FNMATCH@ || @LIBCFUNK_REPLACE_FNMATCH@)
-#  if @HAVE_FNMATCH@
-#    undef FNM_NOMATCH
-#    undef FNM_PATHNAME
-#    undef FNM_PERIOD
-#    undef FNM_NOESCAPE
-#    undef FNM_LEADING_DIR
-#    undef FNM_CASEFOLD
-#    undef FNM_FILE_NAME
-#  endif
-   /* Return value if no match. */
-#  define FNM_NOMATCH 1
-   /* Flags. */
-#  define FNM_PATHNAME 1
-#  define FNM_PERIOD 4
-#  define FNM_NOESCAPE 2
-#  define FNM_LEADING_DIR 8
-#  define FNM_CASEFOLD 16
-#  define FNM_FILE_NAME FNM_PATHNAME
-#endif
-
-/* Obsolete. */
-#ifndef FNM_NOSYS
-#  define FNM_NOSYS (-1)
-#endif
-
-/* TODO: Implement. */
-#if @LIBCFUNK_DECLARE_FNMATCH@
-#  if @LIBCFUNK_REPLACE_FNMATCH@
-#    undef fnmatch
-#    define fnmatch _libcfunk_fnmatch
-extern int _libcfunk_fnmatch (const char *pattern, const char *string,
-                              int flags);
-#  elif !@HAVE_FNMATCH@
-extern int fnmatch (const char *pattern, const char *string, int flags);
-#  endif
-#endif
-
-#endif /* COMPAT_FNMATCH_H */
+int
+fnmatch (const char *pattern, const char *string, int flags)
+{
+  return FNM_NOMATCH;
+}
