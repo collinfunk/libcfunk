@@ -196,6 +196,16 @@ extern int getloadavg (double loadavg[], int nelem);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GETPROGNAME@
+#  if @LIBCFUNK_REPLACE_GETPROGNAME@
+#    undef getprogname
+#    define getprogname _libcfunk_getprogname
+extern const char *_libcfunk_getprogname (void);
+#  elif !@HAVE_GETPROGNAME@
+extern const char *getprogname (void);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_LABS@
 #  if @LIBCFUNK_REPLACE_LABS@
 #    undef labs

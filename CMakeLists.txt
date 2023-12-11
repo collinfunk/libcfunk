@@ -16,6 +16,8 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 
 include(cmake/libcfunk-init.cmake)
 
+include(cmake/getprogname.cmake)
+
 include(cmake/abs.cmake)
 include(cmake/accept.cmake)
 include(cmake/access.cmake)
@@ -291,7 +293,6 @@ include(cmake/posix_spawn_file_actions_addopen.cmake)
 include(cmake/posix_spawn_file_actions_destroy.cmake)
 include(cmake/posix_spawn_file_actions_init.cmake)
 include(cmake/pread.cmake)
-include(cmake/program-name.cmake)
 include(cmake/pthread-h.cmake)
 include(cmake/pty-h.cmake)
 include(cmake/putenv.cmake)

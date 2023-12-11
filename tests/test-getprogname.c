@@ -25,45 +25,29 @@
 
 #include <config.h>
 
-#include <errno.h>
-#include <error.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "test-help.h"
 
-static void custom_print_name (void);
+/* Accept the program name with or without the '.exe' suffix. This should
+   cover every system configuration. */
+static const char *program_names[]
+    = { "test-getprogname", "test-getprogname.exe" };
 
+/* Test that 'getprogname' is declared and returns the correct program name
+   without calling 'setprogname'. */
 int
 main (void)
 {
-  int i;
+  size_t i;
+  const char *ptr = getprogname ();
 
-  /* This should print 5 times. */
-  for (i = 0; i < 5; ++i)
-    error_at_line (0, EACCES, __FILE__, __LINE__, "%d print multple", i);
-  ASSERT (error_message_count == 5);
+  ASSERT (ptr != NULL);
+  for (i = 0; i < ARRAY_SIZE (program_names); ++i)
+    if (strcmp (ptr, program_names[i]) == 0)
+      return 0;
 
-  /* This should print 1 time. */
-  error_one_per_line = 1;
-  for (i = 0; i < 5; ++i)
-    error_at_line (0, EEXIST, __FILE__, __LINE__, "%d print once", i);
-  ASSERT (error_message_count == 6);
-
-  error (0, ENOENT, "%d %s", 1, "error");
-  ASSERT (error_message_count == 7);
-
-  /* Use a function pointer to print the program name. */
-  error_print_progname = custom_print_name;
-  error (0, 0, "%d %s", 2, "function pointer print");
-  ASSERT (error_message_count == 8);
-
-  return 0;
-}
-
-static void
-custom_print_name (void)
-{
-  fprintf (stderr, "custom_print_name (): ");
+  return 1;
 }

@@ -26,44 +26,45 @@
 #include <config.h>
 
 #include <errno.h>
-#include <error.h>
-#include <stdarg.h>
-#include <stdio.h>
 #include <stdlib.h>
 
-#include "test-help.h"
+#include "filename.h"
 
-static void custom_print_name (void);
-
-int
-main (void)
+const char *
+getprogname (void)
+#undef getprogname
 {
-  int i;
 
-  /* This should print 5 times. */
-  for (i = 0; i < 5; ++i)
-    error_at_line (0, EACCES, __FILE__, __LINE__, "%d print multple", i);
-  ASSERT (error_message_count == 5);
+#if HAVE_PROGRAM_INVOCATION_SHORT_NAME
+  {
+    if (program_invocation_short_name != NULL
+        && *program_invocation_short_name != '\0')
+      return program_invocation_short_name;
+  }
+#endif
 
-  /* This should print 1 time. */
-  error_one_per_line = 1;
-  for (i = 0; i < 5; ++i)
-    error_at_line (0, EEXIST, __FILE__, __LINE__, "%d print once", i);
-  ASSERT (error_message_count == 6);
+#if HAVE_PROGRAM_INVOCATION_NAME
+  {
+    if (program_invocation_name != NULL && *program_invocation_name != '\0')
+      return filename_last_component (program_invocation_name);
+  }
+#endif
 
-  error (0, ENOENT, "%d %s", 1, "error");
-  ASSERT (error_message_count == 7);
+#if HAVE___ARGV
+  {
+    if (__argv != NULL && __argv[0] != NULL && __argv[0][0] != '\0')
+      return filename_last_component (__argv[0]);
+  }
+#endif
 
-  /* Use a function pointer to print the program name. */
-  error_print_progname = custom_print_name;
-  error (0, 0, "%d %s", 2, "function pointer print");
-  ASSERT (error_message_count == 8);
+#if HAVE_GETEXECNAME
+  {
+    const char *ptr = getexecname ();
+    if (ptr != NULL)
+      return filename_last_component (ptr);
+  }
+#endif
 
-  return 0;
-}
-
-static void
-custom_print_name (void)
-{
-  fprintf (stderr, "custom_print_name (): ");
+  /* TODO: Return something? */
+  return "";
 }

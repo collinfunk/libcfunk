@@ -32,8 +32,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "program-name.h"
-
 /* BSD-like error message functions.
    Functions with the name `warn' print a warning to stderr.
    Functions with the name `err' print an error to stderr and then call `exit'.

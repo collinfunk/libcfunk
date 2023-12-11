@@ -1,4 +1,3 @@
-
 /*-
  * Copyright (c) 2023, Collin Funk
  *
@@ -32,8 +31,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "program-name.h"
 
 /* GNU-like error message functions.
    Error messages are printed in one of the following forms:
@@ -94,17 +91,6 @@ print_errno_string (int code)
   else /* Print a generic message. */
     fprintf (stderr, ": Unknown error %d", code);
 }
-
-/* Prefer the name that is manually set by the user with set_program_name ().
-   If it has not been set use getprogname (). If set_program_name was called
-   with a string that does not exist for the entire lifetime of the program
-   the behavior is undefined. */
-static const char *
-error_get_program_name (void)
-{
-  const char *p = get_program_name ();
-  return p ? p : getprogname ();
-}
 #endif
 
 #if !HAVE_ERROR
@@ -121,7 +107,7 @@ error (int status, int code, const char *format, ...)
   else
     {
       fflush (stdout);
-      fprintf (stderr, "%s: ", error_get_program_name ());
+      fprintf (stderr, "%s: ", getprogname ());
     }
 
   va_start (args, format);
@@ -171,7 +157,7 @@ error_at_line (int status, int code, const char *file_name,
   else
     {
       fflush (stdout);
-      fprintf (stderr, "%s:", error_get_program_name ());
+      fprintf (stderr, "%s:", getprogname ());
     }
 
   if (file_name != NULL)
