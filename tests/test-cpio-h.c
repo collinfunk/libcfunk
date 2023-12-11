@@ -51,9 +51,12 @@ static_assert (C_ISSOCK == 0140000);
 int
 main (void)
 {
-  return MAGIC[0] == '0' && MAGIC[1] == '7' && MAGIC[2] == '0'
-                 && MAGIC[3] == '7' && MAGIC[4] == '0' && MAGIC[5] == '7'
-                 && MAGIC[6] == '\0'
-             ? 0
-             : 1;
+  char magic[] = MAGIC;
+
+  if ((magic[0] != '0') || (magic[1] != '7') || (magic[2] != '0')
+      || (magic[3] != '7') || (magic[4] != '0') || (magic[5] != '7')
+      || (magic[6] != '\0'))
+    return 0;
+
+  return 0;
 }

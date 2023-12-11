@@ -54,10 +54,13 @@ static_assert (TOEXEC == 00001);
 int
 main (void)
 {
-  return TMAGIC[0] == 'u' && TMAGIC[1] == 's' && TMAGIC[2] == 't'
-                 && TMAGIC[3] == 'a' && TMAGIC[4] == 'r' && TMAGIC[5] == '\0'
-                 && TVERSION[0] == '0' && TVERSION[1] == '0'
-                 && TVERSION[2] == '\0'
-             ? 0
-             : 1;
+  char tmagic[] = TMAGIC;
+  char tversion[] = TVERSION;
+
+  if ((tmagic[0] != 'u') || (tmagic[1] != 's') || (tmagic[2] != 't')
+      || (tmagic[3] != 'a') || (tmagic[4] != 'r') || (tmagic[5] != '\0'))
+    return 1;
+  if ((tversion[0] != '0') || (tversion[1] != '0') || (tversion[2] != '\0'))
+    return 1;
+  return 0;
 }

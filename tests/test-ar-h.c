@@ -45,12 +45,19 @@ static_assert (sizeof (struct ar_hdr) == 60);
 int
 main (void)
 {
-  return ARMAG[0] == '!' && ARMAG[1] == '<' && ARMAG[2] == 'a'
-                 && ARMAG[3] == 'r' && ARMAG[4] == 'c' && ARMAG[5] == 'h'
-                 && ARMAG[6] == '>' && ARMAG[7] == '\n' && ARMAG[8] == '\0'
-                 && AR_EFMT1[0] == '#' && AR_EFMT1[1] == '1'
-                 && AR_EFMT1[2] == '/' && AR_EFMT1[3] == '\0'
-                 && ARFMAG[0] == '`' && ARFMAG[1] == '\n' && ARFMAG[2] == '\0'
-             ? 0
-             : 1;
+  char armag[] = ARMAG;
+  char ar_efmt1[] = AR_EFMT1;
+  char arfmag[] = ARFMAG;
+
+  if ((armag[0] != '!') || (armag[1] != '<') || (armag[2] != 'a')
+      || (armag[3] != 'r') || (armag[4] != 'c') || (armag[5] != 'h')
+      || (armag[6] != '>') || (armag[7] != '\n') || (armag[8] != '\0'))
+    return 1;
+  if ((ar_efmt1[0] != '#') || (ar_efmt1[1] != '1') || (ar_efmt1[2] != '/')
+      || (ar_efmt1[3] != '\0'))
+    return 1;
+  if ((arfmag[0] != '`') || (arfmag[1] != '\n') || (arfmag[2] != '\0'))
+    return 1;
+
+  return 0;
 }
