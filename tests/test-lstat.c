@@ -71,7 +71,7 @@ main (void)
       if (errno == ENOSYS)
         {
           fprintf (stderr, "symlink () not supported.\n");
-          exit (1);
+          exit (77);
         }
       else /* Actual error. */
         {

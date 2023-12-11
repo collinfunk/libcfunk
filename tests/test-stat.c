@@ -36,57 +36,119 @@
 #include "test-help.h"
 
 #undef TEST_FILE_NAME
-#undef TEST_LINK_NAME
-
 #define TEST_FILE_NAME "test-stat.tmp"
-#define TEST_LINK_NAME "test-stat.link.tmp"
+
+static void test_stat_nonexistent_file (void);
+static void test_stat_empty_string (void);
+static void test_stat_regular_file (void);
+static void test_stat_directory (void);
+static void test_stat_trailing_slash (void);
 
 int
 main (void)
 {
+  /* Make sure the test file is removed and errno is zero before testing. */
+  (void) remove (TEST_FILE_NAME);
+  errno = 0;
+
+  test_stat_nonexistent_file ();
+  test_stat_empty_string ();
+  test_stat_regular_file ();
+  test_stat_directory ();
+  test_stat_trailing_slash ();
+
+  /* Make sure the file is removed. */
+  (void) remove (TEST_FILE_NAME);
+  return 0;
+}
+
+/* Test the 'stat' function on a file that does not exist. */
+static void
+test_stat_nonexistent_file (void)
+{
   struct stat st;
+
+  errno = 0;
+  ASSERT (stat (TEST_FILE_NAME, &st) == -1);
+  ASSERT (errno == ENOENT);
+}
+
+/* Test the 'stat' function on an empty string. */
+static void
+test_stat_empty_string (void)
+{
+  struct stat st;
+
+  errno = 0;
+  ASSERT (stat ("", &st) == -1);
+  ASSERT (errno == ENOENT);
+}
+
+/* Test the 'stat' function on a regular file. */
+static void
+test_stat_regular_file (void)
+{
   int fd;
+  struct stat st;
 
-  /* Remove files from any previous test. */
-  unlink (TEST_FILE_NAME);
-  unlink (TEST_LINK_NAME);
-
-  /* Stat the current working directory. */
-  ASSERT (stat (".", &st) == 0);
-  ASSERT (S_ISDIR (st.st_mode));
-
-  /* Create a file. */
+  /* Create a file and close the file descriptor. */
   fd = creat (TEST_FILE_NAME, 0600);
   ASSERT (fd >= 0);
   ASSERT (close (fd) == 0);
 
-  /* Stat the new file. */
+  /* Stat the file. */
   ASSERT (stat (TEST_FILE_NAME, &st) == 0);
+
+  /* Test some stat macros. */
   ASSERT (S_ISREG (st.st_mode));
+  ASSERT (!S_ISDIR (st.st_mode));
 
-  /* Create a symbolic link. */
-  if (symlink (TEST_FILE_NAME, TEST_LINK_NAME) < 0)
-    {
-      unlink (TEST_FILE_NAME);
-      if (errno == ENOSYS)
-        {
-          fprintf (stderr, "symlink () not supported.\n");
-          exit (1);
-        }
-      else /* Actual error. */
-        {
-          fprintf (stderr, "symlink () failed.\n");
-          abort ();
-        }
-    }
+  /* Remove the file. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
 
-  /* Stat the symbolic link. ST should refer to the file it references. */
-  ASSERT (stat (TEST_LINK_NAME, &st) == 0);
-  ASSERT (S_ISREG (st.st_mode));
+/* Test the 'stat' function on a directory. */
+static void
+test_stat_directory (void)
+{
+  struct stat st;
 
-  /* Cleanup files. */
-  ASSERT (unlink (TEST_FILE_NAME) == 0);
-  ASSERT (unlink (TEST_LINK_NAME) == 0);
+  /* Create a directory. */
+  ASSERT (mkdir (TEST_FILE_NAME, 0700) == 0);
 
-  return 0;
+  /* Stat the directory. */
+  ASSERT (stat (TEST_FILE_NAME, &st) == 0);
+
+  /* Test some stat macros. */
+  ASSERT (S_ISDIR (st.st_mode));
+  ASSERT (!S_ISREG (st.st_mode));
+
+  /* Remove the directory. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
+
+/* Test the 'stat' function on a regular file with trailing slashes. */
+static void
+test_stat_trailing_slash (void)
+{
+  int fd;
+  struct stat st;
+
+  /* Create a file and close the file descriptor. */
+  fd = creat (TEST_FILE_NAME, 0600);
+  ASSERT (fd >= 0);
+  ASSERT (close (fd) == 0);
+
+  /* Stat the file with a trailing slash. */
+  errno = 0;
+  ASSERT (stat (TEST_FILE_NAME "/", &st) == -1);
+  ASSERT (errno == ENOTDIR);
+
+  /* Stat the file with 2 trailing slashes. */
+  errno = 0;
+  ASSERT (stat (TEST_FILE_NAME "//", &st) == -1);
+  ASSERT (errno == ENOTDIR);
+
+  /* Remove the file. */
+  ASSERT (remove (TEST_FILE_NAME) == 0);
 }

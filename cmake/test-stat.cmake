@@ -1,9 +1,10 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/symlink.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
-include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/mkdir.cmake)
 
 add_executable(test-stat)
 

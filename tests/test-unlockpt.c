@@ -42,7 +42,8 @@ main (void)
 }
 
 /* Test that 'unlockpt' behaves correctly on invalid file descriptors. */
-static void test_unlockpt_invalid_fd (void)
+static void
+test_unlockpt_invalid_fd (void)
 {
   errno = 0;
   ASSERT (unlockpt (-1) == -1);
@@ -58,5 +59,5 @@ static void test_unlockpt_invalid_fd (void)
 
   errno = 0;
   ASSERT (unlockpt (10) == -1);
-  ASSERT (errno == EBADF ||  errno == EINVAL);
+  ASSERT (errno == EBADF || errno == EINVAL);
 }

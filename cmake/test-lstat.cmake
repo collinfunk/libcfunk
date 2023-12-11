@@ -20,3 +20,4 @@ set_target_properties(test-lstat PROPERTIES
 )
 
 add_test(NAME "test-lstat" COMMAND test-lstat)
+set_tests_properties("test-lstat" PROPERTIES SKIP_RETURN_CODE 77)

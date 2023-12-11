@@ -1,7 +1,7 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/unlink.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
 
 check_include_file("windows.h" HAVE_WINDOWS_H)
