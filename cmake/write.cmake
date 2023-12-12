@@ -20,3 +20,7 @@ if (NOT HAVE_WRITE)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-write.cmake)
+endif ()
+
