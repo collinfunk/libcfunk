@@ -36,21 +36,16 @@
 
 #include <sys/types.h>
 
-/* For systems where getentropy(2) is a system call. */
-#if @HAVE_UNISTD_H@
-#  include <unistd.h>
-#endif
-
 #ifndef GRND_NONBLOCK
-#  define GRND_NONBLOCK 0x01
+#  define GRND_NONBLOCK 1
 #endif
 
 #ifndef GRND_RANDOM
-#  define GRND_RANDOM 0x02
+#  define GRND_RANDOM 2
 #endif
 
 #ifndef GRND_INSECURE
-#  define GRND_INSECURE 0x04
+#  define GRND_INSECURE 4
 #endif
 
 #if @LIBCFUNK_DECLARE_GETRANDOM@
@@ -61,16 +56,6 @@ extern ssize_t _libcfunk_getrandom (void *buffer, size_t length,
                                     unsigned int flags);
 #  elif !@HAVE_GETRANDOM@
 extern ssize_t getrandom (void *buffer, size_t length, unsigned int flags);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_GETENTROPY@
-#  if @LIBCFUNK_REPLACE_GETENTROPY@
-#    undef getentropy
-#    define getentropy _libcfunk_getentropy
-extern int _libcfunk_getentropy (void *buffer, size_t length);
-#  elif !@HAVE_GETENTROPY@
-extern int getentropy (void *buffer, size_t length);
 #  endif
 #endif
 

@@ -28,18 +28,14 @@
 #include <sys/random.h>
 #include <sys/types.h>
 
-#ifdef _WIN32
-#  include <windows.h>
-#  if HAVE_BCRYPT_H
-#    include <bcrypt.h>
-#  else
-#    error "Unsupported Windows version."
-#  endif
-#endif
-
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#if HAVE_WINDOWS_H
+#  include <bcrypt.h>
+#  include <windows.h>
+#endif
 
 /* The Windows replacement for getrandom(2) uses the Windows
    "Cryptography API: Next Generation" instead of the older deprecated version.

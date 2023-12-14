@@ -157,6 +157,7 @@
 #cmakedefine01 HAVE_C99__FUNC__
 #cmakedefine01 HAVE_CALLOC
 #cmakedefine01 HAVE_CALL_ONCE
+#cmakedefine01 HAVE_CC_T
 #cmakedefine01 HAVE_CHAR16_T
 #cmakedefine01 HAVE_CHAR32_T
 #cmakedefine01 HAVE_CHAR8_T
@@ -442,6 +443,7 @@
 #cmakedefine01 HAVE_LOCALE_H
 #cmakedefine01 HAVE_LOCALTIME_R
 #cmakedefine01 HAVE__LOCK_FILE
+#cmakedefine01 HAVE_LOGIN_TTY
 #cmakedefine01 HAVE__LSEEK
 #cmakedefine01 HAVE_LSEEK
 #cmakedefine01 HAVE__LSEEKI64
@@ -632,6 +634,7 @@
 #cmakedefine01 HAVE_SNPRINTF
 #cmakedefine01 HAVE_SOCKETLEN_T
 #cmakedefine01 HAVE_SPAWN_H
+#cmakedefine01 HAVE_SPEED_T
 #cmakedefine01 HAVE_SPRINTF
 #cmakedefine01 HAVE_SSIZE_T
 #cmakedefine01 HAVE_STACK_T
@@ -771,6 +774,7 @@
 #cmakedefine01 HAVE_SYS_UTSNAME_H
 #cmakedefine01 HAVE_SYS_WAIT_H
 #cmakedefine01 HAVE_TAR_H
+#cmakedefine01 HAVE_TCFLAG_T
 #cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TELLDIR
 #cmakedefine01 HAVE_TERMIOS_H
@@ -840,6 +844,7 @@
 #cmakedefine01 HAVE_USECONDS_T
 #cmakedefine01 HAVE_USLEEP
 #cmakedefine01 HAVE_UTIME_H
+#cmakedefine01 HAVE_UTMP_H
 #cmakedefine01 HAVE_VA_LIST
 #cmakedefine01 HAVE_VASPRINTF
 #cmakedefine01 HAVE_VDPRINTF
@@ -992,6 +997,7 @@
 #cmakedefine01 LIBCFUNK_REPLACE_LISTEN
 #cmakedefine01 LIBCFUNK_REPLACE_LLABS
 #cmakedefine01 LIBCFUNK_REPLACE_LLDIV
+#cmakedefine01 LIBCFUNK_REPLACE_LOGIN_TTY
 #cmakedefine01 LIBCFUNK_REPLACE_LSEEK
 #cmakedefine01 LIBCFUNK_REPLACE_MALLOC
 #cmakedefine01 LIBCFUNK_REPLACE_MEMCPY

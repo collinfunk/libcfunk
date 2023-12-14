@@ -25,29 +25,35 @@
 
 #include <config.h>
 
-#include <sys/random.h>
-#include <sys/types.h>
-
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+
+#include "test-help.h"
+
+static void test_getentropy (void);
 
 int
 main (void)
 {
-  size_t i;
-  unsigned char buffer[128];
-
-  memset (buffer, 0, 128);
-
-  /* 128 bytes shouldn't fail. */
-  if (getentropy (buffer, 128) < 0)
-    exit (1);
-
-  for (i = 0; i < 128; ++i)
-    printf ("%02x", buffer[i]);
-  printf ("\n");
-
+  test_getentropy ();
   return 0;
+}
+
+static void
+test_getentropy (void)
+{
+  char buffer1[256];
+  char buffer2[256];
+
+  /* Must be true for test. */
+  ASSERT (sizeof (buffer1) == sizeof (buffer2));
+
+  /* Fill the buffers. */
+  ASSERT (getentropy (buffer1, sizeof (buffer1)) == 0);
+  ASSERT (getentropy (buffer2, sizeof (buffer2)) == 0);
+
+  /* In practice this should never fail. */
+  ASSERT (memcmp (buffer1, buffer2, sizeof (buffer1)) != 0);
 }

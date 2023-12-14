@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/memcmp.cmake)
+
 add_executable(test-getentropy)
 
 target_link_libraries(test-getentropy PRIVATE

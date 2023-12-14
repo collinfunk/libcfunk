@@ -31,10 +31,52 @@
 
 #include "attributes.h"
 
-/* Make sure that struct termios is declared on systems without it. */
+static_assert (NCCS > 0);
+
+static void test_struct_termios_defined (void);
+static void test_cc_t_defined (void);
+static void test_speed_t_defined (void);
+static void test_tcflag_t_defined (void);
+static void test_pid_t_defined (void);
+
+/* Make sure that 'termios.h' can be included. */
 int
 main (void)
 {
-  struct termios term ATTRIBUTE_UNUSED;
+  test_struct_termios_defined ();
+  test_cc_t_defined ();
+  test_speed_t_defined ();
+  test_tcflag_t_defined ();
+  test_pid_t_defined ();
   return 0;
+}
+
+static void
+test_struct_termios_defined (void)
+{
+  struct termios value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_cc_t_defined (void)
+{
+  cc_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_speed_t_defined (void)
+{
+  speed_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_tcflag_t_defined (void)
+{
+  tcflag_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
 }

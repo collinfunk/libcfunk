@@ -267,6 +267,16 @@ extern int getdtablesize (void);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GETENTROPY@
+#  if @LIBCFUNK_REPLACE_GETENTROPY@
+#    undef getentropy
+#    define getentropy _libcfunk_getentropy
+extern int _libcfunk_getentropy (void *buffer, size_t length);
+#  elif !@HAVE_GETENTROPY@
+extern int getentropy (void *buffer, size_t length);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_GETGROUPS@
 #  if !@HAVE_GETGROUPS@
 extern int getgroups (int gidsetsize, gid_t grouplist[]);

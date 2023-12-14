@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/unistd-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-random-h.cmake)
 
 if (HAVE_UNISTD_H OR HAVE_SYS_RANDOM_H)

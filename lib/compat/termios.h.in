@@ -38,21 +38,31 @@
 #include <sys/ioctl.h>
 
 #ifndef NCCS
-#  define NCCS 20
+#  define NCCS 32
+#endif
+
+#if !@HAVE_CC_T@
+typedef unsigned char cc_t;
+#endif
+
+#if !@HAVE_SPEED_T@
+typedef unsigned int speed_t;
+#endif
+
+#if !@HAVE_TCFLAG_T@
+typedef unsigned int tcflag_t;
 #endif
 
 #if !@HAVE_STRUCT_TERMIOS@
-/* Termios struct defined for systems without it. Don't bother defining
-   tcflag_t, cc_t, and speed_t. */
 struct termios
 {
-  unsigned int c_iflag;
-  unsigned int c_oflag;
-  unsigned int c_cflag;
-  unsigned int c_lflag;
-  unsigned char c_cc[NCCS];
-  unsigned int c_ispeed;
-  unsigned int c_ospeed;
+  tcflag_t c_iflag;
+  tcflag_t c_oflag;
+  tcflag_t c_cflag;
+  tcflag_t c_lflag;
+  cc_t c_cc[NCCS];
+  speed_t c_ispeed;
+  speed_t c_ospeed;
 };
 #endif
 

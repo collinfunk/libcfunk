@@ -26,46 +26,45 @@
 #include <config.h>
 
 #include <sys/random.h>
-#include <sys/types.h>
 
 #include <errno.h>
-#include <fcntl.h>
 #include <unistd.h>
 
 int
 getentropy (void *buffer, size_t length)
 {
-  /* getentropy () can only read a maximum of 256 bytes. */
+  unsigned char *ptr = (unsigned char *) buffer;
+
   if (length > 256)
     {
       errno = EIO;
       return -1;
     }
-
-  while (length > 0)
+  for (;;)
     {
-      ssize_t current_read = getrandom (buffer, length, 0);
+      size_t count;
 
-      if (current_read == 0)
+      if (length == 0)
+        return 0;
+      for (;;)
+        {
+          count = getrandom (ptr, length, 0);
+          if (count == -1)
+            {
+              if (errno == EINTR)
+                continue;
+              else
+                return -1;
+            }
+          else
+            break;
+        }
+      if (count == 0)
         {
           errno = EIO;
           return -1;
         }
-
-      if (current_read < 0)
-        {
-          if (errno == EINTR)
-            continue;
-          else
-            {
-              errno = EIO;
-              return -1;
-            }
-        }
-
-      buffer = (char *) buffer + current_read;
-      length -= current_read;
+      ptr += count;
+      length -= count;
     }
-
-  return 0;
 }
