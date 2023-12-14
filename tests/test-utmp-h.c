@@ -25,38 +25,11 @@
 
 #include <config.h>
 
-#include <pty.h>
+#include <utmp.h>
 
-#include "attributes.h"
-
-static void test_pid_t_defined (void);
-static void test_struct_termios_defined (void);
-static void test_struct_winsize_defined (void);
-
-/* Test that 'pty.h' can be included. */
+/* Make sure that 'utmp.h' can be included. */
 int
 main (void)
 {
-  test_pid_t_defined ();
-  test_struct_termios_defined ();
-  test_struct_winsize_defined ();
   return 0;
-}
-
-static void
-test_pid_t_defined (void)
-{
-  pid_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_termios_defined (void)
-{
-  struct termios value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_winsize_defined (void)
-{
-  struct winsize value ATTRIBUTE_UNUSED;
 }

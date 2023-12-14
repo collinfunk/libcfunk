@@ -34,4 +34,35 @@
 #  include_next <pty.h>
 #endif
 
+#include <sys/types.h>
+#include <sys/ioctl.h>
+
+#include <termios.h>
+
+#if @LIBCFUNK_DECLARE_FORKPTY@
+#  if @LIBCFUNK_REPLACE_FORKPTY@
+#    undef forkpty
+#    define forkpty _libcfunk_forkpty
+extern pid_t _libcfunk_forkpty (int *amaster, char *name,
+                                const struct termios *termp,
+                                const struct winsize *winp);
+#  elif !@HAVE_FORKPTY@
+extern pid_t forkpty (int *amaster, char *name, const struct termios *termp,
+                      const struct winsize *winp);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_OPENPTY@
+#  if @LIBCFUNK_REPLACE_OPENPTY@
+#    undef openpty
+#    define openpty _libcfunk_openpty
+extern int _libcfunk_openpty (int *amaster, int *aslave, char *name,
+                              const struct termios *termp,
+                              const struct winsize *winp);
+#  elif !@HAVE_OPENPTY@
+extern int openpty (int *amaster, int *aslave, char *name,
+                    const struct termios *termp, const struct winsize *winp);
+#  endif
+#endif
+
 #endif /* COMPAT_PTY_H */

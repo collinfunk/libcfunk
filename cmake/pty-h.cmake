@@ -1,6 +1,10 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-ioctl-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/termios-h.cmake)
+
 # Generate <pty.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_PTY_H "1" CACHE STRING "")
 
