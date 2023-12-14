@@ -25,46 +25,19 @@
 
 #include <config.h>
 
-#include <sys/random.h>
-
 #include <errno.h>
-#include <unistd.h>
+#include <pty.h>
 
-int
-getentropy (void *buffer, size_t length)
+pid_t
+forkpty (int *amaster, char *name, const struct termios *termp,
+         const struct winsize *winp)
+#undef forkpty
 {
-  unsigned char *ptr = (unsigned char *) buffer;
-
-  if (length > 256)
-    {
-      errno = EIO;
-      return -1;
-    }
-  for (;;)
-    {
-      ssize_t count;
-
-      if (length == 0)
-        return 0;
-      for (;;)
-        {
-          count = getrandom (ptr, length, 0);
-          if (count == -1)
-            {
-              if (errno == EINTR)
-                continue;
-              else
-                return -1;
-            }
-          else
-            break;
-        }
-      if (count == 0)
-        {
-          errno = EIO;
-          return -1;
-        }
-      ptr += count;
-      length -= count;
-    }
+#if HAVE_FORKPTY
+  return forkpty (amaster, name, (struct termios *) termp,
+                  (struct winsize *) winp);
+#else
+  errno = ENOSYS;
+  return (pid_t) -1;
+#endif
 }

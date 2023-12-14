@@ -25,46 +25,35 @@
 
 #include <config.h>
 
-#include <sys/random.h>
+#include <pty.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include <errno.h>
-#include <unistd.h>
+#include "test-help.h"
+
+static void test_forkpty (void);
 
 int
-getentropy (void *buffer, size_t length)
+main (void)
 {
-  unsigned char *ptr = (unsigned char *) buffer;
+  test_forkpty ();
+  return 0;
+}
 
-  if (length > 256)
-    {
-      errno = EIO;
-      return -1;
-    }
-  for (;;)
-    {
-      ssize_t count;
+static void
+test_forkpty (void)
+{
+  pid_t result;
+  int master;
 
-      if (length == 0)
-        return 0;
-      for (;;)
-        {
-          count = getrandom (ptr, length, 0);
-          if (count == -1)
-            {
-              if (errno == EINTR)
-                continue;
-              else
-                return -1;
-            }
-          else
-            break;
-        }
-      if (count == 0)
-        {
-          errno = EIO;
-          return -1;
-        }
-      ptr += count;
-      length -= count;
+  result = forkpty (&master, NULL, NULL, NULL);
+  switch (result)
+    {
+    case -1: /* Error. */
+      exit (1);
+    case 0: /* Child. */
+      break;
+    default: /* Parent. */
+      break;
     }
 }
