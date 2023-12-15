@@ -27,9 +27,52 @@
 
 #include <arpa/inet.h>
 
+#include "attributes.h"
+
+static void test_in_port_t_defined (void);
+static void test_in_addr_t_defined (void);
+static void test_struct_in_addr_defined (void);
+static void test_uint16_t_defined (void);
+static void test_uint32_t_defined (void);
+
 /* Test that arpa/inet.h can be included. */
 int
 main (void)
 {
+  test_in_port_t_defined ();
+  test_in_addr_t_defined ();
+  test_struct_in_addr_defined ();
+  test_uint16_t_defined ();
+  test_uint32_t_defined ();
   return 0;
+}
+
+static void
+test_in_port_t_defined (void)
+{
+  in_port_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_in_addr_t_defined (void)
+{
+  in_addr_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_struct_in_addr_defined (void)
+{
+  struct in_addr value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_uint16_t_defined (void)
+{
+  uint16_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_uint32_t_defined (void)
+{
+  uint32_t value ATTRIBUTE_UNUSED;
 }

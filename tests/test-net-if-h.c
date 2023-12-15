@@ -29,11 +29,19 @@
 
 #include "attributes.h"
 
+static void test_struct_if_nameindex_defined (void);
+
 /* Test that 'net/if.h' can be included and that 'struct if_nameindex'
    is declared. */
 int
 main (void)
 {
-  struct if_nameindex name ATTRIBUTE_UNUSED;
+  test_struct_if_nameindex_defined ();
   return 0;
+}
+
+static void
+test_struct_if_nameindex_defined (void)
+{
+  struct if_nameindex value ATTRIBUTE_UNUSED;
 }

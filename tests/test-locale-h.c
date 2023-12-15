@@ -29,10 +29,18 @@
 
 #include "attributes.h"
 
+static void test_struct_lconv_defined (void);
+
 /* Test that locale.h can be included. */
 int
 main (void)
 {
-  struct lconv buffer ATTRIBUTE_UNUSED;
+  test_struct_lconv_defined ();
   return 0;
+}
+
+static void
+test_struct_lconv_defined (void)
+{
+  struct lconv value ATTRIBUTE_UNUSED;
 }

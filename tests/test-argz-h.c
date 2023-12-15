@@ -27,9 +27,28 @@
 
 #include <argz.h>
 
+#include "attributes.h"
+
+static void test_error_t_defined (void);
+static void test_size_t_defined (void);
+
 /* Test that 'argz.h' can be included. */
 int
 main (void)
 {
+  test_error_t_defined ();
+  test_size_t_defined ();
   return 0;
+}
+
+static void
+test_error_t_defined (void)
+{
+  error_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
 }

@@ -26,14 +26,12 @@
 #include <config.h>
 
 #include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #include "attributes.h"
-#include "test-help.h"
 
 static void test_error_t_declared (void);
 
+/* Test that 'errno.h' can be included. */
 int
 main (void)
 {
@@ -41,11 +39,8 @@ main (void)
   return 0;
 }
 
-/* Test that 'error_t' is declared to an integer type. */
 static void
 test_error_t_declared (void)
 {
-  error_t error_value ATTRIBUTE_UNUSED;
-
-  ASSERT (sizeof (error_value) > 0);
+  error_t value ATTRIBUTE_UNUSED;
 }

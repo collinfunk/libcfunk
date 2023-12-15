@@ -27,9 +27,20 @@
 
 #include <alloca.h>
 
+#include "attributes.h"
+
+static void test_size_t_defined (void);
+
 /* Test that 'alloca.h' can be included. */
 int
 main (void)
 {
+  test_size_t_defined ();
   return 0;
+}
+
+static void
+test_size_t_defined (void)
+{
+  size_t value ATTRIBUTE_UNUSED;
 }

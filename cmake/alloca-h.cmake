@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/stddef-h.cmake)
+
 # Generate <alloca.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_ALLOCA_H "1" CACHE STRING "")
 

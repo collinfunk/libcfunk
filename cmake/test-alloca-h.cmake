@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/test-alloca-h.cmake)
+
 add_executable(test-alloca-h)
 
 target_link_libraries(test-alloca-h PRIVATE

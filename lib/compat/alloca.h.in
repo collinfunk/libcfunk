@@ -34,6 +34,9 @@
 #  include_next <alloca.h>
 #endif
 
+/* For 'size_t'. */
+#include <stddef.h>
+
 #ifndef alloca
 /* FIXME: Not sure which versions of GCC and Clang added this builtin. */
 #  if defined(__GNUC__) || defined(__clang__)
