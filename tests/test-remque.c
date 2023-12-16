@@ -23,74 +23,56 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SEARCH_H
-#define COMPAT_SEARCH_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <search.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#if @HAVE_SEARCH_H@
-#  include_next <search.h>
-#endif
+#include "test-help.h"
 
-/* Define 'size_t'. */
-#include <stddef.h>
+static void test_remque (void);
 
-#if !@HAVE_STRUCT_QELEM@
-struct qelem
+int
+main (void)
 {
-  struct qelem *q_forw;
-  struct qelem *q_back;
-  char q_data[1];
-};
-#endif
+  test_remque ();
+  return 0;
+}
 
-/* Hopefully it has both... */
-#if /* !@HAVE_STRUCT_ENTRY@ || */ !@HAVE_ENTRY@
-typedef struct entry
+static void
+test_remque (void)
 {
-  char *key;
-  void *data;
-} ENTRY;
-#endif
+  struct qelem nodes[64];
+  size_t i;
 
-#if !@HAVE_ACTION@
-typedef enum
-{
-  FIND,
-  ENTER
-} ACTION;
-#endif
+  ASSERT (ARRAY_SIZE (nodes) > 1);
 
-#if !@HAVE_VISIT@
-typedef enum
-{
-  preorder,
-  postorder,
-  endorder,
-  leaf
-} VISIT;
-#endif
+  insque (&nodes[0], NULL);
+  for (i = 1; i < ARRAY_SIZE (nodes); ++i)
+    insque (&nodes[i], &nodes[i - 1]);
 
-#if @LIBCFUNK_DECLARE_INSQUE@
-#  if @LIBCFUNK_REPLACE_INSQUE@
-#    undef insque
-#    define insque _libcfunk_insque
-extern void _libcfunk_insque (void *element, void *pred);
-#  elif !@HAVE_INSQUE@
-extern void insque (void *element, void *pred);
-#  endif
-#endif
+  for (i = 0; i < ARRAY_SIZE (nodes) - 1; ++i)
+    {
+      ASSERT (nodes[i].q_forw == &nodes[i + 1]);
+      if (i == 0)
+        ASSERT (nodes[i].q_back == NULL);
+      else
+        ASSERT (nodes[i].q_back == &nodes[i - 1]);
+    }
 
-#if @LIBCFUNK_DECLARE_REMQUE@
-#  if @LIBCFUNK_REPLACE_REMQUE@
-#    undef remque
-#    define remque _libcfunk_remque
-extern void _libcfunk_remque (void *element);
-#  elif !@HAVE_REMQUE@
-extern void remque (void *element);
-#  endif
-#endif
+  for (i = 1; i < ARRAY_SIZE (nodes); i += 2)
+    remque (&nodes[i]);
 
-#endif /* COMPAT_SEARCH_H */
+  for (i = 0; i < ARRAY_SIZE (nodes); i += 2)
+    {
+      if (i == ARRAY_SIZE (nodes) - 2)
+        ASSERT (nodes[i].q_forw == NULL);
+      else
+        ASSERT (nodes[i].q_forw == &nodes[i + 2]);
+      if (i == 0)
+        ASSERT (nodes[i].q_back == NULL);
+      else
+        ASSERT (nodes[i].q_back == &nodes[i - 2]);
+    }
+}

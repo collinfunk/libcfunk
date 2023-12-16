@@ -29,6 +29,7 @@
 
 #include "attributes.h"
 
+static void test_struct_qelem_defined (void);
 static void test_struct_entry_defined (void);
 static void test_ENTRY_defined (void);
 static void test_ACTION_defined (void);
@@ -38,12 +39,19 @@ static void test_size_t_defined (void);
 int
 main (void)
 {
+  test_struct_qelem_defined ();
   test_struct_entry_defined ();
   test_ENTRY_defined ();
   test_ACTION_defined ();
   test_VISIT_defined ();
   test_size_t_defined ();
   return 0;
+}
+
+static void
+test_struct_qelem_defined (void)
+{
+  struct qelem value ATTRIBUTE_UNUSED;
 }
 
 static void

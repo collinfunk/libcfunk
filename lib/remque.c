@@ -23,74 +23,21 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SEARCH_H
-#define COMPAT_SEARCH_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <search.h>
+#include <stdlib.h>
 
-#if @HAVE_SEARCH_H@
-#  include_next <search.h>
-#endif
-
-/* Define 'size_t'. */
-#include <stddef.h>
-
-#if !@HAVE_STRUCT_QELEM@
-struct qelem
+void
+remque (void *element)
+#undef remque
 {
-  struct qelem *q_forw;
-  struct qelem *q_back;
-  char q_data[1];
-};
-#endif
+  struct qelem *q_element = (struct qelem *) element;
+  struct qelem *q_next = (struct qelem *) q_element->q_forw;
+  struct qelem *q_prev = (struct qelem *) q_element->q_back;
 
-/* Hopefully it has both... */
-#if /* !@HAVE_STRUCT_ENTRY@ || */ !@HAVE_ENTRY@
-typedef struct entry
-{
-  char *key;
-  void *data;
-} ENTRY;
-#endif
-
-#if !@HAVE_ACTION@
-typedef enum
-{
-  FIND,
-  ENTER
-} ACTION;
-#endif
-
-#if !@HAVE_VISIT@
-typedef enum
-{
-  preorder,
-  postorder,
-  endorder,
-  leaf
-} VISIT;
-#endif
-
-#if @LIBCFUNK_DECLARE_INSQUE@
-#  if @LIBCFUNK_REPLACE_INSQUE@
-#    undef insque
-#    define insque _libcfunk_insque
-extern void _libcfunk_insque (void *element, void *pred);
-#  elif !@HAVE_INSQUE@
-extern void insque (void *element, void *pred);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_REMQUE@
-#  if @LIBCFUNK_REPLACE_REMQUE@
-#    undef remque
-#    define remque _libcfunk_remque
-extern void _libcfunk_remque (void *element);
-#  elif !@HAVE_REMQUE@
-extern void remque (void *element);
-#  endif
-#endif
-
-#endif /* COMPAT_SEARCH_H */
+  if (q_next != NULL)
+    q_next->q_back = q_prev;
+  if (q_prev != NULL)
+    q_prev->q_forw = q_next;
+}
