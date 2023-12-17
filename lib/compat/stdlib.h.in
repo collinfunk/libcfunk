@@ -117,19 +117,31 @@ extern int atexit (void (*function) (void));
 #endif
 
 #if @LIBCFUNK_DECLARE_ATOI@
-#  if !@HAVE_ATOI@
+#  if @LIBCFUNK_REPLACE_ATOI@
+#    undef atoi
+#    define atoi _libcfunk_atoi
+extern int _libcfunk_atoi (const char *str);
+#  elif !@HAVE_ATOI@
 extern int atoi (const char *str);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_ATOL@
-#  if !@HAVE_ATOL@
+#  if @LIBCFUNK_REPLACE_ATOL@
+#    undef atol
+#    define atol _libcfunk_atol
+extern long int _libcfunk_atol (const char *str);
+#  elif !@HAVE_ATOL@
 extern long int atol (const char *str);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_ATOLL@
-#  if !@HAVE_ATOLL@
+#  if @LIBCFUNK_REPLACE_ATOLL@
+#    undef atoll
+#    define atoll _libcfunk_atoll
+extern long long int _libcfunk_atoll (const char *str);
+#  elif !@HAVE_ATOLL@
 extern long long int atoll (const char *str);
 #  endif
 #endif

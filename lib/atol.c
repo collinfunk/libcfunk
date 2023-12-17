@@ -29,6 +29,7 @@
 
 long int
 atol (const char *str)
+#undef atol
 {
   return strtol (str, (char **) NULL, 10);
 }

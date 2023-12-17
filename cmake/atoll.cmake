@@ -9,9 +9,14 @@ endif ()
 
 set(LIBCFUNK_DECLARE_ATOLL "1" CACHE STRING "")
 
-if (NOT HAVE_ATOLL)
+if (NOT HAVE_ATOLL OR LIBCFUNK_REPLACE_ATOLL)
   include($CACHE{LIBCFUNK_MODULE_DIR}/strtoll.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/atoll.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-atoll.cmake)
+endif ()
+

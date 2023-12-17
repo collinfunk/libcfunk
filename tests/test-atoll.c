@@ -25,11 +25,17 @@
 
 #include <config.h>
 
+#include <stdio.h>
 #include <stdlib.h>
 
-long long int
-atoll (const char *str)
-#undef atoll
+#include "test-help.h"
+
+/* Test that 'atoll' is declared. */
+int
+main (void)
 {
-  return strtoll (str, (char **) NULL, 10);
+  ASSERT (atoll ("-1") == -1LL);
+  ASSERT (atoll ("0") == 0LL);
+  ASSERT (atoll ("1") == 1LL);
+  return 0;
 }

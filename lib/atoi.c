@@ -29,6 +29,7 @@
 
 int
 atoi (const char *str)
+#undef atoi
 {
   return (int) strtol (str, (char **) NULL, 10);
 }

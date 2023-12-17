@@ -9,9 +9,14 @@ endif ()
 
 set(LIBCFUNK_DECLARE_ATOI "1" CACHE STRING "")
 
-if (NOT HAVE_ATOI)
+if (NOT HAVE_ATOI OR LIBCFUNK_REPLACE_ATOI)
   include($CACHE{LIBCFUNK_MODULE_DIR}/strtol.cmake)
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
     $CACHE{LIBCFUNK_SOURCE_DIR}/atoi.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-atoi.cmake)
+endif ()
+
