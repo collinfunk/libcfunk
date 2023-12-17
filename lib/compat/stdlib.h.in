@@ -116,6 +116,16 @@ extern int atexit (void (*function) (void));
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_ATOF@
+#  if @LIBCFUNK_REPLACE_ATOF@
+#    undef atof
+#    define atof _libcfunk_atof
+extern double _libcfunk_atof (const char *str);
+#  elif !@HAVE_ATOF@
+extern double atof (const char *str);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ATOI@
 #  if @LIBCFUNK_REPLACE_ATOI@
 #    undef atoi
