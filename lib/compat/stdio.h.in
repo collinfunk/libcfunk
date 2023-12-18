@@ -318,6 +318,16 @@ extern int remove (const char *path);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_REWIND@
+#  if @LIBCFUNK_REPLACE_REWIND@
+#    undef rewind
+#    define rewind _libcfunk_rewind
+extern void _libcfunk_rewind (FILE *stream);
+#  elif !@HAVE_REWIND@
+extern void rewind (FILE *stream);
+#  endif
+#endif
+
 /* TODO */
 #if @LIBCFUNK_DECLARE_SNPRINTF@
 #  if @LIBCFUNK_REPLACE_SNPRINTF@
