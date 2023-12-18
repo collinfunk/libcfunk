@@ -13,5 +13,6 @@ if (NOT HAVE_STRTOD)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-strtod.cmake)
 endif ()
 
