@@ -476,7 +476,10 @@
 #cmakedefine01 HAVE_MKDTEMP
 #cmakedefine01 HAVE_MKFIFO
 #cmakedefine01 HAVE_MKNOD
+#cmakedefine01 HAVE_MKOSTEMP
+#cmakedefine01 HAVE_MKOSTEMPS
 #cmakedefine01 HAVE_MKSTEMP
+#cmakedefine01 HAVE_MKSTEMPS
 #cmakedefine01 HAVE_MODE_T
 #cmakedefine01 HAVE_MONETARY_H
 #cmakedefine01 HAVE_MTX_DESTROY
