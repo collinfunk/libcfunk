@@ -18,3 +18,7 @@ if (NOT HAVE_MKDTEMP)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-mkdtemp.cmake)
+endif ()
+
