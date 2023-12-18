@@ -684,10 +684,13 @@
 #cmakedefine01 HAVE_STRSEP
 #cmakedefine01 HAVE_STRSPN
 #cmakedefine01 HAVE_STRSTR
+#cmakedefine01 HAVE_STRTOD
+#cmakedefine01 HAVE_STRTOF
 #cmakedefine01 HAVE_STRTOIMAX
 #cmakedefine01 HAVE_STRTOK
 #cmakedefine01 HAVE_STRTOK_R
 #cmakedefine01 HAVE_STRTOL
+#cmakedefine01 HAVE_STRTOLD
 #cmakedefine01 HAVE_STRTOLL
 #cmakedefine01 HAVE_STRTOUL
 #cmakedefine01 HAVE_STRTOULL
@@ -783,6 +786,7 @@
 #cmakedefine01 HAVE_TCFLAG_T
 #cmakedefine01 HAVE_TCGETSID
 #cmakedefine01 HAVE_TELLDIR
+#cmakedefine01 HAVE_TEMPNAM
 #cmakedefine01 HAVE_TERMIOS_H
 #cmakedefine01 HAVE_TGMATH_H
 #cmakedefine01 HAVE_THRD_CREATE
@@ -804,6 +808,9 @@
 #cmakedefine01 HAVE_TIMESPEC_GETRES
 #cmakedefine01 HAVE_TIME_T
 #cmakedefine01 HAVE_TIMINGSAFE_BCMP
+#cmakedefine01 HAVE_TMPFILE
+#cmakedefine01 HAVE_TMPNAM
+#cmakedefine01 HAVE_TMPNAM_R
 #cmakedefine01 HAVE_TOASCII
 #cmakedefine01 HAVE_TOLOWER
 #cmakedefine01 HAVE_TOUPPER
