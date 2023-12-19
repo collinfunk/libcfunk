@@ -167,6 +167,7 @@
 #cmakedefine01 HAVE__CHMOD
 #cmakedefine01 HAVE_CHMOD
 #cmakedefine01 HAVE_CHOWN
+#cmakedefine01 HAVE_CLEARERR
 #cmakedefine01 HAVE_CLEARERR_UNLOCKED
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCKGETRES
@@ -253,7 +254,9 @@
 #cmakedefine01 HAVE_FDOPENDIR
 #cmakedefine01 HAVE_FEATURES_H
 #cmakedefine01 HAVE_FENV_H
+#cmakedefine01 HAVE_FEOF
 #cmakedefine01 HAVE_FEOF_UNLOCKED
+#cmakedefine01 HAVE_FERROR
 #cmakedefine01 HAVE_FERROR_UNLOCKED
 #cmakedefine01 HAVE__FFLUSH_NOLOCK
 #cmakedefine01 HAVE_FFLUSH_UNLOCKED
@@ -750,6 +753,7 @@
 #cmakedefine01 HAVE_STRUCT_TERMIOS
 #cmakedefine01 HAVE_STRUCT_TIMESPEC
 #cmakedefine01 HAVE_STRUCT_TIMEVAL
+#cmakedefine01 HAVE_STRUCT_TM
 #cmakedefine01 HAVE_STRUCT_TMS
 #cmakedefine01 HAVE_STRUCT__UTIMBUF
 #cmakedefine01 HAVE_STRUCT_UTIMBUF

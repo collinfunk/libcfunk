@@ -25,82 +25,18 @@
 
 #include <config.h>
 
-#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_clock_t_defined (void);
-static void test_size_t_defined (void);
-static void test_time_t_defined (void);
-static void test_pid_t_defined (void);
-static void test_struct_tm_defined (void);
-static void test_struct_timespec_defined (void);
-static void test_struct_itimerspec_defined (void);
-static void test_NULL_defined (void);
-
-static_assert (TIME_UTC > 0);
-
-/* Test that 'time.h' can be included. */
+/* Test that 'ferror' is declared. I am not sure of a portable way to set
+   the error indicator on the stream so functionality is not tested. */
 int
 main (void)
 {
-  test_clock_t_defined ();
-  test_size_t_defined ();
-  test_time_t_defined ();
-  test_pid_t_defined ();
-  test_struct_tm_defined ();
-  test_struct_timespec_defined ();
-  test_struct_itimerspec_defined ();
-  test_NULL_defined ();
+  ASSERT (!ferror (stdin));
+  ASSERT (!ferror (stdout));
+  ASSERT (!ferror (stderr));
   return 0;
-}
-
-static void
-test_clock_t_defined (void)
-{
-  clock_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_size_t_defined (void)
-{
-  size_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_time_t_defined (void)
-{
-  time_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_pid_t_defined (void)
-{
-  pid_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_tm_defined (void)
-{
-  struct tm value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_timespec_defined (void)
-{
-  struct timespec value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_itimerspec_defined (void)
-{
-  struct itimerspec value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_NULL_defined (void)
-{
-  char *ptr ATTRIBUTE_UNUSED;
-
-  ptr = NULL;
 }

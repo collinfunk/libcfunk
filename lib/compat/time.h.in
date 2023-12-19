@@ -41,6 +41,13 @@
 #  include_next <time.h>
 #endif
 
+#if @HAVE_SYS_TIME_H@
+#  include <sys/time.h>
+#endif
+
+/* Define 'size_t' and 'NULL'. */
+#include <stddef.h>
+
 #if !@HAVE_STRUCT_TIMESPEC@
 struct timespec
 {
@@ -54,6 +61,21 @@ struct itimerspec
 {
   struct timespec it_interval;
   struct timespec it_value;
+};
+#endif
+
+#if !@HAVE_STRUCT_TM@
+struct tm
+{
+  int tm_sec;
+  int tm_min;
+  int tm_hour;
+  int tm_mday;
+  int tm_mon;
+  int tm_year;
+  int tm_wday;
+  int tm_yday;
+  int tm_isdst;
 };
 #endif
 

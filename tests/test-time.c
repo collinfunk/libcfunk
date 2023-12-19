@@ -25,82 +25,48 @@
 
 #include <config.h>
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_clock_t_defined (void);
-static void test_size_t_defined (void);
-static void test_time_t_defined (void);
-static void test_pid_t_defined (void);
-static void test_struct_tm_defined (void);
-static void test_struct_timespec_defined (void);
-static void test_struct_itimerspec_defined (void);
-static void test_NULL_defined (void);
+/* Exit code for this program. */
+static int exit_code = 0;
 
-static_assert (TIME_UTC > 0);
+static void test_time_year2038 (void);
+static void test_time (void);
 
-/* Test that 'time.h' can be included. */
 int
 main (void)
 {
-  test_clock_t_defined ();
-  test_size_t_defined ();
-  test_time_t_defined ();
-  test_pid_t_defined ();
-  test_struct_tm_defined ();
-  test_struct_timespec_defined ();
-  test_struct_itimerspec_defined ();
-  test_NULL_defined ();
-  return 0;
+  test_time_year2038 ();
+  test_time ();
+  return exit_code;
 }
 
+/* Give a warning if 'time_t' is not 64-bits. Assume that it is a traditional
+   implementation using a 32-bit integer and give a warning. */
 static void
-test_clock_t_defined (void)
+test_time_year2038 (void)
 {
-  clock_t value ATTRIBUTE_UNUSED;
+  if (sizeof (time_t) < 8)
+    {
+      fprintf (stderr,
+               "The size of 'time_t' is less than 64-bits on your system. The "
+               "'time' function will fail in the year 2038.\n");
+      exit_code = 1;
+    }
 }
 
+/* Perform a basic test of 'time'. */
 static void
-test_size_t_defined (void)
+test_time (void)
 {
-  size_t value ATTRIBUTE_UNUSED;
-}
+  time_t t1 = (time_t) -1;
+  time_t t2 = (time_t) -1;
 
-static void
-test_time_t_defined (void)
-{
-  time_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_pid_t_defined (void)
-{
-  pid_t value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_tm_defined (void)
-{
-  struct tm value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_timespec_defined (void)
-{
-  struct timespec value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_struct_itimerspec_defined (void)
-{
-  struct itimerspec value ATTRIBUTE_UNUSED;
-}
-
-static void
-test_NULL_defined (void)
-{
-  char *ptr ATTRIBUTE_UNUSED;
-
-  ptr = NULL;
+  t1 = time (&t2);
+  ASSERT (t1 != (time_t) -1);
+  ASSERT (t1 == t2);
 }

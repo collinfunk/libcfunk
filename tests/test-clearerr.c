@@ -25,82 +25,67 @@
 
 #include <config.h>
 
-#include <time.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "attributes.h"
+#include "test-help.h"
 
-static void test_clock_t_defined (void);
-static void test_size_t_defined (void);
-static void test_time_t_defined (void);
-static void test_pid_t_defined (void);
-static void test_struct_tm_defined (void);
-static void test_struct_timespec_defined (void);
-static void test_struct_itimerspec_defined (void);
-static void test_NULL_defined (void);
+#undef TEST_FILE_NAME
 
-static_assert (TIME_UTC > 0);
+#define TEST_FILE_NAME "test-clearerr.tmp"
 
-/* Test that 'time.h' can be included. */
+static void test_clearerr_clears_eof (void);
+
+/* Test that 'clearerr' is defined. */
 int
 main (void)
 {
-  test_clock_t_defined ();
-  test_size_t_defined ();
-  test_time_t_defined ();
-  test_pid_t_defined ();
-  test_struct_tm_defined ();
-  test_struct_timespec_defined ();
-  test_struct_itimerspec_defined ();
-  test_NULL_defined ();
+  (void) remove (TEST_FILE_NAME);
+  errno = 0;
+
+  test_clearerr_clears_eof ();
+
+  (void) remove (TEST_FILE_NAME);
   return 0;
 }
 
 static void
-test_clock_t_defined (void)
+test_clearerr_clears_eof (void)
 {
-  clock_t value ATTRIBUTE_UNUSED;
-}
+  char message[] = "test string";
+  char buffer[64];
+  FILE *fp;
 
-static void
-test_size_t_defined (void)
-{
-  size_t value ATTRIBUTE_UNUSED;
-}
+  /* Must be true for test. */
+  ASSERT (sizeof (buffer) >= sizeof (message));
 
-static void
-test_time_t_defined (void)
-{
-  time_t value ATTRIBUTE_UNUSED;
-}
+  /* Create a file. */
+  fp = fopen (TEST_FILE_NAME, "wb");
+  ASSERT (fp != NULL);
 
-static void
-test_pid_t_defined (void)
-{
-  pid_t value ATTRIBUTE_UNUSED;
-}
+  /* Write to the file and close it. */
+  ASSERT (fwrite (message, sizeof (message) - 1, 1, fp) == 1);
+  ASSERT (ferror (fp) == 0 && fclose (fp) == 0);
 
-static void
-test_struct_tm_defined (void)
-{
-  struct tm value ATTRIBUTE_UNUSED;
-}
+  /* Open the file for reading. */
+  fp = fopen (TEST_FILE_NAME, "rb");
+  ASSERT (fp != NULL);
 
-static void
-test_struct_timespec_defined (void)
-{
-  struct timespec value ATTRIBUTE_UNUSED;
-}
+  /* Does nothing. */
+  ASSERT (!feof (fp));
+  clearerr (fp);
+  ASSERT (!feof (fp));
 
-static void
-test_struct_itimerspec_defined (void)
-{
-  struct itimerspec value ATTRIBUTE_UNUSED;
-}
+  /* Read from the file. */
+  ASSERT (fread (buffer, 1, sizeof (buffer), fp) == sizeof (message) - 1);
 
-static void
-test_NULL_defined (void)
-{
-  char *ptr ATTRIBUTE_UNUSED;
+  /* Test that 'clearerr' clears the end of file indicator. */
+  ASSERT (feof (fp));
+  clearerr (fp);
+  ASSERT (!feof (fp));
 
-  ptr = NULL;
+  /* Close and remove the file. */
+  ASSERT (ferror (fp) == 0 && fclose (fp) == 0);
+  ASSERT (remove (TEST_FILE_NAME) == 0);
 }
