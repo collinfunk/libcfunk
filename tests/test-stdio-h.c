@@ -29,11 +29,20 @@
 
 #include "attributes.h"
 
+/* Integer constants denoting implementation limits. */
+static_assert (FILENAME_MAX > 0);
+static_assert (FOPEN_MAX > 0);
+
+/* EOF must be a negative integer constant. */
+static_assert (EOF < 0);
+
 static void test_fpos_t_defined (void);
 static void test_off_t_defined (void);
 static void test_size_t_defined (void);
 static void test_ssize_t_defined (void);
 static void test_va_list_defined (void);
+static void test_NULL_defined (void);
+static void test_setvbuf_macros_defined (void);
 static void test_seek_macros_defined (void);
 
 /* Test that 'stdio.h' can be included. */
@@ -45,6 +54,8 @@ main (void)
   test_size_t_defined ();
   test_ssize_t_defined ();
   test_va_list_defined ();
+  test_NULL_defined ();
+  test_setvbuf_macros_defined ();
   test_seek_macros_defined ();
   return 0;
 }
@@ -77,6 +88,30 @@ static void
 test_va_list_defined (void)
 {
   va_list value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_NULL_defined (void)
+{
+  char *ptr ATTRIBUTE_UNUSED;
+
+  ptr = NULL;
+}
+
+static void
+test_setvbuf_macros_defined (void)
+{
+  switch (0)
+    {
+    case _IOFBF:
+      break;
+    case _IOLBF:
+      break;
+    case _IONBF:
+      break;
+    default:
+      break;
+    }
 }
 
 static void

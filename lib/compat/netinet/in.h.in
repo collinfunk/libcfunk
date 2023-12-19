@@ -47,6 +47,14 @@
 #  define INET6_ADDRSTRLEN 46
 #endif
 
+/* :: */
+#ifndef IN6ADDR_ANY_INIT
+#endif
+
+/* ::1 */
+#ifndef IN6ADDR_LOOPBACK_INIT
+#endif
+
 #if !@HAVE_IN_PORT_T@
 typedef uint16_t in_port_t;
 #endif

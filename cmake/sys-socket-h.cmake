@@ -34,7 +34,9 @@ endif ()
 list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 
 check_type_size("socklen_t" SOCKETLEN_T)
+check_type_size("sa_family_t" SA_FAMILY_T)
 check_type_size("struct cmsghdr" STRUCT_CMSGHDR)
+check_type_size("struct linger" STRUCT_LINGER)
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-sys-socket-h.cmake)

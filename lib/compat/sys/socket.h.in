@@ -54,12 +54,24 @@
 typedef unsigned int socketlen_t;
 #endif
 
+#if !@HAVE_SA_FAMILY_T@
+typedef unsigned short int sa_family_t;
+#endif
+
 #if !@HAVE_STRUCT_CMSGHDR@
 struct cmsghdr
 {
   socklen_t cmsg_len;
   int cmsg_level;
   int cmsg_type;
+};
+#endif
+
+#if !@HAVE_STRUCT_LINGER@
+struct linger
+{
+  int l_onoff;
+  int l_linger;
 };
 #endif
 

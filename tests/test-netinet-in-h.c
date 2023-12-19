@@ -31,6 +31,9 @@
 
 static void test_in_port_t_defined (void);
 static void test_in_addr_t_defined (void);
+static void test_sa_family_t_defined (void);
+static void test_uint8_t_defined (void);
+static void test_uint32_t_defined (void);
 static void test_struct_in_addr_defined (void);
 static void test_struct_sockaddr_in_defined (void);
 static void test_struct_in6_addr_defined (void);
@@ -42,6 +45,9 @@ main (void)
 {
   test_in_port_t_defined ();
   test_in_addr_t_defined ();
+  test_sa_family_t_defined ();
+  test_uint8_t_defined ();
+  test_uint32_t_defined ();
   test_struct_in_addr_defined ();
   test_struct_sockaddr_in_defined ();
   test_struct_in6_addr_defined ();
@@ -61,6 +67,24 @@ static void
 test_in_addr_t_defined (void)
 {
   in_addr_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_sa_family_t_defined (void)
+{
+  sa_family_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_uint8_t_defined (void)
+{
+  uint8_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_uint32_t_defined (void)
+{
+  uint32_t value ATTRIBUTE_UNUSED;
 }
 
 /* Test that the 'struct in_addr' type is defined. */

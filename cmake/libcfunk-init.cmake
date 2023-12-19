@@ -1,6 +1,7 @@
 
 include_guard(GLOBAL)
 
+include(GNUInstallDirs)
 include(CheckSymbolExists)
 include(CheckFunctionExists)
 include(CheckLibraryExists)
@@ -76,6 +77,11 @@ if ("$CACHE{LIBCFUNK_CONFIG_DIR}" STREQUAL "")
   message(FATAL_ERROR "Set LIBCFUNK_CONFIG_DIR as a cache variable before "
     "including libcfunk-init.cmake. This directory is where all generated "
     "headers are placed.")
+endif ()
+
+# Default to 'Debug' builds. Typically this just enables debug symbols.
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
 endif ()
 
 # Make sure the configuration directory exists before we try anything.

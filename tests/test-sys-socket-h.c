@@ -30,14 +30,18 @@
 #include "attributes.h"
 
 static void test_socketlen_t_defined (void);
+static void test_sa_family_t_defined (void);
 static void test_struct_cmsghdr_defined (void);
+static void test_struct_linger_defined (void);
 
 /* Test that <sys/socket.h> is generated and included correctly. */
 int
 main (void)
 {
   test_socketlen_t_defined ();
+  test_sa_family_t_defined ();
   test_struct_cmsghdr_defined ();
+  test_struct_linger_defined ();
   return 0;
 }
 
@@ -48,9 +52,21 @@ test_socketlen_t_defined (void)
   socklen_t value ATTRIBUTE_UNUSED;
 }
 
+static void
+test_sa_family_t_defined (void)
+{
+  sa_family_t value ATTRIBUTE_UNUSED;
+}
+
 /* Test that the 'struct cmsghdr' is defined. */
 static void
 test_struct_cmsghdr_defined (void)
 {
   struct cmsghdr value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_struct_linger_defined (void)
+{
+  struct linger value ATTRIBUTE_UNUSED;
 }

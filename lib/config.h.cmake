@@ -56,32 +56,40 @@
 #  define OPENSSL_SUPPRESS_DEPRECATED 1
 #endif
 
-#ifndef __has_attribute
-#  define __has_attribute(x) 0
-#endif
-
 #ifndef __has_builtin
 #  define __has_builtin(x) 0
 #endif
 
-#ifndef __has_c_attribute
-#  define __has_c_attribute(x) 0
+#ifndef __has_constexpr_builtin
+#  define __has_constexpr_builtin(x) 0
 #endif
 
-#ifndef __has_cpp_attribute
-#  define __has_cpp_attribute(x) 0
-#endif
-
-#ifndef __has_declspec_attribute
-#  define __has_declspec_attribute(x) 0
+#ifndef __has_feature
+#  define __has_feature(x) 0
 #endif
 
 #ifndef __has_extension
 #  define __has_extension __has_feature
 #endif
 
-#ifndef __has_feature
-#  define __has_feature(x) 0
+#ifndef __has_cpp_attribute
+#  define __has_cpp_attribute(x) 0
+#endif
+
+#ifndef __has_c_attribute
+#  define __has_c_attribute(x) 0
+#endif
+
+#ifndef __has_attribute
+#  define __has_attribute(x) 0
+#endif
+
+#ifndef __has_declspec_attribute
+#  define __has_declspec_attribute(x) 0
+#endif
+
+#ifndef __is_identifier
+#  define __is_identifier(x) 1
 #endif
 
 #ifndef __has_include
@@ -94,6 +102,14 @@
 
 #ifndef __has_warning
 #  define __has_warning(x) 0
+#endif
+
+#if !defined(__GNUC__) && !defined(__clang__)
+#  define __attribute__(ignored)
+#endif
+
+#if !defined(__GNUC__) && !defined(__clang__)
+#  define __extension__
 #endif
 
 #cmakedefine01 HAVE_ABS
@@ -258,6 +274,7 @@
 #cmakedefine01 HAVE_FEOF_UNLOCKED
 #cmakedefine01 HAVE_FERROR
 #cmakedefine01 HAVE_FERROR_UNLOCKED
+#cmakedefine01 HAVE_FFLUSH
 #cmakedefine01 HAVE__FFLUSH_NOLOCK
 #cmakedefine01 HAVE_FFLUSH_UNLOCKED
 #cmakedefine01 HAVE_FFS
@@ -608,6 +625,7 @@
 #cmakedefine01 HAVE_RLIM_T
 #cmakedefine01 HAVE__RMDIR
 #cmakedefine01 HAVE_RMDIR
+#cmakedefine01 HAVE_SA_FAMILY_T
 #cmakedefine01 HAVE_SCANDIR
 #cmakedefine01 HAVE_SCHED_GETAFFINITY
 #cmakedefine01 HAVE_SCHED_H
@@ -722,6 +740,7 @@
 #cmakedefine01 HAVE_STRUCT_ITIMERSPEC
 #cmakedefine01 HAVE_STRUCT_ITIMERVAL
 #cmakedefine01 HAVE_STRUCT_LCONV
+#cmakedefine01 HAVE_STRUCT_LINGER
 #cmakedefine01 HAVE_STRUCT_NETENT
 #cmakedefine01 HAVE_STRUCT_OPTION
 #cmakedefine01 HAVE_STRUCT_POLLFD
@@ -942,6 +961,7 @@
 #cmakedefine01 REALLOC_NULL_0_RETURNS_NONNULL
 #cmakedefine01 UNSETENV_HAS_POSIX_PROTOTYPE
 #cmakedefine01 WCSTOK_HAS_POSIX_PROTOTYPE
+
 
 #cmakedefine01 LIBCFUNK_REPLACE_ABS
 #cmakedefine01 LIBCFUNK_REPLACE_ACCEPT

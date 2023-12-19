@@ -29,14 +29,22 @@
 
 #include "attributes.h"
 
+static void test_pid_t_defined (void);
 static void test_struct_sched_param_defined (void);
 
 /* Test that 'sched.h' can be included. */
 int
 main (void)
 {
+  test_pid_t_defined ();
   test_struct_sched_param_defined ();
   return 0;
+}
+
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
 }
 
 static void
