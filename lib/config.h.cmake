@@ -264,9 +264,11 @@
 #cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE___FBUFSIZE
 #cmakedefine01 HAVE_FCHDIR
+#cmakedefine01 HAVE_FCLOSE
 #cmakedefine01 HAVE_FCNTL
 #cmakedefine01 HAVE_FCNTL_H
 #cmakedefine01 HAVE_FDATASYNC
+#cmakedefine01 HAVE_FDOPEN
 #cmakedefine01 HAVE_FDOPENDIR
 #cmakedefine01 HAVE_FEATURES_H
 #cmakedefine01 HAVE_FENV_H
@@ -282,6 +284,7 @@
 #cmakedefine01 HAVE_FFSLL
 #cmakedefine01 HAVE__FGETC_NOLOCK
 #cmakedefine01 HAVE_FGETC_UNLOCKED
+#cmakedefine01 HAVE_FGETPOS
 #cmakedefine01 HAVE_FGETS_UNLOCKED
 #cmakedefine01 HAVE_FILE__BASE
 #cmakedefine01 HAVE_FILE__BF
@@ -309,6 +312,7 @@
 #cmakedefine01 HAVE_FLSLL
 #cmakedefine01 HAVE_FNMATCH
 #cmakedefine01 HAVE_FNMATCH_H
+#cmakedefine01 HAVE_FOPEN
 #cmakedefine01 HAVE_FORK
 #cmakedefine01 HAVE_FORKPTY
 #cmakedefine01 HAVE___FPENDING
@@ -316,15 +320,18 @@
 #cmakedefine01 HAVE___FPURGE
 #cmakedefine01 HAVE_FPUTC_UNLOCKED
 #cmakedefine01 HAVE_FPUTS_UNLOCKED
+#cmakedefine01 HAVE_FREAD
 #cmakedefine01 HAVE___FREADABLE
 #cmakedefine01 HAVE___FREADING
 #cmakedefine01 HAVE__FREAD_NOLOCK
 #cmakedefine01 HAVE_FREAD_UNLOCKED
 #cmakedefine01 HAVE_FREE
+#cmakedefine01 HAVE_FREOPEN
 #cmakedefine01 HAVE_FSEEK
 #cmakedefine01 HAVE__FSEEKI64
 #cmakedefine01 HAVE_FSEEKO
 #cmakedefine01 HAVE___FSETERR
+#cmakedefine01 HAVE_FSETPOS
 #cmakedefine01 HAVE__FSTAT
 #cmakedefine01 HAVE_FSTAT
 #cmakedefine01 HAVE_FSYNC
@@ -335,6 +342,7 @@
 #cmakedefine01 HAVE_FTRYLOCKFILE
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE___FWRITABLE
+#cmakedefine01 HAVE_FWRITE
 #cmakedefine01 HAVE__FWRITE_NOLOCK
 #cmakedefine01 HAVE_FWRITE_UNLOCKED
 #cmakedefine01 HAVE___FWRITING
@@ -540,6 +548,7 @@
 #cmakedefine01 HAVE_OSSWAPINT64
 #cmakedefine01 HAVE__PCLOSE
 #cmakedefine01 HAVE_PCLOSE
+#cmakedefine01 HAVE_PERROR
 #cmakedefine01 HAVE_PID_T
 #cmakedefine01 HAVE__PIPE
 #cmakedefine01 HAVE_PIPE
@@ -602,6 +611,7 @@
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_PUTENV
 #cmakedefine01 HAVE_PWRITE
+#cmakedefine01 HAVE_QSORT
 #cmakedefine01 HAVE_RAISE
 #cmakedefine01 HAVE_RAND
 #cmakedefine01 HAVE_RANDOM
@@ -961,7 +971,6 @@
 #cmakedefine01 REALLOC_NULL_0_RETURNS_NONNULL
 #cmakedefine01 UNSETENV_HAS_POSIX_PROTOTYPE
 #cmakedefine01 WCSTOK_HAS_POSIX_PROTOTYPE
-
 
 #cmakedefine01 LIBCFUNK_REPLACE_ABS
 #cmakedefine01 LIBCFUNK_REPLACE_ACCEPT
