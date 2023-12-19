@@ -861,6 +861,7 @@
 #cmakedefine01 HAVE_USECONDS_T
 #cmakedefine01 HAVE_USLEEP
 #cmakedefine01 HAVE_UTIL_H
+#cmakedefine01 HAVE_UTIME
 #cmakedefine01 HAVE_UTIME_H
 #cmakedefine01 HAVE_UTMP_H
 #cmakedefine01 HAVE_VA_LIST
