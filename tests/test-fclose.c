@@ -25,13 +25,88 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "test-help.h"
 
+#undef TEST_FILE_NAME
+
+#define TEST_FILE_NAME "test-fclose.tmp"
+
+static void test_fclose_r (void);
+static void test_fclose_rb (void);
+static void test_fclose_w (void);
+static void test_fclose_wb (void);
+
 int
 main (void)
 {
+  (void) remove (TEST_FILE_NAME);
+  errno = 0;
+
+  test_fclose_r ();
+  test_fclose_rb ();
+  test_fclose_w ();
+  test_fclose_wb ();
+
+  (void) remove (TEST_FILE_NAME);
   return 0;
+}
+
+static void
+test_fclose_r (void)
+{
+  FILE *fp;
+
+  fp = fopen (TEST_FILE_NAME, "w");
+  ASSERT (fp != NULL);
+  ASSERT (fclose (fp) == 0);
+
+  fp = fopen (TEST_FILE_NAME, "r");
+  ASSERT (fp != NULL);
+  ASSERT (fclose (fp) == 0);
+
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
+
+static void
+test_fclose_rb (void)
+{
+  FILE *fp;
+
+  fp = fopen (TEST_FILE_NAME, "wb");
+  ASSERT (fp != NULL);
+  ASSERT (fclose (fp) == 0);
+
+  fp = fopen (TEST_FILE_NAME, "rb");
+  ASSERT (fp != NULL);
+  ASSERT (fclose (fp) == 0);
+
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
+
+static void
+test_fclose_w (void)
+{
+  FILE *fp;
+
+  fp = fopen (TEST_FILE_NAME, "w");
+  ASSERT (fp != NULL);
+  ASSERT (fclose (fp) == 0);
+
+  ASSERT (remove (TEST_FILE_NAME) == 0);
+}
+
+static void
+test_fclose_wb (void)
+{
+  FILE *fp;
+
+  fp = fopen (TEST_FILE_NAME, "wb");
+  ASSERT (fp != NULL);
+  ASSERT (fclose (fp) == 0);
+
+  ASSERT (remove (TEST_FILE_NAME) == 0);
 }

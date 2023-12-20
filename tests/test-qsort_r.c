@@ -25,51 +25,59 @@
 
 #include <config.h>
 
-#include <errno.h>
+#include <sys/random.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "test-help.h"
 
-struct errno_pair
-{
-  int num;   /* Value for errno. */
-  char *str; /* String representation. */
-};
-
-/* Error numbers defined by the ISO C standard. */
-static const struct errno_pair error_numbers[] = {
-#ifdef EDOM
-  { EDOM, "EDOM" },
-#endif
-#ifdef EILSEQ
-  { EILSEQ, "EILSEQ" },
-#endif
-#ifdef ERANGE
-  { ERANGE, "ERANGE" },
-#endif
-  { 0, NULL }
-};
-
-static void test_perror (void);
+static int compare_ints (const void *a_ptr, const void *b_ptr, void *arg);
+static void test_qsort_r (void);
 
 int
 main (void)
 {
-  test_perror ();
+  test_qsort_r ();
   return 0;
 }
 
-static void
-test_perror (void)
+static int
+compare_ints (const void *a_ptr, const void *b_ptr, void *arg)
 {
-  size_t i;
+  const int a = *(const int *) a_ptr;
+  const int b = *(const int *) b_ptr;
+  const int order = *(const int *) arg;
 
-  for (i = 0; i < ARRAY_SIZE (error_numbers); ++i)
-    {
-      if (error_numbers[i].str == NULL || error_numbers[i].num == 0)
-        break;
-      errno = error_numbers[i].num;
-      perror (error_numbers[i].str);
-    }
+  if (a == b)
+    return 0;
+  else if (a < b)
+    return order < 0 ? 1 : -1;
+  else /* a > b */
+    return order < 0 ? -1 : 1;
+}
+
+static void
+test_qsort_r (void)
+{
+  int values[255];
+  size_t i;
+  int arg;
+
+  ASSERT (ARRAY_SIZE (values) > 1);
+  ASSERT (getrandom (values, sizeof (values), 0) == (ssize_t) sizeof (values));
+
+  /* Ascending. */
+  arg = 1;
+  qsort_r (values, ARRAY_SIZE (values), sizeof (int), compare_ints, &arg);
+
+  for (i = 0; i < ARRAY_SIZE (values) - 1; ++i)
+    ASSERT (values[i] <= values[i + 1]);
+
+  /* Descending. */
+  arg = -1;
+  qsort_r (values, ARRAY_SIZE (values), sizeof (int), compare_ints, &arg);
+
+  for (i = 0; i < ARRAY_SIZE (values) - 1; ++i)
+    ASSERT (values[i] >= values[i + 1]);
 }

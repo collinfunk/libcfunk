@@ -560,5 +560,6 @@ endif ()
 # include(cmake/mkostemp.cmake)
 # include(cmake/mkostemps.cmake)
 # include(cmake/mkstemps.cmake)
+# include(cmake/qsort_r.cmake)
 
 include(cmake/libcfunk-final.cmake)

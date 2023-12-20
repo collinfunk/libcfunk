@@ -1,6 +1,9 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fopen.cmake)
+
 add_executable(test-fclose)
 
 target_link_libraries(test-fclose PRIVATE

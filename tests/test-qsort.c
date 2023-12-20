@@ -25,13 +25,48 @@
 
 #include <config.h>
 
+#include <sys/random.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "test-help.h"
 
+static int compare_ints (const void *a_ptr, const void *b_ptr);
+static void test_qsort (void);
+
 int
 main (void)
 {
+  test_qsort ();
   return 0;
+}
+
+static int
+compare_ints (const void *a_ptr, const void *b_ptr)
+{
+  const int a = *(const int *) a_ptr;
+  const int b = *(const int *) b_ptr;
+
+  if (a == b)
+    return 0;
+  else if (a < b)
+    return -1;
+  else /* a > b */
+    return 1;
+}
+
+static void
+test_qsort (void)
+{
+  int values[255];
+  size_t i;
+
+  ASSERT (ARRAY_SIZE (values) > 1);
+  ASSERT (getrandom (values, sizeof (values), 0) == (ssize_t) sizeof (values));
+
+  qsort (values, ARRAY_SIZE (values), sizeof (int), compare_ints);
+
+  for (i = 0; i < ARRAY_SIZE (values) - 1; ++i)
+    ASSERT (values[i] <= values[i + 1]);
 }

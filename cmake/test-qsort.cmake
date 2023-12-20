@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/getrandom.cmake)
+
 add_executable(test-qsort)
 
 target_link_libraries(test-qsort PRIVATE

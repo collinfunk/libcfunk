@@ -1,6 +1,15 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/write.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fopen.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/memcmp.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/fclose.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/ferror.cmake)
+
 add_executable(test-fread)
 
 target_link_libraries(test-fread PRIVATE

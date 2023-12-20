@@ -612,6 +612,7 @@
 #cmakedefine01 HAVE_PUTENV
 #cmakedefine01 HAVE_PWRITE
 #cmakedefine01 HAVE_QSORT
+#cmakedefine01 HAVE_QSORT_R
 #cmakedefine01 HAVE_RAISE
 #cmakedefine01 HAVE_RAND
 #cmakedefine01 HAVE_RANDOM
