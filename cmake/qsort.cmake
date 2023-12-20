@@ -7,8 +7,13 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("qsort" "stdlib.h" HAVE_QSORT)
 endif ()
 
-if (NOT HAVE_QSORT)
-  message(FATAL_ERROR "No implementation of 'qsort' for your system.")
+set(LIBCFUNK_DECLARE_QSORT "1" CACHE STRING "")
+
+if (NOT HAVE_QSORT OR LIBCFUNK_REPLACE_QSORT)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/qsort_r.cmake)
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/qsort.c
+  )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)

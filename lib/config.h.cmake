@@ -394,6 +394,8 @@
 #cmakedefine01 HAVE_GROUP_MEMBER
 #cmakedefine01 HAVE_GRP_H
 #cmakedefine01 HAVE_HAVE_DIRECT_H
+#cmakedefine01 HAVE_ICONV_H
+#cmakedefine01 HAVE_ICONV_T
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_IMAXDIV
 #cmakedefine01 HAVE_IMAXDIV_T
@@ -610,6 +612,7 @@
 #cmakedefine01 HAVE__PUTC_NOLOCK
 #cmakedefine01 HAVE_PUTC_UNLOCKED
 #cmakedefine01 HAVE_PUTENV
+#cmakedefine01 HAVE_PWD_H
 #cmakedefine01 HAVE_PWRITE
 #cmakedefine01 HAVE_QSORT
 #cmakedefine01 HAVE_QSORT_R
@@ -754,6 +757,7 @@
 #cmakedefine01 HAVE_STRUCT_LINGER
 #cmakedefine01 HAVE_STRUCT_NETENT
 #cmakedefine01 HAVE_STRUCT_OPTION
+#cmakedefine01 HAVE_STRUCT_PASSWD
 #cmakedefine01 HAVE_STRUCT_POLLFD
 #cmakedefine01 HAVE_STRUCT_PROTOENT
 #cmakedefine01 HAVE_STRUCT_PTMGET
@@ -1095,6 +1099,8 @@
 #cmakedefine01 LIBCFUNK_REPLACE_POSIX_SPAWNP
 #cmakedefine01 LIBCFUNK_REPLACE_PSELECT
 #cmakedefine01 LIBCFUNK_REPLACE_PUTENV
+#cmakedefine01 LIBCFUNK_REPLACE_QSORT
+#cmakedefine01 LIBCFUNK_REPLACE_QSORT_R
 #cmakedefine01 LIBCFUNK_REPLACE_RAND
 #cmakedefine01 LIBCFUNK_REPLACE_RANDOM
 #cmakedefine01 LIBCFUNK_REPLACE_RANDOM_R

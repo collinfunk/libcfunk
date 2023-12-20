@@ -310,6 +310,33 @@ extern int putenv (char *string);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_QSORT@
+#  if @LIBCFUNK_REPLACE_QSORT@
+#    undef qsort
+#    define qsort _libcfunk_qsort
+extern void _libcfunk_qsort (void *base, size_t nmemb, size_t size,
+                             int (*compar) (const void *, const void *));
+#  elif !@HAVE_QSORT@
+extern void qsort (void *base, size_t nmemb, size_t size,
+                   int (*compar) (const void *, const void *));
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_QSORT_R@
+#  if @LIBCFUNK_REPLACE_QSORT_R@
+#    undef qsort_r
+#    define qsort_r _libcfunk_qsort_r
+extern void _libcfunk_qsort_r (void *base, size_t nmemb, size_t size,
+                               int (*compar) (const void *, const void *,
+                                              void *),
+                               void *arg);
+#  elif !@HAVE_QSORT_R@
+extern void qsort_r (void *base, size_t nmemb, size_t size,
+                     int (*compar) (const void *, const void *, void *),
+                     void *arg);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_RAND@
 #  if @LIBCFUNK_REPLACE_RAND@
 #    undef rand

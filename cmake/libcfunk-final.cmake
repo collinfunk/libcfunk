@@ -166,6 +166,13 @@ if ($CACHE{LIBCFUNK_GENERATE_GRP_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_ICONV_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/iconv.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/iconv.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_INTTYPES_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/inttypes.h.in
@@ -254,6 +261,13 @@ if ($CACHE{LIBCFUNK_GENERATE_PTY_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pty.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/pty.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_PWD_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/pwd.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/pwd.h
   )
 endif ()
 

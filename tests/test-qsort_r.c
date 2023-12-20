@@ -33,11 +33,15 @@
 #include "test-help.h"
 
 static int compare_ints (const void *a_ptr, const void *b_ptr, void *arg);
+static void test_qsort_r1 (void);
+static void test_qsort_r2 (void);
 static void test_qsort_r (void);
 
 int
 main (void)
 {
+  test_qsort_r1 ();
+  test_qsort_r2 ();
   test_qsort_r ();
   return 0;
 }
@@ -47,7 +51,7 @@ compare_ints (const void *a_ptr, const void *b_ptr, void *arg)
 {
   const int a = *(const int *) a_ptr;
   const int b = *(const int *) b_ptr;
-  const int order = *(const int *) arg;
+  const int order = (arg == NULL) ? 1 : *(const int *) arg;
 
   if (a == b)
     return 0;
@@ -55,6 +59,34 @@ compare_ints (const void *a_ptr, const void *b_ptr, void *arg)
     return order < 0 ? 1 : -1;
   else /* a > b */
     return order < 0 ? -1 : 1;
+}
+
+static void
+test_qsort_r1 (void)
+{
+  int values[1];
+
+  values[0] = 0;
+  qsort_r (values, ARRAY_SIZE (values), sizeof (int), compare_ints, NULL);
+  ASSERT (values[0] == 0);
+}
+
+static void
+test_qsort_r2 (void)
+{
+  int values[2];
+
+  values[0] = 0;
+  values[1] = 1;
+  qsort_r (values, ARRAY_SIZE (values), sizeof (int), compare_ints, NULL);
+  ASSERT (values[0] == 0);
+  ASSERT (values[1] == 1);
+
+  values[0] = 1;
+  values[1] = 0;
+  qsort_r (values, ARRAY_SIZE (values), sizeof (int), compare_ints, NULL);
+  ASSERT (values[0] == 0);
+  ASSERT (values[1] == 1);
 }
 
 static void
