@@ -71,4 +71,14 @@ extern void globfree (glob_t *pglob);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GLOB_PATTERN_P@
+#  if @LIBCFUNK_REPLACE_GLOB_PATTERN_P@
+#    undef glob_pattern_p
+#    define glob_pattern_p _libcfunk_glob_pattern_p
+extern int _libcfunk_glob_pattern_p (const char *pattern, int quote);
+#  elif !@HAVE_GLOB_PATTERN_P@
+extern int glob_pattern_p (const char *pattern, int quote);
+#  endif
+#endif
+
 #endif /* COMPAT_GLOB_H */
