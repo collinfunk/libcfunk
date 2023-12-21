@@ -32,6 +32,8 @@
 static void test_blkcnt_t_defined (void);
 static void test_blksize_t_defined (void);
 static void test_dev_t_defined (void);
+static void test_fsblkcnt_t_defined (void);
+static void test_fsfilcnt_t_defined (void);
 static void test_gid_t_defined (void);
 static void test_ino_t_defined (void);
 static void test_mode_t_defined (void);
@@ -51,6 +53,8 @@ main (void)
   test_blkcnt_t_defined ();
   test_blksize_t_defined ();
   test_dev_t_defined ();
+  test_fsblkcnt_t_defined ();
+  test_fsfilcnt_t_defined ();
   test_gid_t_defined ();
   test_ino_t_defined ();
   test_mode_t_defined ();
@@ -81,6 +85,18 @@ static void
 test_dev_t_defined (void)
 {
   dev_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_fsblkcnt_t_defined (void)
+{
+  fsblkcnt_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_fsfilcnt_t_defined (void)
+{
+  fsfilcnt_t value ATTRIBUTE_UNUSED;
 }
 
 static void

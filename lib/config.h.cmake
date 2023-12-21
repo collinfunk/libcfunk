@@ -310,6 +310,7 @@
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
+#cmakedefine01 HAVE_FMTMSG_H
 #cmakedefine01 HAVE_FNMATCH
 #cmakedefine01 HAVE_FNMATCH_H
 #cmakedefine01 HAVE_FOPEN
@@ -327,11 +328,13 @@
 #cmakedefine01 HAVE_FREAD_UNLOCKED
 #cmakedefine01 HAVE_FREE
 #cmakedefine01 HAVE_FREOPEN
+#cmakedefine01 HAVE_FSBLKCNT_T
 #cmakedefine01 HAVE_FSEEK
 #cmakedefine01 HAVE__FSEEKI64
 #cmakedefine01 HAVE_FSEEKO
 #cmakedefine01 HAVE___FSETERR
 #cmakedefine01 HAVE_FSETPOS
+#cmakedefine01 HAVE_FSFILCNT_T
 #cmakedefine01 HAVE__FSTAT
 #cmakedefine01 HAVE_FSTAT
 #cmakedefine01 HAVE_FSYNC
@@ -340,6 +343,7 @@
 #cmakedefine01 HAVE_FTELLO
 #cmakedefine01 HAVE_FTRUNCATE
 #cmakedefine01 HAVE_FTRYLOCKFILE
+#cmakedefine01 HAVE_FTW_H
 #cmakedefine01 HAVE_FUNLOCKFILE
 #cmakedefine01 HAVE___FWRITABLE
 #cmakedefine01 HAVE_FWRITE
@@ -747,6 +751,7 @@
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_START
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_TYPE
 #cmakedefine01 HAVE_STRUCT_FLOCK_L_WHENCE
+#cmakedefine01 HAVE_STRUCT_FTW
 #cmakedefine01 HAVE_STRUCT_GROUP
 #cmakedefine01 HAVE_STRUCT_HOSTENT
 #cmakedefine01 HAVE_STRUCT_IF_NAMEINDEX
@@ -786,6 +791,7 @@
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIMESPEC
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
+#cmakedefine01 HAVE_STRUCT_STATVFS
 #cmakedefine01 HAVE_STRUCT_TERMIOS
 #cmakedefine01 HAVE_STRUCT_TIMESPEC
 #cmakedefine01 HAVE_STRUCT_TIMEVAL
@@ -816,6 +822,7 @@
 #cmakedefine01 HAVE_SYS_SELECT_H
 #cmakedefine01 HAVE_SYS_SOCKET_H
 #cmakedefine01 HAVE_SYS_STAT_H
+#cmakedefine01 HAVE_SYS_STATVFS_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
 #cmakedefine01 HAVE_SYS_TIME_H
 #cmakedefine01 HAVE_SYS_TIMES_H
@@ -962,6 +969,8 @@
 #cmakedefine01 HAVE_WMEMMOVE
 #cmakedefine01 HAVE_WMEMPCPY
 #cmakedefine01 HAVE_WMEMSET
+#cmakedefine01 HAVE_WORDEXP_H
+#cmakedefine01 HAVE_WORDEXP_T
 #cmakedefine01 HAVE__WRITE
 #cmakedefine01 HAVE_WRITE
 #cmakedefine01 HAVE_WS2TCPIP_H

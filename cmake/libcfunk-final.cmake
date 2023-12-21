@@ -138,10 +138,24 @@ if ($CACHE{LIBCFUNK_GENERATE_FLOAT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_FMTMSG_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/fmtmsg.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/fmtmsg.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_FNMATCH_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/fnmatch.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/fnmatch.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_FTW_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ftw.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/ftw.h
   )
 endif ()
 
@@ -432,6 +446,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_STAT_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_STATVFS_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/statvfs.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/statvfs.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_TIME_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/time.h.in
@@ -555,6 +576,13 @@ if ($CACHE{LIBCFUNK_GENERATE_WCTYPE_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/wctype.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/wctype.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_WORDEXP_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/wordexp.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/wordexp.h
   )
 endif ()
 

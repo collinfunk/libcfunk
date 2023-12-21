@@ -23,95 +23,37 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_SYS_TYPES_H
-#define COMPAT_SYS_TYPES_H
+#ifndef COMPAT_SYS_STATVFS_H
+#define COMPAT_SYS_STATVFS_H
 
 #ifdef __GNUC__
 #  pragma GCC system_header
 #endif
 
-#if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
+#if @HAVE_SYS_STATVFS_H@
+#  include_next <sys/statvfs.h>
 #endif
 
-/* For systems which do not define 'size_t' in <sys/types.h>. */
-#include <stddef.h>
+/* Define 'fsblkcnt_t' and 'fsfilcnt_t'. */
+#include <sys/types.h>
 
-#if !@HAVE_BLKCNT_T@
-typedef long int blkcnt_t;
+#if !@HAVE_STRUCT_STATVFS@
+struct statvfs
+{
+  unsigned long f_bsize;
+  unsigned long f_frsize;
+  fsblkcnt_t f_blocks;
+  fsblkcnt_t f_bfree;
+  fsblkcnt_t f_bavail;
+  fsfilcnt_t f_files;
+  fsfilcnt_t f_ffree;
+  fsfilcnt_t f_favail;
+  unsigned long f_fsid;
+  unsigned long f_flag;
+  unsigned long f_namemax;
+};
 #endif
 
-#if !@HAVE_BLKSIZE_T@
-typedef long int blksize_t;
-#endif
+/* TODO */
 
-#if !@HAVE_CLOCK_T@
-typedef int clock_t;
-#endif
-
-#if !@HAVE_CLOCKID_T@
-typedef int clockid_t;
-#endif
-
-#if !@HAVE_DEV_T@
-typedef unsigned long int dev_t;
-#endif
-
-#if !@HAVE_FSBLKCNT_T@
-typedef unsigned long long int fsblkcnt_t;
-#endif
-
-#if !@HAVE_FSFILCNT_T@
-typedef unsigned long long int fsfilcnt_t;
-#endif
-
-#if !@HAVE_GID_T@
-typedef unsigned int gid_t;
-#endif
-
-#if !@HAVE_INO_T@
-typedef unsigned long long int ino_t;
-#endif
-
-#if !@HAVE_MODE_T@
-typedef unsigned int mode_t;
-#endif
-
-#if !@HAVE_NLINK_T@
-typedef unsigned int nlink_t;
-#endif
-
-#if !@HAVE_OFF_T@
-#  if @HAVE___INT64_T@
-typedef __int64_t off_t;
-#  else
-typedef long long int off_t;
-#  endif
-#endif
-
-#if !@HAVE_PID_T@
-typedef int pid_t;
-#endif
-
-#if !@HAVE_SSIZE_T@
-#endif
-
-#if !@HAVE_SUSECONDS_T@
-typedef int suseconds_t;
-#endif
-
-#if !@HAVE_TIME_T@
-#endif
-
-#if !@HAVE_TIMER_T@
-#endif
-
-#if !@HAVE_UID_T@
-typedef unsigned int uid_t;
-#endif
-
-#if !@HAVE_USECONDS_T@
-typedef unsigned int useconds_t;
-#endif
-
-#endif /* COMPAT_SYS_TYPES_H */
+#endif /* COMPAT_SYS_STATVFS_H */
