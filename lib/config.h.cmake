@@ -693,6 +693,7 @@
 #cmakedefine01 HAVE_STDIO_EXT_H
 #cmakedefine01 HAVE_STDIO_H
 #cmakedefine01 HAVE_STDLIB_H
+#cmakedefine01 HAVE_STDNORETURN_H
 #cmakedefine01 HAVE_STPCPY
 #cmakedefine01 HAVE_STPNCPY
 #cmakedefine01 HAVE_STR2SIG
@@ -888,6 +889,7 @@
 #cmakedefine01 HAVE_UINT_LEAST8_T
 #cmakedefine01 HAVE_UINTMAX_T
 #cmakedefine01 HAVE_UINTPTR_T
+#cmakedefine01 HAVE_ULIMIT_H
 #cmakedefine01 HAVE_UNAME
 #cmakedefine01 HAVE_UNION_SIGVAL
 #cmakedefine01 HAVE_UNISTD_H

@@ -355,6 +355,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDLIB_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDNORETURN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdnoreturn.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdnoreturn.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STRING_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/string.h.in
@@ -506,6 +513,13 @@ if ($CACHE{LIBCFUNK_GENERATE_UCHAR_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/uchar.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/uchar.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_ULIMIT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/ulimit.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/ulimit.h
   )
 endif ()
 

@@ -10,11 +10,9 @@ check_include_file("glob.h" HAVE_GLOB_H)
 
 if (HAVE_GLOB_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "glob.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
+  check_type_size("glob_t" GLOB_T)
 endif ()
-
-list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
-
-check_type_size("glob_t" GLOB_T)
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-glob-h.cmake)
