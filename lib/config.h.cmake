@@ -112,6 +112,7 @@
 #  define __extension__
 #endif
 
+#cmakedefine01 HAVE_A64L
 #cmakedefine01 HAVE_ABS
 #cmakedefine01 HAVE__ACCESS
 #cmakedefine01 HAVE_ACCESS
@@ -465,6 +466,7 @@
 #cmakedefine01 HAVE_ISWXDIGIT
 #cmakedefine01 HAVE_ISXDIGIT
 #cmakedefine01 HAVE_KILL
+#cmakedefine01 HAVE_L64A
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
 #cmakedefine01 HAVE_LCHOWN
@@ -611,6 +613,7 @@
 #cmakedefine01 HAVE_PTHREAD_T
 #cmakedefine01 HAVE_PTRDIFF_T
 #cmakedefine01 HAVE_PTSNAME
+#cmakedefine01 HAVE_PTSNAME_R
 #cmakedefine01 HAVE_PTY_H
 #cmakedefine01 HAVE__PUTCHAR_NOLOCK
 #cmakedefine01 HAVE_PUTCHAR_UNLOCKED
