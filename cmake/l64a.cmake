@@ -7,9 +7,13 @@ if (HAVE_STDLIB_H)
   check_symbol_exists("l64a" "stdlib.h" HAVE_L64A)
 endif ()
 
-# TODO
-if (NOT HAVE_L64A)
-  message(FATAL_ERROR "No implementation of 'l64a' for your system.")
+set(LIBCFUNK_DECLARE_L64A "1" CACHE STRING "")
+
+if (NOT HAVE_L64A OR LIBCFUNK_REPLACE_L64A)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/l64a_r.cmake)
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/l64a.c
+  )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)

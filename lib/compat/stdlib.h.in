@@ -228,6 +228,26 @@ extern const char *getprogname (void);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_L64A@
+#  if @LIBCFUNK_REPLACE_L64A@
+#    undef l64a
+#    define l64a _libcfunk_l64a
+extern char *_libcfunk_l64a (long int value);
+#  elif !@HAVE_L64A@
+extern char *l64a (long int value);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_L64A_R@
+#  if @LIBCFUNK_REPLACE_L64A_R@
+#    undef l64a_r
+#    define l64a_r _libcfunk_l64a_r
+extern int _libcfunk_l64a_r (long int value, char *buffer, int buffer_len);
+#  elif !@HAVE_L64A_R@
+extern int l64a_r (long int value, char *buffer, int buffer_len);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_LABS@
 #  if @LIBCFUNK_REPLACE_LABS@
 #    undef labs

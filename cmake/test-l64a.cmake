@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/strcmp.cmake)
+
 add_executable(test-l64a)
 
 target_link_libraries(test-l64a PRIVATE
