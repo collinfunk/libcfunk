@@ -35,8 +35,16 @@
 #endif
 
 #include <sys/types.h>
-
 #include <signal.h>
+
+#if !@HAVE_IDTYPE_T@
+typedef enum
+{
+  P_ALL,
+  P_PGID,
+  P_PID,
+} idtype_t;
+#endif
 
 /* Windows only supports the 6 ISO C99 signals. By default all exit with a
    status code of 3. For WTERMSIG, we just return SIGTERM which should be

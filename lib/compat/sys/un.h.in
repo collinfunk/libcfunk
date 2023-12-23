@@ -34,6 +34,7 @@
 #  include_next <sys/un.h>
 #endif
 
+/* Define 'sa_family_t' defined. */
 #include <sys/socket.h>
 
 /* Keep this after <sys/socket.h> or else Mingw fails to find the

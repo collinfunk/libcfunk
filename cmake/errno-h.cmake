@@ -8,8 +8,8 @@ check_include_file("errno.h" HAVE_ERRNO_H)
 
 if (HAVE_ERRNO_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "errno.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("error_t" ERROR_T)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "errno.h")
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)

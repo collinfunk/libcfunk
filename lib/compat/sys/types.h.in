@@ -69,6 +69,10 @@ typedef unsigned long long int fsfilcnt_t;
 typedef unsigned int gid_t;
 #endif
 
+#if !@HAVE_ID_T@
+typedef unsigned int id_t;
+#endif
+
 #if !@HAVE_INO_T@
 typedef unsigned long long int ino_t;
 #endif

@@ -27,15 +27,30 @@
 
 #include <sys/times.h>
 
-/* Test that <sys/times.h> defines 'struct tms' with the members as described
-   by POSIX. */
+#include "attributes.h"
+
+static void test_clock_t_defined (void);
+static void test_struct_tms_defined (void);
+
+/* Test that 'sys/times.h' can be included. */
 int
 main (void)
 {
-  struct tms buffer;
-  buffer.tms_utime = 0;
-  buffer.tms_stime = 0;
-  buffer.tms_cutime = 0;
-  buffer.tms_cstime = 0;
-  return (int) buffer.tms_utime;
+  test_clock_t_defined ();
+  test_struct_tms_defined ();
+  return 0;
+}
+
+/* Test that 'clock_t' is defined. */
+static void
+test_clock_t_defined (void)
+{
+  clock_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that 'struct tms' is defined. */
+static void
+test_struct_tms_defined (void)
+{
+  struct tms value ATTRIBUTE_UNUSED;
 }

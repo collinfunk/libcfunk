@@ -27,9 +27,43 @@
 
 #include <sys/wait.h>
 
+#include "attributes.h"
+
+static void test_idtype_t_defined (void);
+static void test_id_t_defined (void);
+static void test_pid_t_defined (void);
+
 /* Test that 'sys/wait.h' can be included. */
 int
 main (void)
 {
+  test_idtype_t_defined ();
+  test_id_t_defined ();
+  test_pid_t_defined ();
   return 0;
+}
+
+/* Test that 'idtype_t' is defined. */
+static void
+test_idtype_t_defined (void)
+{
+  idtype_t value ATTRIBUTE_UNUSED;
+
+  value = P_ALL;
+  value = P_PGID;
+  value = P_PID;
+}
+
+/* Test that 'id_t' is defined. */
+static void
+test_id_t_defined (void)
+{
+  id_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that 'pid_t' is defined. */
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
 }

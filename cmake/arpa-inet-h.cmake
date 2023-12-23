@@ -12,9 +12,8 @@ check_include_file("arpa/inet.h" HAVE_ARPA_INET_H)
 
 if (HAVE_ARPA_INET_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "arpa/inet.h")
+  list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 endif ()
-
-list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-arpa-inet-h.cmake)

@@ -100,6 +100,16 @@ struct random_data
 #  define RAND_MAX 2147483647
 #endif
 
+#if @LIBCFUNK_DECLARE_A64L@
+#  if @LIBCFUNK_REPLACE_A64L@
+#    undef a64l
+#    define a64l _libcfunk_a64l
+extern long int _libcfunk_a64l (const char *s);
+#  elif !@HAVE_A64L@
+extern long int a64l (const char *s);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_ABS@
 #  if @LIBCFUNK_REPLACE_ABS@
 #    undef abs

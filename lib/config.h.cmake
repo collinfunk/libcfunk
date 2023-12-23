@@ -402,6 +402,8 @@
 #cmakedefine01 HAVE_HAVE_DIRECT_H
 #cmakedefine01 HAVE_ICONV_H
 #cmakedefine01 HAVE_ICONV_T
+#cmakedefine01 HAVE_ID_T
+#cmakedefine01 HAVE_IDTYPE_T
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_IMAXDIV
 #cmakedefine01 HAVE_IMAXDIV_T
@@ -993,6 +995,7 @@
 #cmakedefine01 UNSETENV_HAS_POSIX_PROTOTYPE
 #cmakedefine01 WCSTOK_HAS_POSIX_PROTOTYPE
 
+#cmakedefine01 LIBCFUNK_REPLACE_A64L
 #cmakedefine01 LIBCFUNK_REPLACE_ABS
 #cmakedefine01 LIBCFUNK_REPLACE_ACCEPT
 #cmakedefine01 LIBCFUNK_REPLACE_ALPHASORT

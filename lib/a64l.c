@@ -25,32 +25,39 @@
 
 #include <config.h>
 
-#include <sys/un.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-#include "attributes.h"
-
-static void test_sa_family_t_defined (void);
-static void test_struct_sockaddr_un_defined (void);
-
-/* Test that 'sys/un.h' can be included. */
-int
-main (void)
+long int
+a64l (const char *s)
+#undef a64l
 {
-  test_sa_family_t_defined ();
-  test_struct_sockaddr_un_defined ();
-  return 0;
-}
+  uint32_t result = UINT32_C (0);
+  int shift = 0;
+  const char *ptr = s;
+  const char *end = s + 6;
+  static const signed char table[77]
+      = { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, -1, -1, -1, -1,
+          -1, -1, -1, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+          25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, -1, -1, -1,
+          -1, -1, -1, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+          51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63 };
 
-/* Test that 'sa_family_t' defined. */
-static void
-test_sa_family_t_defined (void)
-{
-  sa_family_t value ATTRIBUTE_UNUSED;
-}
+  do
+    {
+      size_t table_index = (size_t) (*ptr++ - '.');
+      signed char value;
 
-/* Test that 'struct sockaddr_un' is defined. */
-static void
-test_struct_sockaddr_un_defined (void)
-{
-  struct sockaddr_un value ATTRIBUTE_UNUSED;
+      if (table_index >= sizeof (table))
+        break;
+      value = table[table_index];
+      if ((int) value == -1)
+        break;
+      result |= ((uint32_t) value) << shift;
+      shift += 6;
+    }
+  while (ptr < end);
+
+  return (long int) result;
 }

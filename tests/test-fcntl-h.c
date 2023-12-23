@@ -27,9 +27,39 @@
 
 #include <fcntl.h>
 
+#include "attributes.h"
+
+static void test_mode_t_defined (void);
+static void test_off_t_defined (void);
+static void test_pid_t_defined (void);
+
 /* Test that 'fcntl.h' can be included. */
 int
 main (void)
 {
+  test_mode_t_defined ();
+  test_off_t_defined ();
+  test_pid_t_defined ();
   return 0;
+}
+
+/* Test that 'mode_t' is defined. */
+static void
+test_mode_t_defined (void)
+{
+  mode_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that 'off_t' is defined. */
+static void
+test_off_t_defined (void)
+{
+  off_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that 'pid_t' is defined. */
+static void
+test_pid_t_defined (void)
+{
+  pid_t value ATTRIBUTE_UNUSED;
 }

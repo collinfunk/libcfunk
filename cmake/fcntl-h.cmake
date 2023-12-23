@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/sys-types-h.cmake)
+
 # Generate <fcntl.h> at libcfunk-final.cmake
 set(LIBCFUNK_GENERATE_FCNTL_H "1" CACHE STRING "")
 

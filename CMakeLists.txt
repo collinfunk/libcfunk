@@ -16,6 +16,7 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 
 include(cmake/libcfunk-init.cmake)
 
+include(cmake/a64l.cmake)
 include(cmake/abs.cmake)
 include(cmake/accept.cmake)
 include(cmake/access.cmake)
@@ -551,7 +552,6 @@ if (UNIX)
 endif ()
 
 # TODO. Portability problems or not implemented.
-# include(cmake/a64l.cmake)
 # include(cmake/__fbufsize.cmake)
 # include(cmake/__flbf.cmake)
 # include(cmake/fnmatch.cmake)
