@@ -217,6 +217,7 @@
 #cmakedefine01 HAVE_DEV_PTM
 #cmakedefine01 HAVE_DEV_PTMX
 #cmakedefine01 HAVE_DEV_T
+#cmakedefine01 HAVE_DIFFTIME
 #cmakedefine01 HAVE_DIR
 #cmakedefine01 HAVE_DIR_DD_FD
 #cmakedefine01 HAVE_DIR_D_FD
@@ -667,6 +668,7 @@
 #cmakedefine01 HAVE__SETMODE
 #cmakedefine01 HAVE_SETMODE
 #cmakedefine01 HAVE_SETPROGNAME
+#cmakedefine01 HAVE_SETRLIMIT
 #cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL
 #cmakedefine01 HAVE_SIG2STR
@@ -719,6 +721,7 @@
 #cmakedefine01 HAVE_STRERRORNAME_NP
 #cmakedefine01 HAVE_STRERROR_R
 #cmakedefine01 HAVE_STRERROR_S
+#cmakedefine01 HAVE_STRFTIME
 #cmakedefine01 HAVE_STRING_H
 #cmakedefine01 HAVE_STRINGS_H
 #cmakedefine01 HAVE_STRLEN
@@ -731,6 +734,7 @@
 #cmakedefine01 HAVE_STRNLEN
 #cmakedefine01 HAVE_STROPTS_H
 #cmakedefine01 HAVE_STRPBRK
+#cmakedefine01 HAVE_STRPTIME
 #cmakedefine01 HAVE_STRRCHR
 #cmakedefine01 HAVE_STRSEP
 #cmakedefine01 HAVE_STRSPN
@@ -902,6 +906,7 @@
 #cmakedefine01 HAVE_UINT_LEAST8_T
 #cmakedefine01 HAVE_UINTMAX_T
 #cmakedefine01 HAVE_UINTPTR_T
+#cmakedefine01 HAVE_ULIMIT
 #cmakedefine01 HAVE_ULIMIT_H
 #cmakedefine01 HAVE_UNAME
 #cmakedefine01 HAVE_UNION_SIGVAL
@@ -1174,6 +1179,7 @@
 #cmakedefine01 LIBCFUNK_REPLACE_STRUCT_DIRENT
 #cmakedefine01 LIBCFUNK_REPLACE_STRVERSCMP
 #cmakedefine01 LIBCFUNK_REPLACE_TELLDIR
+#cmakedefine01 LIBCFUNK_REPLACE_ULIMIT
 #cmakedefine01 LIBCFUNK_REPLACE_UNSETENV
 #cmakedefine01 LIBCFUNK_REPLACE_VASPRINTF
 #cmakedefine01 LIBCFUNK_REPLACE_VDPRINTF

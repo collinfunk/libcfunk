@@ -23,30 +23,58 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_ULIMIT_H
-#define COMPAT_ULIMIT_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <sys/resource.h>
 
-#if @HAVE_ULIMIT_H@
-#  include_next <ulimit.h>
-#endif
+#include <errno.h>
+#include <limits.h>
+#include <stdarg.h>
+#include <ulimit.h>
 
-#if !defined(UL_GETFSIZE) && !defined(UL_SETFSIZE)
-#  define UL_GETFSIZE 1
-#  define UL_SETFSIZE 2
-#endif
+/* Implementation of 'ulimit' which assumes a working version of 'getrlimit'
+   and 'setrlimit'. */
+long int
+ulimit (int cmd, ...)
+#undef ulimit
+{
+  struct rlimit rlim;
 
-#if @LIBCFUNK_DECLARE_ULIMIT@
-#  if @LIBCFUNK_REPLACE_ULIMIT@
-#    undef ulimit
-#    define ulimit _libcfunk_ulimit
-extern long int _libcfunk_ulimit (int cmd, ...);
-#  elif !@HAVE_ULIMIT@
-extern long int ulimit (int cmd, ...);
-#  endif
-#endif
+  switch (cmd)
+    {
+    case UL_GETFSIZE:
+      if (getrlimit (RLIMIT_FSIZE, &rlim) == 0)
+        return (rlim.rlim_cur == RLIM_INFINITY) ? LONG_MAX
+                                                : rlim.rlim_cur / 512;
+      else
+        return -1L;
+    case UL_SETFSIZE:
+      {
+        va_list ap;
+        int result;
+        long int new_limit;
 
-#endif /* COMPAT_ULIMIT_H */
+        va_start (ap, cmd);
+        new_limit = va_arg (ap, long int);
+        va_end (ap);
+
+        if ((rlim_t) new_limit > (RLIM_INFINITY / 512))
+          {
+            rlim.rlim_cur = RLIM_INFINITY;
+            rlim.rlim_max = RLIM_INFINITY;
+            new_limit = LONG_MAX;
+          }
+        else
+          {
+            rlim.rlim_cur = (rlim_t) new_limit * 512;
+            rlim.rlim_max = (rlim_t) new_limit * 512;
+          }
+
+        result = setrlimit (RLIMIT_FSIZE, &rlim);
+        return (result == 0) ? new_limit : -1L;
+      }
+    default:
+      errno = EINVAL;
+      return -1L;
+    }
+}
