@@ -521,6 +521,7 @@
 #cmakedefine01 HAVE_MKOSTEMPS
 #cmakedefine01 HAVE_MKSTEMP
 #cmakedefine01 HAVE_MKSTEMPS
+#cmakedefine01 HAVE_MKTIME
 #cmakedefine01 HAVE_MODE_T
 #cmakedefine01 HAVE_MONETARY_H
 #cmakedefine01 HAVE_MTX_DESTROY
@@ -809,6 +810,7 @@
 #cmakedefine01 HAVE_STRUCT_TMS
 #cmakedefine01 HAVE_STRUCT__UTIMBUF
 #cmakedefine01 HAVE_STRUCT_UTIMBUF
+#cmakedefine01 HAVE_STRUCT_UTMPX
 #cmakedefine01 HAVE_STRUCT_UTSNAME
 #cmakedefine01 HAVE_STRUCT_WINSIZE
 #cmakedefine01 HAVE_STRVERSCMP
@@ -923,6 +925,7 @@
 #cmakedefine01 HAVE_UTIME
 #cmakedefine01 HAVE_UTIME_H
 #cmakedefine01 HAVE_UTMP_H
+#cmakedefine01 HAVE_UTMPX_H
 #cmakedefine01 HAVE_VA_LIST
 #cmakedefine01 HAVE_VASPRINTF
 #cmakedefine01 HAVE_VDPRINTF

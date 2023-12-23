@@ -565,6 +565,13 @@ if ($CACHE{LIBCFUNK_GENERATE_UTMP_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_UTMPX_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/utmpx.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/utmpx.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_WCHAR_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/wchar.h.in
