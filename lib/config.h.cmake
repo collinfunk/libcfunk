@@ -344,6 +344,7 @@
 #cmakedefine01 HAVE_FTELL
 #cmakedefine01 HAVE__FTELLI64
 #cmakedefine01 HAVE_FTELLO
+#cmakedefine01 HAVE_FTIME
 #cmakedefine01 HAVE_FTRUNCATE
 #cmakedefine01 HAVE_FTRYLOCKFILE
 #cmakedefine01 HAVE_FTW_H
@@ -478,6 +479,7 @@
 #cmakedefine01 HAVE_LDIV
 #cmakedefine01 HAVE_LDIV_T
 #cmakedefine01 HAVE_LIBC_PTHREAD
+#cmakedefine01 HAVE_LIBGEN_H
 #cmakedefine01 HAVE_LIBKERN_OSBYTEORDER_H
 #cmakedefine01 HAVE_LIBUTIL
 #cmakedefine01 HAVE_LIBUTIL_H
@@ -805,6 +807,7 @@
 #cmakedefine01 HAVE_STRUCT_STAT_ST_MTIM_TIMESPEC_TV_NSEC
 #cmakedefine01 HAVE_STRUCT_STATVFS
 #cmakedefine01 HAVE_STRUCT_TERMIOS
+#cmakedefine01 HAVE_STRUCT_TIMEB
 #cmakedefine01 HAVE_STRUCT_TIMESPEC
 #cmakedefine01 HAVE_STRUCT_TIMEVAL
 #cmakedefine01 HAVE_STRUCT_TM
@@ -837,6 +840,7 @@
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_STATVFS_H
 #cmakedefine01 HAVE_SYS_SYSCTL_H
+#cmakedefine01 HAVE_SYS_TIMEB_H
 #cmakedefine01 HAVE_SYS_TIME_H
 #cmakedefine01 HAVE_SYS_TIMES_H
 #cmakedefine01 HAVE_SYS_TTY_H

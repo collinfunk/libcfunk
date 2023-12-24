@@ -201,6 +201,13 @@ if ($CACHE{LIBCFUNK_GENERATE_LANGINFO_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_LIBGEN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/libgen.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/libgen.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_LIMITS_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/limits.h.in
@@ -450,6 +457,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_STATVFS_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/statvfs.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/statvfs.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_TIMEB_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/timeb.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/timeb.h
   )
 endif ()
 
