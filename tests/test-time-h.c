@@ -37,6 +37,7 @@ static void test_struct_tm_defined (void);
 static void test_struct_timespec_defined (void);
 static void test_struct_itimerspec_defined (void);
 static void test_NULL_defined (void);
+static void test_CLOCKS_PER_SEC_defined (void);
 
 static_assert (TIME_UTC > 0);
 
@@ -52,6 +53,7 @@ main (void)
   test_struct_timespec_defined ();
   test_struct_itimerspec_defined ();
   test_NULL_defined ();
+  test_CLOCKS_PER_SEC_defined ();
   return 0;
 }
 
@@ -103,4 +105,12 @@ test_NULL_defined (void)
   char *ptr ATTRIBUTE_UNUSED;
 
   ptr = NULL;
+}
+
+static void
+test_CLOCKS_PER_SEC_defined (void)
+{
+  clock_t value ATTRIBUTE_UNUSED;
+
+  value = CLOCKS_PER_SEC;
 }

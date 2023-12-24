@@ -186,6 +186,7 @@
 #cmakedefine01 HAVE_CHOWN
 #cmakedefine01 HAVE_CLEARERR
 #cmakedefine01 HAVE_CLEARERR_UNLOCKED
+#cmakedefine01 HAVE_CLOCK
 #cmakedefine01 HAVE_CLOCK_GETRES
 #cmakedefine01 HAVE_CLOCKGETRES
 #cmakedefine01 HAVE_CLOCK_GETTIME

@@ -85,6 +85,10 @@ struct tm
 #  define TIME_UTC 1
 #endif
 
+/* TODO */
+#ifndef CLOCKS_PER_SEC
+#endif
+
 #if @LIBCFUNK_DECLARE_DYSIZE@
 #  if !@HAVE_DYSIZE@
 extern int dysize (int year);
