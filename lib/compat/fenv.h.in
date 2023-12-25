@@ -36,4 +36,10 @@
 
 /* TODO: Maybe some architecture and OS-specific stuff can be implemented? */
 
+#if !@HAVE_FENV_T@
+#endif
+
+#if !@HAVE_FEXCEPT_T@
+#endif
+
 #endif /* COMPAT_FENV_H */

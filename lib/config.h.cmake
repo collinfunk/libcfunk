@@ -275,10 +275,12 @@
 #cmakedefine01 HAVE_FDOPENDIR
 #cmakedefine01 HAVE_FEATURES_H
 #cmakedefine01 HAVE_FENV_H
+#cmakedefine01 HAVE_FENV_T
 #cmakedefine01 HAVE_FEOF
 #cmakedefine01 HAVE_FEOF_UNLOCKED
 #cmakedefine01 HAVE_FERROR
 #cmakedefine01 HAVE_FERROR_UNLOCKED
+#cmakedefine01 HAVE_FEXCEPT_T
 #cmakedefine01 HAVE_FFLUSH
 #cmakedefine01 HAVE__FFLUSH_NOLOCK
 #cmakedefine01 HAVE_FFLUSH_UNLOCKED
@@ -319,6 +321,8 @@
 #cmakedefine01 HAVE_FOPEN
 #cmakedefine01 HAVE_FORK
 #cmakedefine01 HAVE_FORKPTY
+#cmakedefine01 HAVE_FORKPTY_IN_LIBC
+#cmakedefine01 HAVE_FORKPTY_IN_LIBUTIL
 #cmakedefine01 HAVE___FPENDING
 #cmakedefine01 HAVE_FPRINTF
 #cmakedefine01 HAVE___FPURGE
@@ -388,6 +392,7 @@
 #cmakedefine01 HAVE_GETRANDOM
 #cmakedefine01 HAVE_GETRLIMIT
 #cmakedefine01 HAVE_GETRUSAGE
+#cmakedefine01 HAVE_GETSUBOPT
 #cmakedefine01 HAVE_GETTIMEOFDAY
 #cmakedefine01 HAVE_GETUID
 #cmakedefine01 HAVE_GETUSERHSELL
@@ -492,6 +497,8 @@
 #cmakedefine01 HAVE_LOCALTIME_R
 #cmakedefine01 HAVE__LOCK_FILE
 #cmakedefine01 HAVE_LOGIN_TTY
+#cmakedefine01 HAVE_LOGIN_TTY_IN_LIBC
+#cmakedefine01 HAVE_LOGIN_TTY_IN_LIBUTIL
 #cmakedefine01 HAVE__LSEEK
 #cmakedefine01 HAVE_LSEEK
 #cmakedefine01 HAVE__LSEEKI64
@@ -552,6 +559,8 @@
 #cmakedefine01 HAVE_OPEN
 #cmakedefine01 HAVE_OPENDIR
 #cmakedefine01 HAVE_OPENPTY
+#cmakedefine01 HAVE_OPENPTY_IN_LIBC
+#cmakedefine01 HAVE_OPENPTY_IN_LIBUTIL
 #cmakedefine01 HAVE_OPENSSL_MD4_H
 #cmakedefine01 HAVE_OPENSSL_MD5_H
 #cmakedefine01 HAVE_OPENSSL_RC4_H
@@ -701,6 +710,7 @@
 #cmakedefine01 HAVE_STACK_T
 #cmakedefine01 HAVE__STAT
 #cmakedefine01 HAVE_STAT
+#cmakedefine01 HAVE_STDALIGN_H
 #cmakedefine01 HAVE_STDARG_H
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H

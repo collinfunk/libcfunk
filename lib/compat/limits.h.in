@@ -48,59 +48,55 @@
 #endif
 
 #ifndef CHAR_BIT
-#  define CHAR_BIT 8
+#  define CHAR_BIT @CHAR_BIT@
 #endif
 
 #ifndef WORD_BIT
-#  define WORD_BIT (@SIZEOF_INT@ * CHAR_BIT)
+#  define WORD_BIT @WORD_BIT@
 #endif
 
 #ifndef LONG_BIT
-#  define LONG_BIT (@SIZEOF_LONG@ * CHAR_BIT)
+#  define LONG_BIT @LONG_BIT@
 #endif
 
 #ifndef SCHAR_WIDTH
-#  define SCHAR_WIDTH CHAR_BIT
+#  define SCHAR_WIDTH @SCHAR_WIDTH@
 #endif
 
 #ifndef SHRT_WIDTH
-#  define SHRT_WIDTH (@SIZEOF_SHORT@ * CHAR_BIT)
+#  define SHRT_WIDTH @SHRT_WIDTH@
 #endif
 
 #ifndef INT_WIDTH
-#  define INT_WIDTH WORD_BIT
+#  define INT_WIDTH @INT_WIDTH@
 #endif
 
 #ifndef LONG_WIDTH
-#  define LONG_WIDTH LONG_BIT
+#  define LONG_WIDTH @LONG_WIDTH@
 #endif
 
 #ifndef LLONG_WIDTH
-#  define LLONG_WIDTH (@SIZEOF_LONG_LONG@ * CHAR_BIT)
+#  define LLONG_WIDTH @LLONG_WIDTH@
 #endif
 
 #ifndef UCHAR_WIDTH
-#  define UCHAR_WIDTH SCHAR_WIDTH
+#  define UCHAR_WIDTH @UCHAR_WIDTH@
 #endif
 
 #ifndef USHRT_WIDTH
-#  define USHRT_WIDTH SHRT_WIDTH
+#  define USHRT_WIDTH @USHRT_WIDTH@
 #endif
 
 #ifndef UINT_WIDTH
-#  define UINT_WIDTH INT_WIDTH
+#  define UINT_WIDTH @UINT_WIDTH@
 #endif
 
 #ifndef ULONG_WIDTH
-#  define ULONG_WIDTH LONG_WIDTH
+#  define ULONG_WIDTH @ULONG_WIDTH@
 #endif
 
 #ifndef ULLONG_WIDTH
-#  define ULLONG_WIDTH LLONG_WIDTH
-#endif
-
-#ifndef CHAR_WIDTH
-#  define CHAR_WIDTH CHAR_BIT
+#  define ULLONG_WIDTH @ULLONG_WIDTH@
 #endif
 
 #ifndef SCHAR_MAX

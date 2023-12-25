@@ -376,6 +376,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDLIB_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDALIGN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdalign.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdalign.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDNORETURN_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdnoreturn.h.in

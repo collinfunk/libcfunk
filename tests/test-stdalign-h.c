@@ -23,35 +23,13 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_UTMP_H
-#define COMPAT_UTMP_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <stdalign.h>
 
-#if @HAVE_UTMP_H@
-#  include_next <utmp.h>
-#endif
-
-/* BSD */
-#if @HAVE_LIBUTIL_H@
-#  include <libutil.h>
-#endif
-
-/* MacOS */
-#if @HAVE_UTIL_H@
-#  include <util.h>
-#endif
-
-#if @LIBCFUNK_DECLARE_LOGIN_TTY@
-#  if @LIBCFUNK_REPLACE_LOGIN_TTY@
-#    undef login_tty
-#    define login_tty _libcfunk_login_tty
-extern int _libcfunk_login_tty (int fd);
-#  elif !@HAVE_LOGIN_TTY@
-extern int login_tty (int fd);
-#  endif
-#endif
-
-#endif /* COMPAT_UTMP_H */
+/* Test that 'stdalign.h' can be included. */
+int
+main (void)
+{
+  return 0;
+}

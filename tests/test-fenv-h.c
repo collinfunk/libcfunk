@@ -27,9 +27,28 @@
 
 #include <fenv.h>
 
+#include "attributes.h"
+
+static void test_fenv_t_defined (void);
+static void test_fexcept_t_defined (void);
+
 /* Test that 'fenv.h' can be included. */
 int
 main (void)
 {
+  test_fenv_t_defined ();
+  test_fexcept_t_defined ();
   return 0;
+}
+
+static void
+test_fenv_t_defined (void)
+{
+  fenv_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_fexcept_t_defined (void)
+{
+  fexcept_t value ATTRIBUTE_UNUSED;
 }
