@@ -96,7 +96,11 @@ extern int dysize (int year);
 #endif
 
 #if @LIBCFUNK_DECLARE_TIMESPEC_GET@
-#  if !@HAVE_TIMESPEC_GET@
+#  if @LIBCFUNK_REPLACE_TIMESPEC_GET@
+#    undef timespec_get
+#    define timespec_get _libcfunk_timespec_get
+extern int _libcfunk_timespec_get (struct timespec *ts, int base);
+#  elif !@HAVE_TIMESPEC_GET@
 extern int timespec_get (struct timespec *ts, int base);
 #  endif
 #endif

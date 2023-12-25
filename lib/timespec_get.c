@@ -28,33 +28,32 @@
 #include <sys/time.h>
 #include <time.h>
 
-/* Fills the timespec struct pointed to by TS with the time since the epoch
-   specified by base. When called with TIME_UTC the time stored in TS is
-   represented in seconds and nanoseconds since the UNIX epoch. */
+/* Get the current time. */
 int
 timespec_get (struct timespec *ts, int base)
 {
   /* Only support TIME_UTC. */
   if (base != TIME_UTC)
     return 0;
+#if HAVE_CLOCK_GETTIME
+  {
+    return clock_gettime (CLOCK_REALTIME, ts) == -1 ? 0 : base;
+  }
+#else /* !HAVE_CLOCK_GETTIME */
+  {
+    int result;
+    struct timeval tv;
 
-    /* POSIX Issue 5 Realtime Extension. */
-#if HAVE_CLOCK_GETTIME && defined(CLOCK_REALTIME)
-  /* I don't think this can ever fail? Might be pointless to check. */
-  return clock_gettime (CLOCK_REALTIME, ts) < 0 ? 0 : base;
-#elif HAVE_GETTIMEOFDAY
-  struct timeval tv;
+    /* Use 'gettimeofday'. */
+    result = gettimeofday (&tv, NULL);
+    if (result == -1)
+      return 0;
 
-  /* TODO: Don't think this can fail either. */
-  if (gettimeofday (&tv, NULL) < 0)
-    return 0;
+    /* Convert 'struct timeval' to 'struct timespec'. */
+    ts->tv_sec = tv.tv_sec;
+    ts->tv_nsec = tv.tv_usec * 1000;
 
-  /* Convert timeval to timespec. */
-  ts->tv_sec = tv.tv_sec;
-  ts->tv_nsec = tv.tv_usec * 1000;
-
-  return base;
-#else
-#  error "timespec_get(3) not implemented for your system."
+    return base;
+  }
 #endif
 }

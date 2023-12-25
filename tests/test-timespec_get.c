@@ -25,45 +25,63 @@
 
 #include <config.h>
 
-#include <time.h>
-
-#include <inttypes.h>
-#include <stddef.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-/* Basic test that uses timespec_get(3) to print the current local time to
-   stdout. */
+#include "test-help.h"
+
+static void test_timespec_get_zero (void);
+static void test_timespec_get (void);
+
 int
 main (void)
 {
-  struct timespec ts;
-  struct tm *tm;
-  char *str;
-
-  if (timespec_get (&ts, TIME_UTC) != TIME_UTC)
-    {
-      fprintf (stderr, "timespec_get () failed.\n");
-      exit (1);
-    }
-
-  tm = localtime (&ts.tv_sec);
-  if (tm == NULL)
-    {
-      fprintf (stderr, "localtime () failed.\n");
-      exit (1);
-    }
-
-  str = asctime (tm);
-  if (tm == NULL)
-    {
-      fprintf (stderr, "asctime () failed.\n");
-      exit (1);
-    }
-
-  printf ("Local time: %s", str);
-  printf ("Seconds since epoch: %ju\n", (uintmax_t) ts.tv_sec);
-
+  test_timespec_get_zero ();
+  test_timespec_get ();
   return 0;
+}
+
+/* The 'timspec_get' function must support 'TIME_UTC' which is a positive
+   integer. An implementation may accept any number of additional bases
+   beginning with the prefix 'TIME_'. Although nearly all implementations only
+   define 'TIME_UTC' to 1, there is no portable way to know a invalid positive
+   value. Therefore we just perform and invalid input test with zero. */
+static void
+test_timespec_get_zero (void)
+{
+  struct timespec ts;
+
+  ts.tv_sec = (time_t) 0;
+  ts.tv_nsec = 0;
+  ASSERT (timespec_get (&ts, 0) == 0);
+  ASSERT (ts.tv_sec == (time_t) 0);
+  ASSERT (ts.tv_nsec == 0);
+}
+
+/* Test that two subsequent calls to 'timespec_get' act as expected. */
+static void
+test_timespec_get (void)
+{
+  struct timespec ts1;
+  struct timespec ts2;
+  time_t t1;
+  time_t t2;
+
+  /* Store the current time in TS1 and T1. */
+  ASSERT (timespec_get (&ts1, TIME_UTC) == TIME_UTC);
+  t1 = time (NULL);
+  ASSERT (t1 != (time_t) -1);
+
+  /* Store the current time in TS2 and T2. */
+  ASSERT (timespec_get (&ts2, TIME_UTC) == TIME_UTC);
+  t2 = time (NULL);
+  ASSERT (t2 != (time_t) -1);
+
+  /* TS1 must represent a time equal to or before TS2. */
+  if (!(ts1.tv_sec < ts2.tv_sec))
+    ASSERT (ts1.tv_sec == ts2.tv_sec && ts1.tv_nsec <= ts2.tv_nsec);
+
+  /* T1 must represent a time equal to or before T2. */
+  ASSERT (t1 <= t2);
 }

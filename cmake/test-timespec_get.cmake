@@ -1,6 +1,8 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/time.cmake)
+
 add_executable(test-timespec_get)
 
 target_link_libraries(test-timespec_get PRIVATE
