@@ -270,6 +270,9 @@
 #cmakedefine01 HAVE_FACCESSAT
 #cmakedefine01 HAVE___FBUFSIZE
 #cmakedefine01 HAVE_FCHDIR
+#cmakedefine01 HAVE_FCHMOD
+#cmakedefine01 HAVE_FCHMODAT
+#cmakedefine01 HAVE_FCHOWNAT
 #cmakedefine01 HAVE_FCLOSE
 #cmakedefine01 HAVE_FCNTL
 #cmakedefine01 HAVE_FCNTL_H
@@ -350,6 +353,7 @@
 #cmakedefine01 HAVE_FSFILCNT_T
 #cmakedefine01 HAVE__FSTAT
 #cmakedefine01 HAVE_FSTAT
+#cmakedefine01 HAVE_FSTATAT
 #cmakedefine01 HAVE_FSYNC
 #cmakedefine01 HAVE_FTELL
 #cmakedefine01 HAVE__FTELLI64
@@ -359,6 +363,7 @@
 #cmakedefine01 HAVE_FTRYLOCKFILE
 #cmakedefine01 HAVE_FTW_H
 #cmakedefine01 HAVE_FUNLOCKFILE
+#cmakedefine01 HAVE_FUTIMENS
 #cmakedefine01 HAVE___FWRITABLE
 #cmakedefine01 HAVE_FWRITE
 #cmakedefine01 HAVE__FWRITE_NOLOCK
@@ -495,6 +500,7 @@
 #cmakedefine01 HAVE_LIBUTIL
 #cmakedefine01 HAVE_LIBUTIL_H
 #cmakedefine01 HAVE_LIMITS_H
+#cmakedefine01 HAVE_LINKAT
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE_LLDIV
 #cmakedefine01 HAVE_LLDIV_T
@@ -530,9 +536,12 @@
 #cmakedefine01 HAVE_MEMSET_S
 #cmakedefine01 HAVE__MKDIR
 #cmakedefine01 HAVE_MKDIR
+#cmakedefine01 HAVE_MKDIRAT
 #cmakedefine01 HAVE_MKDTEMP
 #cmakedefine01 HAVE_MKFIFO
+#cmakedefine01 HAVE_MKFIFOAT
 #cmakedefine01 HAVE_MKNOD
+#cmakedefine01 HAVE_MKNODAT
 #cmakedefine01 HAVE_MKOSTEMP
 #cmakedefine01 HAVE_MKOSTEMPS
 #cmakedefine01 HAVE_MKSTEMP
@@ -661,6 +670,7 @@
 #cmakedefine01 HAVE_READDIR
 #cmakedefine01 HAVE_READDIR_R
 #cmakedefine01 HAVE_READLINK
+#cmakedefine01 HAVE_READLINKAT
 #cmakedefine01 HAVE_REALLOC
 #cmakedefine01 HAVE_REALLOCARRAY
 #cmakedefine01 HAVE_REALLOCF
@@ -851,6 +861,7 @@
 #cmakedefine01 HAVE_SWAP32
 #cmakedefine01 HAVE_SWAP64
 #cmakedefine01 HAVE_SYMLINK
+#cmakedefine01 HAVE_SYMLINKAT
 #cmakedefine01 HAVE_SYS_BYTEORDER_H
 #cmakedefine01 HAVE_SYSCONF
 #cmakedefine01 HAVE_SYS_ENDIAN_H
@@ -948,6 +959,7 @@
 #cmakedefine01 HAVE_UNIXIO_H
 #cmakedefine01 HAVE__UNLINK
 #cmakedefine01 HAVE_UNLINK
+#cmakedefine01 HAVE_UNLINKAT
 #cmakedefine01 HAVE__UNLOCK_FILE
 #cmakedefine01 HAVE_UNLOCKPT
 #cmakedefine01 HAVE_UNSETENV
@@ -956,6 +968,7 @@
 #cmakedefine01 HAVE_UTIL_H
 #cmakedefine01 HAVE_UTIME
 #cmakedefine01 HAVE_UTIME_H
+#cmakedefine01 HAVE_UTIMENSAT
 #cmakedefine01 HAVE_UTMP_H
 #cmakedefine01 HAVE_UTMPX_H
 #cmakedefine01 HAVE_VA_LIST
