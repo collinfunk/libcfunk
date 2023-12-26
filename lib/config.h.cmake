@@ -566,6 +566,7 @@
 #cmakedefine01 HAVE_ON_EXIT
 #cmakedefine01 HAVE__OPEN
 #cmakedefine01 HAVE_OPEN
+#cmakedefine01 HAVE_OPENAT
 #cmakedefine01 HAVE_OPENDIR
 #cmakedefine01 HAVE_OPENPTY
 #cmakedefine01 HAVE_OPENPTY_IN_LIBC
@@ -666,6 +667,8 @@
 #cmakedefine01 HAVE__REMOVE
 #cmakedefine01 HAVE_REMOVE
 #cmakedefine01 HAVE_REMQUE
+#cmakedefine01 HAVE_RENAME
+#cmakedefine01 HAVE_RENAMEAT
 #cmakedefine01 HAVE_REVOKE
 #cmakedefine01 HAVE_REWIND
 #cmakedefine01 HAVE_REWINDDIR
@@ -686,6 +689,7 @@
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SEEKDIR
 #cmakedefine01 HAVE_SELECT
+#cmakedefine01 HAVE_SETBUF
 #cmakedefine01 HAVE_SETENV
 #cmakedefine01 HAVE_SETHOSTNAME
 #cmakedefine01 HAVE__SET_INVALID_PARAMETER_HANDLER
@@ -696,6 +700,7 @@
 #cmakedefine01 HAVE_SETRLIMIT
 #cmakedefine01 HAVE_SETSID
 #cmakedefine01 HAVE_SETUSERSHELL
+#cmakedefine01 HAVE_SETVBUF
 #cmakedefine01 HAVE_SIG2STR
 #cmakedefine01 HAVE_SIGABBREV_NP
 #cmakedefine01 HAVE_SIGADDSET

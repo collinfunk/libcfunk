@@ -556,9 +556,14 @@ if (UNIX)
   include(cmake/safe-open.cmake)
 endif ()
 
-# TODO. Portability problems or not implemented.
+# TODO: The following files refer to modules with portablity problems.
+# Some are POSIX/ISO C functions which are not yet implemented. Some functions
+# cannot be implemented portability. In this case, an error message is printed
+# and the build fails.
+# include(cmake/asprintf.cmake)
 # include(cmake/clock.cmake)
 # include(cmake/difftime.cmake)
+# include(cmake/dprintf.cmake)
 # include(cmake/__fbufsize.cmake)
 # include(cmake/__flbf.cmake)
 # include(cmake/fnmatch.cmake)
@@ -581,10 +586,16 @@ endif ()
 # include(cmake/mkostemps.cmake)
 # include(cmake/mkstemps.cmake)
 # include(cmake/mktime.cmake)
+# include(cmake/openat.cmake)
 # include(cmake/pselect.cmake)
 # include(cmake/ptsname.cmake)
 # include(cmake/ptsname_r.cmake)
+# include(cmake/renameat.cmake)
+# include(cmake/rename.cmake)
 # include(cmake/select.cmake)
+# include(cmake/setbuf.cmake)
+# include(cmake/setvbuf.cmake)
+# include(cmake/sprintf.cmake)
 # include(cmake/stdckdint-h.cmake)
 # include(cmake/strftime.cmake)
 # include(cmake/strptime.cmake)

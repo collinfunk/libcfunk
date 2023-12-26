@@ -11,3 +11,6 @@ if (NOT HAVE_SNPRINTF)
   message(FATAL_ERROR "Your system does not have an implementation for 'snprintf'.")
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+endif ()
+
