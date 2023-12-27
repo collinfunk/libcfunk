@@ -35,6 +35,18 @@ check_type_size("uint16_t" UINT16_T)
 check_type_size("uint32_t" UINT32_T)
 check_type_size("uint64_t" UINT64_T)
 
+foreach (type INT8 INT16 INT32 INT64 UINT8 UINT16 UINT32 UINT64)
+  if (HAVE_${type}_T)
+    math(EXPR ${type}_WIDTH "${${type}_T} * ${CHAR_BIT}")
+    set(${type}_WIDTH "${${type}_WIDTH}" CACHE STRING "")
+    unset(${type}_WIDTH)
+  else ()
+    string(REGEX MATCH "U?INT([0-9]*)" type_WIDTH "${type}")
+    set(${type}_WIDTH "${CMAKE_MATCH_1}" CACHE STRING "")
+    unset(type_WIDTH)
+  endif ()
+endforeach ()
+
 # Signed minimum-width integer types.
 check_type_size("int_least8_t" INT_LEAST8_T)
 check_type_size("int_least16_t" INT_LEAST16_T)

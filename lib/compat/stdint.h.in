@@ -37,35 +37,35 @@
 #include <limits.h>
 
 #ifndef INT8_WIDTH
-#  define INT8_WIDTH 8
+#  define INT8_WIDTH @INT8_WIDTH@
 #endif
 
 #ifndef INT16_WIDTH
-#  define INT16_WIDTH 16
+#  define INT16_WIDTH @INT16_WIDTH@
 #endif
 
 #ifndef INT32_WIDTH
-#  define INT32_WIDTH 32
+#  define INT32_WIDTH @INT32_WIDTH@
 #endif
 
 #ifndef INT64_WIDTH
-#  define INT64_WIDTH 64
+#  define INT64_WIDTH @INT64_WIDTH@
 #endif
 
 #ifndef UINT8_WIDTH
-#  define UINT8_WIDTH INT8_WIDTH
+#  define UINT8_WIDTH @UINT8_WIDTH@
 #endif
 
 #ifndef UINT16_WIDTH
-#  define UINT16_WIDTH INT16_WIDTH
+#  define UINT16_WIDTH @UINT16_WIDTH@
 #endif
 
 #ifndef UINT32_WIDTH
-#  define UINT32_WIDTH INT32_WIDTH
+#  define UINT32_WIDTH @UINT32_WIDTH@
 #endif
 
 #ifndef UINT64_WIDTH
-#  define UINT64_WIDTH INT64_WIDTH
+#  define UINT64_WIDTH @UINT64_WIDTH@
 #endif
 
 #ifndef INT_LEAST8_WIDTH

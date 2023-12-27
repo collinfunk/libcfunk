@@ -99,6 +99,10 @@
 #  define ULLONG_WIDTH @ULLONG_WIDTH@
 #endif
 
+#ifndef CHAR_WIDTH
+#  define CHAR_WIDTH @CHAR_WIDTH@
+#endif
+
 #ifndef SCHAR_MAX
 #  if SCHAR_WIDTH == 8
 #    define SCHAR_MAX 0x7f

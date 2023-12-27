@@ -63,6 +63,12 @@ set(CHAR_BIT "${SCHAR_WIDTH}" CACHE STRING "")
 set(WORD_BIT "${INT_WIDTH}" CACHE STRING "")
 set(LONG_BIT "${LONG_WIDTH}" CACHE STRING "")
 
+if (CHAR_IS_UNSIGNED)
+  set(CHAR_WIDTH "${UCHAR_WIDTH}" CACHE STRING "")
+else ()
+  set(CHAR_WIDTH "${SCHAR_WIDTH}" CACHE STRING "")
+endif ()
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-limits-h.cmake)
 endif ()

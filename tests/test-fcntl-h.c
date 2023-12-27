@@ -32,6 +32,7 @@
 static void test_mode_t_defined (void);
 static void test_off_t_defined (void);
 static void test_pid_t_defined (void);
+static void test_O_macros_defined (void);
 
 /* Test that 'fcntl.h' can be included. */
 int
@@ -40,6 +41,7 @@ main (void)
   test_mode_t_defined ();
   test_off_t_defined ();
   test_pid_t_defined ();
+  test_O_macros_defined ();
   return 0;
 }
 
@@ -62,4 +64,16 @@ static void
 test_pid_t_defined (void)
 {
   pid_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'O_*' macros are defined. */
+static void
+test_O_macros_defined (void)
+{
+  int value ATTRIBUTE_UNUSED;
+
+  value = (O_CLOEXEC | O_CREAT | O_DIRECTORY | O_EXCL | O_NOCTTY | O_NOFOLLOW
+           | O_TRUNC | O_TTY_INIT | O_APPEND | O_DSYNC | O_NONBLOCK | O_RSYNC
+           | O_SYNC | O_ACCMODE | O_EXEC | O_RDONLY | O_RDWR | O_SEARCH
+           | O_WRONLY | O_TEXT | O_BINARY);
 }
