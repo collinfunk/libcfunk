@@ -18,10 +18,12 @@ include(CheckCSourceRuns)
 # GIT_EXECUTABLE
 # Python3_EXECUTABLE
 # PERL_EXECUTABLE
+# CCACHE_EXECUTABLE
 find_package(Git)
 find_package(CVS)
 find_package(Python3 COMPONENTS Interpreter)
 find_package(Perl)
+find_program(CCACHE_EXECUTABLE "ccache")
 
 # These variables should be set before including this file. They can be
 # defined in a CMakeLists.txt or as a command line option.
@@ -33,8 +35,13 @@ set(LIBCFUNK_TEST_BUILD_DIR "" CACHE STRING "")
 set(LIBCFUNK_MODULE_DIR "" CACHE STRING "")
 set(LIBCFUNK_CONFIG_DIR "" CACHE STRING "")
 
+# Variables for controlling build.
+# LIBCFUNK_BUILD_SHARED: Build a shared libary instead of static.
+# LIBCFUNK_ENABLE_TESTS: Build test programs for use with CTest.
+# LIBCFUNK_USE_CCACHE: Use ccache to speed up build if found.
 set(LIBCFUNK_BUILD_SHARED OFF CACHE BOOL "")
 set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "")
+set(LIBCFUNK_USE_CCACHE ON CACHE BOOL "")
 
 if ("$CACHE{LIBCFUNK_LIBRARY_NAME}" STREQUAL "")
   message(FATAL_ERROR "Set LIBCFUNK_LIBRARY_NAME as a cache variable before "
@@ -95,10 +102,18 @@ else ()
 endif ()
 
 if ($CACHE{LIBCFUNK_ENABLE_TESTS})
-  set(CTEST_CVS_COMMAND "${CVS_EXECUTABLE}")
-  set(CTEST_GIT_COMMAND "${GIT_EXECUTABLE}")
+  if (CVS_EXECUTABLE)
+    set(CTEST_CVS_COMMAND "${CVS_EXECUTABLE}" CACHE STRING "")
+  endif ()
+  if (GIT_EXECUTABLE)
+    set(CTEST_GIT_COMMAND "${GIT_EXECUTABLE}" CACHE STRING "")
+  endif ()
   include(CTest)
   enable_testing()
+endif ()
+
+if ($CACHE{LIBCFUNK_USE_CCACHE} AND CCACHE_EXECUTABLE)
+  set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_EXECUTABLE}" CACHE STRING "")
 endif ()
 
 # Set build directory for static and shared library.
