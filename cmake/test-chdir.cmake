@@ -2,7 +2,11 @@
 include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/mkdir.cmake)
-include($CACHE{LIBCFUNK_MODULE_DIR}/rmdir.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
+check_include_file("windows.h" HAVE_WINDOWS_H)
 
 add_executable(test-chdir)
 
@@ -18,4 +22,4 @@ set_target_properties(test-chdir PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY $CACHE{LIBCFUNK_TEST_BUILD_DIR}
 )
 
-#add_test(NAME "test-chdir" COMMAND test-chdir)
+add_test(NAME "test-chdir" COMMAND test-chdir)

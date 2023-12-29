@@ -25,10 +25,20 @@
 
 #include <config.h>
 
+#include <errno.h>
 #include <unistd.h>
 
 int
 chdir (const char *path)
+#undef chdir
+#if HAVE__CHDIR
+#  define chdir _chdir
+#endif
 {
-  return _chdir (path);
+  int result;
+
+  result = chdir (path);
+  if (result == -1 && errno == EINVAL)
+    errno = ENOTDIR;
+  return result;
 }

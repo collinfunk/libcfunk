@@ -92,7 +92,11 @@ extern int access (const char *path, int mode);
 #endif
 
 #if @LIBCFUNK_DECLARE_CHDIR@
-#  if !@HAVE_CHDIR@
+#  if @LIBCFUNK_REPLACE_CHDIR@
+#    undef chdir
+#    define chdir _libcfunk_chdir
+extern int _libcfunk_chdir (const char *path);
+#  elif !@HAVE_CHDIR@
 extern int chdir (const char *path);
 #  endif
 #endif
