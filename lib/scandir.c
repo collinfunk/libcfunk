@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <dirent.h>
+#include <errno.h>
 #include <limits.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -82,10 +83,12 @@ scandir (const char *dir, struct dirent ***namelist,
                 goto scandir_fail_close;
               arr = new_arr;
             }
+          if (arr_count == INT_MAX)
+            goto scandir_fail_close;
           entry_size
               = &curr->d_name[strlen (curr->d_name) + 1] - (char *) curr;
           entry = (struct dirent *) malloc (entry_size);
-          if (entry == NULL || arr_count == INT_MAX)
+          if (entry == NULL)
             goto scandir_fail_close;
           arr[arr_count++] = memcpy (entry, curr, entry_size);
         }
@@ -99,6 +102,7 @@ scandir (const char *dir, struct dirent ***namelist,
   return arr_count;
 scandir_fail_close:;
   (void) closedir (dirp);
+  errno = ENOMEM;
 scandir_fail:;
   if (arr != NULL)
     {
