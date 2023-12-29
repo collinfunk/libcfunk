@@ -197,43 +197,23 @@
 #endif
 
 #ifndef INTPTR_WIDTH
-#  if @HAVE_INTPTR_T@
-#    define INTPTR_WIDTH (@INTPTR_T@ * CHAR_BIT)
-#  else
-#    define INTPTR_WIDTH (@CMAKE_SIZEOF_VOID_P@ * CHAR_BIT)
-#  endif
+#  define INTPTR_WIDTH @INTPTR_WIDTH@
 #endif
 
 #ifndef UINTPTR_WIDTH
-#  if @HAVE_UINTPTR_T@
-#    define UINTPTR_WIDTH (@UINTPTR_T@ * CHAR_BIT)
-#  else
-#    define UINTPTR_WIDTH INTPTR_WIDTH
-#  endif
+#  define UINTPTR_WIDTH @UINTPTR_WIDTH@
 #endif
 
 #ifndef INTMAX_WIDTH
-#  if @HAVE_INTMAX_T@
-#    define INTMAX_WIDTH (@INTMAX_T@ * CHAR_BIT)
-#  else
-#    define INTMAX_WIDTH INT64_WIDTH
-#  endif
+#  define INTMAX_WIDTH @INTMAX_WIDTH@
 #endif
 
 #ifndef UINTMAX_WIDTH
-#  if @HAVE_UINTMAX_T@
-#    define UINTMAX_WIDTH (@UINTMAX_T@ * CHAR_BIT)
-#  else
-#    define UINTMAX_WIDTH INTMAX_WIDTH
-#  endif
+#  define UINTMAX_WIDTH @UINTMAX_WIDTH@
 #endif
 
 #ifndef PTRDIFF_WIDTH
-#  if @HAVE_PTRDIFF_T@
-#    define PTRDIFF_WIDTH (@PTRDIFF_T@ * CHAR_BIT)
-#  else
-/* TODO */
-#  endif
+#  define PTRDIFF_WIDTH @PTRDIFF_WIDTH@
 #endif
 
 #ifndef SIG_ATOMIC_WIDTH
