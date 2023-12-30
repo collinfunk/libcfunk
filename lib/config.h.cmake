@@ -399,6 +399,7 @@
 #cmakedefine01 HAVE_GETOPT_LONG_ONLY
 #cmakedefine01 HAVE_GETPAGESIZE
 #cmakedefine01 HAVE_GETPID
+#cmakedefine01 HAVE_GETPPID
 #cmakedefine01 HAVE_GETPROGNAME
 #cmakedefine01 HAVE_GETRANDOM
 #cmakedefine01 HAVE_GETRLIMIT
