@@ -319,6 +319,26 @@ extern int getpagesize (void);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GETPID@
+#  if @LIBCFUNK_REPLACE_GETPID@
+#    undef getpid
+#    define getpid _libcfunk_getpid
+extern pid_t _libcfunk_getpid (void);
+#  elif !@HAVE_GETPID@
+extern pid_t getpid (void);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_GETPPID@
+#  if @LIBCFUNK_REPLACE_GETPPID@
+#    undef getppid
+#    define getppid _libcfunk_getppid
+extern pid_t _libcfunk_getppid (void);
+#  elif !@HAVE_GETPPID@
+extern pid_t getppid (void);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_GETUSERSHELL@
 #  if !@HAVE_GETUSERSHELL@
 extern char *getusershell (void);

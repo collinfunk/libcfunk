@@ -7,9 +7,16 @@ if (HAVE_UNISTD_H)
   check_symbol_exists("getppid" "unistd.h" HAVE_GETPPID)
 endif ()
 
-# TODO: Windows.
-if (NOT HAVE_GETPPID)
-  message(FATAL_ERROR "No implementation of 'getppid' for your system.")
+set(LIBCFUNK_DECLARE_GETPPID "1" CACHE STRING "")
+
+if (NOT HAVE_GETPPID OR LIBCFUNK_REPLACE_GETPPID)
+  check_include_file("windows.h" HAVE_WINDOWS_H)
+  if (NOT HAVE_WINDOWS_H)
+    message(FATAL_ERROR "No implementation of 'getppid' for your system.")
+  endif ()
+  target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/getppid.c
+  )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)

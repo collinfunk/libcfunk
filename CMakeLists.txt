@@ -16,6 +16,9 @@ set(LIBCFUNK_CONFIG_DIR "${CMAKE_BINARY_DIR}/compat" CACHE STRING "")
 
 include(cmake/libcfunk-init.cmake)
 
+include(cmake/getpid.cmake)
+include(cmake/getppid.cmake)
+
 include(cmake/a64l.cmake)
 include(cmake/abs.cmake)
 include(cmake/accept.cmake)
@@ -582,8 +585,6 @@ endif ()
 # include(cmake/futimens.cmake)
 # include(cmake/__fwritable.cmake)
 # include(cmake/__fwriting.cmake)
-# include(cmake/getpid.cmake)
-# include(cmake/getppid.cmake)
 # include(cmake/getppidof.cmake)
 # include(cmake/getprognameof.cmake)
 # include(cmake/getsubopt.cmake)
