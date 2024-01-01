@@ -28,11 +28,11 @@
 #include <unistd.h>
 
 #if HAVE_WINDOWS_H
-#include <windows.h>
-#include <tlhelp32.h>
-#ifndef TH32CS_SNAPPROCESS
-#define TH32CS_SNAPPROCESS 2
-#endif
+#  include <tlhelp32.h>
+#  include <windows.h>
+#  ifndef TH32CS_SNAPPROCESS
+#    define TH32CS_SNAPPROCESS 2
+#  endif
 #endif
 
 pid_t
@@ -48,7 +48,8 @@ getppid (void)
     return (pid_t) -1;
   pid = GetCurrentProcessId ();
   entry.dwSize = sizeof (PROCESSENTRY32);
-  for (result = Process32First (snapshot, &entry); result; result = Process32Next (snapshot, &entry))
+  for (result = Process32First (snapshot, &entry); result;
+       result = Process32Next (snapshot, &entry))
     {
       if (entry.th32ProcessID == pid)
         {
