@@ -50,6 +50,7 @@ main (void)
   test_chdir_eacces ();
   test_chdir_enoent ();
   test_chdir_enotdir ();
+  test_chdir_works ();
 
   (void) remove (TEST_DIRECTORY_NAME);
   return 0;

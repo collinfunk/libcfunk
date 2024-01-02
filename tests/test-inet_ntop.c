@@ -34,43 +34,67 @@
 
 #include "test-help.h"
 
+static void test_inet_ntop_ipv4 (void);
+static void test_inet_ntop_ipv6 (void);
+
 int
 main (void)
+{
+  test_inet_ntop_ipv4 ();
+  test_inet_ntop_ipv6 ();
+  return 0;
+}
+
+static void
+test_inet_ntop_ipv4 (void)
 {
   struct in_addr addr;
   char buffer[16];
 
-  addr.s_addr = htonl (0x00000000U);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "0.0.0.0") == 0);
+  {
+    addr.s_addr = htonl (0x00000000U);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "0.0.0.0") == 0);
+  }
+  {
+    addr.s_addr = htonl (0xff000000U);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "255.0.0.0") == 0);
+  }
+  {
+    addr.s_addr = htonl (0x00ff0000U);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "0.255.0.0") == 0);
+  }
+  {
+    addr.s_addr = htonl (0x0000ff00U);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "0.0.255.0") == 0);
+  }
+  {
+    addr.s_addr = htonl (0x000000ffU);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "0.0.0.255") == 0);
+  }
+  {
+    addr.s_addr = htonl (0x0000ffffU);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "0.0.255.255") == 0);
+  }
+  {
+    addr.s_addr = htonl (0x00ffffffU);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "0.255.255.255") == 0);
+  }
+  {
+    addr.s_addr = htonl (0xffffffffU);
+    ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
+    ASSERT (strcmp (buffer, "255.255.255.255") == 0);
+  }
+}
 
-  addr.s_addr = htonl (0xff000000U);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "255.0.0.0") == 0);
-
-  addr.s_addr = htonl (0x00ff0000U);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "0.255.0.0") == 0);
-
-  addr.s_addr = htonl (0x0000ff00U);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "0.0.255.0") == 0);
-
-  addr.s_addr = htonl (0x000000ffU);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "0.0.0.255") == 0);
-
-  addr.s_addr = htonl (0x0000ffffU);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "0.0.255.255") == 0);
-
-  addr.s_addr = htonl (0x00ffffffU);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "0.255.255.255") == 0);
-
-  addr.s_addr = htonl (0xffffffffU);
-  ASSERT (inet_ntop (AF_INET, &addr, buffer, sizeof (buffer)) == buffer);
-  ASSERT (strcmp (buffer, "255.255.255.255") == 0);
-
-  return 0;
+static void
+test_inet_ntop_ipv6 (void)
+{
+  /* TODO */
 }

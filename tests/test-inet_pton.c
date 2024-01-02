@@ -32,36 +32,68 @@
 
 #include "test-help.h"
 
+static void test_inet_pton_ipv4_valid (void);
+static void test_inet_pton_ipv4_invalid (void);
+static void test_inet_pton_ipv6_valid (void);
+static void test_inet_pton_ipv6_invalid (void);
+
 int
 main (void)
 {
-  uint32_t value;
-
-  ASSERT (inet_pton (AF_INET, "0.0.0.0", &value) == 1);
-  ASSERT (value == UINT32_C (0x00000000));
-  ASSERT (inet_pton (AF_INET, "0.0.0.255", &value) == 1);
-  ASSERT (value == UINT32_C (0xff000000));
-  ASSERT (inet_pton (AF_INET, "0.0.255.0", &value) == 1);
-  ASSERT (value == UINT32_C (0x00ff0000));
-  ASSERT (inet_pton (AF_INET, "0.255.0.0", &value) == 1);
-  ASSERT (value == UINT32_C (0x0000ff00));
-  ASSERT (inet_pton (AF_INET, "255.0.0.0", &value) == 1);
-  ASSERT (value == UINT32_C (0x000000ff));
-  ASSERT (inet_pton (AF_INET, "255.255.0.0", &value) == 1);
-  ASSERT (value == UINT32_C (0x0000ffff));
-  ASSERT (inet_pton (AF_INET, "255.255.255.0", &value) == 1);
-  ASSERT (value == UINT32_C (0x00ffffff));
-  ASSERT (inet_pton (AF_INET, "255.255.255.255", &value) == 1);
-  ASSERT (value == UINT32_C (0xffffffff));
-  ASSERT (inet_pton (AF_INET, "0.0.0.256", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "0.0.256.0", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "0.256.0.0", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "256.0.0.0", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "256.256.0.0", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "256.256.256.0", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "256.256.256.256", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "abc.def.255.255", &value) == 0);
-  ASSERT (inet_pton (AF_INET, "255.255.255.255.255", &value) == 0);
-
+  test_inet_pton_ipv4_valid ();
+  test_inet_pton_ipv4_invalid ();
+  test_inet_pton_ipv6_valid ();
+  test_inet_pton_ipv6_invalid ();
   return 0;
+}
+
+static void
+test_inet_pton_ipv4_valid (void)
+{
+  struct in_addr addr;
+
+  ASSERT (inet_pton (AF_INET, "0.0.0.0", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0x00000000));
+  ASSERT (inet_pton (AF_INET, "0.0.0.255", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0xff000000));
+  ASSERT (inet_pton (AF_INET, "0.0.255.0", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0x00ff0000));
+  ASSERT (inet_pton (AF_INET, "0.255.0.0", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0x0000ff00));
+  ASSERT (inet_pton (AF_INET, "255.0.0.0", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0x000000ff));
+  ASSERT (inet_pton (AF_INET, "255.255.0.0", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0x0000ffff));
+  ASSERT (inet_pton (AF_INET, "255.255.255.0", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0x00ffffff));
+  ASSERT (inet_pton (AF_INET, "255.255.255.255", &addr) == 1);
+  ASSERT (addr.s_addr == UINT32_C (0xffffffff));
+}
+
+static void
+test_inet_pton_ipv4_invalid (void)
+{
+  struct in_addr addr;
+
+  ASSERT (inet_pton (AF_INET, "0.0.0.256", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "0.0.256.0", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "0.256.0.0", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "256.0.0.0", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "256.256.0.0", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "256.256.256.0", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "256.256.256.256", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "abc.def.255.255", &addr) == 0);
+  ASSERT (inet_pton (AF_INET, "255.255.255.255.255", &addr) == 0);
+}
+
+static void
+test_inet_pton_ipv6_valid (void)
+{
+  /* TODO */
+}
+
+static void
+test_inet_pton_ipv6_invalid (void)
+{
+  /* TODO */
 }
