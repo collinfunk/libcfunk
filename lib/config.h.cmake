@@ -501,6 +501,7 @@
 #cmakedefine01 HAVE_LIBUTIL
 #cmakedefine01 HAVE_LIBUTIL_H
 #cmakedefine01 HAVE_LIMITS_H
+#cmakedefine01 HAVE_LINK
 #cmakedefine01 HAVE_LINKAT
 #cmakedefine01 HAVE_LLABS
 #cmakedefine01 HAVE_LLDIV
@@ -601,6 +602,7 @@
 #cmakedefine01 HAVE_PID_T
 #cmakedefine01 HAVE__PIPE
 #cmakedefine01 HAVE_PIPE
+#cmakedefine01 HAVE_POLL
 #cmakedefine01 HAVE_POLL_H
 #cmakedefine01 HAVE_POPCOUNT
 #cmakedefine01 HAVE_POPCOUNTL

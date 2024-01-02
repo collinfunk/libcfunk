@@ -23,36 +23,76 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_POLL_H
-#define COMPAT_POLL_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <sys/select.h>
+#include <sys/time.h>
 
-#if @HAVE_POLL_H@
-#  include_next <poll.h>
-#endif
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-/* Windows. */
-#if @HAVE_WINSOCK2_H@
-#  include <winsock2.h>
-#endif
+#include "test-help.h"
 
-#if !@HAVE_STRUCT_POLLFD@
-struct pollfd
+static void test_select_invalid_nfds (void);
+static void test_select_wait_stdin (void);
+static void test_select_usleep_like (void);
+
+int
+main (void)
 {
-  int fd;
-  short int events;
-  short int revents;
-};
+  test_select_invalid_nfds ();
+  test_select_wait_stdin ();
+  test_select_usleep_like ();
+  return 0;
+}
+
+static void
+test_select_invalid_nfds (void)
+{
+  int result;
+
+  errno = 0;
+  result = select (-1, NULL, NULL, NULL, NULL);
+  ASSERT (result == -1);
+  ASSERT (errno == EINVAL);
+
+  /* See Linux man page for 'select'. */
+#if 0
+  errno = 0;
+  result = select (FD_SETSIZE + 1, NULL, NULL, NULL, NULL);
+  ASSERT (result == -1);
+  ASSERT (errno == EINVAL);
 #endif
+}
 
-#if !@HAVE_NFDS_T@
-typedef unsigned long int nfds_t;
-#endif
+static void
+test_select_wait_stdin (void)
+{
+  if (isatty (STDIN_FILENO))
+    {
+      fd_set readfds;
+      int result;
 
-/* TODO: Implement 'poll' on Windows. */
-/* https://learn.microsoft.com/en-us/windows/win32/api/winsock2/ns-winsock2-wsapollfd */
+      FD_ZERO (&readfds);
+      FD_SET (STDIN_FILENO, &readfds);
 
-#endif /* COMPAT_POLL_H */
+      printf ("Press enter to continue:\n");
+      result = select (STDIN_FILENO + 1, &readfds, NULL, NULL, NULL);
+      ASSERT (result == 1);
+    }
+}
+
+static void
+test_select_usleep_like (void)
+{
+  int result;
+  struct timeval tv;
+
+  tv.tv_sec = 2;
+  tv.tv_usec = 1;
+
+  result = select (0, NULL, NULL, NULL, &tv);
+  ASSERT (result == 0);
+}

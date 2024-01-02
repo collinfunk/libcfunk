@@ -31,6 +31,7 @@
 
 static void test_struct_pollfd_defined (void);
 static void test_nfds_t_defined (void);
+static void test_poll_flags_defined (void);
 
 /* Test that 'poll.h' can be included. */
 int
@@ -38,6 +39,7 @@ main (void)
 {
   test_struct_pollfd_defined ();
   test_nfds_t_defined ();
+  test_poll_flags_defined ();
   return 0;
 }
 
@@ -51,4 +53,13 @@ static void
 test_nfds_t_defined (void)
 {
   nfds_t value ATTRIBUTE_UNUSED;
+}
+
+static void
+test_poll_flags_defined (void)
+{
+  int flags ATTRIBUTE_UNUSED;
+
+  flags = (POLLIN | POLLRDNORM | POLLRDBAND | POLLPRI | POLLOUT | POLLWRNORM
+           | POLLWRBAND | POLLERR | POLLHUP | POLLNVAL);
 }
