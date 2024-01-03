@@ -54,6 +54,8 @@ static void test_fnmatch_no_flags_char_class_punct (void);
 static void test_fnmatch_no_flags_char_class_space (void);
 static void test_fnmatch_no_flags_char_class_upper (void);
 static void test_fnmatch_no_flags_char_class_xdigit (void);
+static void test_fnmatch_no_flags_range (void);
+static void test_fnmatch_no_flags_not_range (void);
 
 /* Test that 'fnmatch.h' can be included. */
 int
@@ -82,6 +84,8 @@ main (void)
   test_fnmatch_no_flags_char_class_space ();
   test_fnmatch_no_flags_char_class_upper ();
   test_fnmatch_no_flags_char_class_xdigit ();
+  test_fnmatch_no_flags_range ();
+  test_fnmatch_no_flags_not_range ();
   return 0;
 }
 
@@ -588,4 +592,38 @@ test_fnmatch_no_flags_char_class_xdigit (void)
   ASSERT (fnmatch ("[[:xdigit:]]", "G", 0) == FNM_NOMATCH);
   ASSERT (fnmatch ("[[:xdigit:]]", "H", 0) == FNM_NOMATCH);
   ASSERT (fnmatch ("[[:xdigit:]]", "I", 0) == FNM_NOMATCH);
+}
+
+static void
+test_fnmatch_no_flags_range (void)
+{
+  /* Match. */
+  ASSERT (fnmatch ("[a-c]", "a", 0) == 0);
+  ASSERT (fnmatch ("[a-c]", "b", 0) == 0);
+  ASSERT (fnmatch ("[a-c]", "c", 0) == 0);
+
+  /* No match. */
+  ASSERT (fnmatch ("[a-c]", "d", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[a-c]", "e", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[a-c]", "f", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[a-c]", "A", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[a-c]", "B", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[a-c]", "C", 0) == FNM_NOMATCH);
+}
+
+static void
+test_fnmatch_no_flags_not_range (void)
+{
+  /* Match. */
+  ASSERT (fnmatch ("[!a-c]", "d", 0) == 0);
+  ASSERT (fnmatch ("[!a-c]", "e", 0) == 0);
+  ASSERT (fnmatch ("[!a-c]", "f", 0) == 0);
+  ASSERT (fnmatch ("[!a-c]", "A", 0) == 0);
+  ASSERT (fnmatch ("[!a-c]", "B", 0) == 0);
+  ASSERT (fnmatch ("[!a-c]", "C", 0) == 0);
+
+  /* No match. */
+  ASSERT (fnmatch ("[!a-c]", "a", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[!a-c]", "b", 0) == FNM_NOMATCH);
+  ASSERT (fnmatch ("[!a-c]", "c", 0) == FNM_NOMATCH);
 }

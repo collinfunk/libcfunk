@@ -272,6 +272,7 @@
 #cmakedefine01 HAVE_FCHDIR
 #cmakedefine01 HAVE_FCHMOD
 #cmakedefine01 HAVE_FCHMODAT
+#cmakedefine01 HAVE_FCHOWN
 #cmakedefine01 HAVE_FCHOWNAT
 #cmakedefine01 HAVE_FCLOSE
 #cmakedefine01 HAVE_FCNTL
@@ -492,6 +493,7 @@
 #cmakedefine01 HAVE_L64A_R
 #cmakedefine01 HAVE_LABS
 #cmakedefine01 HAVE_LANGINFO_H
+#cmakedefine01 HAVE_LCHMOD
 #cmakedefine01 HAVE_LCHOWN
 #cmakedefine01 HAVE_LDIV
 #cmakedefine01 HAVE_LDIV_T
