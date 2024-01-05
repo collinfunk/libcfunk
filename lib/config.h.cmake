@@ -399,6 +399,7 @@
 #cmakedefine01 HAVE_GETOPT_LONG
 #cmakedefine01 HAVE_GETOPT_LONG_ONLY
 #cmakedefine01 HAVE_GETPAGESIZE
+#cmakedefine01 HAVE_GETPASS
 #cmakedefine01 HAVE_GETPID
 #cmakedefine01 HAVE_GETPPID
 #cmakedefine01 HAVE_GETPROGNAME
@@ -653,6 +654,7 @@
 #cmakedefine01 HAVE_PTHREAD_ONCE_T
 #cmakedefine01 HAVE_PTHREAD_RWLOCKATTR_T
 #cmakedefine01 HAVE_PTHREAD_RWLOCK_T
+#cmakedefine01 HAVE_PTHREAD_SIGMASK
 #cmakedefine01 HAVE_PTHREAD_SPINLOCK_T
 #cmakedefine01 HAVE_PTHREAD_T
 #cmakedefine01 HAVE_PTRDIFF_T
@@ -722,6 +724,7 @@
 #cmakedefine01 HAVE_SETVBUF
 #cmakedefine01 HAVE_SIG2STR
 #cmakedefine01 HAVE_SIGABBREV_NP
+#cmakedefine01 HAVE_SIGACTION
 #cmakedefine01 HAVE_SIGADDSET
 #cmakedefine01 HAVE_SIG_ATOMIC_T
 #cmakedefine01 HAVE_SIGDELSET
