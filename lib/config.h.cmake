@@ -734,6 +734,7 @@
 #cmakedefine01 HAVE_SIGHANDLER_T
 #cmakedefine01 HAVE_SIGINFO_T
 #cmakedefine01 HAVE_SIGISMEMBER
+#cmakedefine01 HAVE_SIGNAL
 #cmakedefine01 HAVE_SIGNAL_H
 #cmakedefine01 HAVE_SIGPROCMASK
 #cmakedefine01 HAVE_SIGSET_T
