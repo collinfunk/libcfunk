@@ -344,6 +344,7 @@
 #cmakedefine01 HAVE__FREAD_NOLOCK
 #cmakedefine01 HAVE_FREAD_UNLOCKED
 #cmakedefine01 HAVE_FREE
+#cmakedefine01 HAVE_FREEADDRINFO
 #cmakedefine01 HAVE_FREOPEN
 #cmakedefine01 HAVE_FSBLKCNT_T
 #cmakedefine01 HAVE_FSEEK
@@ -372,6 +373,7 @@
 #cmakedefine01 HAVE___FWRITING
 #cmakedefine01 HAVE_GAI_STRERROR
 #cmakedefine01 HAVE_GAI_STRERRORA
+#cmakedefine01 HAVE_GETADDRINFO
 #cmakedefine01 HAVE__GETCHAR_NOLOCK
 #cmakedefine01 HAVE_GETCHAR_UNLOCKED
 #cmakedefine01 HAVE__GETC_NOLOCK

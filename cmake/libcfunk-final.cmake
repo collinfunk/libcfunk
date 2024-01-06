@@ -26,6 +26,21 @@ function (substitute_header template_file output_file)
   )
 endfunction ()
 
+# Make sure that the library always has atleast one C source so that
+# configuration does not fail. This is needed if a project only uses
+# a header, for example.
+get_target_property(LIBCFUNK_SOURCES $CACHE{LIBCFUNK_LIBRARY_NAME} SOURCES)
+string(REGEX MATCH "[A-Za-z0-9_/-]+\\.c" LIBCFUNK_HAS_SOURCES "${LIBCFUNK_SOURCES}")
+if (NOT LIBCFUNK_HAS_SOURCES)
+  target_sources($CACHE{LIBCFUNK_LIBRARY_NAME} PRIVATE
+    $CACHE{LIBCFUNK_SOURCE_DIR}/dummy.c
+  )
+endif ()
+unset(LIBCFUNK_SOURCES)
+unset(LIBCFUNK_HAS_SOURCES)
+
+# Below are conditionals to generate optional headers. Keep sorted.
+
 if ($CACHE{LIBCFUNK_GENERATE_ALLOCA_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/alloca.h.in
