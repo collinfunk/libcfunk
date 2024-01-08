@@ -28,8 +28,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <stdbool.h>
-
 #if HAVE_WINDOWS_H
 #  include <windows.h>
 #endif

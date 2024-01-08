@@ -32,8 +32,6 @@
    https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file
    https://learn.microsoft.com/en-us/dotnet/standard/io/file-path-formats */
 
-#include <stdbool.h>
-
 /* Macros:
    int FILENAME_NATIVE_DIRSEP
      This is the most natural directory separator for the current platform.

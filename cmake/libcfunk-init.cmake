@@ -166,6 +166,11 @@ check_include_file("features.h" HAVE_FEATURES_H)
 check_include_file("assert.h" HAVE_ASSERT_H)
 check_include_file("stdbool.h" HAVE_STDBOOL_H)
 
+# The 'config.h' header assumes stdbool.h.
+if (NOT HAVE_STDBOOL_H)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/stdbool-h.cmake)
+endif ()
+
 # Check for the size of basic C types.
 check_type_size("char" SIZEOF_CHAR)
 check_type_size("short" SIZEOF_SHORT)

@@ -26,7 +26,6 @@
 #ifndef BASE64_H
 #define BASE64_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 #define BASE64_LENGTH(nbytes) ((((nbytes) + 2) / 3) * 4)

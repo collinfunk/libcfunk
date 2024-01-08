@@ -26,8 +26,6 @@
 #ifndef COPY_FILE_H
 #define COPY_FILE_H
 
-#include <stdbool.h>
-
 /* Copies the data from SRC to DEST. */
 extern bool copy_file (const char *src, const char *dest);
 

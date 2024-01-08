@@ -31,7 +31,7 @@
 #endif
 
 #if @HAVE_SYS_UN_H@
-#  if @HAVE_SYS_UN_H_PATH@
+#  if @HAVE_INCLUDE_NEXT@
 #    include_next <sys/un.h>
 #  else
 #    include "@SYS_UN_H_PATH@"

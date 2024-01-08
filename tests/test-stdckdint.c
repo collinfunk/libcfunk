@@ -26,7 +26,6 @@
 #include <config.h>
 
 #include <limits.h>
-#include <stdbool.h>
 #include <stdckdint.h>
 
 #include "test-help.h"

@@ -26,8 +26,6 @@
 #ifndef SAME_FILE_H
 #define SAME_FILE_H
 
-#include <stdbool.h>
-
 /* Check if FILE1 and FILE2 refer to the same file on the filesystem. Note that
    this compares stat struct's or HANDLE's on Windows and not the filenames
    themselves. */

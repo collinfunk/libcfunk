@@ -145,6 +145,7 @@
 #cmakedefine01 HAVE_BCRYPT_H
 #cmakedefine01 HAVE_BLKCNT_T
 #cmakedefine01 HAVE_BLKSIZE_T
+#cmakedefine01 HAVE__BOOL
 #cmakedefine01 HAVE_BSEARCH
 #cmakedefine01 HAVE_BSWAP_16
 #cmakedefine01 HAVE_BSWAP16
@@ -905,6 +906,7 @@
 #cmakedefine01 HAVE_SYS_TYPES_H
 #cmakedefine01 HAVE_SYS_UIO_H
 #cmakedefine01 HAVE_SYS_UN_H
+#cmakedefine01 HAVE_SYS_UN_H_PATH
 #cmakedefine01 HAVE_SYS_UTIME_H
 #cmakedefine01 HAVE_SYS_UTSNAME_H
 #cmakedefine01 HAVE_SYS_WAIT_H
@@ -1270,10 +1272,17 @@
 /* Make sure 'bool', 'true', and 'false' can be used as if the compiler
    was C23. */
 #if !HAVE_C23_BOOL
-#  if HAVE_STDBOOL_H
-#    include <stdbool.h>
-#  else
+#  include <stdbool.h>
+#  ifndef true
 #    define true 1
+#  elif true != 1
+#    undef true
+#    define true 1
+#  endif
+#  ifndef false
+#    define false 0
+#  elif false != 0
+#    undef false
 #    define false 0
 #  endif
 #endif

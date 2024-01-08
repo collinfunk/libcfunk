@@ -26,7 +26,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 struct list_node

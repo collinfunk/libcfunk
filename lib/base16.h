@@ -26,7 +26,6 @@
 #ifndef BASE16_H
 #define BASE16_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 /* State structure for decoding. */

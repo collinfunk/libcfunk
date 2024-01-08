@@ -1,7 +1,6 @@
 
 include_guard(GLOBAL)
 
-include($CACHE{LIBCFUNK_MODULE_DIR}/stdbool-h.cmake)
 include($CACHE{LIBCFUNK_MODULE_DIR}/same_inode.cmake)
 
 check_include_file("windows.h" HAVE_WINDOWS_H)

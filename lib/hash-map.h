@@ -26,7 +26,6 @@
 #ifndef HASH_MAP_H
 #define HASH_MAP_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 /* A hash-map structure to store key-value pairs.

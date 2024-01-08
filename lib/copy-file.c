@@ -29,7 +29,6 @@
 #include <sys/types.h>
 
 #include <fcntl.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -57,13 +56,13 @@ copy_file (const char *src, const char *dest)
     return false;
 
   /* Open SRC for reading. */
-  src_fd = open (src, O_RDONLY | O_CLOEXEC);
+  src_fd = open (src, O_RDONLY | O_CLOEXEC | O_BINARY);
   if (src_fd < 0)
     return false;
 
   /* Open DEST and copy the permissions from SRC. If DEST already exists then
      it is overwritten. */
-  dest_fd = open (dest, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC,
+  dest_fd = open (dest, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC | O_BINARY,
                   st.st_mode & 07777);
   if (dest_fd < 0)
     {

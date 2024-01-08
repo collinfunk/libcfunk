@@ -26,7 +26,6 @@
 #ifndef BASE32_H
 #define BASE32_H
 
-#include <stdbool.h>
 #include <stddef.h>
 
 #define BASE32_LENGTH(nbytes) ((((nbytes) + 4) / 5) * 8)

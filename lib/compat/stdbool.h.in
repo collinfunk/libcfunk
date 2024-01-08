@@ -34,4 +34,43 @@
 #  endif
 #endif
 
+/* Define the '_Bool' type which promotes to 'int' or 'unsigned int'. */
+#if !@HAVE_C99_BOOL@ && !@HAVE__BOOL@
+#  undef true
+#  undef false
+typedef enum
+{
+  false = 0,
+  true = 1
+} _Bool;
+#endif
+
+/* Define the 'bool' type. */
+#if !@HAVE_C23_BOOL@ && !defined(bool)
+#  define bool _Bool
+#endif
+
+/* Define 'true' to be equivalent to 1. */
+#ifndef true
+#  define true 1
+#elif true != 1
+#  undef true
+#  define true 1
+#endif
+
+/* Define 'false' to be equivalent to 0. */
+#ifndef false
+#  define false 0
+#elif false != 0
+#  undef false
+#  define false 0
+#endif
+
+#ifndef __bool_true_false_are_defined
+#  define __bool_true_false_are_defined 1
+#elif __bool_true_false_are_defined != 1
+#  undef __bool_true_false_are_defined
+#  define __bool_true_false_are_defined 1
+#endif
+
 #endif /* COMPAT_STDBOOL_H */
