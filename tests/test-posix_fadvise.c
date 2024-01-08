@@ -25,9 +25,59 @@
 
 #include <config.h>
 
-/* TODO */
+#include <errno.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "test-help.h"
+
+static void test_posix_fadvise_ebadf (void);
+static void test_posix_fadvise_espipe (void);
+
 int
 main (void)
 {
+  test_posix_fadvise_ebadf ();
+  test_posix_fadvise_espipe ();
   return 0;
+}
+
+static void
+test_posix_fadvise_ebadf (void)
+{
+  int result;
+
+  /* Negative file descriptor. */
+  result = posix_fadvise (-1, 0, 0, POSIX_FADV_NORMAL);
+  ASSERT (result != 0);
+  ASSERT (result == EBADF);
+
+  /* Closed but positive file descriptor. */
+  (void) close (10);
+  result = posix_fadvise (10, 0, 0, POSIX_FADV_NORMAL);
+  ASSERT (result != 0);
+  ASSERT (result == EBADF);
+}
+
+/* Linux debian 6.1.0-17-amd64 glibc fails with EBADF */
+static void
+test_posix_fadvise_espipe (void)
+{
+  int fds[2];
+  int result;
+
+  ASSERT (pipe (fds) == 0);
+
+  result = posix_fadvise (fds[0], 0, 0, POSIX_FADV_NORMAL);
+  ASSERT (result != 0);
+  ASSERT (result == ESPIPE || result == EBADF);
+
+  result = posix_fadvise (fds[1], 0, 0, POSIX_FADV_NORMAL);
+  ASSERT (result != 0);
+  ASSERT (result == ESPIPE || result == EBADF);
+
+  ASSERT (close (fds[0]) == 0);
+  ASSERT (close (fds[1]) == 0);
 }

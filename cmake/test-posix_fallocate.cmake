@@ -1,6 +1,11 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/remove.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/creat.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/pipe.cmake)
+
 add_executable(test-posix_fallocate)
 
 target_link_libraries(test-posix_fallocate PRIVATE
