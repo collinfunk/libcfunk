@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_POLL_H@
-#  include_next <poll.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <poll.h>
+#  else
+#    include "@POLL_H_PATH@"
+#  endif
 #endif
 
 /* Windows. */

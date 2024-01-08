@@ -8,6 +8,7 @@ check_include_file("locale.h" HAVE_LOCALE_H)
 check_include_file("xlocale.h" HAVE_XLOCALE_H)
 
 if (HAVE_LOCALE_H)
+  find_file(LOCALE_H_PATH NAMES "locale.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "locale.h")
 endif ()
 

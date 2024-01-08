@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_TIME_H@
-#  include_next <sys/time.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/time.h>
+#  else
+#    include "@SYS_TIME_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

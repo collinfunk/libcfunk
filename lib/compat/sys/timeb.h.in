@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_TIMEB_H@
-#  include_next <sys/timeb.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/timeb.h>
+#  else
+#    include "@SYS_TIMEB_H_PATH@"
+#  endif
 #endif
 
 /* Define 'time_t'. */

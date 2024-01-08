@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_INTTYPES_H@
-#  include_next <inttypes.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <inttypes.h>
+#  else
+#    include "@INTTYPES_H_PATH@"
+#  endif
 #endif
 
 #include <stdint.h>

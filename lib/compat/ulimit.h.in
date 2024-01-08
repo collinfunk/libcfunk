@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_ULIMIT_H@
-#  include_next <ulimit.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <ulimit.h>
+#  else
+#    include "@ULIMIT_H_PATH@"
+#  endif
 #endif
 
 #if !defined(UL_GETFSIZE) && !defined(UL_SETFSIZE)

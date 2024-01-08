@@ -26,6 +26,14 @@
 #ifndef COMPAT_STDCKDINT_H
 #define COMPAT_STDCKDINT_H
 
+#if @HAVE_STDCKDINT_H@
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdckdint.h>
+#  else
+#    include "@STDCKDINT_H_PATH@"
+#  endif
+#endif
+
 #include <stdbool.h>
 
 #include "__has_builtin.h"

@@ -9,6 +9,7 @@ set(LIBCFUNK_GENERATE_UTIME_H "1" CACHE STRING "")
 # Check for 'utime.h' or 'sys/utime.h'.
 check_include_file("utime.h" HAVE_UTIME_H)
 if (HAVE_UTIME_H)
+  find_file(UTIME_H_PATH NAMES "utime.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "utime.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 else ()

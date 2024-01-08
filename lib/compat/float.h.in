@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_FLOAT_H@
-#  include_next <float.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <float.h>
+#  else
+#    include "@FLOAT_H_PATH@"
+#  endif
 #endif
 
 /* TODO */

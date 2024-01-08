@@ -8,6 +8,10 @@ check_include_file("stdio.h" HAVE_STDIO_H)
 check_include_file("stdio_ext.h" HAVE_STDIO_EXT_H)
 check_include_file("windows.h" HAVE_WINDOWS_H)
 
+if (HAVE_STDIO_EXT_H)
+  find_file(STDIO_EXT_H_PATH NAMES "stdio_ext.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 if (HAVE_STDIO_H)
   check_struct_has_member("FILE" "_bufsiz" "stdio.h" HAVE_FILE__BUFSIZ)
   check_struct_has_member("FILE" "_ptr" "stdio.h" HAVE_FILE__PTR)

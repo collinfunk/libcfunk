@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STRING_H@
-#  include_next <string.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <string.h>
+#  else
+#    include "@STRING_H_PATH@"
+#  endif
 #endif
 
 /* For mode_t. */

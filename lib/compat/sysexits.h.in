@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYSEXITS_H@
-#  include_next <sysexits.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sysexits.h>
+#  else
+#    include "@SYSEXITS_H_PATH@"
+#  endif
 #endif
 
 #ifndef EX_OK

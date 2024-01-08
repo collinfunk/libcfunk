@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_UIO_H@
-#  include_next <sys/uio.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/uio.h>
+#  else
+#    include "@SYS_UIO_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

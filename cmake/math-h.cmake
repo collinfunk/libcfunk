@@ -11,6 +11,10 @@ check_include_file("tgmath.h" HAVE_TGMATH_H)
 target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC "m")
 list(APPEND CMAKE_REQUIRED_LIBRARIES "m")
 
+if (HAVE_MATH_H)
+  find_file(MATH_H_PATH NAMES "math.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-math-h.cmake)
 endif ()

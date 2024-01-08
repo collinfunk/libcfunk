@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_TYPES_H@
-#  include_next <sys/types.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/types.h>
+#  else
+#    include "@SYS_TYPES_H_PATH@"
+#  endif
 #endif
 
 /* For systems which do not define 'size_t' in <sys/types.h>. */

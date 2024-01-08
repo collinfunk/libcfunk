@@ -33,7 +33,11 @@
     || defined(__need_wint_t)
 
 #if @HAVE_STDDEF_H@
-#  include_next <stddef.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stddef.h>
+#  else
+#    include "@STDDEF_H_PATH@"
+#  endif
 #endif
 
 #else
@@ -42,7 +46,11 @@
 #define COMPAT_STDDEF_H
 
 #if @HAVE_STDDEF_H@
-#  include_next <stddef.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stddef.h>
+#  else
+#    include "@STDDEF_H_PATH@"
+#  endif
 #endif
 
 #ifndef NULL

@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_FENV_H@
-#  include_next <fenv.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <fenv.h>
+#  else
+#    include "@FENV_H_PATH@"
+#  endif
 #endif
 
 /* TODO: Maybe some architecture and OS-specific stuff can be implemented? */

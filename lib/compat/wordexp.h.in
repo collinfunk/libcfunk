@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_WORDEXP_H@
-#  include_next <wordexp.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <wordexp.h>
+#  else
+#    include "@WORDEXP_H_PATH@"
+#  endif
 #endif
 
 /* Define 'size_t'. */

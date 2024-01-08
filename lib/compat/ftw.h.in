@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_FTW_H@
-#  include_next <ftw.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <ftw.h>
+#  else
+#    include "@FTW_H_PATH@"
+#  endif
 #endif
 
 /* Define 'struct stat' and all file mode macros. */

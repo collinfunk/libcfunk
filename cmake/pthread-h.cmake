@@ -18,6 +18,7 @@ if (HAVE_SIGNAL_H)
 endif ()
 
 if (HAVE_PTHREAD_H)
+  find_file(PTHREAD_H_PATH NAMES "pthread.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
 
   # Check for pthreads in libc or with the '-pthread' compiler flag.
   set(THREADS_PREFER_PTHREAD_FLAG ON)

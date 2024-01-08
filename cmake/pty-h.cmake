@@ -12,6 +12,10 @@ check_include_file("pty.h" HAVE_PTY_H)
 check_include_file("libutil.h" HAVE_LIBUTIL_H)
 check_include_file("util.h" HAVE_UTIL_H)
 
+if (HAVE_PTY_H)
+  find_file(PTY_H_PATH NAMES "pty.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-pty-h.cmake)
 endif ()

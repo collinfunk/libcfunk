@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_UTIME_H@
-#  include_next <utime.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <utime.h>
+#  else
+#    include "@UTIME_H_PATH@"
+#  endif
 #endif
 
 /* Windows. */

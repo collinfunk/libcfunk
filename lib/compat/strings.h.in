@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STRINGS_H@
-#  include_next <strings.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <strings.h>
+#  else
+#    include "@STRINGS_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

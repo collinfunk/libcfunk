@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_UNISTD_H@
-#  include_next <unistd.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <unistd.h>
+#  else
+#    include "@UNISTD_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

@@ -11,9 +11,9 @@ check_include_file("net/if.h" HAVE_NET_IF_H)
 
 # Check for 'struct if_nameindex'.
 if (HAVE_NET_IF_H)
+  find_file(NET_IF_H_PATH NAMES "net/if.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "net/if.h")
   check_type_size("struct if_nameindex" STRUCT_IF_NAMEINDEX)
-  list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "net/if.h")
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)

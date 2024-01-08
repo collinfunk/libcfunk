@@ -24,6 +24,7 @@ check_include_files("${SYS_UN_H_INCLUDES};afunix.h" HAVE_AFUNIX_H)
 
 # Append the header so we can check for types.
 if (HAVE_SYS_UN_H)
+  find_file(SYS_UN_H_PATH NAMES "sys/un.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/un.h")
 endif ()
 if (HAVE_AFUNIX_H)

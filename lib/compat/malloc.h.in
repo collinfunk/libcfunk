@@ -33,7 +33,11 @@
 #endif
 
 #if @HAVE_MALLOC_H@
-#  include_next <malloc.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <malloc.h>
+#  else
+#    include "@MALLOC_H_PATH@"
+#  endif
 #endif
 
 /* Allow inclusion of malloc.h on systems without it. */

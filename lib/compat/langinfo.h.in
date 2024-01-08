@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_LANGINFO_H@
-#  include_next <langinfo.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <langinfo.h>
+#  else
+#    include "@LANGINFO_H_PATH@"
+#  endif
 #endif
 
 #if @HAVE_LOCALE_H@

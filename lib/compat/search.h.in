@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SEARCH_H@
-#  include_next <search.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <search.h>
+#  else
+#    include "@SEARCH_H_PATH@"
+#  endif
 #endif
 
 /* Define 'size_t'. */

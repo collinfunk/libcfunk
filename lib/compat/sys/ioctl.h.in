@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_IOCTL_H@
-#  include_next <sys/ioctl.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/ioctl.h>
+#  else
+#    include "@SYS_IOCTL_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

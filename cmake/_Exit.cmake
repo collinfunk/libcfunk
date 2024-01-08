@@ -3,12 +3,14 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/stdlib-h.cmake)
 
-check_symbol_exists("_Exit" "stdlib.h" HAVE_C99__EXIT)
-check_symbol_exists("_exit" "unistd.h" HAVE__EXIT)
+if (HAVE_STDLIB_H)
+  check_symbol_exists("_Exit" "stdlib.h" HAVE_C99__EXIT)
+endif ()
 
 set(LIBCFUNK_DECLARE_C99__EXIT "1" CACHE STRING "")
 
 if (NOT HAVE_C99__EXIT)
+  check_symbol_exists("_exit" "unistd.h" HAVE__EXIT)
   if (NOT HAVE__EXIT)
     message(FATAL_ERROR "Your system does not have C99's _Exit () and does \
 not have POSIX's _exit () to act as a substitute for it. \

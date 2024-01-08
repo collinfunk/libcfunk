@@ -13,6 +13,7 @@ check_include_file("windows.h" HAVE_WINDOWS_H)
 check_include_file("io.h" HAVE_IO_H)
 
 if (HAVE_SYS_SOCKET_H)
+  find_file(SYS_SOCKET_H_PATH NAMES "sys/socket.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/socket.h")
 endif ()
 

@@ -11,6 +11,7 @@ check_include_file("sys/stat.h" HAVE_SYS_STAT_H)
 check_include_file("windows.h" HAVE_WINDOWS_H)
 
 if (HAVE_SYS_STAT_H)
+  find_file(SYS_STAT_H_PATH NAMES "sys/stat.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/stat.h")
 endif ()
 

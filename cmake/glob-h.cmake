@@ -9,6 +9,7 @@ set(LIBCFUNK_GENERATE_GLOB_H "1" CACHE STRING "")
 check_include_file("glob.h" HAVE_GLOB_H)
 
 if (HAVE_GLOB_H)
+  find_file(GLOB_H_PATH NAMES "glob.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "glob.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("glob_t" GLOB_T)

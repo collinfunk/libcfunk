@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SPAWN_H@
-#  include_next <spawn.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <spawn.h>
+#  else
+#    include "@SPAWN_H_PATH@"
+#  endif
 #endif
 
 #include <sched.h>

@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SCHED_H@
-#  include_next <sched.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sched.h>
+#  else
+#    include "@SCHED_H_PATH@"
+#  endif
 #endif
 
 /* Define 'pid_t'. */

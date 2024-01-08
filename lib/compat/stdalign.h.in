@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STDALIGN_H@
-#  include_next <stdalign.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdalign.h>
+#  else
+#    include "@STDALIGN_H_PATH@"
+#  endif
 #endif
 
 #if defined(alignas)                                                          \

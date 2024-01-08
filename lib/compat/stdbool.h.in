@@ -26,4 +26,12 @@
 #ifndef COMPAT_STDBOOL_H
 #define COMPAT_STDBOOL_H
 
+#if @HAVE_STDBOOL_H@
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdbool.h>
+#  else
+#    include "@STDBOOL_H_PATH@"
+#  endif
+#endif
+
 #endif /* COMPAT_STDBOOL_H */

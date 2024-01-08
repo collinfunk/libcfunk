@@ -26,8 +26,12 @@
 #ifndef COMPAT_BYTESWAP_H
 #define COMPAT_BYTESWAP_H
 
-#ifndef __has_builtin
-#  define __has_builtin(x) 0
+#if @HAVE_BYTESWAP_H@
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <byteswap.h>
+#  else
+#    include "@BYTESWAP_H_PATH@"
+#  endif
 #endif
 
 #if __has_builtin(__builtin_bswap16) && __has_builtin(__builtin_bswap32) && __has_builtin(__builtin_bswap64)

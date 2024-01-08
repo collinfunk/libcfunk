@@ -10,6 +10,7 @@ set(LIBCFUNK_GENERATE_INTTYPES_H "1" CACHE STRING "")
 check_include_file("inttypes.h" HAVE_INTTYPES_H)
 
 if (HAVE_INTTYPES_H)
+  find_file(INTTYPES_H_PATH NAMES "inttypes.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "inttypes.h")
 endif ()
 

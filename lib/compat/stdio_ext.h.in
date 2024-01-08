@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STDIO_EXT_H@
-#  include_next <stdio_ext.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdio_ext.h>
+#  else
+#    include "@STDIO_EXT_H_PATH@"
+#  endif
 #endif
 
 #if @HAVE_STDIO_H@

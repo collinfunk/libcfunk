@@ -7,6 +7,7 @@ set(LIBCFUNK_GENERATE_AR_H "1" CACHE STRING "")
 check_include_file("ar.h" HAVE_AR_H)
 
 if (HAVE_AR_H)
+  find_file(AR_H_PATH NAMES "ar.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "ar.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("struct ar_hdr" STRUCT_AR_HDR)

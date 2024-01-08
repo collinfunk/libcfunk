@@ -10,6 +10,7 @@ set(LIBCFUNK_GENERATE_PWD_H "1" CACHE STRING "")
 check_include_file("pwd.h" HAVE_PWD_H)
 
 if (HAVE_PWD_H)
+  find_file(PWD_H_PATH NAMES "pwd.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "pwd.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("struct passwd" STRUCT_PASSWD)

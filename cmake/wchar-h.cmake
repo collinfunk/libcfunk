@@ -10,6 +10,7 @@ check_include_file("wchar.h" HAVE_WCHAR_H)
 check_include_file("wctype.h" HAVE_WCTYPE_H)
 
 if (HAVE_WCHAR_H)
+  find_file(WCHAR_H_PATH NAMES "wchar.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "wchar.h")
 endif ()
 

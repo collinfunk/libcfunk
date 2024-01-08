@@ -30,7 +30,11 @@
 /* Help GNU libc find some types. */
 #if defined(__need___va_list)
 #if @HAVE_STDARG_H@
-#  include_next <stdarg.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdarg.h>
+#  else
+#    include "@STDARG_H_PATH@"
+#  endif
 #endif
 
 #else
@@ -39,7 +43,11 @@
 #define COMPAT_STDARG_H
 
 #if @HAVE_STDARG_H@
-#  include_next <stdarg.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdarg.h>
+#  else
+#    include "@STDARG_H_PATH@"
+#  endif
 #endif
 
 #if !@HAVE_VA_LIST@

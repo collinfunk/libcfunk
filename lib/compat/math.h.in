@@ -31,11 +31,11 @@
 #endif
 
 #if @HAVE_MATH_H@
-#  include_next <math.h>
-#endif
-
-#ifndef __has_builtin
-#  define __has_builtin(x) 0
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <math.h>
+#  else
+#    include "@MATH_H_PATH@"
+#  endif
 #endif
 
 /* e */

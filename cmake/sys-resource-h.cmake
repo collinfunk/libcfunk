@@ -10,6 +10,7 @@ set(LIBCFUNK_GENERATE_SYS_RESOURCE_H "1" CACHE STRING "")
 check_include_file("sys/resource.h" HAVE_SYS_RESOURCE_H)
 
 if (HAVE_SYS_RESOURCE_H)
+  find_file(SYS_RESOURCE_H_PATH NAMES "sys/resource.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/resource.h")
 endif ()
 

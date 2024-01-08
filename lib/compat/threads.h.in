@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_THREADS_H@
-#  include_next <threads.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <threads.h>
+#  else
+#    include "@THREADS_H_PATH@"
+#  endif
 #endif
 
 #include <pthread.h>

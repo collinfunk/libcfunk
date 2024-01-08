@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_ARPA_INET_H@
-#  include_next <arpa/inet.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <arpa/inet.h>
+#  else
+#    include "@ARPA_INET_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

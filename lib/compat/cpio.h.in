@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_CPIO_H@
-#  include_next <cpio.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <cpio.h>
+#  else
+#    include "@CPIO_H_PATH@"
+#  endif
 #endif
 
 #ifndef MAGIC

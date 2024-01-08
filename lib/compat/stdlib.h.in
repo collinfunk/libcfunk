@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STDLIB_H@
-#  include_next <stdlib.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdlib.h>
+#  else
+#    include "@STDLIB_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

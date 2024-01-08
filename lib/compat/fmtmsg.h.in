@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_FMTMSG_H@
-#  include_next <fmtmsg.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <fmtmsg.h>
+#  else
+#    include "@FMTMSG_H_PATH@"
+#  endif
 #endif
 
 /* TODO */

@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SIGNAL_H@
-#  include_next <signal.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <signal.h>
+#  else
+#    include "@SIGNAL_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

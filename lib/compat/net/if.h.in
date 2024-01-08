@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_NET_IF_H@
-#  include_next <net/if.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <net/if.h>
+#  else
+#    include "@NET_IF_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

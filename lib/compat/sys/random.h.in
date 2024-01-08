@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_RANDOM_H@
-#  include_next <sys/random.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/random.h>
+#  else
+#    include "@SYS_RANDOM_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

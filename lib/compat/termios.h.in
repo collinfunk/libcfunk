@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_TERMIOS_H@
-#  include_next <termios.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <termios.h>
+#  else
+#    include "@TERMIOS_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

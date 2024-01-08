@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_FNMATCH_H@
-#  include_next <fnmatch.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <fnmatch.h>
+#  else
+#    include "@FNMATCH_H_PATH@"
+#  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FNMATCH@ && (!@HAVE_FNMATCH@ || @LIBCFUNK_REPLACE_FNMATCH@)

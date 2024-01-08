@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_STATVFS_H@
-#  include_next <sys/statvfs.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/statvfs.h>
+#  else
+#    include "@SYS_STATVFS_H_PATH@"
+#  endif
 #endif
 
 /* Define 'fsblkcnt_t' and 'fsfilcnt_t'. */

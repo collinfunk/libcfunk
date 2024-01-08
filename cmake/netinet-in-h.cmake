@@ -10,6 +10,7 @@ set(LIBCFUNK_GENERATE_NETINET_IN_H "1" CACHE STRING "")
 check_include_file("netinet/in.h" HAVE_NETINET_IN_H)
 
 if (HAVE_NETINET_IN_H)
+  find_file(NETINET_IN_H_PATH NAMES "netinet/in.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "netinet/in.h")
 endif ()
 

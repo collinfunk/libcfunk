@@ -13,6 +13,7 @@ check_include_file("stropts.h" HAVE_STROPTS_H)
 check_include_file("unistd.h" HAVE_UNISTD_H)
 
 if (HAVE_SYS_IOCTL_H)
+  find_file(SYS_IOCTL_H_PATH NAMES "sys/ioctl.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/ioctl.h")
 endif ()
 

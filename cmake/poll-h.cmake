@@ -10,6 +10,7 @@ check_include_file("winsock2.h" HAVE_WINSOCK2_H)
 # Check for types.
 if (HAVE_POLL_H OR HAVE_WINSOCK2_H)
   if (HAVE_POLL_H)
+    find_file(POLL_H_PATH NAMES "poll.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
     list(APPEND CMAKE_EXTRA_INCLUDE_FILES "poll.h")
   endif ()
   if (HAVE_WINSOCK2_H)

@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_AR_H@
-#  include_next <ar.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <ar.h>
+#  else
+#    include "@AR_H_PATH@"
+#  endif
 #endif
 
 /* Old 'ar' magic value. */

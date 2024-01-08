@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_FCNTL_H@
-#  include_next <fcntl.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <fcntl.h>
+#  else
+#    include "@FCNTL_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

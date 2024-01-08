@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_WCTYPE_H@
-#  include_next <wctype.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <wctype.h>
+#  else
+#    include "@WCTYPE_H_PATH@"
+#  endif
 #endif
 
 #include <wchar.h>

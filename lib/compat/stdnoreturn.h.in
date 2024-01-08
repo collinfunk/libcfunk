@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STDNORETURN_H@
-#  include_next <stdnoreturn.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdnoreturn.h>
+#  else
+#    include "@STDNORETURN_H_PATH@"
+#  endif
 #endif
 
 /* Assume that the compiler supports '_Noreturn' or that it is defined in

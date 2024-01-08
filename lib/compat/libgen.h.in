@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_LIBGEN_H@
-#  include_next <libgen.h>
+#  if @HAVE_LIBINCLUDE_NEXT@
+#    include_next <libgen.h>
+#  else
+#    include "@LIBGEN_H_PATH@"
+#  endif
 #endif
 
 /* TODO */

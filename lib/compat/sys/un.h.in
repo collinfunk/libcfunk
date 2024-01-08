@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_UN_H@
-#  include_next <sys/un.h>
+#  if @HAVE_SYS_UN_H_PATH@
+#    include_next <sys/un.h>
+#  else
+#    include "@SYS_UN_H_PATH@"
+#  endif
 #endif
 
 /* Define 'sa_family_t' defined. */

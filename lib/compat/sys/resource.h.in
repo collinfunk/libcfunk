@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_RESOURCE_H@
-#  include_next <sys/resource.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/resource.h>
+#  else
+#    include "@SYS_RESOURCE_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

@@ -9,6 +9,7 @@ set(LIBCFUNK_GENERATE_SYS_UIO_H "1" CACHE STRING "")
 check_include_file("sys/uio.h" HAVE_SYS_UIO_H)
 
 if (HAVE_SYS_UIO_H)
+  find_file(SYS_UIO_H_PATH NAMES "sys/uio.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/uio.h")
 endif ()
 

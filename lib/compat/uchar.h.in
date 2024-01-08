@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_UCHAR_H@
-#  include_next <uchar.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <uchar.h>
+#  else
+#    include "@UCHAR_H_PATH@"
+#  endif
 #endif
 
 /* Make sure uint_least16_t and uint_least32_t are defined. */

@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_FILE_H@
-#  include_next <sys/file.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/file.h>
+#  else
+#    include "@SYS_FILE_H_PATH@"
+#  endif
 #endif
 
 /* Shared file lock. */

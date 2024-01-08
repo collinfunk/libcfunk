@@ -33,7 +33,11 @@
 #include <sys/types.h>
 
 #if @HAVE_SYS_SELECT_H@
-#  include_next <sys/select.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/select.h>
+#  else
+#    include "@SYS_SELECT_H_PATH@"
+#  endif
 #endif
 
 #include <signal.h>

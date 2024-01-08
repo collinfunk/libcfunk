@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_LIMITS_H@
-#  include_next <limits.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <limits.h>
+#  else
+#    include "@LIMITS_H_PATH@"
+#  endif
 #endif
 
 /* For MAXHOSTNAMELEN. */

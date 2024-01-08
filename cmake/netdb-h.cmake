@@ -10,6 +10,7 @@ set(LIBCFUNK_GENERATE_NETDB_H "1" CACHE STRING "")
 check_include_file("netdb.h" HAVE_NETDB_H)
 
 if (HAVE_NETDB_H)
+  find_file(NETDB_H_PATH NAMES "netdb.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "netdb.h")
 endif ()
 

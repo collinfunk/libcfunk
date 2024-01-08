@@ -11,6 +11,10 @@ check_include_file("sys/types.h" HAVE_SYS_TYPES_H)
 check_include_file("sys/time.h" HAVE_SYS_TIME_H)
 check_include_file("time.h" HAVE_TIME_H)
 
+if (HAVE_SYS_TYPES_H)
+  find_file(SYS_TYPES_H_PATH NAMES "sys/types.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 if (HAVE_SYS_TIME_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/time.h")
 endif ()

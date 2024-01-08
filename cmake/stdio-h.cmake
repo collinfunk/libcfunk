@@ -12,6 +12,10 @@ check_include_file("stdio.h" HAVE_STDIO_H)
 check_include_file("windows.h" HAVE_WINDOWS_H)
 check_include_file("io.h" HAVE_IO_H)
 
+if (HAVE_STDIO_H)
+  find_file(STDIO_H_PATH NAMES "stdio.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 if (LIBCFUNK_ENABLE_TESTS)
   include($CACHE{LIBCFUNK_MODULE_DIR}/test-stdio-h.cmake)
 endif ()

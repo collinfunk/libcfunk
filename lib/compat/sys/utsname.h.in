@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_UTSNAME_H@
-#  include_next <sys/utsname.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/utsname.h>
+#  else
+#    include "@SYS_UTSNAME_H_PATH@"
+#  endif
 #endif
 
 /* POSIX doesn't define the size of each member in 'struct utsname'.

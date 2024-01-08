@@ -7,6 +7,7 @@ set(LIBCFUNK_GENERATE_SYS_UTSNAME_H "1" CACHE STRING "")
 check_include_file("sys/utsname.h" HAVE_SYS_UTSNAME_H)
 
 if (HAVE_SYS_UTSNAME_H)
+  find_file(SYS_UTSNAME_H_PATH NAMES "sys/utsname.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/utsname.h")
   check_type_size("struct utsname" STRUCT_UTSNAME)
   list(REMOVE_ITEM CMAKE_EXTRA_INCLUDE_FILES "sys/utsname.h")

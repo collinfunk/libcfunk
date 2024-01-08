@@ -6,6 +6,10 @@ include($CACHE{LIBCFUNK_MODULE_DIR}/stdint-h.cmake)
 # Check for <byteswap.h>
 check_include_file("byteswap.h" HAVE_BYTESWAP_H)
 
+if (HAVE_BYTESWAP_H)
+  find_file(BYTESWAP_H_PATH NAMES "byteswap.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 check_include_file("libkern/OSByteOrder.h" HAVE_LIBKERN_OSBYTEORDER_H)
 check_include_file("sys/endian.h" HAVE_SYS_ENDIAN_H)
 check_include_file("stdlib.h" HAVE_STDLIB_H)

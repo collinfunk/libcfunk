@@ -15,6 +15,7 @@ if (HAVE_SYS_IOCTL_H)
 endif ()
 
 if (HAVE_TERMIOS_H)
+  find_file(TERMIOS_H_PATH NAMES "termios.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "termios.h")
 endif ()
 

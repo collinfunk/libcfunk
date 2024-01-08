@@ -34,7 +34,11 @@
 #endif
 
 #if @HAVE_ERROR_H@
-#  include_next <error.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <error.h>
+#  else
+#    include "@ERROR_H_PATH@"
+#  endif
 #endif
 
 #if !@HAVE_ERROR_MESSAGE_COUNT@

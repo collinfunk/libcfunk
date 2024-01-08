@@ -10,6 +10,7 @@ set(LIBCFUNK_GENERATE_SYS_TIMES_H "1" CACHE STRING "")
 check_include_file("sys/times.h" HAVE_SYS_TIMES_H)
 
 if (HAVE_SYS_TIMES_H)
+  find_file(SYS_TIMES_H_PATH NAMES "sys/times.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/times.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("struct tms" STRUCT_TMS)

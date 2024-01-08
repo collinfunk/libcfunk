@@ -9,6 +9,10 @@ set(LIBCFUNK_GENERATE_LIMITS_H "1" CACHE STRING "")
 check_include_file("limits.h" HAVE_LIMITS_H)
 check_include_file("sys/param.h" HAVE_SYS_PARAM_H)
 
+if (HAVE_LIMITS_H)
+  find_file(LIMITS_H_PATH NAMES "limits.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 # Check if `char' is signed or unsigned.
 check_c_source_compiles("
 int

@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_ASSERT_H@
-#  include_next <assert.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <assert.h>
+#  else
+#    include "@ASSERT_H_PATH@"
+#  endif
 #endif
 
 #if !@HAVE_C23_STATIC_ASSERT@

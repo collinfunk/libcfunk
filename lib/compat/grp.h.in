@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_GRP_H@
-#  include_next <grp.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <grp.h>
+#  else
+#    include "@GRP_H_PATH@"
+#  endif
 #endif
 
 /* Define 'gid_t'. */

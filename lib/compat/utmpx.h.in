@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_UTMPX_H@
-#  include_next <utmpx.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <utmpx.h>
+#  else
+#    include "@UTMPX_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

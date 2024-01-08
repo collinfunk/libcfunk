@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_TAR_H@
-#  include_next <tar.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <tar.h>
+#  else
+#    include "@TAR_H_PATH@"
+#  endif
 #endif
 
 #ifndef TMAGIC

@@ -36,7 +36,11 @@
 /* BSD-like error message functions. */
 
 #if @HAVE_ERR_H@
-#  include_next <err.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <err.h>
+#  else
+#    include "@ERR_H_PATH@"
+#  endif
 #endif
 
 #if !@HAVE_ERR@

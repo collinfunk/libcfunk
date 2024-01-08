@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_SYS_SOCKET_H@
-#  include_next <sys/socket.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <sys/socket.h>
+#  else
+#    include "@SYS_SOCKET_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

@@ -13,6 +13,10 @@ check_include_file("stdint.h" HAVE_STDINT_H)
 check_include_file("inttypes.h" HAVE_INTTYPES_H)
 check_include_file("wchar.h" HAVE_WCHAR_H)
 
+if (HAVE_STDINT_H)
+  find_file(STDINT_H_PATH NAMES "stdint.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
+endif ()
+
 if (HAVE_INTTYPES_H)
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "inttypes.h")
 endif ()

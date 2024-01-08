@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_STDIO_H@
-#  include_next <stdio.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <stdio.h>
+#  else
+#    include "@STDIO_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

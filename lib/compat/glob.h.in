@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_GLOB_H@
-#  include_next <glob.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <glob.h>
+#  else
+#    include "@GLOB_H_PATH@"
+#  endif
 #endif
 
 #include <sys/types.h>

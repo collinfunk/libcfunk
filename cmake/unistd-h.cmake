@@ -12,6 +12,7 @@ check_include_file("io.h" HAVE_IO_H)
 check_include_file("direct.h" HAVE_DIRECT_H)
 
 if (HAVE_UNISTD_H)
+  find_file(UNISTD_H_PATH NAMES "unistd.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "unistd.h")
 endif ()
 if (HAVE_IO_H)

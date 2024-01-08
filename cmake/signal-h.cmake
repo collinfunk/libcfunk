@@ -14,6 +14,7 @@ if (HAVE_PTHREAD_H)
 endif ()
 
 if (HAVE_SIGNAL_H)
+  find_file(SIGNAL_H_PATH NAMES "signal.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "signal.h")
 endif ()
 

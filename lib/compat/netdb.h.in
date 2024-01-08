@@ -31,7 +31,11 @@
 #endif
 
 #if @HAVE_NETDB_H@
-#  include_next <netdb.h>
+#  if @HAVE_INCLUDE_NEXT@
+#    include_next <netdb.h>
+#  else
+#    include "@NETDB_H_PATH@"
+#  endif
 #endif
 
 #include <sys/socket.h>

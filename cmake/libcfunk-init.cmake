@@ -39,9 +39,11 @@ set(LIBCFUNK_CONFIG_DIR "" CACHE STRING "")
 # LIBCFUNK_BUILD_SHARED: Build a shared libary instead of static.
 # LIBCFUNK_ENABLE_TESTS: Build test programs for use with CTest.
 # LIBCFUNK_USE_CCACHE: Use ccache to speed up build if found.
+# LIBCFUNK_USE_INCLUDE_NEXT: Use '#include_next' for header substitutes.
 set(LIBCFUNK_BUILD_SHARED OFF CACHE BOOL "")
 set(LIBCFUNK_ENABLE_TESTS ON CACHE BOOL "")
 set(LIBCFUNK_USE_CCACHE ON CACHE BOOL "")
+set(LIBCFUNK_USE_INCLUDE_NEXT ON CACHE BOOL "")
 
 if ("$CACHE{LIBCFUNK_LIBRARY_NAME}" STREQUAL "")
   message(FATAL_ERROR "Set LIBCFUNK_LIBRARY_NAME as a cache variable before "
@@ -224,23 +226,22 @@ wider. On your system `long long' is ${BITWIDTH_LONG_LONG} bits.")
   unset(BITWIDTH_LONG_LONG)
 endif ()
 
-check_c_source_compiles("
+if (LIBCFUNK_USE_INCLUDE_NEXT)
+  if (DEFINED CACHE{HAVE_INCLUDE_NEXT} AND "$CACHE{HAVE_INCLUDE_NEXT}" STREQUAL "0")
+    unset(HAVE_INCLUDE_NEXT CACHE)
+  endif ()
+  check_c_source_compiles("
 
-#include_next <stdlib.h>
+  #include_next <stdlib.h>
 
-int
-main (void)
-{
-  return 0;
-}
-" HAVE_INCLUDE_NEXT)
-
-# FIXME: If include_next isn't supported, it should be possible to use
-# find_file and #include the absolute path to the system header.
-if (NOT HAVE_INCLUDE_NEXT)
-  message(FATAL_ERROR "Substitution headers required support for the \
-`#include_next' C preprocessor directive. This is supported by most compilers \
-other than MSVC.")
+  int
+  main (void)
+  {
+    return 0;
+  }
+  " HAVE_INCLUDE_NEXT)
+else ()
+  set(HAVE_INCLUDE_NEXT "0" CACHE INTERNAL "")
 endif ()
 
 # Check for the C23 'bool', 'true', and 'false' keywords.

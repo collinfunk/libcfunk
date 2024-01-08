@@ -9,6 +9,7 @@ set(LIBCFUNK_GENERATE_SYS_STATVFS_H "1" CACHE STRING "")
 check_include_file("sys/statvfs.h" HAVE_SYS_STATVFS_H)
 
 if (HAVE_SYS_STATVFS_H)
+  find_file(SYS_STATVFS_H_PATH NAMES "sys/statvfs.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/statvfs.h")
   list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
   check_type_size("struct statvfs" STRUCT_STATVFS)
