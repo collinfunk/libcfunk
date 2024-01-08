@@ -28,39 +28,43 @@
 
 #include <stdint.h>
 
-#include "__has_builtin.h"
+#ifndef bswap16
+#  if __has_builtin(__builtin_bswap16)
+#    define bswap16 __builtin_bswap16
+#  else /* !__has_builtin(__builtin_bswap16) */
+#    define bswap16(x)                                                        \
+      ((uint16_t) ((((uint16_t) (x) & 0x00ffU) << 8)                          \
+                   | (((uint16_t) (x) & 0xff00U) >> 8)))
+#  endif /* __has_builtin(__builtin_bswap16) */
+#endif
 
-#if __has_builtin(__builtin_bswap16)
-#  define bswap16(x) __builtin_bswap16 ((x))
-#else /* !__has_builtin(__builtin_bswap16) */
-#  define bswap16(x)                                                          \
-    ((uint16_t) ((((uint16_t) (x) & 0x00ffU) << 8)                            \
-                 | (((uint16_t) (x) & 0xff00U) >> 8)))
-#endif /* __has_builtin(__builtin_bswap16) */
+#ifndef bswap32
+#  if __has_builtin(__builtin_bswap32)
+#    define bswap32 __builtin_bswap32
+#  else /* !__has_builtin(__builtin_bswap32) */
+#    define bswap32(x)                                                        \
+      ((uint32_t) ((((uint32_t) (x) & 0x000000ffUL) << 24)                    \
+                   | (((uint32_t) (x) & 0x0000ff00UL) << 8)                   \
+                   | (((uint32_t) (x) & 0x00ff0000UL) >> 8)                   \
+                   | (((uint32_t) (x) & 0xff000000UL) >> 24)))
+#  endif /* __has_builtin(__builtin_bswap32) */
+#endif
 
-#if __has_builtin(__builtin_bswap32)
-#  define bswap32(x) __builtin_bswap32 ((x))
-#else /* !__has_builtin(__builtin_bswap32) */
-#  define bswap32(x)                                                          \
-    ((uint32_t) ((((uint32_t) (x) & 0x000000ffUL) << 24)                      \
-                 | (((uint32_t) (x) & 0x0000ff00UL) << 8)                     \
-                 | (((uint32_t) (x) & 0x00ff0000UL) >> 8)                     \
-                 | (((uint32_t) (x) & 0xff000000UL) >> 24)))
-#endif /* __has_builtin(__builtin_bswap32) */
-
-#if __has_builtin(__builtin_bswap64)
-#  define bswap64(x) __builtin_bswap64 ((x))
-#else /* !__has_builtin(__builtin_bswap64) */
-#  define bswap64(x)                                                          \
-    ((uint64_t) ((((uint64_t) (x) & 0x00000000000000ffULL) << 56)             \
-                 | (((uint64_t) (x) & 0x000000000000ff00ULL) << 40)           \
-                 | (((uint64_t) (x) & 0x0000000000ff0000ULL) << 24)           \
-                 | (((uint64_t) (x) & 0x00000000ff000000ULL) << 8)            \
-                 | (((uint64_t) (x) & 0x000000ff00000000ULL) >> 8)            \
-                 | (((uint64_t) (x) & 0x0000ff0000000000ULL) >> 24)           \
-                 | (((uint64_t) (x) & 0x00ff000000000000ULL) >> 40)           \
-                 | (((uint64_t) (x) & 0xff00000000000000ULL) >> 56)))
-#endif /* __has_builtin(__builtin_bswap64) */
+#ifndef bswap64
+#  if __has_builtin(__builtin_bswap64)
+#    define bswap64 __builtin_bswap64
+#  else /* !__has_builtin(__builtin_bswap64) */
+#    define bswap64(x)                                                        \
+      ((uint64_t) ((((uint64_t) (x) & 0x00000000000000ffULL) << 56)           \
+                   | (((uint64_t) (x) & 0x000000000000ff00ULL) << 40)         \
+                   | (((uint64_t) (x) & 0x0000000000ff0000ULL) << 24)         \
+                   | (((uint64_t) (x) & 0x00000000ff000000ULL) << 8)          \
+                   | (((uint64_t) (x) & 0x000000ff00000000ULL) >> 8)          \
+                   | (((uint64_t) (x) & 0x0000ff0000000000ULL) >> 24)         \
+                   | (((uint64_t) (x) & 0x00ff000000000000ULL) >> 40)         \
+                   | (((uint64_t) (x) & 0xff00000000000000ULL) >> 56)))
+#  endif /* __has_builtin(__builtin_bswap64) */
+#endif
 
 static inline uint16_t
 buff_get_be16 (const void *bufferptr)

@@ -41,14 +41,14 @@
 /* For 'size_t'. */
 #include <stddef.h>
 
+#undef alloca
+
 #ifndef alloca
-/* FIXME: Not sure which versions of GCC and Clang added this builtin. */
 #  if defined(__GNUC__) || defined(__clang__)
-#    define alloca(size) __builtin_alloca ((size))
+#    define alloca __builtin_alloca
 #  elif defined(_WIN32)
-/* https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/alloca?view=msvc-170 */
 #    include <malloc.h>
-#    define alloca(size) _alloca ((size))
+#    define alloca _alloca
 #  endif
 #endif
 
