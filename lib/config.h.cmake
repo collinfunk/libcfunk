@@ -118,6 +118,7 @@
 #cmakedefine01 HAVE_ACCESS
 #cmakedefine01 HAVE_ACTION
 #cmakedefine01 HAVE_AFUNIX_H
+#cmakedefine01 HAVE_ALIGNED_ALLOC
 #cmakedefine01 HAVE_ALLOCA_H
 #cmakedefine01 HAVE_ALPHASORT
 #cmakedefine01 HAVE___ARGC
@@ -396,6 +397,7 @@
 #cmakedefine01 HAVE_GETLOGIN
 #cmakedefine01 HAVE_GETLOGIN_R
 #cmakedefine01 HAVE__GETMAXSTDIO
+#cmakedefine01 HAVE_GETNAMEINFO
 #cmakedefine01 HAVE_GETOPT
 #cmakedefine01 HAVE_GETOPT_H
 #cmakedefine01 HAVE_GETOPT_LONG
@@ -614,6 +616,9 @@
 #cmakedefine01 HAVE_POPCOUNTLL
 #cmakedefine01 HAVE__POPEN
 #cmakedefine01 HAVE_POPEN
+#cmakedefine01 HAVE_POSIX_FADVISE
+#cmakedefine01 HAVE_POSIX_FALLOCATE
+#cmakedefine01 HAVE_POSIX_MEMALIGN
 #cmakedefine01 HAVE_POSIX_OPENPT
 #cmakedefine01 HAVE_POSIX_SPAWN
 #cmakedefine01 HAVE_POSIX_SPAWNATTR_DESTROY
