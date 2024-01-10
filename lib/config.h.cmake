@@ -718,6 +718,7 @@
 #cmakedefine01 HAVE_SECUREZEROMEMORY
 #cmakedefine01 HAVE_SEEKDIR
 #cmakedefine01 HAVE_SELECT
+#cmakedefine01 HAVE_SEMAPHORE_H
 #cmakedefine01 HAVE_SETBUF
 #cmakedefine01 HAVE_SETENV
 #cmakedefine01 HAVE_SETHOSTNAME
@@ -891,6 +892,7 @@
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_LOADAVG_H
+#cmakedefine01 HAVE_SYS_MMAN_H
 #cmakedefine01 HAVE_SYS_MSG_H
 #cmakedefine01 HAVE_SYS_PARAM_H
 #cmakedefine01 HAVE_SYS_RANDOM_H

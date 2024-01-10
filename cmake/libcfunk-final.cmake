@@ -321,6 +321,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SEARCH_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SEMAPHORE_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/semaphore.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/semaphore.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SPAWN_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/spawn.h.in
@@ -437,6 +444,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_IOCTL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/ioctl.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/ioctl.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_MMAN_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/mman.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/mman.h
   )
 endif ()
 
