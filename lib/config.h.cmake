@@ -538,6 +538,7 @@
 #cmakedefine01 HAVE_MBSTATE_T
 #cmakedefine01 HAVE_MBSTOWCS
 #cmakedefine01 HAVE_MBTOWC
+#cmakedefine01 HAVE_MEMALIGN
 #cmakedefine01 HAVE_MEMCHR
 #cmakedefine01 HAVE_MEMCMP
 #cmakedefine01 HAVE_MEMCPY

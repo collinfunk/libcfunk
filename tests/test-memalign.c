@@ -23,23 +23,17 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_MALLOC_H
-#define COMPAT_MALLOC_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
-
-#if @HAVE_MALLOC_H@
-#  if @HAVE_INCLUDE_NEXT@
-#    include_next <malloc.h>
-#  else
-#    include "@MALLOC_H_PATH@"
-#  endif
-#endif
-
+#include <malloc.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-/* Allow inclusion of malloc.h on systems without it. */
+#include "test-help.h"
 
-#endif /* COMPAT_MALLOC_H */
+/* TODO */
+int
+main (void)
+{
+  return 0;
+}
