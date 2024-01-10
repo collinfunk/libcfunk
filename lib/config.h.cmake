@@ -891,10 +891,13 @@
 #cmakedefine01 HAVE_SYSINFOAPI_H
 #cmakedefine01 HAVE_SYS_IOCTL_H
 #cmakedefine01 HAVE_SYS_LOADAVG_H
+#cmakedefine01 HAVE_SYS_MSG_H
 #cmakedefine01 HAVE_SYS_PARAM_H
 #cmakedefine01 HAVE_SYS_RANDOM_H
 #cmakedefine01 HAVE_SYS_RESOURCE_H
 #cmakedefine01 HAVE_SYS_SELECT_H
+#cmakedefine01 HAVE_SYS_SEM_H
+#cmakedefine01 HAVE_SYS_SHM_H
 #cmakedefine01 HAVE_SYS_SOCKET_H
 #cmakedefine01 HAVE_SYS_STAT_H
 #cmakedefine01 HAVE_SYS_STATVFS_H

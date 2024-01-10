@@ -440,6 +440,13 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_IOCTL_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_SYS_MSG_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/msg.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/msg.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_SYS_RANDOM_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/random.h.in
@@ -458,6 +465,20 @@ if ($CACHE{LIBCFUNK_GENERATE_SYS_SELECT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/select.h.in
     $CACHE{LIBCFUNK_CONFIG_DIR}/sys/select.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_SEM_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/sem.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/sem.h
+  )
+endif ()
+
+if ($CACHE{LIBCFUNK_GENERATE_SYS_SHM_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/sys/shm.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/sys/shm.h
   )
 endif ()
 
