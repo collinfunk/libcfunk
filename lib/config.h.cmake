@@ -376,6 +376,9 @@
 #cmakedefine01 HAVE_FNMATCH_H
 #cmakedefine01 HAVE_FOPEN
 #cmakedefine01 HAVE_FORK
+#cmakedefine01 HAVE_FORK_IN_LIBC
+#cmakedefine01 HAVE_FORK_IN_LIBPOSIX4
+#cmakedefine01 HAVE_FORK_IN_LIBRT
 #cmakedefine01 HAVE_FORKPTY
 #cmakedefine01 HAVE_FORKPTY_IN_LIBC
 #cmakedefine01 HAVE_FORKPTY_IN_LIBUTIL
@@ -690,6 +693,7 @@
 #cmakedefine01 HAVE_POSIX_SPAWN_FILE_ACTIONS_T
 #cmakedefine01 HAVE_POSIX_SPAWNP
 #cmakedefine01 HAVE_PREAD
+#cmakedefine01 HAVE_PROCESS_H
 #cmakedefine01 HAVE___PROGNAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_NAME
 #cmakedefine01 HAVE_PROGRAM_INVOCATION_SHORT_NAME
