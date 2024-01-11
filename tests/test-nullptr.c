@@ -25,19 +25,15 @@
 
 #include <config.h>
 
-#include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-#include "nullptr.h"
+#include "test-help.h"
 
+/* Test that 'nullptr' is defined and equivalent to NULL. */
 int
 main (void)
 {
-  void *ptr = nullptr;
-
-  /* If nullptr is defined and free(3) is implemented correctly, this should be
-     a no-op. */
-  free (ptr);
-
+  ASSERT (nullptr == NULL);
   return 0;
 }

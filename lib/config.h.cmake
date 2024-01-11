@@ -112,6 +112,50 @@
 #  define __extension__
 #endif
 
+#if defined(__GNUC__) && defined(__GNUC_MINOR__)                              \
+    && defined(__GNUC_PATCHLEVEL__)
+#  define GNUC_PREREQ(major, minor, patch)                                    \
+    ((__GNUC__ > (major))                                                     \
+     || ((__GNUC__ == (major))                                                \
+         && ((__GNUC_MINOR__ > (minor))                                       \
+             || ((__GNUC_MINOR__ == (minor))                                  \
+                 && ((__GNUC_PATCHLEVEL__ >= (patch)))))))
+#elif defined(__GNUC__) && defined(__GNUC_MINOR__)
+#  define GNUC_PREREQ(major, minor, patch)                                    \
+    ((__GNUC__ > (major))                                                     \
+     || ((__GNUC__ == (major))                                                \
+         && ((__GNUC_MINOR__ > (minor))                                       \
+             || ((__GNUC_MINOR__ == (minor)) && ((patch) == 0)))))
+#elif defined(__GNUC__)
+#  define GNUC_PREREQ(major, minor, patch)                                    \
+    ((__GNUC__ > (major))                                                     \
+     || ((__GNUC__ == (major)) && ((minor) == 0) && ((patch) == 0)))
+#else
+#  define GNUC_PREREQ(major, minor, patch) (0)
+#endif
+
+#if defined(__clang_major__) && defined(__clang_minor__)                      \
+    && defined(__clang_patchlevel__)
+#  define CLANG_PREREQ(major, minor, patch)                                   \
+    ((__clang_major__ > (major))                                              \
+     || ((__clang_major__ == (major))                                         \
+         && ((__clang_minor__ > (minor))                                      \
+             || ((__clang_minor__ == (minor))                                 \
+                 && ((__clang_patchlevel__ >= (patch)))))))
+#elif defined(__clang_major__) && defined(__clang_minor__)
+#  define CLANG_PREREQ(major, minor, patch)                                   \
+    ((__clang_major__ > (major))                                              \
+     || ((__clang_major__ == (major))                                         \
+         && ((__clang_minor__ > (minor))                                      \
+             || ((__clang_minor__ == (minor)) && ((patch) == 0)))))
+#elif defined(__clang_major__)
+#  define CLANG_PREREQ(major, minor, patch)                                   \
+    ((__clang_major__ > (major))                                              \
+     || ((__clang_major__ == (major)) && ((minor) == 0) && ((patch) == 0)))
+#else
+#  define CLANG_PREREQ(major, minor, patch) (0)
+#endif
+
 #cmakedefine01 HAVE_A64L
 #cmakedefine01 HAVE_ABS
 #cmakedefine01 HAVE__ACCESS
@@ -1314,6 +1358,11 @@
 #  else
 #    define _Noreturn
 #  endif
+#endif
+
+/* Make sure that 'nullptr' can be used as if the compiler was C23. */
+#if !HAVE_C23_NULLPTR && !defined(nullptr)
+#  define nullptr ((void *) 0)
 #endif
 
 #endif /* CONFIG_H */

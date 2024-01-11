@@ -231,14 +231,13 @@ wider. On your system `long long' is ${BITWIDTH_LONG_LONG} bits.")
   unset(BITWIDTH_LONG_LONG)
 endif ()
 
+# Check for '#include_next'.
 if (LIBCFUNK_USE_INCLUDE_NEXT)
   if (DEFINED CACHE{HAVE_INCLUDE_NEXT} AND "$CACHE{HAVE_INCLUDE_NEXT}" STREQUAL "0")
     unset(HAVE_INCLUDE_NEXT CACHE)
   endif ()
   check_c_source_compiles("
-
   #include_next <stdlib.h>
-
   int
   main (void)
   {
@@ -283,7 +282,7 @@ main (void)
 }
 " HAVE_C23_STATIC_ASSERT)
 
-# Check for C11 _Static_assert.
+# Check for C11 '_Static_assert'.
 check_c_source_compiles("
 int
 main (void)
@@ -294,7 +293,7 @@ main (void)
 }
 " HAVE_C11_STATIC_ASSERT)
 
-# Check for C11 _Noreturn.
+# Check for C11 '_Noreturn'.
 check_c_source_compiles("
 #include <stdlib.h>
 
@@ -312,3 +311,14 @@ exit_program (void)
   exit (0);
 }
 " HAVE_C11__NORETURN)
+
+# Check for C23 nullptr constant.
+check_c_source_compiles("
+int
+main (void)
+{
+  char *ptr = nullptr;
+  return 0;
+}
+" HAVE_C23_NULLPTR)
+
