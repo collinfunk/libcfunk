@@ -18,3 +18,8 @@ if (NOT HAVE_EXECVPE)
     $CACHE{LIBCFUNK_SOURCE_DIR}/execvpe.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-execvpe.cmake)
+endif ()
+

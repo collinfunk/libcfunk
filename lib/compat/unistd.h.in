@@ -61,6 +61,16 @@
 #  include <direct.h>
 #endif
 
+/* Windows. */
+#if @HAVE_PROCESS_H@
+#  include <process.h>
+#endif
+
+/* Get the SEEK_* definitions from stdio.h if needed. */
+#if !defined(SEEK_CUR) || !defined(SEEK_END) || !defined(SEEK_SET)
+#  include <stdio.h>
+#endif
+
 #ifndef STDIN_FILENO
 #  define STDIN_FILENO 0
 #endif

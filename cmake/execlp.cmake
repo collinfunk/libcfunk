@@ -16,3 +16,8 @@ if (NOT HAVE_EXECLP)
     $CACHE{LIBCFUNK_SOURCE_DIR}/execlp.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-execlp.cmake)
+endif ()
+

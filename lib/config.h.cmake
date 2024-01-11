@@ -1320,6 +1320,15 @@
 #cmakedefine01 LIBCFUNK_REPLACE_WCSTOK
 #cmakedefine01 LIBCFUNK_REPLACE_WMEMSET
 
+/* Build paths and file names which may be needed for tests. */
+#cmakedefine LIBCFUNK_LIBRARY_NAME "@LIBCFUNK_LIBRARY_NAME@"
+#cmakedefine LIBCFUNK_SOURCE_DIR "@LIBCFUNK_SOURCE_DIR@"
+#cmakedefine LIBCFUNK_TEST_SOURCE_DIR "@LIBCFUNK_TEST_SOURCE_DIR@"
+#cmakedefine LIBCFUNK_BUILD_DIR "@LIBCFUNK_BUILD_DIR@"
+#cmakedefine LIBCFUNK_TEST_BUILD_DIR "@LIBCFUNK_TEST_BUILD_DIR@"
+#cmakedefine LIBCFUNK_MODULE_DIR "@LIBCFUNK_MODULE_DIR@"
+#cmakedefine LIBCFUNK_CONFIG_DIR "@LIBCFUNK_CONFIG_DIR@"
+
 /* Make sure 'bool', 'true', and 'false' can be used as if the compiler
    was C23. */
 #if !HAVE_C23_BOOL

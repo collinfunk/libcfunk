@@ -21,3 +21,8 @@ if (NOT HAVE_EXECL)
     $CACHE{LIBCFUNK_SOURCE_DIR}/execl.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-execl.cmake)
+endif ()
+
