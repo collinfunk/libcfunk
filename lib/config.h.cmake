@@ -845,6 +845,7 @@
 #cmakedefine01 HAVE_STRPTIME
 #cmakedefine01 HAVE_STRRCHR
 #cmakedefine01 HAVE_STRSEP
+#cmakedefine01 HAVE_STRSIGNAL
 #cmakedefine01 HAVE_STRSPN
 #cmakedefine01 HAVE_STRSTR
 #cmakedefine01 HAVE_STRTOD
