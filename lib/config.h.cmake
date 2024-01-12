@@ -20,6 +20,10 @@
 #  define _NETBSD_SOURCE 1
 #endif
 
+#ifndef _POSIX_PTHREAD_SEMANTICS
+#  define _POSIX_PTHREAD_SEMANTICS 1
+#endif
+
 #ifndef __STDC_WANT_LIB_EXT2__
 #  define __STDC_WANT_LIB_EXT2__ 1
 #endif

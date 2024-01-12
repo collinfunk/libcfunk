@@ -15,6 +15,11 @@ check_include_file("io.h" HAVE_IO_H)
 if (HAVE_SYS_SOCKET_H)
   find_file(SYS_SOCKET_H_PATH NAMES "sys/socket.h" PATHS ${CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES})
   list(APPEND CMAKE_EXTRA_INCLUDE_FILES "sys/socket.h")
+  find_library(SOCKET_LIBRARY "socket")
+  if (SOCKET_LIBRARY)
+    target_link_libraries("$CACHE{LIBCFUNK_LIBRARY_NAME}" PUBLIC "${SOCKET_LIBRARY}")
+    list(APPEND CMAKE_REQUIRED_LIBRARIES "${SOCKET_LIBRARY}")
+  endif ()
 endif ()
 
 # Check for Windows-specific headers and libraries.

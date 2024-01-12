@@ -13,3 +13,7 @@ if (HAVE_WINSOCK2_H)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-accept.cmake)
+endif ()
+

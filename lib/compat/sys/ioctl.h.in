@@ -48,6 +48,11 @@
 #  include <stropts.h>
 #endif
 
+/* SunOS winsize. */
+#if @HAVE_TERMIOS_H@
+#  include <termios.h>
+#endif
+
 #if !@HAVE_STRUCT_WINSIZE@
 /* Unused for systems without it. */
 struct winsize

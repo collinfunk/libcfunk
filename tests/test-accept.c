@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2023, Collin Funk
+ * Copyright (c) 2024, Collin Funk
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,12 +27,45 @@
 
 #include <sys/socket.h>
 
+#include <errno.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 #include "sockets.h"
 #include "test-help.h"
 
-/* Test that 'connect' is declared. */
+static void test_accept_ebadf (void);
+
 int
 main (void)
 {
+  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
+  test_accept_ebadf ();
+  ASSERT (socket_cleanup () == 0);
   return 0;
+}
+
+static void
+test_accept_ebadf (void)
+{
+  struct sockaddr_in addr;
+  socklen_t addrlen;
+
+  /* Avoid uninitialized warnings. */
+  memset (&addr, '\0', sizeof (struct sockaddr_in));
+  addrlen = sizeof (addr);
+
+  /* Negative file descriptor. */
+  errno = 0;
+  ASSERT (accept (-1, (struct sockaddr *) &addr, &addrlen) == -1);
+  ASSERT (errno == EBADF);
+
+  /* Positive but closed file descriptor. */
+  (void) close (10);
+  errno = 0;
+  ASSERT (accept (10, (struct sockaddr *) &addr, &addrlen) == -1);
+  ASSERT (errno == EBADF);
 }

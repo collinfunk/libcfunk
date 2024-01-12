@@ -27,20 +27,45 @@
 
 #include <sys/socket.h>
 
+#include <arpa/inet.h>
+#include <errno.h>
 #include <netinet/in.h>
-#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 #include "sockets.h"
 #include "test-help.h"
 
-/* Test that 'bind' is declared. */
+static void test_bind_ebadf (void);
+
 int
 main (void)
 {
-  struct sockaddr_in addr;
   ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
-  memset (&addr, 0, sizeof (addr));
-  ASSERT (bind (-1, (struct sockaddr *) &addr, sizeof (addr)) == -1);
+  test_bind_ebadf ();
   ASSERT (socket_cleanup () == 0);
   return 0;
+}
+
+static void
+test_bind_ebadf (void)
+{
+  struct sockaddr_in addr;
+
+  /* Localhost on port 8080. */
+  addr.sin_family = AF_INET;
+  inet_pton (AF_INET, "127.0.0.1", &addr.sin_addr);
+  addr.sin_port = htons (8080);
+
+  /* Negative file descriptor. */
+  errno = 0;
+  ASSERT (bind (-1, (const struct sockaddr *) &addr, sizeof (addr)) == -1);
+  ASSERT (errno = EBADF);
+
+  /* Positive but closed file descriptor. */
+  (void) close (10);
+  errno = 0;
+  ASSERT (bind (10, (const struct sockaddr *) &addr, sizeof (addr)) == -1);
+  ASSERT (errno = EBADF);
 }
