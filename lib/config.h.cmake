@@ -478,6 +478,10 @@
 #cmakedefine01 HAVE_ICONV_T
 #cmakedefine01 HAVE_ID_T
 #cmakedefine01 HAVE_IDTYPE_T
+#cmakedefine01 HAVE_IF_FREENAMEINDEX
+#cmakedefine01 HAVE_IF_INDEXTONAME
+#cmakedefine01 HAVE_IF_NAMEINDEX
+#cmakedefine01 HAVE_IF_NAMETOINDEX
 #cmakedefine01 HAVE_IMAXABS
 #cmakedefine01 HAVE_IMAXDIV
 #cmakedefine01 HAVE_IMAXDIV_T
@@ -1055,6 +1059,7 @@
 #cmakedefine01 HAVE_VERRC
 #cmakedefine01 HAVE_VERRX
 #cmakedefine01 HAVE_VERSIONSORT
+#cmakedefine01 HAVE_VFORK
 #cmakedefine01 HAVE_VFPRINTF
 #cmakedefine01 HAVE_VISIT
 #cmakedefine01 HAVE_VPRINTF

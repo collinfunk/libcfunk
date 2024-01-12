@@ -29,6 +29,9 @@
 
 #include "attributes.h"
 
+/* Make sure IFNAMSIZ is defined to a positive integer. */
+static_assert (IFNAMSIZ > 0);
+
 static void test_struct_if_nameindex_defined (void);
 
 /* Test that 'net/if.h' can be included and that 'struct if_nameindex'

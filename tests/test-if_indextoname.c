@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2023, Collin Funk
+ * Copyright (c) 2024, Collin Funk
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,42 +23,42 @@
  * SUCH DAMAGE.
  */
 
-#ifndef COMPAT_NET_IF_H
-#define COMPAT_NET_IF_H
+#include <config.h>
 
-#ifdef __GNUC__
-#  pragma GCC system_header
-#endif
+#include <net/if.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#if @HAVE_NET_IF_H@
-#  if @HAVE_INCLUDE_NEXT@
-#    include_next <net/if.h>
-#  else
-#    include "@NET_IF_H_PATH@"
-#  endif
-#endif
+#include "test-help.h"
 
-#include <sys/types.h>
-#include <sys/socket.h>
+static void test_if_indextoname (void);
 
-#if !@HAVE_STRUCT_IF_NAMEINDEX@
-struct if_nameindex
+int
+main (void)
 {
-  unsigned int if_index;
-  char *if_name;
-};
-#endif
+  test_if_indextoname ();
+  return 0;
+}
 
-/* Define 'IFNAMSIZ' to fit a NUL byte. */
-#ifndef IFNAMSIZ
-#  define IFNAMSIZ 1
-#endif
+static void
+test_if_indextoname (void)
+{
+  struct if_nameindex *ptr;
+  struct if_nameindex *curr;
 
-/* TODO: It should be possible to implement a POSIX-like net/if.h interface on
-   Windows. It seems Windows has a lot of these functions with different
-   function prototypes and such. See here for a start:
-     https://learn.microsoft.com/en-us/windows/win32/api/netioapi/nf-netioapi-if_indextoname
-   More functions can probably be found in 'Iphlpapi.lib'
- */
+  ptr = if_nameindex ();
+  ASSERT (ptr != NULL);
 
-#endif /* COMPAT_NET_IF_H */
+  for (curr = ptr; curr->if_index != 0 && curr->if_name != NULL; ++curr)
+    {
+      char buffer[IF_NAMESIZE];
+      char *result;
+
+      result = if_indextoname (curr->if_index, buffer);
+      ASSERT (result != NULL);
+      ASSERT (strcmp (result, curr->if_name) == 0);
+    }
+
+  if_freenameindex (ptr);
+}
