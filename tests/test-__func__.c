@@ -27,13 +27,26 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#include "__func__.h"
+#include "test-help.h"
+
+static void test___func__defined (void);
 
 /* Test that '__func__' can be printed as a string. */
 int
 main (void)
 {
-  printf ("%s\n", __func__);
+  test___func__defined ();
   return 0;
+}
+
+static void
+test___func__defined (void)
+{
+  const char *str = __func__;
+
+  /* Keep in sync with definition in config.h */
+  ASSERT (strcmp (str, "test___func__defined") == 0
+          || strcmp (str, "Function name") == 0);
 }

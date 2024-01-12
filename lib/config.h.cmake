@@ -1339,6 +1339,11 @@
 #cmakedefine LIBCFUNK_MODULE_DIR "@LIBCFUNK_MODULE_DIR@"
 #cmakedefine LIBCFUNK_CONFIG_DIR "@LIBCFUNK_CONFIG_DIR@"
 
+/* Make sure '__func__' can be used as a string. */
+#if !HAVE_C99__FUNC__
+#  define __func__ "Function name"
+#endif
+
 /* Make sure 'bool', 'true', and 'false' can be used as if the compiler
    was C23. */
 #if !HAVE_C23_BOOL

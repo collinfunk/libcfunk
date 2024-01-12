@@ -248,6 +248,16 @@ else ()
   set(HAVE_INCLUDE_NEXT "0" CACHE INTERNAL "")
 endif ()
 
+# Check for the C99 '__func__' macro.
+check_c_source_compiles("
+int
+main (void)
+{
+  const char *str = __func__;
+  return 0;
+}
+" HAVE_C99__FUNC__)
+
 # Check for the C23 'bool', 'true', and 'false' keywords.
 check_c_source_compiles("
 int
