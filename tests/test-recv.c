@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2023, Collin Funk
+ * Copyright (c) 2024, Collin Funk
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,44 +27,38 @@
 
 #include <sys/socket.h>
 
-#include <arpa/inet.h>
 #include <errno.h>
-#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "sockets.h"
 #include "test-help.h"
 
-static void test_connect_ebadf (void);
+static void test_recv_ebadf (void);
 
-/* Test that 'connect' is declared. */
 int
 main (void)
 {
   ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
-  test_connect_ebadf ();
+  test_recv_ebadf ();
   ASSERT (socket_cleanup () == 0);
   return 0;
 }
 
 static void
-test_connect_ebadf (void)
+test_recv_ebadf (void)
 {
-  struct sockaddr_in addr;
-
-  /* Localhost on port 8080. */
-  addr.sin_family = AF_INET;
-  inet_pton (AF_INET, "127.0.0.1", &addr.sin_addr);
-  addr.sin_port = htons (8080);
+  unsigned char value = 0;
 
   /* Negative file descriptor. */
   errno = 0;
-  ASSERT (connect (-1, (const struct sockaddr *) &addr, sizeof (addr)) == -1);
+  ASSERT (recv (-1, &value, sizeof (value), 0) == -1);
   ASSERT (errno == EBADF);
 
   /* Positive but closed file descriptor. */
   (void) close (10);
   errno = 0;
-  ASSERT (connect (10, (const struct sockaddr *) &addr, sizeof (addr)) == -1);
+  ASSERT (recv (10, &value, sizeof (value), 0) == -1);
   ASSERT (errno == EBADF);
 }

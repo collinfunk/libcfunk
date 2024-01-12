@@ -61,11 +61,11 @@ test_bind_ebadf (void)
   /* Negative file descriptor. */
   errno = 0;
   ASSERT (bind (-1, (const struct sockaddr *) &addr, sizeof (addr)) == -1);
-  ASSERT (errno = EBADF);
+  ASSERT (errno == EBADF);
 
   /* Positive but closed file descriptor. */
   (void) close (10);
   errno = 0;
   ASSERT (bind (10, (const struct sockaddr *) &addr, sizeof (addr)) == -1);
-  ASSERT (errno = EBADF);
+  ASSERT (errno == EBADF);
 }

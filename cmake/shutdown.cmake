@@ -3,17 +3,17 @@ include_guard(GLOBAL)
 
 include($CACHE{LIBCFUNK_MODULE_DIR}/sys-socket-h.cmake)
 
-set(LIBCFUNK_DECLARE_RECVFROM "1" CACHE STRING "")
+set(LIBCFUNK_DECLARE_SHUTDOWN "1" CACHE STRING "")
 
 if (HAVE_WINSOCK2_H)
   include($CACHE{LIBCFUNK_MODULE_DIR}/sockets.cmake)
-  set(LIBCFUNK_REPLACE_RECVFROM "1" CACHE STRING "")
+  set(LIBCFUNK_REPLACE_SHUTDOWN "1" CACHE STRING "")
   target_sources("$CACHE{LIBCFUNK_LIBRARY_NAME}" PRIVATE
-    $CACHE{LIBCFUNK_SOURCE_DIR}/recvfrom.c
+    $CACHE{LIBCFUNK_SOURCE_DIR}/shutdown.c
   )
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
-  include($CACHE{LIBCFUNK_MODULE_DIR}/test-recvfrom.cmake)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-shutdown.cmake)
 endif ()
 

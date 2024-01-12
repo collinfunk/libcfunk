@@ -54,6 +54,30 @@
 #  include <io.h>
 #endif
 
+#ifndef SHUT_RD
+#  ifdef SD_RECEIVE
+#    define SHUT_RD SD_RECEIVE
+#  else
+#    define SHUT_RD 0
+#  endif
+#endif
+
+#ifndef SHUT_WR
+#  ifdef SD_SEND
+#    define SHUT_WR SD_SEND
+#  else
+#    define SHUT_WR 1
+#  endif
+#endif
+
+#ifndef SHUT_RDWR
+#  ifdef SD_BOTH
+#    define SHUT_RDWR SD_BOTH
+#  else
+#    define SHUT_RDWR 3
+#  endif
+#endif
+
 #if !@HAVE_SOCKETLEN_T@
 typedef unsigned int socketlen_t;
 #endif
@@ -158,6 +182,15 @@ extern int _libcfunk_getsockname (int socket, struct sockaddr *address,
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_GETSOCKOPT@
+#  if @LIBCFUNK_REPLACE_GETSOCKOPT@
+#    undef getsockopt
+#    define getsockopt _libcfunk_getsockopt
+extern int _libcfunk_getsockopt (int socket, int level, int option_name,
+                                 void *option_value, socklen_t *option_len);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_SETSOCKOPT@
 #  if @LIBCFUNK_REPLACE_SETSOCKOPT@
 #    undef setsockopt
@@ -175,6 +208,14 @@ extern int _libcfunk_setsockopt (int socket, int level, int option_name,
 extern ssize_t _libcfunk_sendto (int socket, const void *message, size_t length,
                                  int flags, const struct sockaddr *dest_addr,
                                  socklen_t dest_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SHUTDOWN@
+#  if @LIBCFUNK_REPLACE_SHUTDOWN@
+#    undef shutdown
+#    define shutdown _libcfunk_shutdown
+extern int _libcfunk_shutdown (int socket, int how);
 #  endif
 #endif
 
