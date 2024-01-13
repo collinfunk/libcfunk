@@ -25,9 +25,41 @@
 
 #include <config.h>
 
-/* TODO */
+#include <sys/socket.h>
+
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "sockets.h"
+#include "test-help.h"
+
+static void test_getsockopt_ebadf (void);
+
 int
 main (void)
 {
+  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
+  test_getsockopt_ebadf ();
+  ASSERT (socket_cleanup () == 0);
   return 0;
+}
+
+static void
+test_getsockopt_ebadf (void)
+{
+  int value = 0;
+  socklen_t value_len = sizeof (value);
+
+  /* Negative file descriptor. */
+  errno = 0;
+  ASSERT (getsockopt (-1, SOL_SOCKET, SO_REUSEPORT, &value, &value_len) == -1);
+  ASSERT (errno == EBADF);
+
+  /* Positive but closed file descriptor. */
+  (void) close (10);
+  errno = 0;
+  ASSERT (getsockopt (10, SOL_SOCKET, SO_REUSEPORT, &value, &value_len) == -1);
+  ASSERT (errno == EBADF);
 }

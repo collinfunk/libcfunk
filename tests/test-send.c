@@ -25,9 +25,40 @@
 
 #include <config.h>
 
-/* TODO */
+#include <sys/socket.h>
+
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "sockets.h"
+#include "test-help.h"
+
+static void test_send_ebadf (void);
+
 int
 main (void)
 {
+  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
+  test_send_ebadf ();
+  ASSERT (socket_cleanup () == 0);
   return 0;
+}
+
+static void
+test_send_ebadf (void)
+{
+  unsigned char value = 0;
+
+  /* Negative file descriptor. */
+  errno = 0;
+  ASSERT (send (-1, &value, 1, 0) == -1);
+  ASSERT (errno == EBADF);
+
+  /* Positive but closed file descriptor. */
+  (void) close (10);
+  errno = 0;
+  ASSERT (send (10, &value, 1, 0) == -1);
+  ASSERT (errno == EBADF);
 }

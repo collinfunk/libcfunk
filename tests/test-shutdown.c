@@ -25,9 +25,47 @@
 
 #include <config.h>
 
-/* TODO */
+#include <sys/socket.h>
+
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "sockets.h"
+#include "test-help.h"
+
+static void test_shutdown_ebadf (void);
+
 int
 main (void)
 {
+  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
+  test_shutdown_ebadf ();
+  ASSERT (socket_cleanup () == 0);
   return 0;
+}
+
+static void
+test_shutdown_ebadf (void)
+{
+  int flags[3] = { SHUT_RD, SHUT_WR, SHUT_RDWR };
+  size_t i;
+
+  /* Negative file descriptor. */
+  for (i = 0; i < ARRAY_SIZE (flags); ++i)
+    {
+      errno = 0;
+      ASSERT (shutdown (-1, flags[i]) == -1);
+      ASSERT (errno == EBADF);
+    }
+
+  /* Positive but closed file descriptor. */
+  (void) close (10);
+  for (i = 0; i < ARRAY_SIZE (flags); ++i)
+    {
+      errno = 0;
+      ASSERT (shutdown (10, flags[i]) == -1);
+      ASSERT (errno == EBADF);
+    }
 }

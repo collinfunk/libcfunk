@@ -54,30 +54,6 @@
 #  include <io.h>
 #endif
 
-#ifndef SHUT_RD
-#  ifdef SD_RECEIVE
-#    define SHUT_RD SD_RECEIVE
-#  else
-#    define SHUT_RD 0
-#  endif
-#endif
-
-#ifndef SHUT_WR
-#  ifdef SD_SEND
-#    define SHUT_WR SD_SEND
-#  else
-#    define SHUT_WR 1
-#  endif
-#endif
-
-#ifndef SHUT_RDWR
-#  ifdef SD_BOTH
-#    define SHUT_RDWR SD_BOTH
-#  else
-#    define SHUT_RDWR 3
-#  endif
-#endif
-
 #if !@HAVE_SOCKETLEN_T@
 typedef unsigned int socketlen_t;
 #endif
@@ -103,11 +79,135 @@ struct linger
 };
 #endif
 
-#if @LIBCFUNK_DECLARE_SOCKET@
-#  if @LIBCFUNK_REPLACE_SOCKET@
-#    undef socket
-#    define socket _libcfunk_socket
-int _libcfunk_socket (int domain, int type, int protocol);
+#ifndef SOCK_DGRAM
+#endif
+
+#ifndef SOCK_RAW
+#endif
+
+#ifndef SOCK_SEQPACKET
+#endif
+
+#ifndef SOCK_STREAM
+#endif
+
+#ifndef SOL_SOCKET
+#endif
+
+#ifndef SO_ACCEPTCONN
+#endif
+
+#ifndef SO_BROADCAST
+#endif
+
+#ifndef SO_DEBUG
+#endif
+
+#ifndef SO_DONTROUTE
+#endif
+
+#ifndef SO_ERROR
+#endif
+
+#ifndef SO_KEEPALIVE
+#endif
+
+#ifndef SO_LINGER
+#endif
+
+#ifndef SO_OOBINLINE
+#endif
+
+#ifndef SO_RCVBUF
+#endif
+
+#ifndef SO_RCVLOWAT
+#endif
+
+#ifndef SO_RCVTIMEO
+#endif
+
+#ifndef SO_REUSEADDR
+#endif
+
+#ifndef SO_SNDBUF
+#endif
+
+#ifndef SO_SNDLOWAT
+#endif
+
+#ifndef SO_SNDTIMEO
+#endif
+
+#ifndef SO_TYPE
+#endif
+
+/* BSD and others. */
+#if !defined SO_REUSEPORT && defined SO_REUSEADDR
+#  define SO_REUSEPORT SO_REUSEADDR
+#endif
+
+#ifndef SOMAXCONN
+#endif
+
+#ifndef MSG_CTRUNC
+#endif
+
+#ifndef MSG_DONTROUTE
+#endif
+
+#ifndef MSG_EOR
+#endif
+
+#ifndef MSG_OOB
+#endif
+
+#ifndef MSG_NOSIGNAL
+#endif
+
+#ifndef MSG_PEEK
+#endif
+
+#ifndef MSG_TRUNC
+#endif
+
+#ifndef MSG_WAITALL
+#endif
+
+#ifndef AF_UNSPEC
+#  define AF_UNSPEC 0
+#endif
+
+#ifndef AF_UNIX
+#endif
+
+#ifndef AF_INET
+#endif
+
+#ifndef AF_INET6
+#endif
+
+#ifndef SHUT_RD
+#  ifdef SD_RECEIVE
+#    define SHUT_RD SD_RECEIVE
+#  else
+#    define SHUT_RD 0
+#  endif
+#endif
+
+#ifndef SHUT_WR
+#  ifdef SD_SEND
+#    define SHUT_WR SD_SEND
+#  else
+#    define SHUT_WR 1
+#  endif
+#endif
+
+#ifndef SHUT_RDWR
+#  ifdef SD_BOTH
+#    define SHUT_RDWR SD_BOTH
+#  else
+#    define SHUT_RDWR 2
 #  endif
 #endif
 
@@ -138,32 +238,6 @@ extern int _libcfunk_connect (int socket, const struct sockaddr *address,
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_SEND@
-#  if @LIBCFUNK_REPLACE_SEND@
-#    undef send
-#    define send _libcfunk_send
-extern ssize_t _libcfunk_send (int socket, const void *buffer, size_t length,
-                               int flags);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_RECV@
-#  if @LIBCFUNK_REPLACE_RECV@
-#    undef recv
-#    define recv _libcfunk_recv
-extern ssize_t _libcfunk_recv (int socket, void *buffer, size_t length,
-                               int flags);
-#  endif
-#endif
-
-#if @LIBCFUNK_DECLARE_LISTEN@
-#  if @LIBCFUNK_REPLACE_LISTEN@
-#    undef listen
-#    define listen _libcfunk_listen
-extern int _libcfunk_listen (int socket, int back_log);
-#  endif
-#endif
-
 #if @LIBCFUNK_DECLARE_GETPEERNAME@
 #  if @LIBCFUNK_REPLACE_GETPEERNAME@
 #    undef getpeername
@@ -191,13 +265,39 @@ extern int _libcfunk_getsockopt (int socket, int level, int option_name,
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_SETSOCKOPT@
-#  if @LIBCFUNK_REPLACE_SETSOCKOPT@
-#    undef setsockopt
-#    define setsockopt _libcfunk_setsockopt
-extern int _libcfunk_setsockopt (int socket, int level, int option_name,
-                                 const void *option_value,
-                                 socklen_t option_len);
+#if @LIBCFUNK_DECLARE_LISTEN@
+#  if @LIBCFUNK_REPLACE_LISTEN@
+#    undef listen
+#    define listen _libcfunk_listen
+extern int _libcfunk_listen (int socket, int back_log);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RECV@
+#  if @LIBCFUNK_REPLACE_RECV@
+#    undef recv
+#    define recv _libcfunk_recv
+extern ssize_t _libcfunk_recv (int socket, void *buffer, size_t length,
+                               int flags);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_RECVFROM@
+#  if @LIBCFUNK_REPLACE_RECVFROM@
+#    undef recvfrom
+#    define recvfrom _libcfunk_recvfrom
+extern ssize_t _libcfunk_recvfrom (int socket, void *buffer, size_t length,
+                                   int flags, struct sockaddr *address,
+                                   socklen_t *address_len);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_SEND@
+#  if @LIBCFUNK_REPLACE_SEND@
+#    undef send
+#    define send _libcfunk_send
+extern ssize_t _libcfunk_send (int socket, const void *buffer, size_t length,
+                               int flags);
 #  endif
 #endif
 
@@ -211,6 +311,16 @@ extern ssize_t _libcfunk_sendto (int socket, const void *message, size_t length,
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_SETSOCKOPT@
+#  if @LIBCFUNK_REPLACE_SETSOCKOPT@
+#    undef setsockopt
+#    define setsockopt _libcfunk_setsockopt
+extern int _libcfunk_setsockopt (int socket, int level, int option_name,
+                                 const void *option_value,
+                                 socklen_t option_len);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_SHUTDOWN@
 #  if @LIBCFUNK_REPLACE_SHUTDOWN@
 #    undef shutdown
@@ -219,13 +329,11 @@ extern int _libcfunk_shutdown (int socket, int how);
 #  endif
 #endif
 
-#if @LIBCFUNK_DECLARE_RECVFROM@
-#  if @LIBCFUNK_REPLACE_RECVFROM@
-#    undef recvfrom
-#    define recvfrom _libcfunk_recvfrom
-extern ssize_t _libcfunk_recvfrom (int socket, void *buffer, size_t length,
-                                   int flags, struct sockaddr *address,
-                                   socklen_t *address_len);
+#if @LIBCFUNK_DECLARE_SOCKET@
+#  if @LIBCFUNK_REPLACE_SOCKET@
+#    undef socket
+#    define socket _libcfunk_socket
+extern int _libcfunk_socket (int domain, int type, int protocol);
 #  endif
 #endif
 
