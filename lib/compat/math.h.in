@@ -153,38 +153,92 @@
 #  define signbit(x) __builtin_signbit (x)
 #endif
 
+#if @LIBCFUNK_DECLARE_CEIL@
+#  if @LIBCFUNK_REPLACE_CEIL@
+#    undef ceil
+#    define ceil _libcfunk_ceil
+extern double _libcfunk_ceil (double x);
+#  elif !@HAVE_CEIL@
+extern double ceil (double x);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CEILF@
+#  if @LIBCFUNK_REPLACE_CEILF@
+#    undef ceilf
+#    define ceilf _libcfunk_ceilf
+extern float _libcfunk_ceilf (float x);
+#  elif !@HAVE_CEILF@
+extern float ceilf (float x);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_CEILL@
+#  if @LIBCFUNK_REPLACE_CEILL@
+#    undef ceill
+#    define ceill _libcfunk_ceill
+extern long double _libcfunk_ceill (long double x);
+#  elif !@HAVE_CEILL@
+extern long double ceill (long double x);
+#  endif
+#endif
+
 #if @LIBCFUNK_DECLARE_COPYSIGN@
-#  if !@HAVE_COPYSIGN@
+#  if @LIBCFUNK_REPLACE_COPYSIGN@
+#    undef copysign
+#    define copysign _libcfunk_copysign
+extern double _libcfunk_copysign (double x, double y);
+#  elif !@HAVE_COPYSIGN@
 extern double copysign (double x, double y);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_COPYSIGNF@
-#  if !@HAVE_COPYSIGNF@
+#  if @LIBCFUNK_REPLACE_COPYSIGNF@
+#    undef copysignf
+#    define copysignf _libcfunk_copysignf
+extern float _libcfunk_copysignf (float x, float y);
+#  elif !@HAVE_COPYSIGNF@
 extern float copysignf (float x, float y);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_COPYSIGNL@
-#  if !@HAVE_COPYSIGNL@
+#  if @LIBCFUNK_REPLACE_COPYSIGNL@
+#    undef copysignl
+#    define copysignl _libcfunk_copysignl
+extern long double _libcfunk_copysignl (long double x, long double y);
+#  elif !@HAVE_COPYSIGNL@
 extern long double copysignl (long double x, long double y);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FABS@
-#  if !@HAVE_FABS@
+#  if @LIBCFUNK_REPLACE_FABS@
+#    undef fabs
+#    define fabs _libcfunk_fabs
+extern double _libcfunk_fabs (double x);
+#  elif !@HAVE_FABS@
 extern double fabs (double x);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FABSF@
-#  if !@HAVE_FABSF@
+#  if @LIBCFUNK_REPLACE_FABSF@
+#    undef fabsf
+#    define fabsf _libcfunk_fabsf
+extern float _libcfunk_fabsf (float x);
+#  elif !@HAVE_FABSF@
 extern float fabsf (float x);
 #  endif
 #endif
 
 #if @LIBCFUNK_DECLARE_FABSL@
-#  if !@HAVE_FABSL@
+#  if @LIBCFUNK_REPLACE_FABSL@
+#    undef fabsl
+#    define fabsl _libcfunk_fabsl
+extern long double _libcfunk_fabsl (long double x);
+#  elif !@HAVE_FABSL@
 extern long double fabsl (long double x);
 #  endif
 #endif
