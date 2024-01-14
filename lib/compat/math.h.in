@@ -243,4 +243,34 @@ extern long double fabsl (long double x);
 #  endif
 #endif
 
+#if @LIBCFUNK_DECLARE_FLOOR@
+#  if @LIBCFUNK_REPLACE_FLOOR@
+#    undef floor
+#    define floor _libcfunk_floor
+extern double _libcfunk_floor (double x);
+#  elif !@HAVE_FLOOR@
+extern double floor (double x);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FLOORF@
+#  if @LIBCFUNK_REPLACE_FLOORF@
+#    undef floorf
+#    define floorf _libcfunk_floorf
+extern float _libcfunk_floorf (float x);
+#  elif !@HAVE_FLOORF@
+extern float floorf (float x);
+#  endif
+#endif
+
+#if @LIBCFUNK_DECLARE_FLOORL@
+#  if @LIBCFUNK_REPLACE_FLOORL@
+#    undef floorl
+#    define floorl _libcfunk_floorl
+extern long double _libcfunk_floorl (long double x);
+#  elif !@HAVE_FLOORL@
+extern long double floorl (long double x);
+#  endif
+#endif
+
 #endif /* COMPAT_MATH_H */

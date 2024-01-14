@@ -375,6 +375,9 @@
 #cmakedefine01 HAVE_FLOAT_H
 #cmakedefine01 HAVE_FLOCK
 #cmakedefine01 HAVE_FLOCKFILE
+#cmakedefine01 HAVE_FLOOR
+#cmakedefine01 HAVE_FLOORF
+#cmakedefine01 HAVE_FLOORL
 #cmakedefine01 HAVE_FLS
 #cmakedefine01 HAVE_FLSL
 #cmakedefine01 HAVE_FLSLL
@@ -1187,6 +1190,9 @@
 #cmakedefine01 LIBCFUNK_REPLACE_FFSLL
 #cmakedefine01 LIBCFUNK_REPLACE_FILENO
 #cmakedefine01 LIBCFUNK_REPLACE_FLOCK
+#cmakedefine01 LIBCFUNK_REPLACE_FLOOR
+#cmakedefine01 LIBCFUNK_REPLACE_FLOORF
+#cmakedefine01 LIBCFUNK_REPLACE_FLOORL
 #cmakedefine01 LIBCFUNK_REPLACE_FLS
 #cmakedefine01 LIBCFUNK_REPLACE_FLSL
 #cmakedefine01 LIBCFUNK_REPLACE_FLSLL
