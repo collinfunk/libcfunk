@@ -1,6 +1,12 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/netinet-in-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/arpa-inet-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/inet_pton.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sockets.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
 add_executable(test-sendto)
 
 target_link_libraries(test-sendto PRIVATE

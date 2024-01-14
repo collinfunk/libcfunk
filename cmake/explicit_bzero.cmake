@@ -16,3 +16,8 @@ if (NOT HAVE_EXPLICIT_BZERO)
     $CACHE{LIBCFUNK_SOURCE_DIR}/explicit_bzero.c
   )
 endif ()
+
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-explicit_bzero.cmake)
+endif ()
+

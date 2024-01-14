@@ -13,5 +13,6 @@ if (NOT HAVE_SPRINTF)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-sprintf.cmake)
 endif ()
 

@@ -13,5 +13,6 @@ if (NOT HAVE_ASPRINTF)
 endif ()
 
 if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-asprintf.cmake)
 endif ()
 

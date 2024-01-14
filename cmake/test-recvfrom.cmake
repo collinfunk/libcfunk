@@ -1,6 +1,10 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/netinet-in-h.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/sockets.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
 add_executable(test-recvfrom)
 
 target_link_libraries(test-recvfrom PRIVATE

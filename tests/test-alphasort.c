@@ -25,47 +25,9 @@
 
 #include <config.h>
 
-#include <sys/socket.h>
-
-#include <errno.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-#include "sockets.h"
-#include "test-help.h"
-
-static void test_recvfrom_ebadf (void);
-
+/* TODO */
 int
 main (void)
 {
-  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
-  test_recvfrom_ebadf ();
-  ASSERT (socket_cleanup () == 0);
   return 0;
-}
-
-static void
-test_recvfrom_ebadf (void)
-{
-  unsigned char value;
-  struct sockaddr_in addr;
-  socklen_t addr_len = sizeof (addr);
-
-  /* Negative file descriptor. */
-  errno = 0;
-  ASSERT (recvfrom (-1, &value, sizeof (value), 0, (struct sockaddr *) &addr,
-                    &addr_len)
-          == -1);
-  ASSERT (errno == EBADF);
-
-  /* Positive but closed file descriptor. */
-  (void) close (10);
-  errno = 0;
-  ASSERT (recvfrom (10, &value, sizeof (value), 0, (struct sockaddr *) &addr,
-                    &addr_len)
-          == -1);
-  ASSERT (errno == EBADF);
 }

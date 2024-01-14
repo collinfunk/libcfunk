@@ -15,3 +15,7 @@ if (NOT HAVE_ALPHASORT)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-alphasort.cmake)
+endif ()
+

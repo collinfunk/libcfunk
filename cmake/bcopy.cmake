@@ -15,3 +15,7 @@ if (NOT HAVE_BCOPY OR LIBCFUNK_REPLACE_BCOPY)
   )
 endif ()
 
+if (LIBCFUNK_ENABLE_TESTS)
+  include($CACHE{LIBCFUNK_MODULE_DIR}/test-bcopy.cmake)
+endif ()
+
