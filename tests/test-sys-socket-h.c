@@ -31,6 +31,7 @@
 
 static void test_socketlen_t_defined (void);
 static void test_sa_family_t_defined (void);
+static void test_struct_sockaddr_defined (void);
 static void test_struct_cmsghdr_defined (void);
 static void test_struct_linger_defined (void);
 
@@ -40,6 +41,7 @@ main (void)
 {
   test_socketlen_t_defined ();
   test_sa_family_t_defined ();
+  test_struct_sockaddr_defined ();
   test_struct_cmsghdr_defined ();
   test_struct_linger_defined ();
   return 0;
@@ -50,6 +52,13 @@ static void
 test_socketlen_t_defined (void)
 {
   socklen_t value ATTRIBUTE_UNUSED;
+}
+
+/* Test that the 'struct sockaddr' type is defined. */
+static void
+test_struct_sockaddr_defined (void)
+{
+  struct sockaddr value ATTRIBUTE_UNUSED;
 }
 
 static void

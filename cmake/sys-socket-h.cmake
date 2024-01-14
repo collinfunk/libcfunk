@@ -41,6 +41,8 @@ list(REMOVE_DUPLICATES CMAKE_EXTRA_INCLUDE_FILES)
 
 check_type_size("socklen_t" SOCKETLEN_T)
 check_type_size("sa_family_t" SA_FAMILY_T)
+check_type_size("struct sockaddr" STRUCT_SOCKADDR)
+check_type_size("struct sockaddr_storage" STRUCT_SOCKADDR_STORAGE)
 check_type_size("struct cmsghdr" STRUCT_CMSGHDR)
 check_type_size("struct linger" STRUCT_LINGER)
 

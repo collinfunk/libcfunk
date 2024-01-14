@@ -25,9 +25,42 @@
 
 #include <config.h>
 
-/* TODO */
+#include <sys/socket.h>
+
+#include <errno.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "sockets.h"
+#include "test-help.h"
+
+static void test_getpeername_ebadf (void);
+
 int
 main (void)
 {
+  ASSERT (socket_startup (SOCKET_VERSION (2, 2)) == 0);
+  test_getpeername_ebadf ();
+  ASSERT (socket_cleanup () == 0);
   return 0;
+}
+
+static void
+test_getpeername_ebadf (void)
+{
+  struct sockaddr_in addr;
+  socklen_t addr_len = sizeof (addr);
+
+  /* Negative file descriptor. */
+  errno = 0;
+  ASSERT (getpeername (-1, (struct sockaddr *) &addr, &addr_len) == -1);
+  ASSERT (errno == EBADF);
+
+  /* Positive but closed file descriptor. */
+  (void) close (10);
+  errno = 0;
+  ASSERT (getpeername (10, (struct sockaddr *) &addr, &addr_len) == -1);
+  ASSERT (errno == EBADF);
 }

@@ -62,6 +62,18 @@ typedef unsigned int socketlen_t;
 typedef unsigned short int sa_family_t;
 #endif
 
+#if !@HAVE_STRUCT_SOCKADDR@
+struct sockaddr
+{
+  sa_family_t sa_family;
+  char sa_data[14];
+};
+#endif
+
+/* TODO */
+#if !@HAVE_STRUCT_SOCKADDR_STORAGE@
+#endif
+
 #if !@HAVE_STRUCT_CMSGHDR@
 struct cmsghdr
 {

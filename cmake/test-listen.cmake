@@ -1,6 +1,9 @@
 
 include_guard(GLOBAL)
 
+include($CACHE{LIBCFUNK_MODULE_DIR}/sockets.cmake)
+include($CACHE{LIBCFUNK_MODULE_DIR}/close.cmake)
+
 add_executable(test-listen)
 
 target_link_libraries(test-listen PRIVATE
