@@ -349,6 +349,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDARG_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDBIT_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdbit.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdbit.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDBOOL_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdbool.h.in
