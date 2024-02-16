@@ -349,6 +349,13 @@ if ($CACHE{LIBCFUNK_GENERATE_STDARG_H})
   )
 endif ()
 
+if ($CACHE{LIBCFUNK_GENERATE_STDATOMIC_H})
+  substitute_header(
+    $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdatomic.h.in
+    $CACHE{LIBCFUNK_CONFIG_DIR}/stdatomic.h
+  )
+endif ()
+
 if ($CACHE{LIBCFUNK_GENERATE_STDBIT_H})
   substitute_header(
     $CACHE{LIBCFUNK_SOURCE_DIR}/compat/stdbit.h.in

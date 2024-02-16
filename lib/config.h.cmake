@@ -824,6 +824,7 @@
 #cmakedefine01 HAVE_STAT
 #cmakedefine01 HAVE_STDALIGN_H
 #cmakedefine01 HAVE_STDARG_H
+#cmakedefine01 HAVE_STDATOMIC_H
 #cmakedefine01 HAVE_STDBIT_H
 #cmakedefine01 HAVE_STDBOOL_H
 #cmakedefine01 HAVE_STDCKDINT_H
